@@ -55,6 +55,9 @@ public class BlockLootTables extends BlockLootSubProvider {
         dropSelf(ModBlocks.PURPLE_BAR_STOOL.get());
         dropSelf(ModBlocks.MAGENTA_BAR_STOOL.get());
         dropSelf(ModBlocks.PINK_BAR_STOOL.get());
+
+        // 黑板
+        dropSelf(ModBlocks.CHALKBOARD.get());
     }
 
     @Override

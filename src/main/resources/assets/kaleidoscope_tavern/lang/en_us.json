@@ -31,5 +31,10 @@
   "block.kaleidoscope_tavern.blue_bar_stool": "Blue Bar Stool",
   "block.kaleidoscope_tavern.purple_bar_stool": "Purple Bar Stool",
   "block.kaleidoscope_tavern.magenta_bar_stool": "Magenta Bar Stool",
-  "block.kaleidoscope_tavern.pink_bar_stool": "Pink Bar Stool"
+  "block.kaleidoscope_tavern.pink_bar_stool": "Pink Bar Stool",
+  "block.kaleidoscope_tavern.chalkboard": "Chalkboard",
+  "gui.kaleidoscope_tavern.chalkboard.edit.placeholder": "Write something...",
+  "gui.kaleidoscope_tavern.chalkboard.edit.text_alignment.left": "Left",
+  "gui.kaleidoscope_tavern.chalkboard.edit.text_alignment.center": "Center",
+  "gui.kaleidoscope_tavern.chalkboard.edit.text_alignment.right": "Right"
 }

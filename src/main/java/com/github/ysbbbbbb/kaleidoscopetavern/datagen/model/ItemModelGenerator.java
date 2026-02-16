@@ -1,11 +1,18 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.datagen.model;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
+import com.github.ysbbbbbb.kaleidoscopetavern.init.ModItems;
 import com.github.ysbbbbbb.kaleidoscopetavern.util.ColorUtils;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.Objects;
 
 public class ItemModelGenerator extends ItemModelProvider {
     public ItemModelGenerator(PackOutput output, ExistingFileHelper existingFileHelper) {
@@ -18,6 +25,8 @@ public class ItemModelGenerator extends ItemModelProvider {
             sofa(color);
             barStool(color);
         }
+
+        basicItem(ModItems.CHALKBOARD.get(), "deco/chalkboard");
     }
 
     private void sofa(String color) {
@@ -30,5 +39,12 @@ public class ItemModelGenerator extends ItemModelProvider {
         String name = "item/%s_bar_stool".formatted(color);
         ResourceLocation parent = modLoc("block/deco/bar_stool/%s".formatted(color));
         withExistingParent(name, parent);
+    }
+
+    private ItemModelBuilder basicItem(Item item, String texture) {
+        ResourceLocation key = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item));
+        return getBuilder(key.toString())
+                .parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture("layer0", new ResourceLocation(key.getNamespace(), "item/" + texture));
     }
 }

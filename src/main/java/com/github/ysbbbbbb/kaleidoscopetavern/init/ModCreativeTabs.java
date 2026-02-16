@@ -48,5 +48,7 @@ public class ModCreativeTabs {
                 output.accept(ModItems.PURPLE_BAR_STOOL.get());
                 output.accept(ModItems.MAGENTA_BAR_STOOL.get());
                 output.accept(ModItems.PINK_BAR_STOOL.get());
+
+                output.accept(ModItems.CHALKBOARD.get());
             }).build());
 }
