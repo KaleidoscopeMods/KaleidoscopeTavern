@@ -83,5 +83,20 @@ public class ModCreativeTabs {
                 output.accept(ModItems.STRING_LIGHTS_PURPLE.get());
                 output.accept(ModItems.STRING_LIGHTS_MAGENTA.get());
                 output.accept(ModItems.STRING_LIGHTS_PINK.get());
+
+                output.accept(ModItems.YSBB_PAINTING.get());
+                output.accept(ModItems.TARTARIC_ACID_PAINTING.get());
+                output.accept(ModItems.CR019_PAINTING.get());
+                output.accept(ModItems.UNKNOWN_PAINTING.get());
+                output.accept(ModItems.MASTER_MARISA_PAINTING.get());
+                output.accept(ModItems.SON_OF_MAN_PAINTING.get());
+                output.accept(ModItems.DAVID_PAINTING.get());
+                output.accept(ModItems.GIRL_WITH_PEARL_EARRING_PAINTING.get());
+                output.accept(ModItems.STARRY_NIGHT_PAINTING.get());
+                output.accept(ModItems.VAN_GOGH_SELF_PORTRAIT_PAINTING.get());
+                output.accept(ModItems.FATHER_PAINTING.get());
+                output.accept(ModItems.GREAT_WAVE_PAINTING.get());
+                output.accept(ModItems.MONA_LISA_PAINTING.get());
+                output.accept(ModItems.MONDRIAN_PAINTING.get());
             }).build());
 }

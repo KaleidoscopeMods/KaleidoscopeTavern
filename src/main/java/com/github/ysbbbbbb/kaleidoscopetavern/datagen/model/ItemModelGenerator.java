@@ -6,11 +6,11 @@ import com.github.ysbbbbbb.kaleidoscopetavern.util.ColorUtils;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Objects;
 
@@ -46,6 +46,21 @@ public class ItemModelGenerator extends ItemModelProvider {
         for (String color : ColorUtils.COLORS) {
             stringLights(color);
         }
+
+        painting(ModItems.YSBB_PAINTING, "ysbb");
+        painting(ModItems.TARTARIC_ACID_PAINTING, "tartaric_acid");
+        painting(ModItems.CR019_PAINTING, "cr019");
+        painting(ModItems.UNKNOWN_PAINTING, "unknown");
+        painting(ModItems.MASTER_MARISA_PAINTING, "master_marisa");
+        painting(ModItems.SON_OF_MAN_PAINTING, "son_of_man");
+        painting(ModItems.DAVID_PAINTING, "david");
+        painting(ModItems.GIRL_WITH_PEARL_EARRING_PAINTING, "girl_with_pearl_earring");
+        painting(ModItems.STARRY_NIGHT_PAINTING, "starry_night");
+        painting(ModItems.VAN_GOGH_SELF_PORTRAIT_PAINTING, "van_gogh_self_portrait");
+        painting(ModItems.FATHER_PAINTING, "father");
+        painting(ModItems.GREAT_WAVE_PAINTING, "great_wave");
+        painting(ModItems.MONA_LISA_PAINTING, "mona_lisa");
+        painting(ModItems.MONDRIAN_PAINTING, "mondrian");
     }
 
     private void sofa(String color) {
@@ -72,9 +87,16 @@ public class ItemModelGenerator extends ItemModelProvider {
         withExistingParent(name, parent);
     }
 
-    private ItemModelBuilder basicItem(Item item, String texture) {
+    private void painting(RegistryObject<Item> item, String name) {
+        ResourceLocation key = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item.get()));
+        getBuilder(key.toString())
+                .parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture("layer0", new ResourceLocation(key.getNamespace(), "block/deco/painting/%s".formatted(name)));
+    }
+
+    private void basicItem(Item item, String texture) {
         ResourceLocation key = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item));
-        return getBuilder(key.toString())
+        getBuilder(key.toString())
                 .parent(new ModelFile.UncheckedModelFile("item/generated"))
                 .texture("layer0", new ResourceLocation(key.getNamespace(), "item/" + texture));
     }

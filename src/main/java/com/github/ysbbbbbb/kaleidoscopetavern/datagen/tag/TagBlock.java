@@ -94,6 +94,23 @@ public class TagBlock extends BlockTagsProvider {
                 ModBlocks.STRING_LIGHTS_PINK.get()
         );
 
+        this.tag(TagMod.PAINTING).add(
+                ModBlocks.YSBB_PAINTING.get(),
+                ModBlocks.TARTARIC_ACID_PAINTING.get(),
+                ModBlocks.CR019_PAINTING.get(),
+                ModBlocks.UNKNOWN_PAINTING.get(),
+                ModBlocks.MASTER_MARISA_PAINTING.get(),
+                ModBlocks.SON_OF_MAN_PAINTING.get(),
+                ModBlocks.DAVID_PAINTING.get(),
+                ModBlocks.GIRL_WITH_PEARL_EARRING_PAINTING.get(),
+                ModBlocks.STARRY_NIGHT_PAINTING.get(),
+                ModBlocks.VAN_GOGH_SELF_PORTRAIT_PAINTING.get(),
+                ModBlocks.FATHER_PAINTING.get(),
+                ModBlocks.GREAT_WAVE_PAINTING.get(),
+                ModBlocks.MONA_LISA_PAINTING.get(),
+                ModBlocks.MONDRIAN_PAINTING.get()
+        );
+
         this.tag(TagMod.SITTABLE)
                 .addTag(TagMod.SOFA)
                 .addTag(TagMod.BAR_STOOL);
@@ -101,7 +118,8 @@ public class TagBlock extends BlockTagsProvider {
         this.tag(BlockTags.MINEABLE_WITH_AXE)
                 .addTag(TagMod.SOFA)
                 .addTag(TagMod.BAR_STOOL)
-                .addTag(TagMod.SANDWICH_BOARD);
+                .addTag(TagMod.SANDWICH_BOARD)
+                .addTag(TagMod.PAINTING);
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .addTag(TagMod.STRING_LIGHTS);

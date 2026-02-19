@@ -33,6 +33,21 @@ public class BlockModelGenerator extends BlockModelProvider {
         sandwichBoard("torchflower");
         sandwichBoard("tulip");
         sandwichBoard("wither_rose");
+
+        painting("ysbb");
+        painting("tartaric_acid");
+        painting("cr019");
+        painting("unknown");
+        painting("master_marisa");
+        painting("son_of_man");
+        painting("david");
+        painting("girl_with_pearl_earring");
+        painting("starry_night");
+        painting("van_gogh_self_portrait");
+        painting("father");
+        painting("great_wave");
+        painting("mona_lisa");
+        painting("mondrian");
     }
 
     private void sofa(String color) {
@@ -66,5 +81,13 @@ public class BlockModelGenerator extends BlockModelProvider {
         ResourceLocation parent = modLoc("block/deco/sandwich_board/deco_top");
         withExistingParent(name, parent)
                 .texture("layer1", texture);
+    }
+
+    private void painting(String type) {
+        ResourceLocation texture = modLoc("block/deco/painting/%s".formatted(type));
+        String name = "block/deco/painting/%s".formatted(type);
+        ResourceLocation parent = modLoc("block/deco/painting/base");
+        withExistingParent(name, parent)
+                .texture("texture", texture);
     }
 }

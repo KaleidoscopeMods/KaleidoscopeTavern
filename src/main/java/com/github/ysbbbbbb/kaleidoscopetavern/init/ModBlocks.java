@@ -91,6 +91,22 @@ public class ModBlocks {
     public static final RegistryObject<Block> STRING_LIGHTS_MAGENTA = BLOCKS.register("string_lights_magenta", () -> new StringLightsBlock(Items.MAGENTA_DYE));
     public static final RegistryObject<Block> STRING_LIGHTS_PINK = BLOCKS.register("string_lights_pink", () -> new StringLightsBlock(Items.PINK_DYE));
 
+    // 挂画
+    public static RegistryObject<Block> YSBB_PAINTING = BLOCKS.register("ysbb_painting", PaintingBlock::new);
+    public static RegistryObject<Block> TARTARIC_ACID_PAINTING = BLOCKS.register("tartaric_acid_painting", PaintingBlock::new);
+    public static RegistryObject<Block> CR019_PAINTING = BLOCKS.register("cr019_painting", PaintingBlock::new);
+    public static RegistryObject<Block> UNKNOWN_PAINTING = BLOCKS.register("unknown_painting", PaintingBlock::new);
+    public static RegistryObject<Block> MASTER_MARISA_PAINTING = BLOCKS.register("master_marisa_painting", PaintingBlock::new);
+    public static RegistryObject<Block> SON_OF_MAN_PAINTING = BLOCKS.register("son_of_man_painting", PaintingBlock::new);
+    public static RegistryObject<Block> DAVID_PAINTING = BLOCKS.register("david_painting", PaintingBlock::new);
+    public static RegistryObject<Block> GIRL_WITH_PEARL_EARRING_PAINTING = BLOCKS.register("girl_with_pearl_earring_painting", PaintingBlock::new);
+    public static RegistryObject<Block> STARRY_NIGHT_PAINTING = BLOCKS.register("starry_night_painting", PaintingBlock::new);
+    public static RegistryObject<Block> VAN_GOGH_SELF_PORTRAIT_PAINTING = BLOCKS.register("van_gogh_self_portrait_painting", PaintingBlock::new);
+    public static RegistryObject<Block> FATHER_PAINTING = BLOCKS.register("father_painting", PaintingBlock::new);
+    public static RegistryObject<Block> GREAT_WAVE_PAINTING = BLOCKS.register("great_wave_painting", PaintingBlock::new);
+    public static RegistryObject<Block> MONA_LISA_PAINTING = BLOCKS.register("mona_lisa_painting", PaintingBlock::new);
+    public static RegistryObject<Block> MONDRIAN_PAINTING = BLOCKS.register("mondrian_painting", PaintingBlock::new);
+
 
     // BlockEntity
     public static RegistryObject<BlockEntityType<ChalkboardBlockEntity>> CHALKBOARD_BE = BLOCK_ENTITIES.register(

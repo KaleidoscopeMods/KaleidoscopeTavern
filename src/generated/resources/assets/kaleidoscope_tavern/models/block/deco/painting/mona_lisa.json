@@ -1,0 +1,6 @@
+{
+  "parent": "kaleidoscope_tavern:block/deco/painting/base",
+  "textures": {
+    "texture": "kaleidoscope_tavern:block/deco/painting/mona_lisa"
+  }
+}

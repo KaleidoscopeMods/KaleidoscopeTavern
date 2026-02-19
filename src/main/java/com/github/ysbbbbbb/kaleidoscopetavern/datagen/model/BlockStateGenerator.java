@@ -91,6 +91,22 @@ public class BlockStateGenerator extends BlockStateProvider {
         stringLights(ModBlocks.STRING_LIGHTS_PURPLE, "purple");
         stringLights(ModBlocks.STRING_LIGHTS_MAGENTA, "magenta");
         stringLights(ModBlocks.STRING_LIGHTS_PINK, "pink");
+
+        // 挂画
+        painting(ModBlocks.YSBB_PAINTING, "ysbb");
+        painting(ModBlocks.TARTARIC_ACID_PAINTING, "tartaric_acid");
+        painting(ModBlocks.CR019_PAINTING, "cr019");
+        painting(ModBlocks.UNKNOWN_PAINTING, "unknown");
+        painting(ModBlocks.MASTER_MARISA_PAINTING, "master_marisa");
+        painting(ModBlocks.SON_OF_MAN_PAINTING, "son_of_man");
+        painting(ModBlocks.DAVID_PAINTING, "david");
+        painting(ModBlocks.GIRL_WITH_PEARL_EARRING_PAINTING, "girl_with_pearl_earring");
+        painting(ModBlocks.STARRY_NIGHT_PAINTING, "starry_night");
+        painting(ModBlocks.VAN_GOGH_SELF_PORTRAIT_PAINTING, "van_gogh_self_portrait");
+        painting(ModBlocks.FATHER_PAINTING, "father");
+        painting(ModBlocks.GREAT_WAVE_PAINTING, "great_wave");
+        painting(ModBlocks.MONA_LISA_PAINTING, "mona_lisa");
+        painting(ModBlocks.MONDRIAN_PAINTING, "mondrian");
     }
 
     private void sofa(RegistryObject<Block> block, String color) {
@@ -123,6 +139,13 @@ public class BlockStateGenerator extends BlockStateProvider {
     private void stringLights(RegistryObject<Block> block, String color) {
         horizontalBlock(block.get(), blockState -> {
             ResourceLocation file = modLoc("block/deco/string_lights/%s".formatted(color));
+            return new ModelFile.UncheckedModelFile(file);
+        });
+    }
+
+    private void painting(RegistryObject<Block> block, String type) {
+        horizontalFaceBlock(block.get(), blockState -> {
+            ResourceLocation file = modLoc("block/deco/painting/%s".formatted(type));
             return new ModelFile.UncheckedModelFile(file);
         });
     }
