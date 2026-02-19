@@ -20,7 +20,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -35,9 +34,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 @SuppressWarnings("deprecation")
-public class SofaBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
+public class SofaBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock, IConnectionBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    public static final EnumProperty<ConnectionType> CONNECTION = EnumProperty.create("connection", ConnectionType.class);
 
     // 普通情况
     public static final VoxelShape NORTH_SHAPE = Shapes.or(
@@ -84,109 +82,9 @@ public class SofaBlock extends HorizontalDirectionalBlock implements SimpleWater
                 .setValue(WATERLOGGED, false));
     }
 
-    /**
-     * 判断左侧是否连接
-     * <p>
-     * 连接条件：
-     * 1. 同朝向
-     * 2. 朝右，但是 type 是单个、右侧、右拐角
-     */
-    public static boolean leftConnected(BlockState leftState, Direction self) {
-        if (leftState.getBlock() instanceof SofaBlock) {
-            Direction check = leftState.getValue(FACING);
-            Direction right = self.getCounterClockWise();
-            if (check == right) {
-                ConnectionType connection = leftState.getValue(CONNECTION);
-                return connection == ConnectionType.SINGLE || connection == ConnectionType.RIGHT || connection == ConnectionType.RIGHT_CORNER;
-            }
-            return check == self;
-        }
-        return false;
-    }
-
-    /**
-     * 判断右侧是否连接
-     * <p>
-     * 连接条件：
-     * 1. 同朝向
-     * 2. 朝左，但是 type 是单个、左侧、左拐角
-     */
-    public static boolean rightConnected(BlockState rightState, Direction self) {
-        if (rightState.getBlock() instanceof SofaBlock) {
-            Direction check = rightState.getValue(FACING);
-            Direction left = self.getClockWise();
-            if (check == left) {
-                ConnectionType connection = rightState.getValue(CONNECTION);
-                return connection == ConnectionType.SINGLE || connection == ConnectionType.LEFT || connection == ConnectionType.LEFT_CORNER;
-            }
-            return check == self;
-        }
-        return false;
-    }
-
-    /**
-     * 判断前侧是否左拐角连接
-     * <p>
-     * 连接条件：
-     * 朝左，type 为单个、右拐角、左侧
-     */
-    public static boolean frontLeftConnected(BlockState frontState, Direction direction, ConnectionType connectionType) {
-        if (frontState.getBlock() instanceof SofaBlock) {
-            Direction check = frontState.getValue(FACING);
-            Direction left = direction.getClockWise();
-            ConnectionType connection = frontState.getValue(CONNECTION);
-            if (check == left) {
-                return connection != ConnectionType.LEFT_CORNER;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * 判断前侧是否右拐角连接
-     * <p>
-     * 连接条件：
-     * 朝右，type 为单个、右拐角、左侧
-     */
-    public static boolean frontRightConnected(BlockState frontState, Direction direction, ConnectionType connectionType) {
-        if (frontState.getBlock() instanceof SofaBlock) {
-            Direction check = frontState.getValue(FACING);
-            Direction right = direction.getCounterClockWise();
-            ConnectionType connection = frontState.getValue(CONNECTION);
-            if (check == right) {
-                return connection != ConnectionType.RIGHT_CORNER;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * 根据连接状态获取连接类型
-     */
-    public static ConnectionType getConnectionType(boolean leftConnected, boolean rightConnected,
-                                                   boolean frontLeftConnected, boolean frontRightConnected) {
-        if (leftConnected && rightConnected) {
-            // 优先横向连接
-            return ConnectionType.MIDDLE;
-        } else if (frontLeftConnected) {
-            // 其次是左拐角连接
-            if (rightConnected) {
-                return ConnectionType.LEFT;
-            }
-            return ConnectionType.RIGHT_CORNER;
-        } else if (frontRightConnected) {
-            // 其次是右拐角连接
-            if (leftConnected) {
-                return ConnectionType.RIGHT;
-            }
-            return ConnectionType.LEFT_CORNER;
-        } else if (leftConnected) {
-            return ConnectionType.RIGHT;
-        } else if (rightConnected) {
-            return ConnectionType.LEFT;
-        } else {
-            return ConnectionType.SINGLE;
-        }
+    @Override
+    public boolean sameType(BlockState state) {
+        return state.getBlock() instanceof SofaBlock;
     }
 
     @Override
@@ -195,39 +93,7 @@ public class SofaBlock extends HorizontalDirectionalBlock implements SimpleWater
         if (state.getValue(WATERLOGGED)) {
             level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
-
-        Direction facing = state.getValue(FACING);
-        boolean horizontalChange = direction.getAxis() == facing.getClockWise().getAxis();
-        boolean frontChange = direction == facing;
-
-        if (horizontalChange || frontChange) {
-            Direction left = facing.getClockWise();
-            Direction right = facing.getCounterClockWise();
-            ConnectionType type = state.getValue(CONNECTION);
-
-            // 如果自己是左拐角，更新来自左侧，不需要刷新状态
-            if (type == ConnectionType.LEFT_CORNER && direction == left) {
-                return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
-            }
-
-            // 如果自己是右拐角，更新来自右侧，不需要刷新状态
-            if (type == ConnectionType.RIGHT_CORNER && direction == right) {
-                return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
-            }
-
-            BlockState leftState = level.getBlockState(pos.relative(left));
-            BlockState rightState = level.getBlockState(pos.relative(right));
-            BlockState frontState = level.getBlockState(pos.relative(facing));
-
-            boolean leftConnected = leftConnected(leftState, facing);
-            boolean rightConnected = rightConnected(rightState, facing);
-            boolean frontLeftConnected = frontLeftConnected(frontState, facing, type);
-            boolean frontRightConnected = frontRightConnected(frontState, facing, type);
-
-            ConnectionType changedType = getConnectionType(leftConnected, rightConnected, frontLeftConnected, frontRightConnected);
-            state = state.setValue(CONNECTION, changedType);
-        }
-
+        state = this.updateShape(level, pos, state, direction);
         return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
     }
 
@@ -239,24 +105,10 @@ public class SofaBlock extends HorizontalDirectionalBlock implements SimpleWater
     @Override
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        // 先检查左右两侧是否有沙发
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
         Direction direction = context.getHorizontalDirection().getOpposite();
-
-        Direction left = direction.getClockWise();
-        Direction right = direction.getCounterClockWise();
-
-        BlockState leftState = level.getBlockState(pos.relative(left));
-        BlockState rightState = level.getBlockState(pos.relative(right));
-        BlockState frontState = level.getBlockState(pos.relative(direction));
-
-        boolean leftConnected = leftConnected(leftState, direction);
-        boolean rightConnected = rightConnected(rightState, direction);
-        boolean frontLeftConnected = frontLeftConnected(frontState, direction, ConnectionType.SINGLE);
-        boolean frontRightConnected = frontRightConnected(frontState, direction, ConnectionType.SINGLE);
-
-        ConnectionType connectionType = getConnectionType(leftConnected, rightConnected, frontLeftConnected, frontRightConnected);
+        ConnectionType connectionType = this.getConnectionForPlacement(context);
 
         FluidState fluidState = level.getFluidState(pos);
         return this.defaultBlockState()

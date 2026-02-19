@@ -107,6 +107,9 @@ public class ModBlocks {
     public static RegistryObject<Block> MONA_LISA_PAINTING = BLOCKS.register("mona_lisa_painting", PaintingBlock::new);
     public static RegistryObject<Block> MONDRIAN_PAINTING = BLOCKS.register("mondrian_painting", PaintingBlock::new);
 
+    // 吧台
+    public static RegistryObject<Block> BAR_COUNTER = BLOCKS.register("bar_counter", BarCounterBlock::new);
+
 
     // BlockEntity
     public static RegistryObject<BlockEntityType<ChalkboardBlockEntity>> CHALKBOARD_BE = BLOCK_ENTITIES.register(

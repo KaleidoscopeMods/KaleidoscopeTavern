@@ -98,5 +98,7 @@ public class ModCreativeTabs {
                 output.accept(ModItems.GREAT_WAVE_PAINTING.get());
                 output.accept(ModItems.MONA_LISA_PAINTING.get());
                 output.accept(ModItems.MONDRIAN_PAINTING.get());
+
+                output.accept(ModItems.BAR_COUNTER.get());
             }).build());
 }

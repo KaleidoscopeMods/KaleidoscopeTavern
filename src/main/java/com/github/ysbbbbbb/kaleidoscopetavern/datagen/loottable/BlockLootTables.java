@@ -92,6 +92,25 @@ public class BlockLootTables extends BlockLootSubProvider {
         dropSelf(ModBlocks.STRING_LIGHTS_PURPLE.get());
         dropSelf(ModBlocks.STRING_LIGHTS_MAGENTA.get());
         dropSelf(ModBlocks.STRING_LIGHTS_PINK.get());
+
+        // 挂画
+        dropSelf(ModBlocks.YSBB_PAINTING.get());
+        dropSelf(ModBlocks.TARTARIC_ACID_PAINTING.get());
+        dropSelf(ModBlocks.CR019_PAINTING.get());
+        dropSelf(ModBlocks.UNKNOWN_PAINTING.get());
+        dropSelf(ModBlocks.MASTER_MARISA_PAINTING.get());
+        dropSelf(ModBlocks.SON_OF_MAN_PAINTING.get());
+        dropSelf(ModBlocks.DAVID_PAINTING.get());
+        dropSelf(ModBlocks.GIRL_WITH_PEARL_EARRING_PAINTING.get());
+        dropSelf(ModBlocks.STARRY_NIGHT_PAINTING.get());
+        dropSelf(ModBlocks.VAN_GOGH_SELF_PORTRAIT_PAINTING.get());
+        dropSelf(ModBlocks.FATHER_PAINTING.get());
+        dropSelf(ModBlocks.GREAT_WAVE_PAINTING.get());
+        dropSelf(ModBlocks.MONA_LISA_PAINTING.get());
+        dropSelf(ModBlocks.MONDRIAN_PAINTING.get());
+
+        // 吧台
+        dropSelf(ModBlocks.BAR_COUNTER.get());
     }
 
     @Override

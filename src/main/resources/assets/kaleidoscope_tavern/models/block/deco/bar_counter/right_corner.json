@@ -1,0 +1,34 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"texture_size": [64, 32],
+	"textures": {
+		"texture": "kaleidoscope_tavern:block/deco/bar_counter",
+		"particle": "kaleidoscope_tavern:block/deco/bar_counter"
+	},
+	"elements": [
+		{
+			"name": "right_corner",
+			"from": [0, 0, 0],
+			"to": [16, 16, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"color": 4,
+			"faces": {
+				"north": {"uv": [0, 0, 4, 8], "texture": "#texture"},
+				"east": {"uv": [0, 0, 4, 8], "texture": "#texture"},
+				"south": {"uv": [0, 0, 4, 8], "texture": "#texture"},
+				"west": {"uv": [0, 0, 4, 8], "texture": "#texture"},
+				"up": {"uv": [12, 0, 16, 8], "rotation": 180, "texture": "#texture"},
+				"down": {"uv": [4, 0, 8, 8], "rotation": 180, "texture": "#texture"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "right_corner",
+			"origin": [8, 0, 8],
+			"color": 4,
+			"children": [0]
+		}
+	]
+}

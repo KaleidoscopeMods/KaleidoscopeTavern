@@ -61,6 +61,8 @@ public class ItemModelGenerator extends ItemModelProvider {
         painting(ModItems.GREAT_WAVE_PAINTING, "great_wave");
         painting(ModItems.MONA_LISA_PAINTING, "mona_lisa");
         painting(ModItems.MONDRIAN_PAINTING, "mondrian");
+
+        barCounter(ModItems.BAR_COUNTER);
     }
 
     private void sofa(String color) {
@@ -99,5 +101,10 @@ public class ItemModelGenerator extends ItemModelProvider {
         getBuilder(key.toString())
                 .parent(new ModelFile.UncheckedModelFile("item/generated"))
                 .texture("layer0", new ResourceLocation(key.getNamespace(), "item/" + texture));
+    }
+
+    private void barCounter(RegistryObject<Item> item) {
+        ResourceLocation key = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item.get()));
+        withExistingParent(key.toString(), modLoc("block/deco/bar_counter/single"));
     }
 }

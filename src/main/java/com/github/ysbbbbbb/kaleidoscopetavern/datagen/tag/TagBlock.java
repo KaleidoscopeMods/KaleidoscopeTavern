@@ -119,7 +119,8 @@ public class TagBlock extends BlockTagsProvider {
                 .addTag(TagMod.SOFA)
                 .addTag(TagMod.BAR_STOOL)
                 .addTag(TagMod.SANDWICH_BOARD)
-                .addTag(TagMod.PAINTING);
+                .addTag(TagMod.PAINTING)
+                .add(ModBlocks.BAR_COUNTER.get());
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .addTag(TagMod.STRING_LIGHTS);

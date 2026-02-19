@@ -107,6 +107,9 @@ public class BlockStateGenerator extends BlockStateProvider {
         painting(ModBlocks.GREAT_WAVE_PAINTING, "great_wave");
         painting(ModBlocks.MONA_LISA_PAINTING, "mona_lisa");
         painting(ModBlocks.MONDRIAN_PAINTING, "mondrian");
+
+        // 吧台
+        barCounter(ModBlocks.BAR_COUNTER);
     }
 
     private void sofa(RegistryObject<Block> block, String color) {
@@ -146,6 +149,15 @@ public class BlockStateGenerator extends BlockStateProvider {
     private void painting(RegistryObject<Block> block, String type) {
         horizontalFaceBlock(block.get(), blockState -> {
             ResourceLocation file = modLoc("block/deco/painting/%s".formatted(type));
+            return new ModelFile.UncheckedModelFile(file);
+        });
+    }
+
+    private void barCounter(RegistryObject<Block> block) {
+        horizontalBlock(block.get(), blockState -> {
+            ConnectionType connection = blockState.getValue(SofaBlock.CONNECTION);
+            String type = connection.getSerializedName();
+            ResourceLocation file = modLoc("block/deco/bar_counter/%s".formatted(type));
             return new ModelFile.UncheckedModelFile(file);
         });
     }

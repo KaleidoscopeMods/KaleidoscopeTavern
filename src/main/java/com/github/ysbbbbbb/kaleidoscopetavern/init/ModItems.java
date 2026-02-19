@@ -100,4 +100,7 @@ public class ModItems {
     public static RegistryObject<Item> GREAT_WAVE_PAINTING = ITEMS.register("great_wave_painting", () -> new PaintingBlockItem(ModBlocks.GREAT_WAVE_PAINTING));
     public static RegistryObject<Item> MONA_LISA_PAINTING = ITEMS.register("mona_lisa_painting", () -> new PaintingBlockItem(ModBlocks.MONA_LISA_PAINTING));
     public static RegistryObject<Item> MONDRIAN_PAINTING = ITEMS.register("mondrian_painting", () -> new PaintingBlockItem(ModBlocks.MONDRIAN_PAINTING));
+
+    // 吧台
+    public static RegistryObject<Item> BAR_COUNTER = ITEMS.register("bar_counter", () -> new BlockItem(ModBlocks.BAR_COUNTER.get(), new Item.Properties()));
 }

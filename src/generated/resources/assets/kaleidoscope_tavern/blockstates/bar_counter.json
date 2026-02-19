@@ -1,0 +1,94 @@
+{
+  "variants": {
+    "connection=left,facing=east": {
+      "model": "kaleidoscope_tavern:block/deco/bar_counter/left",
+      "y": 90
+    },
+    "connection=left,facing=north": {
+      "model": "kaleidoscope_tavern:block/deco/bar_counter/left"
+    },
+    "connection=left,facing=south": {
+      "model": "kaleidoscope_tavern:block/deco/bar_counter/left",
+      "y": 180
+    },
+    "connection=left,facing=west": {
+      "model": "kaleidoscope_tavern:block/deco/bar_counter/left",
+      "y": 270
+    },
+    "connection=left_corner,facing=east": {
+      "model": "kaleidoscope_tavern:block/deco/bar_counter/left_corner",
+      "y": 90
+    },
+    "connection=left_corner,facing=north": {
+      "model": "kaleidoscope_tavern:block/deco/bar_counter/left_corner"
+    },
+    "connection=left_corner,facing=south": {
+      "model": "kaleidoscope_tavern:block/deco/bar_counter/left_corner",
+      "y": 180
+    },
+    "connection=left_corner,facing=west": {
+      "model": "kaleidoscope_tavern:block/deco/bar_counter/left_corner",
+      "y": 270
+    },
+    "connection=middle,facing=east": {
+      "model": "kaleidoscope_tavern:block/deco/bar_counter/middle",
+      "y": 90
+    },
+    "connection=middle,facing=north": {
+      "model": "kaleidoscope_tavern:block/deco/bar_counter/middle"
+    },
+    "connection=middle,facing=south": {
+      "model": "kaleidoscope_tavern:block/deco/bar_counter/middle",
+      "y": 180
+    },
+    "connection=middle,facing=west": {
+      "model": "kaleidoscope_tavern:block/deco/bar_counter/middle",
+      "y": 270
+    },
+    "connection=right,facing=east": {
+      "model": "kaleidoscope_tavern:block/deco/bar_counter/right",
+      "y": 90
+    },
+    "connection=right,facing=north": {
+      "model": "kaleidoscope_tavern:block/deco/bar_counter/right"
+    },
+    "connection=right,facing=south": {
+      "model": "kaleidoscope_tavern:block/deco/bar_counter/right",
+      "y": 180
+    },
+    "connection=right,facing=west": {
+      "model": "kaleidoscope_tavern:block/deco/bar_counter/right",
+      "y": 270
+    },
+    "connection=right_corner,facing=east": {
+      "model": "kaleidoscope_tavern:block/deco/bar_counter/right_corner",
+      "y": 90
+    },
+    "connection=right_corner,facing=north": {
+      "model": "kaleidoscope_tavern:block/deco/bar_counter/right_corner"
+    },
+    "connection=right_corner,facing=south": {
+      "model": "kaleidoscope_tavern:block/deco/bar_counter/right_corner",
+      "y": 180
+    },
+    "connection=right_corner,facing=west": {
+      "model": "kaleidoscope_tavern:block/deco/bar_counter/right_corner",
+      "y": 270
+    },
+    "connection=single,facing=east": {
+      "model": "kaleidoscope_tavern:block/deco/bar_counter/single",
+      "y": 90
+    },
+    "connection=single,facing=north": {
+      "model": "kaleidoscope_tavern:block/deco/bar_counter/single"
+    },
+    "connection=single,facing=south": {
+      "model": "kaleidoscope_tavern:block/deco/bar_counter/single",
+      "y": 180
+    },
+    "connection=single,facing=west": {
+      "model": "kaleidoscope_tavern:block/deco/bar_counter/single",
+      "y": 270
+    }
+  }
+}
