@@ -73,6 +73,25 @@ public class BlockLootTables extends BlockLootSubProvider {
         dropSelf(ModBlocks.TORCHFLOWER_SANDWICH_BOARD.get());
         dropSelf(ModBlocks.TULIP_SANDWICH_BOARD.get());
         dropSelf(ModBlocks.WITHER_ROSE_SANDWICH_BOARD.get());
+
+        // 彩灯
+        dropSelf(ModBlocks.STRING_LIGHTS_COLORLESS.get());
+        dropSelf(ModBlocks.STRING_LIGHTS_WHITE.get());
+        dropSelf(ModBlocks.STRING_LIGHTS_LIGHT_GRAY.get());
+        dropSelf(ModBlocks.STRING_LIGHTS_GRAY.get());
+        dropSelf(ModBlocks.STRING_LIGHTS_BLACK.get());
+        dropSelf(ModBlocks.STRING_LIGHTS_BROWN.get());
+        dropSelf(ModBlocks.STRING_LIGHTS_RED.get());
+        dropSelf(ModBlocks.STRING_LIGHTS_ORANGE.get());
+        dropSelf(ModBlocks.STRING_LIGHTS_YELLOW.get());
+        dropSelf(ModBlocks.STRING_LIGHTS_LIME.get());
+        dropSelf(ModBlocks.STRING_LIGHTS_GREEN.get());
+        dropSelf(ModBlocks.STRING_LIGHTS_CYAN.get());
+        dropSelf(ModBlocks.STRING_LIGHTS_LIGHT_BLUE.get());
+        dropSelf(ModBlocks.STRING_LIGHTS_BLUE.get());
+        dropSelf(ModBlocks.STRING_LIGHTS_PURPLE.get());
+        dropSelf(ModBlocks.STRING_LIGHTS_MAGENTA.get());
+        dropSelf(ModBlocks.STRING_LIGHTS_PINK.get());
     }
 
     @Override

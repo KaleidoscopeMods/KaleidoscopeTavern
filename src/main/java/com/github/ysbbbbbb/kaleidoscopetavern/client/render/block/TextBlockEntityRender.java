@@ -89,7 +89,8 @@ public abstract class TextBlockEntityRender<T extends TextBlockEntity> implement
             light = packedLight;
         }
 
-        List<FormattedCharSequence> splitLines = font.split(Component.literal(text), maxWidth);
+        Component renderText = getRenderText(text);
+        List<FormattedCharSequence> splitLines = font.split(renderText, maxWidth);
         int totalLines = Math.min(splitLines.size(), maxLines);
 
         for (int i = 0; i < totalLines; i++) {
@@ -105,6 +106,10 @@ public abstract class TextBlockEntityRender<T extends TextBlockEntity> implement
                         buffer, Font.DisplayMode.POLYGON_OFFSET, 0, light);
             }
         }
+    }
+
+    protected Component getRenderText(String text) {
+        return Component.literal(text);
     }
 
     protected float getPosX(T textBlock, int maxWidth, int lineWidth) {

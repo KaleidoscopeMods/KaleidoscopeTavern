@@ -28,6 +28,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 
         basicItem(ModItems.CHALKBOARD.get(), "deco/chalkboard");
 
+        sandwichBoard("grass");
         sandwichBoard("allium");
         sandwichBoard("azure_bluet");
         sandwichBoard("cornflower");
@@ -40,6 +41,11 @@ public class ItemModelGenerator extends ItemModelProvider {
         sandwichBoard("torchflower");
         sandwichBoard("tulip");
         sandwichBoard("wither_rose");
+
+        stringLights("colorless");
+        for (String color : ColorUtils.COLORS) {
+            stringLights(color);
+        }
     }
 
     private void sofa(String color) {
@@ -56,8 +62,14 @@ public class ItemModelGenerator extends ItemModelProvider {
 
     private void sandwichBoard(String type) {
         String name = "item/%s_sandwich_board".formatted(type);
-        withExistingParent(name, modLoc("item/base_sandwich_board"))
+        withExistingParent(name, modLoc("item/deco_sandwich_board"))
                 .texture("layer1", modLoc("block/deco/sandwich_board/%s".formatted(type)));
+    }
+
+    private void stringLights(String color) {
+        String name = "item/string_lights_%s".formatted(color);
+        ResourceLocation parent = modLoc("block/deco/string_lights/%s".formatted(color));
+        withExistingParent(name, parent);
     }
 
     private ItemModelBuilder basicItem(Item item, String texture) {

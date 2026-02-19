@@ -4,8 +4,7 @@
 	"texture_size": [32, 32],
 	"textures": {
 		"particle": "kaleidoscope_tavern:block/deco/sandwich_board/body",
-		"layer0": "kaleidoscope_tavern:block/deco/sandwich_board/body",
-		"layer1": "kaleidoscope_tavern:block/deco/sandwich_board/base"
+		"layer0": "kaleidoscope_tavern:block/deco/sandwich_board/body"
 	},
 	"elements": [
 		{
@@ -82,16 +81,6 @@
 				"west": {"uv": [13.5, 0.5, 14.5, 8.5], "texture": "#layer0"},
 				"up": {"uv": [8, 0, 14, 1], "rotation": 180, "texture": "#layer0"},
 				"down": {"uv": [8, 0, 14, 1], "rotation": 180, "texture": "#layer0"}
-			}
-		},
-		{
-			"from": [0, 2.7724, 5.34486],
-			"to": [16, 23.7724, 5.34486],
-			"shade": false,
-			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 13.7724, 6.71986]},
-			"faces": {
-				"north": {"uv": [0, 0, 8, 10.5], "texture": "#layer1"},
-				"south": {"uv": [8, 0, 0, 10.5], "texture": "#layer1"}
 			}
 		}
 	],

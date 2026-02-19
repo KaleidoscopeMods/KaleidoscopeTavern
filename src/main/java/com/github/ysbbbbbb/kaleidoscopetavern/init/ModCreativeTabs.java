@@ -52,6 +52,7 @@ public class ModCreativeTabs {
                 output.accept(ModItems.CHALKBOARD.get());
 
                 output.accept(ModItems.BASE_SANDWICH_BOARD.get());
+                output.accept(ModItems.GRASS_SANDWICH_BOARD.get());
                 output.accept(ModItems.ALLIUM_SANDWICH_BOARD.get());
                 output.accept(ModItems.AZURE_BLUET_SANDWICH_BOARD.get());
                 output.accept(ModItems.CORNFLOWER_SANDWICH_BOARD.get());
@@ -64,5 +65,23 @@ public class ModCreativeTabs {
                 output.accept(ModItems.TORCHFLOWER_SANDWICH_BOARD.get());
                 output.accept(ModItems.TULIP_SANDWICH_BOARD.get());
                 output.accept(ModItems.WITHER_ROSE_SANDWICH_BOARD.get());
+
+                output.accept(ModItems.STRING_LIGHTS_COLORLESS.get());
+                output.accept(ModItems.STRING_LIGHTS_WHITE.get());
+                output.accept(ModItems.STRING_LIGHTS_LIGHT_GRAY.get());
+                output.accept(ModItems.STRING_LIGHTS_GRAY.get());
+                output.accept(ModItems.STRING_LIGHTS_BLACK.get());
+                output.accept(ModItems.STRING_LIGHTS_BROWN.get());
+                output.accept(ModItems.STRING_LIGHTS_RED.get());
+                output.accept(ModItems.STRING_LIGHTS_ORANGE.get());
+                output.accept(ModItems.STRING_LIGHTS_YELLOW.get());
+                output.accept(ModItems.STRING_LIGHTS_LIME.get());
+                output.accept(ModItems.STRING_LIGHTS_GREEN.get());
+                output.accept(ModItems.STRING_LIGHTS_CYAN.get());
+                output.accept(ModItems.STRING_LIGHTS_LIGHT_BLUE.get());
+                output.accept(ModItems.STRING_LIGHTS_BLUE.get());
+                output.accept(ModItems.STRING_LIGHTS_PURPLE.get());
+                output.accept(ModItems.STRING_LIGHTS_MAGENTA.get());
+                output.accept(ModItems.STRING_LIGHTS_PINK.get());
             }).build());
 }

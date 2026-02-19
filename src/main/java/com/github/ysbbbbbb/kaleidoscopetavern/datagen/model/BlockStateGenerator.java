@@ -59,6 +59,7 @@ public class BlockStateGenerator extends BlockStateProvider {
 
         // 展板
         sandwichBoard(ModBlocks.BASE_SANDWICH_BOARD, "base");
+        sandwichBoard(ModBlocks.GRASS_SANDWICH_BOARD, "grass");
         sandwichBoard(ModBlocks.ALLIUM_SANDWICH_BOARD, "allium");
         sandwichBoard(ModBlocks.AZURE_BLUET_SANDWICH_BOARD, "azure_bluet");
         sandwichBoard(ModBlocks.CORNFLOWER_SANDWICH_BOARD, "cornflower");
@@ -71,6 +72,25 @@ public class BlockStateGenerator extends BlockStateProvider {
         sandwichBoard(ModBlocks.TORCHFLOWER_SANDWICH_BOARD, "torchflower");
         sandwichBoard(ModBlocks.TULIP_SANDWICH_BOARD, "tulip");
         sandwichBoard(ModBlocks.WITHER_ROSE_SANDWICH_BOARD, "wither_rose");
+
+        // 彩灯
+        stringLights(ModBlocks.STRING_LIGHTS_COLORLESS, "colorless");
+        stringLights(ModBlocks.STRING_LIGHTS_WHITE, "white");
+        stringLights(ModBlocks.STRING_LIGHTS_LIGHT_GRAY, "light_gray");
+        stringLights(ModBlocks.STRING_LIGHTS_GRAY, "gray");
+        stringLights(ModBlocks.STRING_LIGHTS_BLACK, "black");
+        stringLights(ModBlocks.STRING_LIGHTS_BROWN, "brown");
+        stringLights(ModBlocks.STRING_LIGHTS_RED, "red");
+        stringLights(ModBlocks.STRING_LIGHTS_ORANGE, "orange");
+        stringLights(ModBlocks.STRING_LIGHTS_YELLOW, "yellow");
+        stringLights(ModBlocks.STRING_LIGHTS_LIME, "lime");
+        stringLights(ModBlocks.STRING_LIGHTS_GREEN, "green");
+        stringLights(ModBlocks.STRING_LIGHTS_CYAN, "cyan");
+        stringLights(ModBlocks.STRING_LIGHTS_LIGHT_BLUE, "light_blue");
+        stringLights(ModBlocks.STRING_LIGHTS_BLUE, "blue");
+        stringLights(ModBlocks.STRING_LIGHTS_PURPLE, "purple");
+        stringLights(ModBlocks.STRING_LIGHTS_MAGENTA, "magenta");
+        stringLights(ModBlocks.STRING_LIGHTS_PINK, "pink");
     }
 
     private void sofa(RegistryObject<Block> block, String color) {
@@ -97,6 +117,13 @@ public class BlockStateGenerator extends BlockStateProvider {
             } else {
                 return new ModelFile.UncheckedModelFile(modLoc("block/deco/sandwich_board/%s_top".formatted(type)));
             }
+        });
+    }
+
+    private void stringLights(RegistryObject<Block> block, String color) {
+        horizontalBlock(block.get(), blockState -> {
+            ResourceLocation file = modLoc("block/deco/string_lights/%s".formatted(color));
+            return new ModelFile.UncheckedModelFile(file);
         });
     }
 }

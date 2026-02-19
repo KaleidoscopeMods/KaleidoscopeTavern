@@ -59,6 +59,7 @@ public class TagBlock extends BlockTagsProvider {
 
         this.tag(TagMod.SANDWICH_BOARD).add(
                 ModBlocks.BASE_SANDWICH_BOARD.get(),
+                ModBlocks.GRASS_SANDWICH_BOARD.get(),
                 ModBlocks.ALLIUM_SANDWICH_BOARD.get(),
                 ModBlocks.AZURE_BLUET_SANDWICH_BOARD.get(),
                 ModBlocks.CORNFLOWER_SANDWICH_BOARD.get(),
@@ -73,6 +74,26 @@ public class TagBlock extends BlockTagsProvider {
                 ModBlocks.WITHER_ROSE_SANDWICH_BOARD.get()
         );
 
+        this.tag(TagMod.STRING_LIGHTS).add(
+                ModBlocks.STRING_LIGHTS_COLORLESS.get(),
+                ModBlocks.STRING_LIGHTS_WHITE.get(),
+                ModBlocks.STRING_LIGHTS_LIGHT_GRAY.get(),
+                ModBlocks.STRING_LIGHTS_GRAY.get(),
+                ModBlocks.STRING_LIGHTS_BLACK.get(),
+                ModBlocks.STRING_LIGHTS_BROWN.get(),
+                ModBlocks.STRING_LIGHTS_RED.get(),
+                ModBlocks.STRING_LIGHTS_ORANGE.get(),
+                ModBlocks.STRING_LIGHTS_YELLOW.get(),
+                ModBlocks.STRING_LIGHTS_LIME.get(),
+                ModBlocks.STRING_LIGHTS_GREEN.get(),
+                ModBlocks.STRING_LIGHTS_CYAN.get(),
+                ModBlocks.STRING_LIGHTS_LIGHT_BLUE.get(),
+                ModBlocks.STRING_LIGHTS_BLUE.get(),
+                ModBlocks.STRING_LIGHTS_PURPLE.get(),
+                ModBlocks.STRING_LIGHTS_MAGENTA.get(),
+                ModBlocks.STRING_LIGHTS_PINK.get()
+        );
+
         this.tag(TagMod.SITTABLE)
                 .addTag(TagMod.SOFA)
                 .addTag(TagMod.BAR_STOOL);
@@ -81,5 +102,8 @@ public class TagBlock extends BlockTagsProvider {
                 .addTag(TagMod.SOFA)
                 .addTag(TagMod.BAR_STOOL)
                 .addTag(TagMod.SANDWICH_BOARD);
+
+        this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
+                .addTag(TagMod.STRING_LIGHTS);
     }
 }

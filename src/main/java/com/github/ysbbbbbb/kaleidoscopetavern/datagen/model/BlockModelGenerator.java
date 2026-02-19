@@ -20,6 +20,7 @@ public class BlockModelGenerator extends BlockModelProvider {
             barStool(color);
         }
 
+        sandwichBoard("grass");
         sandwichBoard("allium");
         sandwichBoard("azure_bluet");
         sandwichBoard("cornflower");
@@ -62,7 +63,7 @@ public class BlockModelGenerator extends BlockModelProvider {
     private void sandwichBoard(String type) {
         ResourceLocation texture = modLoc("block/deco/sandwich_board/%s".formatted(type));
         String name = "block/deco/sandwich_board/%s_top".formatted(type);
-        ResourceLocation parent = modLoc("block/deco/sandwich_board/base_top");
+        ResourceLocation parent = modLoc("block/deco/sandwich_board/deco_top");
         withExistingParent(name, parent)
                 .texture("layer1", texture);
     }

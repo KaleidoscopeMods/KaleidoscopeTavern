@@ -1,10 +1,7 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.init;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
-import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.BarStoolBlock;
-import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.ChalkboardBlock;
-import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.SandwichBoardBlock;
-import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.SofaBlock;
+import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.ChalkboardBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.SandwichBlockEntity;
 import net.minecraft.world.item.Items;
@@ -61,6 +58,7 @@ public class ModBlocks {
 
     // 展板
     public static final RegistryObject<Block> BASE_SANDWICH_BOARD = BLOCKS.register("base_sandwich_board", SandwichBoardBlock::new);
+    public static final RegistryObject<Block> GRASS_SANDWICH_BOARD = BLOCKS.register("grass_sandwich_board", () -> new SandwichBoardBlock(Items.GRASS));
     public static final RegistryObject<Block> ALLIUM_SANDWICH_BOARD = BLOCKS.register("allium_sandwich_board", () -> new SandwichBoardBlock(Items.ALLIUM));
     public static final RegistryObject<Block> AZURE_BLUET_SANDWICH_BOARD = BLOCKS.register("azure_bluet_sandwich_board", () -> new SandwichBoardBlock(Items.AZURE_BLUET, Items.OXEYE_DAISY, Items.LILY_OF_THE_VALLEY));
     public static final RegistryObject<Block> CORNFLOWER_SANDWICH_BOARD = BLOCKS.register("cornflower_sandwich_board", () -> new SandwichBoardBlock(Items.CORNFLOWER));
@@ -74,6 +72,25 @@ public class ModBlocks {
     public static final RegistryObject<Block> TULIP_SANDWICH_BOARD = BLOCKS.register("tulip_sandwich_board", () -> new SandwichBoardBlock(Items.RED_TULIP, Items.ORANGE_TULIP, Items.WHITE_TULIP, Items.PINK_TULIP));
     public static final RegistryObject<Block> WITHER_ROSE_SANDWICH_BOARD = BLOCKS.register("wither_rose_sandwich_board", () -> new SandwichBoardBlock(Items.WITHER_ROSE));
 
+    // 彩灯
+    public static final RegistryObject<Block> STRING_LIGHTS_COLORLESS = BLOCKS.register("string_lights_colorless", () -> new StringLightsBlock(null));
+    public static final RegistryObject<Block> STRING_LIGHTS_WHITE = BLOCKS.register("string_lights_white", () -> new StringLightsBlock(Items.WHITE_DYE));
+    public static final RegistryObject<Block> STRING_LIGHTS_LIGHT_GRAY = BLOCKS.register("string_lights_light_gray", () -> new StringLightsBlock(Items.LIGHT_GRAY_DYE));
+    public static final RegistryObject<Block> STRING_LIGHTS_GRAY = BLOCKS.register("string_lights_gray", () -> new StringLightsBlock(Items.GRAY_DYE));
+    public static final RegistryObject<Block> STRING_LIGHTS_BLACK = BLOCKS.register("string_lights_black", () -> new StringLightsBlock(Items.BLACK_DYE));
+    public static final RegistryObject<Block> STRING_LIGHTS_BROWN = BLOCKS.register("string_lights_brown", () -> new StringLightsBlock(Items.BROWN_DYE));
+    public static final RegistryObject<Block> STRING_LIGHTS_RED = BLOCKS.register("string_lights_red", () -> new StringLightsBlock(Items.RED_DYE));
+    public static final RegistryObject<Block> STRING_LIGHTS_ORANGE = BLOCKS.register("string_lights_orange", () -> new StringLightsBlock(Items.ORANGE_DYE));
+    public static final RegistryObject<Block> STRING_LIGHTS_YELLOW = BLOCKS.register("string_lights_yellow", () -> new StringLightsBlock(Items.YELLOW_DYE));
+    public static final RegistryObject<Block> STRING_LIGHTS_LIME = BLOCKS.register("string_lights_lime", () -> new StringLightsBlock(Items.LIME_DYE));
+    public static final RegistryObject<Block> STRING_LIGHTS_GREEN = BLOCKS.register("string_lights_green", () -> new StringLightsBlock(Items.GREEN_DYE));
+    public static final RegistryObject<Block> STRING_LIGHTS_CYAN = BLOCKS.register("string_lights_cyan", () -> new StringLightsBlock(Items.CYAN_DYE));
+    public static final RegistryObject<Block> STRING_LIGHTS_LIGHT_BLUE = BLOCKS.register("string_lights_light_blue", () -> new StringLightsBlock(Items.LIGHT_BLUE_DYE));
+    public static final RegistryObject<Block> STRING_LIGHTS_BLUE = BLOCKS.register("string_lights_blue", () -> new StringLightsBlock(Items.BLUE_DYE));
+    public static final RegistryObject<Block> STRING_LIGHTS_PURPLE = BLOCKS.register("string_lights_purple", () -> new StringLightsBlock(Items.PURPLE_DYE));
+    public static final RegistryObject<Block> STRING_LIGHTS_MAGENTA = BLOCKS.register("string_lights_magenta", () -> new StringLightsBlock(Items.MAGENTA_DYE));
+    public static final RegistryObject<Block> STRING_LIGHTS_PINK = BLOCKS.register("string_lights_pink", () -> new StringLightsBlock(Items.PINK_DYE));
+
 
     // BlockEntity
     public static RegistryObject<BlockEntityType<ChalkboardBlockEntity>> CHALKBOARD_BE = BLOCK_ENTITIES.register(
@@ -85,6 +102,7 @@ public class ModBlocks {
     public static RegistryObject<BlockEntityType<SandwichBlockEntity>> SANDWICH_BOARD_BE = BLOCK_ENTITIES.register(
             "sandwich_board", () -> BlockEntityType.Builder.of(SandwichBlockEntity::new,
                     BASE_SANDWICH_BOARD.get(),
+                    GRASS_SANDWICH_BOARD.get(),
                     ALLIUM_SANDWICH_BOARD.get(),
                     AZURE_BLUET_SANDWICH_BOARD.get(),
                     CORNFLOWER_SANDWICH_BOARD.get(),

@@ -3,9 +3,11 @@ package com.github.ysbbbbbb.kaleidoscopetavern.client.render.block;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.SandwichBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 
 public class SandwichBlockEntityRender extends TextBlockEntityRender<SandwichBlockEntity> {
     private static final float TEXT_SCALE = 0.01f;
@@ -48,5 +50,10 @@ public class SandwichBlockEntityRender extends TextBlockEntityRender<SandwichBlo
                 maxWidth, TEXT_SCALE, MAX_LINES, LINE_HEIGHT);
 
         poseStack.popPose();
+    }
+
+    @Override
+    protected Component getRenderText(String text) {
+        return Component.literal(text).withStyle(ChatFormatting.BOLD);
     }
 }

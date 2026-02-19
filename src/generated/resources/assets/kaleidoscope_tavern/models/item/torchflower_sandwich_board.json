@@ -1,5 +1,5 @@
 {
-  "parent": "kaleidoscope_tavern:item/base_sandwich_board",
+  "parent": "kaleidoscope_tavern:item/deco_sandwich_board",
   "textures": {
     "layer1": "kaleidoscope_tavern:block/deco/sandwich_board/torchflower"
   }

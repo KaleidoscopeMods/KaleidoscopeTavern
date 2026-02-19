@@ -22,6 +22,10 @@ public interface TagMod {
      */
     TagKey<Block> SANDWICH_BOARD = blockTag("sandwich_board");
     /**
+     * 彩灯
+     */
+    TagKey<Block> STRING_LIGHTS = blockTag("string_lights");
+    /**
      * 可以坐在上面的方块
      */
     TagKey<Block> SITTABLE = blockTag("sittable");
