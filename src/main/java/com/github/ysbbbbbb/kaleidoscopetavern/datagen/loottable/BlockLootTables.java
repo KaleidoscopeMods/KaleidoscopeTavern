@@ -111,6 +111,8 @@ public class BlockLootTables extends BlockLootSubProvider {
 
         // 吧台
         dropSelf(ModBlocks.BAR_COUNTER.get());
+        // 人字梯
+        dropSelf(ModBlocks.STEPLADDER.get());
     }
 
     @Override

@@ -100,5 +100,6 @@ public class ModCreativeTabs {
                 output.accept(ModItems.MONDRIAN_PAINTING.get());
 
                 output.accept(ModItems.BAR_COUNTER.get());
+                output.accept(ModItems.STEPLADDER.get());
             }).build());
 }

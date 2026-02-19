@@ -63,6 +63,7 @@ public class ItemModelGenerator extends ItemModelProvider {
         painting(ModItems.MONDRIAN_PAINTING, "mondrian");
 
         barCounter(ModItems.BAR_COUNTER);
+        basicItem(ModItems.STEPLADDER.get());
     }
 
     private void sofa(String color) {

@@ -109,6 +109,8 @@ public class ModBlocks {
 
     // 吧台
     public static RegistryObject<Block> BAR_COUNTER = BLOCKS.register("bar_counter", BarCounterBlock::new);
+    // 人字梯
+    public static RegistryObject<Block> STEPLADDER = BLOCKS.register("stepladder", StepladderBlock::new);
 
 
     // BlockEntity

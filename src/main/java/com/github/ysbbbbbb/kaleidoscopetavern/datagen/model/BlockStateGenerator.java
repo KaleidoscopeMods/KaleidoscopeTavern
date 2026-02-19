@@ -3,6 +3,7 @@ package com.github.ysbbbbbb.kaleidoscopetavern.datagen.model;
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.SandwichBoardBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.SofaBlock;
+import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.StepladderBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.properties.ConnectionType;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
 import net.minecraft.data.PackOutput;
@@ -110,6 +111,8 @@ public class BlockStateGenerator extends BlockStateProvider {
 
         // 吧台
         barCounter(ModBlocks.BAR_COUNTER);
+        // 人字梯
+        stepladder(ModBlocks.STEPLADDER);
     }
 
     private void sofa(RegistryObject<Block> block, String color) {
@@ -159,6 +162,17 @@ public class BlockStateGenerator extends BlockStateProvider {
             String type = connection.getSerializedName();
             ResourceLocation file = modLoc("block/deco/bar_counter/%s".formatted(type));
             return new ModelFile.UncheckedModelFile(file);
+        });
+    }
+
+    private void stepladder(RegistryObject<Block> block) {
+        horizontalBlock(block.get(), blockState -> {
+            Half half = blockState.getValue(StepladderBlock.HALF);
+            if (half == Half.BOTTOM) {
+                return new ModelFile.UncheckedModelFile(modLoc("block/deco/stepladder/bottom"));
+            } else {
+                return new ModelFile.UncheckedModelFile(modLoc("block/deco/stepladder/top"));
+            }
         });
     }
 }

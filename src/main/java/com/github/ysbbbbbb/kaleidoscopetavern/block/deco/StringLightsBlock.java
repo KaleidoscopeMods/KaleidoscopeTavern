@@ -48,7 +48,7 @@ public class StringLightsBlock extends HorizontalDirectionalBlock implements Sim
                 .mapColor(dyeItem instanceof DyeItem dye ? dye.getDyeColor() : DyeColor.WHITE)
                 .instrument(NoteBlockInstrument.HAT)
                 .strength(0.8F)
-                .sound(SoundType.GLASS)
+                .sound(SoundType.CHAIN)
                 .noOcclusion()
                 .lightLevel(s -> 15));
         this.registerDefaultState(this.stateDefinition.any()

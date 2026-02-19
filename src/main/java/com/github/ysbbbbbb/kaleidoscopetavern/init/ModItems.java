@@ -103,4 +103,6 @@ public class ModItems {
 
     // 吧台
     public static RegistryObject<Item> BAR_COUNTER = ITEMS.register("bar_counter", () -> new BlockItem(ModBlocks.BAR_COUNTER.get(), new Item.Properties()));
+    // 人字梯
+    public static RegistryObject<Item> STEPLADDER = ITEMS.register("stepladder", () -> new BlockItem(ModBlocks.STEPLADDER.get(), new Item.Properties()));
 }
