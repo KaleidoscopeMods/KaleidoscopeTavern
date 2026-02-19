@@ -50,5 +50,19 @@ public class ModCreativeTabs {
                 output.accept(ModItems.PINK_BAR_STOOL.get());
 
                 output.accept(ModItems.CHALKBOARD.get());
+
+                output.accept(ModItems.BASE_SANDWICH_BOARD.get());
+                output.accept(ModItems.ALLIUM_SANDWICH_BOARD.get());
+                output.accept(ModItems.AZURE_BLUET_SANDWICH_BOARD.get());
+                output.accept(ModItems.CORNFLOWER_SANDWICH_BOARD.get());
+                output.accept(ModItems.ORCHID_SANDWICH_BOARD.get());
+                output.accept(ModItems.PEONY_SANDWICH_BOARD.get());
+                output.accept(ModItems.PINK_PETALS_SANDWICH_BOARD.get());
+                output.accept(ModItems.PITCHER_PLANT_SANDWICH_BOARD.get());
+                output.accept(ModItems.POPPY_SANDWICH_BOARD.get());
+                output.accept(ModItems.SUNFLOWER_SANDWICH_BOARD.get());
+                output.accept(ModItems.TORCHFLOWER_SANDWICH_BOARD.get());
+                output.accept(ModItems.TULIP_SANDWICH_BOARD.get());
+                output.accept(ModItems.WITHER_ROSE_SANDWICH_BOARD.get());
             }).build());
 }

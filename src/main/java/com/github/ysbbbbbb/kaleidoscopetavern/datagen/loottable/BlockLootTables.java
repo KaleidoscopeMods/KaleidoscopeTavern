@@ -58,6 +58,21 @@ public class BlockLootTables extends BlockLootSubProvider {
 
         // 黑板
         dropSelf(ModBlocks.CHALKBOARD.get());
+
+        // 展板
+        dropSelf(ModBlocks.BASE_SANDWICH_BOARD.get());
+        dropSelf(ModBlocks.ALLIUM_SANDWICH_BOARD.get());
+        dropSelf(ModBlocks.AZURE_BLUET_SANDWICH_BOARD.get());
+        dropSelf(ModBlocks.CORNFLOWER_SANDWICH_BOARD.get());
+        dropSelf(ModBlocks.ORCHID_SANDWICH_BOARD.get());
+        dropSelf(ModBlocks.PEONY_SANDWICH_BOARD.get());
+        dropSelf(ModBlocks.PINK_PETALS_SANDWICH_BOARD.get());
+        dropSelf(ModBlocks.PITCHER_PLANT_SANDWICH_BOARD.get());
+        dropSelf(ModBlocks.POPPY_SANDWICH_BOARD.get());
+        dropSelf(ModBlocks.SUNFLOWER_SANDWICH_BOARD.get());
+        dropSelf(ModBlocks.TORCHFLOWER_SANDWICH_BOARD.get());
+        dropSelf(ModBlocks.TULIP_SANDWICH_BOARD.get());
+        dropSelf(ModBlocks.WITHER_ROSE_SANDWICH_BOARD.get());
     }
 
     @Override

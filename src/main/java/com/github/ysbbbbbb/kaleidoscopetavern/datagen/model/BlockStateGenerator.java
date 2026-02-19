@@ -1,12 +1,14 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.datagen.model;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
+import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.SandwichBoardBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.SofaBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.properties.ConnectionType;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -54,6 +56,21 @@ public class BlockStateGenerator extends BlockStateProvider {
         barStool(ModBlocks.PURPLE_BAR_STOOL, "purple");
         barStool(ModBlocks.MAGENTA_BAR_STOOL, "magenta");
         barStool(ModBlocks.PINK_BAR_STOOL, "pink");
+
+        // 展板
+        sandwichBoard(ModBlocks.BASE_SANDWICH_BOARD, "base");
+        sandwichBoard(ModBlocks.ALLIUM_SANDWICH_BOARD, "allium");
+        sandwichBoard(ModBlocks.AZURE_BLUET_SANDWICH_BOARD, "azure_bluet");
+        sandwichBoard(ModBlocks.CORNFLOWER_SANDWICH_BOARD, "cornflower");
+        sandwichBoard(ModBlocks.ORCHID_SANDWICH_BOARD, "orchid");
+        sandwichBoard(ModBlocks.PEONY_SANDWICH_BOARD, "peony");
+        sandwichBoard(ModBlocks.PINK_PETALS_SANDWICH_BOARD, "pink_petals");
+        sandwichBoard(ModBlocks.PITCHER_PLANT_SANDWICH_BOARD, "pitcher_plant");
+        sandwichBoard(ModBlocks.POPPY_SANDWICH_BOARD, "poppy");
+        sandwichBoard(ModBlocks.SUNFLOWER_SANDWICH_BOARD, "sunflower");
+        sandwichBoard(ModBlocks.TORCHFLOWER_SANDWICH_BOARD, "torchflower");
+        sandwichBoard(ModBlocks.TULIP_SANDWICH_BOARD, "tulip");
+        sandwichBoard(ModBlocks.WITHER_ROSE_SANDWICH_BOARD, "wither_rose");
     }
 
     private void sofa(RegistryObject<Block> block, String color) {
@@ -69,6 +86,17 @@ public class BlockStateGenerator extends BlockStateProvider {
         horizontalBlock(block.get(), blockState -> {
             ResourceLocation file = modLoc("block/deco/bar_stool/%s".formatted(color));
             return new ModelFile.UncheckedModelFile(file);
+        });
+    }
+
+    private void sandwichBoard(RegistryObject<Block> block, String type) {
+        horizontalBlock(block.get(), blockState -> {
+            Half half = blockState.getValue(SandwichBoardBlock.HALF);
+            if (half == Half.BOTTOM) {
+                return new ModelFile.UncheckedModelFile(modLoc("block/deco/sandwich_board/base"));
+            } else {
+                return new ModelFile.UncheckedModelFile(modLoc("block/deco/sandwich_board/%s_top".formatted(type)));
+            }
         });
     }
 }

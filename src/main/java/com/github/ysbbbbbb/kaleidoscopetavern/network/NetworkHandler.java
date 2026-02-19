@@ -1,8 +1,8 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.network;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
-import com.github.ysbbbbbb.kaleidoscopetavern.network.message.ChalkboardOpenS2CMessage;
-import com.github.ysbbbbbb.kaleidoscopetavern.network.message.ChalkboardUpdateC2SMessage;
+import com.github.ysbbbbbb.kaleidoscopetavern.network.message.TextOpenS2CMessage;
+import com.github.ysbbbbbb.kaleidoscopetavern.network.message.TextUpdateC2SMessage;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkDirection;
@@ -19,13 +19,13 @@ public class NetworkHandler {
             () -> VERSION, it -> it.equals(VERSION), it -> it.equals(VERSION));
 
     public static void init() {
-        CHANNEL.registerMessage(0, ChalkboardUpdateC2SMessage.class,
-                ChalkboardUpdateC2SMessage::encode, ChalkboardUpdateC2SMessage::decode,
-                ChalkboardUpdateC2SMessage::handle, Optional.of(NetworkDirection.PLAY_TO_SERVER));
+        CHANNEL.registerMessage(0, TextUpdateC2SMessage.class,
+                TextUpdateC2SMessage::encode, TextUpdateC2SMessage::decode,
+                TextUpdateC2SMessage::handle, Optional.of(NetworkDirection.PLAY_TO_SERVER));
 
-        CHANNEL.registerMessage(1, ChalkboardOpenS2CMessage.class,
-                ChalkboardOpenS2CMessage::encode, ChalkboardOpenS2CMessage::decode,
-                ChalkboardOpenS2CMessage::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+        CHANNEL.registerMessage(1, TextOpenS2CMessage.class,
+                TextOpenS2CMessage::encode, TextOpenS2CMessage::decode,
+                TextOpenS2CMessage::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
     }
 
     public static void sendToClient(Player player, Object packet) {

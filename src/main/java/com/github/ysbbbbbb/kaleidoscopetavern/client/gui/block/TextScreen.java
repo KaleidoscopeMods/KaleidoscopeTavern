@@ -1,8 +1,9 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.client.gui.block;
 
-import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.ChalkboardBlockEntity;
+import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.TextBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.network.NetworkHandler;
-import com.github.ysbbbbbb.kaleidoscopetavern.network.message.ChalkboardUpdateC2SMessage;
+import com.github.ysbbbbbb.kaleidoscopetavern.network.message.TextUpdateC2SMessage;
+import com.github.ysbbbbbb.kaleidoscopetavern.util.TextAlignment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -11,14 +12,15 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 
-public class ChalkboardScreen extends Screen {
-    private ChalkboardBlockEntity blockEntity;
+public class TextScreen extends Screen {
+    private final TextBlockEntity blockEntity;
+
     private String text;
-    private ChalkboardBlockEntity.TextAlignment textAlignment;
+    private TextAlignment textAlignment;
     private MultiLineEditBox customSetting;
 
-    public ChalkboardScreen(ChalkboardBlockEntity blockEntity) {
-        super(Component.literal("Chalkboard"));
+    public TextScreen(TextBlockEntity blockEntity) {
+        super(Component.literal("Text Edit Screen"));
         this.blockEntity = blockEntity;
         this.text = blockEntity.getText();
         this.textAlignment = blockEntity.getTextAlignment();
@@ -31,14 +33,14 @@ public class ChalkboardScreen extends Screen {
         int posX = this.width / 2 - 165;
         int posY = this.height / 2 - 80;
         int boxWidth = 256;
-        int characterLimit = this.blockEntity.isLarge() ? 1500 : 350;
+        int maxTextLength = this.blockEntity.getMaxTextLength();
 
         this.customSetting = this.addRenderableWidget(new MultiLineEditBox(font,
                 posX, posY, boxWidth, 120,
-                Component.translatable("gui.kaleidoscope_tavern.chalkboard.edit.placeholder"),
+                Component.translatable("gui.kaleidoscope_tavern.text.edit.placeholder"),
                 Component.literal("Custom Setting Box")));
         this.customSetting.setValue(text);
-        this.customSetting.setCharacterLimit(characterLimit);
+        this.customSetting.setCharacterLimit(maxTextLength);
         this.customSetting.setValueListener(s -> text = s);
 
         this.addRenderableWidget(
@@ -54,35 +56,35 @@ public class ChalkboardScreen extends Screen {
         );
 
         // 对齐按钮
-        Button left = Button.builder(Component.translatable("gui.kaleidoscope_tavern.chalkboard.edit.text_alignment.left"),
+        Button left = Button.builder(Component.translatable("gui.kaleidoscope_tavern.text.edit.text_alignment.left"),
                         button -> {
-                            this.textAlignment = ChalkboardBlockEntity.TextAlignment.LEFT;
+                            this.textAlignment = TextAlignment.LEFT;
                             this.init();
                         })
                 .bounds(posX + boxWidth + 5, posY + 25, 80, 20)
                 .build();
 
-        Button center = Button.builder(Component.translatable("gui.kaleidoscope_tavern.chalkboard.edit.text_alignment.center"),
+        Button center = Button.builder(Component.translatable("gui.kaleidoscope_tavern.text.edit.text_alignment.center"),
                         button -> {
-                            this.textAlignment = ChalkboardBlockEntity.TextAlignment.CENTER;
+                            this.textAlignment = TextAlignment.CENTER;
                             this.init();
                         })
                 .bounds(posX + boxWidth + 5, posY + 50, 80, 20)
                 .build();
 
-        Button right = Button.builder(Component.translatable("gui.kaleidoscope_tavern.chalkboard.edit.text_alignment.right"),
+        Button right = Button.builder(Component.translatable("gui.kaleidoscope_tavern.text.edit.text_alignment.right"),
                         button -> {
-                            this.textAlignment = ChalkboardBlockEntity.TextAlignment.RIGHT;
+                            this.textAlignment = TextAlignment.RIGHT;
                             this.init();
                         })
                 .bounds(posX + boxWidth + 5, posY + 75, 80, 20)
                 .build();
 
-        if (textAlignment == ChalkboardBlockEntity.TextAlignment.LEFT) {
+        if (textAlignment == TextAlignment.LEFT) {
             left.active = false;
-        } else if (textAlignment == ChalkboardBlockEntity.TextAlignment.CENTER) {
+        } else if (textAlignment == TextAlignment.CENTER) {
             center.active = false;
-        } else if (textAlignment == ChalkboardBlockEntity.TextAlignment.RIGHT) {
+        } else if (textAlignment == TextAlignment.RIGHT) {
             right.active = false;
         }
 
@@ -110,7 +112,7 @@ public class ChalkboardScreen extends Screen {
     }
 
     private void onDone() {
-        NetworkHandler.sendToServer(new ChalkboardUpdateC2SMessage(blockEntity.getBlockPos(), text, textAlignment));
+        NetworkHandler.sendToServer(new TextUpdateC2SMessage(blockEntity.getBlockPos(), text, textAlignment));
         this.onClose();
     }
 

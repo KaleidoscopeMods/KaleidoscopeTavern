@@ -1,7 +1,7 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.network.message;
 
-import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.ChalkboardBlockEntity;
-import com.github.ysbbbbbb.kaleidoscopetavern.client.gui.block.ChalkboardScreen;
+import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.TextBlockEntity;
+import com.github.ysbbbbbb.kaleidoscopetavern.client.gui.block.TextScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -13,16 +13,16 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public record ChalkboardOpenS2CMessage(BlockPos pos) {
-    public static void encode(ChalkboardOpenS2CMessage message, FriendlyByteBuf buf) {
+public record TextOpenS2CMessage(BlockPos pos) {
+    public static void encode(TextOpenS2CMessage message, FriendlyByteBuf buf) {
         buf.writeBlockPos(message.pos);
     }
 
-    public static ChalkboardOpenS2CMessage decode(FriendlyByteBuf buf) {
-        return new ChalkboardOpenS2CMessage(buf.readBlockPos());
+    public static TextOpenS2CMessage decode(FriendlyByteBuf buf) {
+        return new TextOpenS2CMessage(buf.readBlockPos());
     }
 
-    public static void handle(ChalkboardOpenS2CMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
+    public static void handle(TextOpenS2CMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
         NetworkEvent.Context context = contextSupplier.get();
         if (context.getDirection().getReceptionSide().isClient()) {
             context.enqueueWork(() -> onHandle(message));
@@ -31,7 +31,7 @@ public record ChalkboardOpenS2CMessage(BlockPos pos) {
     }
 
     @OnlyIn(Dist.CLIENT)
-    private static void onHandle(ChalkboardOpenS2CMessage message) {
+    private static void onHandle(TextOpenS2CMessage message) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.level == null) {
             return;
@@ -45,14 +45,14 @@ public record ChalkboardOpenS2CMessage(BlockPos pos) {
         }
         Level level = mc.level;
         BlockPos pos = message.pos();
-        if (level.getBlockEntity(pos) instanceof ChalkboardBlockEntity chalkboard) {
-            if (chalkboard.isWaxed()) {
+        if (level.getBlockEntity(pos) instanceof TextBlockEntity textBlock) {
+            if (textBlock.isWaxed()) {
                 return;
             }
-            if (chalkboard.playerIsTooFarAwayToEdit(player.getUUID())) {
+            if (textBlock.playerIsTooFarAwayToEdit(player.getUUID())) {
                 return;
             }
-            mc.setScreen(new ChalkboardScreen(chalkboard));
+            mc.setScreen(new TextScreen(textBlock));
         }
     }
 }

@@ -19,6 +19,19 @@ public class BlockModelGenerator extends BlockModelProvider {
             sofa(color);
             barStool(color);
         }
+
+        sandwichBoard("allium");
+        sandwichBoard("azure_bluet");
+        sandwichBoard("cornflower");
+        sandwichBoard("orchid");
+        sandwichBoard("peony");
+        sandwichBoard("pink_petals");
+        sandwichBoard("pitcher_plant");
+        sandwichBoard("poppy");
+        sandwichBoard("sunflower");
+        sandwichBoard("torchflower");
+        sandwichBoard("tulip");
+        sandwichBoard("wither_rose");
     }
 
     private void sofa(String color) {
@@ -44,5 +57,13 @@ public class BlockModelGenerator extends BlockModelProvider {
         withExistingParent(name, parent)
                 .texture("texture", texture)
                 .texture("particle", particle);
+    }
+
+    private void sandwichBoard(String type) {
+        ResourceLocation texture = modLoc("block/deco/sandwich_board/%s".formatted(type));
+        String name = "block/deco/sandwich_board/%s_top".formatted(type);
+        ResourceLocation parent = modLoc("block/deco/sandwich_board/base_top");
+        withExistingParent(name, parent)
+                .texture("layer1", texture);
     }
 }

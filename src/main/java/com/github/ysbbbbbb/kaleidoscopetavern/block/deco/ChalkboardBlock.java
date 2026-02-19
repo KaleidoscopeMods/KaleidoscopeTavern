@@ -2,9 +2,10 @@ package com.github.ysbbbbbb.kaleidoscopetavern.block.deco;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.block.properties.PositionType;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.ChalkboardBlockEntity;
+import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.TextBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
 import com.github.ysbbbbbb.kaleidoscopetavern.network.NetworkHandler;
-import com.github.ysbbbbbb.kaleidoscopetavern.network.message.ChalkboardOpenS2CMessage;
+import com.github.ysbbbbbb.kaleidoscopetavern.network.message.TextOpenS2CMessage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -102,7 +103,7 @@ public class ChalkboardBlock extends BaseEntityBlock implements SimpleWaterlogge
                 return InteractionResult.FAIL;
             }
             if (!level.isClientSide) {
-                NetworkHandler.sendToClient(player, new ChalkboardOpenS2CMessage(chalkboard.getBlockPos()));
+                NetworkHandler.sendToClient(player, new TextOpenS2CMessage(chalkboard.getBlockPos()));
             }
             return InteractionResult.SUCCESS;
         }
@@ -326,7 +327,7 @@ public class ChalkboardBlock extends BaseEntityBlock implements SimpleWaterlogge
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlocks.CHALKBOARD_BE.get(), ChalkboardBlockEntity::tick);
+        return createTickerHelper(type, ModBlocks.CHALKBOARD_BE.get(), TextBlockEntity::tick);
     }
 
     @Override

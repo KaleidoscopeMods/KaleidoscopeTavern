@@ -50,4 +50,19 @@ public class ModItems {
 
     // 黑板
     public static RegistryObject<Item> CHALKBOARD = ITEMS.register("chalkboard", () -> new BlockItem(ModBlocks.CHALKBOARD.get(), new Item.Properties()));
+
+    // 展板
+    public static RegistryObject<Item> BASE_SANDWICH_BOARD = ITEMS.register("base_sandwich_board", () -> new BlockItem(ModBlocks.BASE_SANDWICH_BOARD.get(), new Item.Properties()));
+    public static RegistryObject<Item> ALLIUM_SANDWICH_BOARD = ITEMS.register("allium_sandwich_board", () -> new BlockItem(ModBlocks.ALLIUM_SANDWICH_BOARD.get(), new Item.Properties()));
+    public static RegistryObject<Item> AZURE_BLUET_SANDWICH_BOARD = ITEMS.register("azure_bluet_sandwich_board", () -> new BlockItem(ModBlocks.AZURE_BLUET_SANDWICH_BOARD.get(), new Item.Properties()));
+    public static RegistryObject<Item> CORNFLOWER_SANDWICH_BOARD = ITEMS.register("cornflower_sandwich_board", () -> new BlockItem(ModBlocks.CORNFLOWER_SANDWICH_BOARD.get(), new Item.Properties()));
+    public static RegistryObject<Item> ORCHID_SANDWICH_BOARD = ITEMS.register("orchid_sandwich_board", () -> new BlockItem(ModBlocks.ORCHID_SANDWICH_BOARD.get(), new Item.Properties()));
+    public static RegistryObject<Item> PEONY_SANDWICH_BOARD = ITEMS.register("peony_sandwich_board", () -> new BlockItem(ModBlocks.PEONY_SANDWICH_BOARD.get(), new Item.Properties()));
+    public static RegistryObject<Item> PINK_PETALS_SANDWICH_BOARD = ITEMS.register("pink_petals_sandwich_board", () -> new BlockItem(ModBlocks.PINK_PETALS_SANDWICH_BOARD.get(), new Item.Properties()));
+    public static RegistryObject<Item> PITCHER_PLANT_SANDWICH_BOARD = ITEMS.register("pitcher_plant_sandwich_board", () -> new BlockItem(ModBlocks.PITCHER_PLANT_SANDWICH_BOARD.get(), new Item.Properties()));
+    public static RegistryObject<Item> POPPY_SANDWICH_BOARD = ITEMS.register("poppy_sandwich_board", () -> new BlockItem(ModBlocks.POPPY_SANDWICH_BOARD.get(), new Item.Properties()));
+    public static RegistryObject<Item> SUNFLOWER_SANDWICH_BOARD = ITEMS.register("sunflower_sandwich_board", () -> new BlockItem(ModBlocks.SUNFLOWER_SANDWICH_BOARD.get(), new Item.Properties()));
+    public static RegistryObject<Item> TORCHFLOWER_SANDWICH_BOARD = ITEMS.register("torchflower_sandwich_board", () -> new BlockItem(ModBlocks.TORCHFLOWER_SANDWICH_BOARD.get(), new Item.Properties()));
+    public static RegistryObject<Item> TULIP_SANDWICH_BOARD = ITEMS.register("tulip_sandwich_board", () -> new BlockItem(ModBlocks.TULIP_SANDWICH_BOARD.get(), new Item.Properties()));
+    public static RegistryObject<Item> WITHER_ROSE_SANDWICH_BOARD = ITEMS.register("wither_rose_sandwich_board", () -> new BlockItem(ModBlocks.WITHER_ROSE_SANDWICH_BOARD.get(), new Item.Properties()));
 }

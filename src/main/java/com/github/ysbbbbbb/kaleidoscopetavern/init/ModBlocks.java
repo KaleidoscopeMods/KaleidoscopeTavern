@@ -3,8 +3,10 @@ package com.github.ysbbbbbb.kaleidoscopetavern.init;
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.BarStoolBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.ChalkboardBlock;
+import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.SandwichBoardBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.SofaBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.ChalkboardBlockEntity;
+import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.SandwichBlockEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;
@@ -55,11 +57,44 @@ public class ModBlocks {
 
     // 黑板
     public static RegistryObject<Block> CHALKBOARD = BLOCKS.register("chalkboard", ChalkboardBlock::new);
+    // 展板
+    public static RegistryObject<Block> BASE_SANDWICH_BOARD = BLOCKS.register("base_sandwich_board", SandwichBoardBlock::new);
+    public static RegistryObject<Block> ALLIUM_SANDWICH_BOARD = BLOCKS.register("allium_sandwich_board", SandwichBoardBlock::new);
+    public static RegistryObject<Block> AZURE_BLUET_SANDWICH_BOARD = BLOCKS.register("azure_bluet_sandwich_board", SandwichBoardBlock::new);
+    public static RegistryObject<Block> CORNFLOWER_SANDWICH_BOARD = BLOCKS.register("cornflower_sandwich_board", SandwichBoardBlock::new);
+    public static RegistryObject<Block> ORCHID_SANDWICH_BOARD = BLOCKS.register("orchid_sandwich_board", SandwichBoardBlock::new);
+    public static RegistryObject<Block> PEONY_SANDWICH_BOARD = BLOCKS.register("peony_sandwich_board", SandwichBoardBlock::new);
+    public static RegistryObject<Block> PINK_PETALS_SANDWICH_BOARD = BLOCKS.register("pink_petals_sandwich_board", SandwichBoardBlock::new);
+    public static RegistryObject<Block> PITCHER_PLANT_SANDWICH_BOARD = BLOCKS.register("pitcher_plant_sandwich_board", SandwichBoardBlock::new);
+    public static RegistryObject<Block> POPPY_SANDWICH_BOARD = BLOCKS.register("poppy_sandwich_board", SandwichBoardBlock::new);
+    public static RegistryObject<Block> SUNFLOWER_SANDWICH_BOARD = BLOCKS.register("sunflower_sandwich_board", SandwichBoardBlock::new);
+    public static RegistryObject<Block> TORCHFLOWER_SANDWICH_BOARD = BLOCKS.register("torchflower_sandwich_board", SandwichBoardBlock::new);
+    public static RegistryObject<Block> TULIP_SANDWICH_BOARD = BLOCKS.register("tulip_sandwich_board", SandwichBoardBlock::new);
+    public static RegistryObject<Block> WITHER_ROSE_SANDWICH_BOARD = BLOCKS.register("wither_rose_sandwich_board", SandwichBoardBlock::new);
+
 
     // BlockEntity
     public static RegistryObject<BlockEntityType<ChalkboardBlockEntity>> CHALKBOARD_BE = BLOCK_ENTITIES.register(
             "chalkboard", () -> BlockEntityType.Builder
                     .of(ChalkboardBlockEntity::new, CHALKBOARD.get())
                     .build(null)
+    );
+
+    public static RegistryObject<BlockEntityType<SandwichBlockEntity>> SANDWICH_BOARD_BE = BLOCK_ENTITIES.register(
+            "sandwich_board", () -> BlockEntityType.Builder.of(SandwichBlockEntity::new,
+                    BASE_SANDWICH_BOARD.get(),
+                    ALLIUM_SANDWICH_BOARD.get(),
+                    AZURE_BLUET_SANDWICH_BOARD.get(),
+                    CORNFLOWER_SANDWICH_BOARD.get(),
+                    ORCHID_SANDWICH_BOARD.get(),
+                    PEONY_SANDWICH_BOARD.get(),
+                    PINK_PETALS_SANDWICH_BOARD.get(),
+                    PITCHER_PLANT_SANDWICH_BOARD.get(),
+                    POPPY_SANDWICH_BOARD.get(),
+                    SUNFLOWER_SANDWICH_BOARD.get(),
+                    TORCHFLOWER_SANDWICH_BOARD.get(),
+                    TULIP_SANDWICH_BOARD.get(),
+                    WITHER_ROSE_SANDWICH_BOARD.get()
+            ).build(null)
     );
 }
