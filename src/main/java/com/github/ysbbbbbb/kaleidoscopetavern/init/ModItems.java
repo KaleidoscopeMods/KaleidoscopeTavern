@@ -108,4 +108,6 @@ public class ModItems {
     public static RegistryObject<Item> STEPLADDER = ITEMS.register("stepladder", () -> new BlockItem(ModBlocks.STEPLADDER.get(), new Item.Properties()));
     // 野生葡萄藤
     public static RegistryObject<Item> GRAPEVINE = ITEMS.register("grapevine", () -> new ItemNameBlockItem(ModBlocks.WILD_GRAPEVINE.get(), new Item.Properties()));
+    // 藤架
+    public static RegistryObject<Item> TRELLIS = ITEMS.register("trellis", () -> new BlockItem(ModBlocks.TRELLIS.get(), new Item.Properties()));
 }

@@ -2,6 +2,7 @@ package com.github.ysbbbbbb.kaleidoscopetavern.init;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.*;
+import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.TrellisBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.WildGrapevineBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.WildGrapevinePlantBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.ChalkboardBlockEntity;
@@ -117,6 +118,9 @@ public class ModBlocks {
     // 野生葡萄藤
     public static RegistryObject<Block> WILD_GRAPEVINE = BLOCKS.register("wild_grapevine", WildGrapevineBlock::new);
     public static RegistryObject<Block> WILD_GRAPEVINE_PLANT = BLOCKS.register("wild_grapevine_plant", WildGrapevinePlantBlock::new);
+
+    // 藤架
+    public static RegistryObject<Block> TRELLIS = BLOCKS.register("trellis", TrellisBlock::new);
 
     // BlockEntity
     public static RegistryObject<BlockEntityType<ChalkboardBlockEntity>> CHALKBOARD_BE = BLOCK_ENTITIES.register(

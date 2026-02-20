@@ -65,6 +65,8 @@ public class ItemModelGenerator extends ItemModelProvider {
         barCounter(ModItems.BAR_COUNTER);
         basicItem(ModItems.STEPLADDER.get());
         basicItem(ModItems.GRAPEVINE.get());
+
+        trellis(ModItems.TRELLIS);
     }
 
     private void sofa(String color) {
@@ -108,5 +110,10 @@ public class ItemModelGenerator extends ItemModelProvider {
     private void barCounter(RegistryObject<Item> item) {
         ResourceLocation key = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item.get()));
         withExistingParent(key.toString(), modLoc("block/deco/bar_counter/single"));
+    }
+
+    private void trellis(RegistryObject<Item> item) {
+        ResourceLocation key = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item.get()));
+        withExistingParent(key.toString(), modLoc("block/plant/trellis/single"));
     }
 }

@@ -1,0 +1,46 @@
+{
+  "variants": {
+    "type=cross_east_west,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/trellis/cross_east_west"
+    },
+    "type=cross_east_west,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/trellis/cross_east_west"
+    },
+    "type=cross_north_south,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/trellis/cross_north_south"
+    },
+    "type=cross_north_south,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/trellis/cross_north_south"
+    },
+    "type=cross_up_down,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/trellis/cross_up_down"
+    },
+    "type=cross_up_down,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/trellis/cross_up_down"
+    },
+    "type=east_west,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/trellis/east_west"
+    },
+    "type=east_west,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/trellis/east_west"
+    },
+    "type=north_south,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/trellis/north_south"
+    },
+    "type=north_south,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/trellis/north_south"
+    },
+    "type=single,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/trellis/single"
+    },
+    "type=single,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/trellis/single"
+    },
+    "type=six_direction,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/trellis/six_direction"
+    },
+    "type=six_direction,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/trellis/six_direction"
+    }
+  }
+}

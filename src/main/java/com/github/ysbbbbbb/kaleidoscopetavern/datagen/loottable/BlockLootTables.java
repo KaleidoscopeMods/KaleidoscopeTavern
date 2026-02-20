@@ -117,6 +117,8 @@ public class BlockLootTables extends BlockLootSubProvider {
         // 野生葡萄藤
         dropOther(ModBlocks.WILD_GRAPEVINE.get(), ModItems.GRAPEVINE.get());
         dropOther(ModBlocks.WILD_GRAPEVINE_PLANT.get(), ModItems.GRAPEVINE.get());
+        // 藤架
+        dropSelf(ModBlocks.TRELLIS.get());
     }
 
     @Override

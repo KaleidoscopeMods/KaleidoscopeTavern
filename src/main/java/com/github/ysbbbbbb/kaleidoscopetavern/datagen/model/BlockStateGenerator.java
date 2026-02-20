@@ -4,6 +4,7 @@ import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.SandwichBoardBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.SofaBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.StepladderBlock;
+import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.TrellisBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.properties.ConnectionType;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
 import net.minecraft.data.PackOutput;
@@ -11,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
@@ -117,6 +119,8 @@ public class BlockStateGenerator extends BlockStateProvider {
         // 野生葡萄藤
         simpleBlock(ModBlocks.WILD_GRAPEVINE.get(), new ModelFile.UncheckedModelFile(modLoc("block/plant/wild_grapevine")));
         simpleBlock(ModBlocks.WILD_GRAPEVINE_PLANT.get(), new ModelFile.UncheckedModelFile(modLoc("block/plant/wild_grapevine_plant")));
+        // 藤架
+        trellis(ModBlocks.TRELLIS);
     }
 
     private void sofa(RegistryObject<Block> block, String color) {
@@ -177,6 +181,15 @@ public class BlockStateGenerator extends BlockStateProvider {
             } else {
                 return new ModelFile.UncheckedModelFile(modLoc("block/deco/stepladder/top"));
             }
+        });
+    }
+
+    private void trellis(RegistryObject<Block> block) {
+        getVariantBuilder(block.get()).forAllStates(blockState -> {
+            String type = blockState.getValue(TrellisBlock.TYPE).getSerializedName();
+            ResourceLocation file = modLoc("block/plant/trellis/%s".formatted(type));
+            ModelFile.UncheckedModelFile modelFile = new ModelFile.UncheckedModelFile(file);
+            return ConfiguredModel.builder().modelFile(modelFile).build();
         });
     }
 }
