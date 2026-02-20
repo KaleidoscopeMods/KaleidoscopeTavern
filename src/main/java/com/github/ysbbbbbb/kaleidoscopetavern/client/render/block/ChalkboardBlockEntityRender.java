@@ -56,13 +56,13 @@ public class ChalkboardBlockEntityRender extends TextBlockEntityRender<Chalkboar
         poseStack.pushPose();
 
         if (facing == Direction.EAST) {
-            poseStack.translate(0.0625, 1.535, 0.5);
+            poseStack.translate(0.08, 1.535, 0.5);
         } else if (facing == Direction.WEST) {
-            poseStack.translate(0.9375, 1.535, 0.5);
+            poseStack.translate(0.92, 1.535, 0.5);
         } else if (facing == Direction.SOUTH) {
-            poseStack.translate(0.5, 1.535, 0.0625);
+            poseStack.translate(0.5, 1.535, 0.08);
         } else {
-            poseStack.translate(0.5, 1.535, 0.9375);
+            poseStack.translate(0.5, 1.535, 0.92);
         }
 
         poseStack.mulPose(Axis.YN.rotationDegrees(facing.get2DDataValue() * 90));

@@ -1,7 +1,13 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.block.deco;
 
+import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
@@ -19,6 +25,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 @SuppressWarnings("deprecation")
 public class PaintingBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
     public static final EnumProperty<AttachFace> ATTACH_FACE = BlockStateProperties.ATTACH_FACE;
@@ -30,6 +38,8 @@ public class PaintingBlock extends HorizontalDirectionalBlock implements SimpleW
     public static final VoxelShape EAST_SHAPE = Block.box(0, 1, 1, 1, 15, 15);
     public static final VoxelShape FLOOR_SHAPE = Block.box(1, 0, 1, 15, 1, 15);
     public static final VoxelShape CEILING_SHAPE = Block.box(1, 15, 1, 15, 16, 15);
+
+    private @Nullable String tooltipKey;
 
     public PaintingBlock() {
         super(Properties.of()
@@ -94,5 +104,18 @@ public class PaintingBlock extends HorizontalDirectionalBlock implements SimpleW
             case WEST -> WEST_SHAPE;
             default -> NORTH_SHAPE;
         };
+    }
+
+    @Override
+    public String getDescriptionId() {
+        return "block.kaleidoscope_tavern.painting";
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable BlockGetter level, List<Component> tooltip, TooltipFlag flag) {
+        if (this.tooltipKey == null) {
+            this.tooltipKey = Util.makeDescriptionId("tooltip", BuiltInRegistries.BLOCK.getKey(this));
+        }
+        tooltip.add(Component.translatable(this.tooltipKey).withStyle(ChatFormatting.GRAY));
     }
 }
