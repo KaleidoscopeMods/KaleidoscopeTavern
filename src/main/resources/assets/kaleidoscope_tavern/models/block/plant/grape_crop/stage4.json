@@ -1,8 +1,8 @@
 {
 	"format_version": "1.21.6",
 	"credit": "Made with Blockbench",
-	"texture_size": [64, 64],
 	"render_type": "cutout",
+	"texture_size": [64, 64],
 	"textures": {
 		"0": "kaleidoscope_tavern:block/plant/grape_crop",
 		"particle": "kaleidoscope_tavern:block/plant/grape_crop"
@@ -10,9 +10,9 @@
 	"elements": [
 		{
 			"name": "stage4",
-			"from": [7.75, 3, -0.25],
-			"to": [7.75, 21, 15.75],
-			"rotation": {"angle": 45, "axis": "y", "origin": [7.75, 13, 7.75]},
+			"from": [7.75, 3, -1.35],
+			"to": [7.75, 21, 16.65],
+			"rotation": {"angle": 45, "axis": "y", "origin": [7.75, 13, 7.65]},
 			"faces": {
 				"east": {"uv": [0, 8, 4, 13], "texture": "#0"},
 				"west": {"uv": [0, 8, 4, 13], "texture": "#0"}
@@ -20,9 +20,9 @@
 		},
 		{
 			"name": "stage4",
-			"from": [7.75, 3, -0.25],
-			"to": [7.75, 21, 15.75],
-			"rotation": {"angle": -45, "axis": "y", "origin": [7.75, 13, 7.75]},
+			"from": [7.75, 3, -1.35],
+			"to": [7.75, 21, 16.65],
+			"rotation": {"angle": -45, "axis": "y", "origin": [7.75, 13, 7.65]},
 			"faces": {
 				"east": {"uv": [0, 8, 4, 13], "texture": "#0"},
 				"west": {"uv": [0, 8, 4, 13], "texture": "#0"}
