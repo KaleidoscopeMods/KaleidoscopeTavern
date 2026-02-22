@@ -1,5 +1,5 @@
 {
   "textures": {
-    "particle": "kaleidoscope_tavern:item/deco/chalkboard"
+		"particle": "kaleidoscope_tavern:block/deco/sandwich_board/particle"
   }
 }
