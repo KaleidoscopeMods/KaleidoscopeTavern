@@ -127,5 +127,10 @@ public class TagBlock extends BlockTagsProvider {
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .addTag(TagMod.STRING_LIGHTS);
+
+        this.tag(BlockTags.CLIMBABLE)
+                .add(ModBlocks.WILD_GRAPEVINE.get())
+                .add(ModBlocks.WILD_GRAPEVINE_PLANT.get())
+                .add(ModBlocks.GRAPEVINE_TRELLIS.get());
     }
 }
