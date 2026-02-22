@@ -8,6 +8,7 @@ import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModRecipes;
 import com.github.ysbbbbbb.kaleidoscopetavern.util.ItemUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -22,16 +23,28 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class PressingTubBlockEntity extends BaseBlockEntity implements IPressingTub {
     private final RecipeManager.CachedCheck<Container, PressingTubRecipe> quickCheck = RecipeManager.createCheck(ModRecipes.PRESSING_TUB_RECIPE);
 
     /**
      * 压榨桶的物品槽，目前只有一个槽位，用于放置被压榨的物品，最大可放入一组件（64个）物品
      */
-    private final ItemStackHandler items = new ItemStackHandler(1);
+    private final ItemStackHandler items = new ItemStackHandler(1) {
+        @Override
+        protected void onContentsChanged(int slot) {
+            // 物品槽内容改变时，需要强制刷新状态，以便客户端同步
+            refresh();
+        }
+    };
     /**
      * 当前压榨桶内的液体量，强制认定 8 数量才能够完成压榨并取出
      */
@@ -40,6 +53,10 @@ public class PressingTubBlockEntity extends BaseBlockEntity implements IPressing
      * 当前压榨桶缓存的配方，用于持续压榨的判断，客户端渲染和者交互提示等用途，默认值为 null 代表没有缓存的配方
      */
     private @Nullable PressingTubRecipeCache cachedRecipe = null;
+    /**
+     * 物品栏的 Capability，用于漏斗自动化
+     */
+    private @Nullable LazyOptional<IItemHandler> itemCapability = null;
 
     public PressingTubBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlocks.PRESSING_TUB_BE.get(), pos, state);
@@ -75,7 +92,6 @@ public class PressingTubBlockEntity extends BaseBlockEntity implements IPressing
             return false;
         }
         stack.shrink(count - remaining.getCount());
-        this.refresh();
         if (this.level instanceof ServerLevel) {
             this.level.playSound(null,
                     worldPosition.getX() + 0.5,
@@ -96,7 +112,6 @@ public class PressingTubBlockEntity extends BaseBlockEntity implements IPressing
             return false;
         }
         ItemUtils.getItemToLivingEntity(target, removed);
-        this.refresh();
         if (this.level instanceof ServerLevel) {
             this.level.playSound(null,
                     worldPosition.getX() + 0.5,
@@ -157,9 +172,8 @@ public class PressingTubBlockEntity extends BaseBlockEntity implements IPressing
             if (output.isEmpty()) {
                 return false;
             }
-            this.items.extractItem(0, 1, false);
             this.liquidAmount++;
-            this.refresh();
+            this.items.extractItem(0, 1, false);
             return true;
         }).orElseGet(() -> {
             // 没有找到配方，丢出内容物并刷新状态
@@ -281,5 +295,36 @@ public class PressingTubBlockEntity extends BaseBlockEntity implements IPressing
     @Override
     public void setCachedRecipe(@Nullable PressingTubRecipeCache cachedRecipe) {
         this.cachedRecipe = cachedRecipe;
+    }
+
+    @Override
+    @SuppressWarnings("all")
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER) {
+            if (this.itemCapability == null) {
+                this.itemCapability = LazyOptional.of(() -> this.items);
+            }
+            return this.itemCapability.cast();
+        }
+        return super.getCapability(cap, side);
+    }
+
+    @Override
+    public void setBlockState(BlockState blockState) {
+        super.setBlockState(blockState);
+        if (this.itemCapability != null) {
+            LazyOptional<?> oldHandler = this.itemCapability;
+            this.itemCapability = null;
+            oldHandler.invalidate();
+        }
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        if (itemCapability != null) {
+            itemCapability.invalidate();
+            itemCapability = null;
+        }
     }
 }

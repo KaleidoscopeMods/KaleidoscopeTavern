@@ -2,14 +2,19 @@ package com.github.ysbbbbbb.kaleidoscopetavern.block.brew;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.api.blockentity.IPressingTub;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.brew.PressingTubBlockEntity;
+import com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe.PressingTubRecipe;
+import com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe.PressingTubRecipe.PressingTubRecipeCache;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -142,5 +147,58 @@ public class PressingTubBlock extends BaseEntityBlock implements SimpleWaterlogg
     @Override
     public FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+    }
+
+    @Override
+    public boolean hasAnalogOutputSignal(BlockState blockState) {
+        return true;
+    }
+
+    @Override
+    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos) {
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if (blockEntity instanceof IPressingTub pressingTub) {
+            return pressingTub.getLiquidAmount();
+        }
+        return 0;
+    }
+
+    @Override
+    public ItemStack pickupBlock(LevelAccessor level, BlockPos pos, BlockState state) {
+        ItemStack stack = SimpleWaterloggedBlock.super.pickupBlock(level, pos, state);
+        if (!stack.isEmpty()) {
+            return stack;
+        }
+        if (!(level instanceof ServerLevel serverLevel)) {
+            return stack;
+        }
+
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (!(blockEntity instanceof PressingTubBlockEntity pressingTub)) {
+            return stack;
+        }
+        if (pressingTub.getLiquidAmount() < IPressingTub.MAX_LIQUID_AMOUNT) {
+            return stack;
+        }
+
+        // 检查是否是铁桶容器
+        PressingTubRecipeCache cachedRecipe = pressingTub.getCachedRecipe();
+        if (cachedRecipe == null) {
+            return stack;
+        }
+        var recipeOpt = serverLevel.getRecipeManager().byKey(cachedRecipe.id());
+        if (recipeOpt.isEmpty()) {
+            return stack;
+        }
+        if (!(recipeOpt.get() instanceof PressingTubRecipe pressingTubRecipe)) {
+            return stack;
+        }
+        Ingredient carrier = pressingTubRecipe.getCarrier();
+        if (!carrier.test(Items.BUCKET.getDefaultInstance())) {
+            return stack;
+        }
+        pressingTub.clearData();
+        pressingTub.refresh();
+        return pressingTubRecipe.getResult().copy();
     }
 }
