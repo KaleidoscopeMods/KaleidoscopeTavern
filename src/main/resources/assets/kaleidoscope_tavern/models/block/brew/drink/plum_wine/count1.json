@@ -1,0 +1,48 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"render_type": "cutout",
+	"textures": {
+		"0": "kaleidoscope_tavern:block/brew/plum_wine",
+		"particle": "kaleidoscope_tavern:block/brew/plum_wine"
+	},
+	"elements": [
+		{
+			"name": "count1",
+			"from": [6, 0, 6],
+			"to": [10, 7, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [3, 4.5, 5, 8], "texture": "#0"},
+				"east": {"uv": [3, 4.5, 5, 8], "texture": "#0"},
+				"south": {"uv": [3, 4.5, 5, 8], "texture": "#0"},
+				"west": {"uv": [5, 4.5, 3, 8], "texture": "#0"},
+				"up": {"uv": [11.5, 4.5, 13.5, 6.5], "texture": "#0"},
+				"down": {"uv": [0, 4.5, 2, 6.5], "texture": "#0"}
+			}
+		},
+		{
+			"name": "count1",
+			"from": [7, 7, 7],
+			"to": [9, 12, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [9, 4, 10, 6.5], "texture": "#0"},
+				"east": {"uv": [9, 4, 10, 6.5], "texture": "#0"},
+				"south": {"uv": [9, 4, 10, 6.5], "texture": "#0"},
+				"west": {"uv": [9, 4, 10, 6.5], "texture": "#0"},
+				"up": {"uv": [14.5, 4, 15.5, 5], "texture": "#0"},
+				"down": {"uv": [9, 4, 10, 5], "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "count1",
+			"origin": [1, 0, 0],
+			"color": 0,
+			"children": [0, 1]
+		}
+	]
+}

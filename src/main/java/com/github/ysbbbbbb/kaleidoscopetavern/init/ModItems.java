@@ -122,6 +122,17 @@ public class ModItems {
 
     // 空瓶
     public static RegistryObject<Item> EMPTY_BOTTLE = ITEMS.register("empty_bottle", () -> new BottleBlockItem(ModBlocks.EMPTY_BOTTLE.get()));
+    // 燃烧瓶
+    public static RegistryObject<Item> MOLOTOV = ITEMS.register("molotov", () -> new MolotovBlockItem(ModBlocks.MOLOTOV.get()));
     // 酒
     public static RegistryObject<Item> WINE = ITEMS.register("wine", () -> new DrinkBlockItem(ModBlocks.WINE.get()));
+    public static RegistryObject<Item> CHAMPAGNE = ITEMS.register("champagne", () -> new DrinkBlockItem(ModBlocks.CHAMPAGNE.get()));
+    public static RegistryObject<Item> VODKA = ITEMS.register("vodka", () -> new DrinkBlockItem(ModBlocks.VODKA.get()));
+    public static RegistryObject<Item> BRANDY = ITEMS.register("brandy", () -> new DrinkBlockItem(ModBlocks.BRANDY.get()));
+    public static RegistryObject<Item> CARIGNAN = ITEMS.register("carignan", () -> new DrinkBlockItem(ModBlocks.CARIGNAN.get()));
+    public static RegistryObject<Item> SAKURA_WINE = ITEMS.register("sakura_wine", () -> new DrinkBlockItem(ModBlocks.SAKURA_WINE.get()));
+    public static RegistryObject<Item> PLUM_WINE = ITEMS.register("plum_wine", () -> new DrinkBlockItem(ModBlocks.PLUM_WINE.get()));
+    public static RegistryObject<Item> WHISKEY = ITEMS.register("whiskey", () -> new DrinkBlockItem(ModBlocks.WHISKEY.get()));
+    public static RegistryObject<Item> ICE_WINE = ITEMS.register("ice_wine", () -> new DrinkBlockItem(ModBlocks.ICE_WINE.get()));
+    public static RegistryObject<Item> VINEGAR = ITEMS.register("vinegar", () -> new DrinkBlockItem(ModBlocks.VINEGAR.get()));
 }

@@ -1,0 +1,47 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"render_type": "cutout",
+	"textures": {
+		"0": "kaleidoscope_tavern:block/brew/ice_wine",
+		"particle": "kaleidoscope_tavern:block/brew/ice_wine"
+	},
+	"elements": [
+		{
+			"name": "count1",
+			"from": [6, 0, 6],
+			"to": [10, 10, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [12, 6, 16, 16], "texture": "#0"},
+				"east": {"uv": [7, 6, 11, 16], "texture": "#0"},
+				"south": {"uv": [12, 6, 16, 16], "texture": "#0"},
+				"west": {"uv": [7, 6, 11, 16], "texture": "#0"},
+				"up": {"uv": [4, 4, 0, 0], "texture": "#0"},
+				"down": {"uv": [0, 5, 4, 9], "texture": "#0"}
+			}
+		},
+		{
+			"name": "count1",
+			"from": [7, 10, 7],
+			"to": [9, 16, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [8, 0, 10, 6], "texture": "#0"},
+				"east": {"uv": [8, 0, 10, 6], "texture": "#0"},
+				"south": {"uv": [8, 0, 10, 6], "texture": "#0"},
+				"west": {"uv": [8, 0, 10, 6], "texture": "#0"},
+				"up": {"uv": [11, 0, 13, 2], "texture": "#0"},
+				"down": {"uv": [7, 5, 9, 7], "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "count1",
+			"origin": [0, 0, 0],
+			"color": 0,
+			"children": [0, 1]
+		}
+	]
+}

@@ -2,6 +2,7 @@ package com.github.ysbbbbbb.kaleidoscopetavern.item;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.DrinkBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.brew.DrinkBlockEntity;
+import com.github.ysbbbbbb.kaleidoscopetavern.init.ModItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
@@ -13,9 +14,9 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
@@ -25,11 +26,11 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class DrinkBlockItem extends BottleBlockItem {
+public class DrinkBlockItem extends BottleBlockItem implements IHasContainer {
     public DrinkBlockItem(Block block) {
         super(block, new Properties()
                 .stacksTo(16)
-                .craftRemainder(Items.GLASS_BOTTLE));
+                .craftRemainder(ModItems.EMPTY_BOTTLE.get()));
     }
 
     @Override
@@ -106,6 +107,11 @@ public class DrinkBlockItem extends BottleBlockItem {
         if (entity instanceof Player player && !player.isCreative()) {
             stack.shrink(1);
         }
-        return stack.isEmpty() ? new ItemStack(Items.GLASS_BOTTLE) : stack;
+        return returnContainerToEntity(stack, level, entity);
+    }
+
+    @Override
+    public Item getContainerItem() {
+        return ModItems.EMPTY_BOTTLE.get();
     }
 }

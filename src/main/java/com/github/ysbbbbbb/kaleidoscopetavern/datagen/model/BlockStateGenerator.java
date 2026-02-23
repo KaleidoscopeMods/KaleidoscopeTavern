@@ -134,8 +134,18 @@ public class BlockStateGenerator extends BlockStateProvider {
 
         // 空瓶
         horizontalBlock(ModBlocks.EMPTY_BOTTLE.get(), new ModelFile.UncheckedModelFile(modLoc("block/brew/empty_bottle")));
+        horizontalBlock(ModBlocks.MOLOTOV.get(), new ModelFile.UncheckedModelFile(modLoc("block/brew/molotov")));
         // 酒
         drink(ModBlocks.WINE.get(), "wine");
+        drink(ModBlocks.CHAMPAGNE.get(), "champagne");
+        drink(ModBlocks.VODKA.get(), "vodka");
+        drink(ModBlocks.BRANDY.get(), "brandy");
+        drink(ModBlocks.CARIGNAN.get(), "carignan");
+        drink(ModBlocks.SAKURA_WINE.get(), "sakura_wine");
+        drink(ModBlocks.PLUM_WINE.get(), "plum_wine");
+        drink(ModBlocks.WHISKEY.get(), "whiskey");
+        drink(ModBlocks.ICE_WINE.get(), "ice_wine");
+        drink(ModBlocks.VINEGAR.get(), "vinegar");
     }
 
     private void sofa(RegistryObject<Block> block, String color) {

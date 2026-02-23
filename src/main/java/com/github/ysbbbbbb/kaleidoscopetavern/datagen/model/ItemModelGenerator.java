@@ -76,7 +76,17 @@ public class ItemModelGenerator extends ItemModelProvider {
         basicItem(ModItems.GLOW_BERRIES_BUCKET.get());
 
         basicItem(ModItems.EMPTY_BOTTLE.get());
+        basicItem(ModItems.MOLOTOV.get());
         basicItem(ModItems.WINE.get());
+        basicItem(ModItems.CHAMPAGNE.get());
+        basicItem(ModItems.VODKA.get());
+        basicItem(ModItems.BRANDY.get());
+        basicItem(ModItems.CARIGNAN.get());
+        basicItem(ModItems.SAKURA_WINE.get());
+        basicItem(ModItems.PLUM_WINE.get());
+        basicItem(ModItems.WHISKEY.get());
+        basicItem(ModItems.ICE_WINE.get());
+        basicItem(ModItems.VINEGAR.get());
     }
 
     private void sofa(String color) {

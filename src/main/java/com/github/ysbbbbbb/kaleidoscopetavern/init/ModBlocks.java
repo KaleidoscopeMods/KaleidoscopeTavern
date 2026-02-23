@@ -132,8 +132,93 @@ public class ModBlocks {
     public static RegistryObject<Block> PRESSING_TUB = BLOCKS.register("pressing_tub", PressingTubBlock::new);
     // 空瓶
     public static RegistryObject<Block> EMPTY_BOTTLE = BLOCKS.register("empty_bottle", BottleBlock::new);
+    // 燃烧瓶
+    public static RegistryObject<Block> MOLOTOV = BLOCKS.register("molotov", BottleBlock::new);
+
     // 酒
     public static RegistryObject<Block> WINE = BLOCKS.register("wine", DrinkBlock.create().maxCount(4).shapes(
+            Block.box(6, 0, 6, 10, 16, 10),
+            Block.box(2, 0, 6, 14, 16, 10),
+            Shapes.or(
+                    Block.box(2, 0, 10, 14, 16, 14),
+                    Block.box(6, 0, 2, 10, 16, 14)
+            ),
+            Block.box(2, 0, 2, 14, 16, 14)
+    ).build());
+
+    public static RegistryObject<Block> CHAMPAGNE = BLOCKS.register("champagne", DrinkBlock.create().maxCount(4).shapes(
+            Block.box(6, 0, 6, 10, 16, 10),
+            Block.box(2, 0, 6, 14, 16, 10),
+            Shapes.or(
+                    Block.box(2, 0, 10, 14, 16, 14),
+                    Block.box(6, 0, 2, 10, 16, 14)
+            ),
+            Block.box(2, 0, 2, 14, 16, 14)
+    ).build());
+
+    public static RegistryObject<Block> VODKA = BLOCKS.register("vodka", DrinkBlock.create().maxCount(4).shapes(
+            Block.box(4, 0, 4, 12, 15, 12),
+            Block.box(0, 0, 4, 16, 15, 12),
+            Shapes.or(
+                    Block.box(0, 0, 8, 16, 15, 16),
+                    Block.box(4, 0, 0, 12, 15, 16)
+            ),
+            Block.box(0, 0, 0, 16, 16, 16)
+    ).build());
+
+    public static RegistryObject<Block> BRANDY = BLOCKS.register("brandy", DrinkBlock.create().maxCount(3).shapes(
+            Block.box(3, 0, 6, 13, 13, 10),
+            Block.box(1, 0, 3, 15, 12, 12),
+            Block.box(1, 0, 1, 16, 12, 13)
+    ).build());
+
+    public static RegistryObject<Block> CARIGNAN = BLOCKS.register("carignan", DrinkBlock.create().maxCount(3).shapes(
+            Block.box(3, 0, 6, 13, 12, 10),
+            Block.box(1, 0, 3, 15, 12, 12),
+            Block.box(0, 0, 1, 16, 12, 13)
+    ).build());
+
+    public static RegistryObject<Block> SAKURA_WINE = BLOCKS.register("sakura_wine", DrinkBlock.create().maxCount(4).shapes(
+            Block.box(6, 0, 6, 10, 16, 10),
+            Block.box(2, 0, 6, 14, 16, 10),
+            Shapes.or(
+                    Block.box(2, 0, 10, 14, 16, 14),
+                    Block.box(6, 0, 2, 10, 16, 14)
+            ),
+            Block.box(2, 0, 2, 14, 16, 14)
+    ).build());
+
+    public static RegistryObject<Block> PLUM_WINE = BLOCKS.register("plum_wine", DrinkBlock.create().maxCount(4).shapes(
+            Block.box(6, 0, 6, 10, 12, 10),
+            Block.box(3, 0, 6, 13, 12, 10),
+            Shapes.or(
+                    Block.box(3, 0, 9, 13, 12, 13),
+                    Block.box(6, 0, 3, 10, 12, 13)
+            ),
+            Block.box(3, 0, 3, 13, 12, 13)
+    ).build());
+
+    public static RegistryObject<Block> WHISKEY = BLOCKS.register("whiskey", DrinkBlock.create().maxCount(4).shapes(
+            Block.box(6, 0, 6, 10, 16, 10),
+            Block.box(2, 0, 6, 14, 16, 10),
+            Shapes.or(
+                    Block.box(2, 0, 10, 14, 16, 14),
+                    Block.box(6, 0, 2, 10, 16, 14)
+            ),
+            Block.box(2, 0, 2, 14, 16, 14)
+    ).build());
+
+    public static RegistryObject<Block> ICE_WINE = BLOCKS.register("ice_wine", DrinkBlock.create().maxCount(4).shapes(
+            Block.box(6, 0, 6, 10, 16, 10),
+            Block.box(2, 0, 6, 14, 16, 10),
+            Shapes.or(
+                    Block.box(2, 0, 10, 14, 16, 14),
+                    Block.box(6, 0, 2, 10, 16, 14)
+            ),
+            Block.box(2, 0, 2, 14, 16, 14)
+    ).build());
+
+    public static RegistryObject<Block> VINEGAR = BLOCKS.register("vinegar", DrinkBlock.create().maxCount(4).shapes(
             Block.box(6, 0, 6, 10, 16, 10),
             Block.box(2, 0, 6, 14, 16, 10),
             Shapes.or(
@@ -177,7 +262,9 @@ public class ModBlocks {
 
     public static RegistryObject<BlockEntityType<DrinkBlockEntity>> DRINK_BE = BLOCK_ENTITIES.register(
             "drink", () -> BlockEntityType.Builder
-                    .of(DrinkBlockEntity::new, WINE.get())
-                    .build(null)
+                    .of(DrinkBlockEntity::new,
+                            WINE.get(), CHAMPAGNE.get(), VODKA.get(), BRANDY.get(), CARIGNAN.get(),
+                            SAKURA_WINE.get(), PLUM_WINE.get(), WHISKEY.get(), ICE_WINE.get(), VINEGAR.get()
+                    ).build(null)
     );
 }

@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 
-public class JuiceBucketItem extends Item {
+public class JuiceBucketItem extends Item implements IHasContainer {
     public JuiceBucketItem() {
         super(new Properties().stacksTo(16).craftRemainder(Items.BUCKET));
     }
@@ -28,8 +28,10 @@ public class JuiceBucketItem extends Item {
         if (entity instanceof Player player && !player.isCreative()) {
             stack.shrink(1);
         }
-        return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;
+
+        return returnContainerToEntity(stack, level, entity);
     }
+
 
     @Override
     public int getUseDuration(ItemStack stack) {
@@ -44,5 +46,10 @@ public class JuiceBucketItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         return ItemUtils.startUsingInstantly(level, player, hand);
+    }
+
+    @Override
+    public Item getContainerItem() {
+        return Items.BUCKET;
     }
 }

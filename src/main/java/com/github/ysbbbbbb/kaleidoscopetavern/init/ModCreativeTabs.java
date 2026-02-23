@@ -111,6 +111,16 @@ public class ModCreativeTabs {
                 output.accept(ModItems.GLOW_BERRIES_BUCKET.get());
 
                 output.accept(ModItems.EMPTY_BOTTLE.get());
+                output.accept(ModItems.MOLOTOV.get());
                 output.accept(ModItems.WINE.get());
+                output.accept(ModItems.CHAMPAGNE.get());
+                output.accept(ModItems.VODKA.get());
+                output.accept(ModItems.BRANDY.get());
+                output.accept(ModItems.CARIGNAN.get());
+                output.accept(ModItems.SAKURA_WINE.get());
+                output.accept(ModItems.PLUM_WINE.get());
+                output.accept(ModItems.WHISKEY.get());
+                output.accept(ModItems.ICE_WINE.get());
+                output.accept(ModItems.VINEGAR.get());
             }).build());
 }
