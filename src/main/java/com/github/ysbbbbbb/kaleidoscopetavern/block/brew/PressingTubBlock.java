@@ -44,7 +44,7 @@ public class PressingTubBlock extends BaseEntityBlock implements SimpleWaterlogg
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final VoxelShape SHAPE = Shapes.join(
             Block.box(0, 0, 0, 16, 8, 16),
-            Block.box(2, 2, 2, 14, 8, 14),
+            Block.box(2, 4, 2, 14, 8, 14),
             BooleanOp.ONLY_FIRST
     );
 
@@ -69,7 +69,9 @@ public class PressingTubBlock extends BaseEntityBlock implements SimpleWaterlogg
         // 如果是空手，尝试取出
         ItemStack itemInHand = player.getItemInHand(hand);
         if (itemInHand.isEmpty()) {
-            if (pressingTub.removeIngredient(player)) {
+            // 潜行时一次取出一组（64 个），否则一次取出一个
+            int removeCount = player.isSecondaryUseActive() ? 64 : 1;
+            if (pressingTub.removeIngredient(player, removeCount)) {
                 return InteractionResult.SUCCESS;
             }
             return InteractionResult.PASS;

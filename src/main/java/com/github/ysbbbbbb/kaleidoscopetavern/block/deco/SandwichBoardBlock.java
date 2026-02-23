@@ -84,7 +84,7 @@ public class SandwichBoardBlock extends BaseEntityBlock implements SimpleWaterlo
                 BlockState transform = TRANSFORM_MAP.get(item)
                         .defaultBlockState()
                         .setValue(FACING, state.getValue(FACING))
-                        .setValue(HALF, state.getValue(HALF))
+                        .setValue(HALF, Half.BOTTOM)
                         .setValue(WATERLOGGED, state.getValue(WATERLOGGED));
 
                 // 复制 BlockEntity 数据

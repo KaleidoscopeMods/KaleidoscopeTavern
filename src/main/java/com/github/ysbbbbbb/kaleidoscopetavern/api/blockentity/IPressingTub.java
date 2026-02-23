@@ -69,8 +69,9 @@ public interface IPressingTub {
      * </ul>
      *
      * @param target 执行取回操作的实体，通常为玩家，用于确定物品的归还目标
+     * @param count  要取回的物品数量，若超过当前物品槽内的数量，则取回全部剩余物品
      */
-    boolean removeIngredient(LivingEntity target);
+    boolean removeIngredient(LivingEntity target, int count);
 
     /**
      * 当实体在果盆上落地或跳踩时触发压榨操作，成功返回 {@code true}，失败返回 {@code false}。
