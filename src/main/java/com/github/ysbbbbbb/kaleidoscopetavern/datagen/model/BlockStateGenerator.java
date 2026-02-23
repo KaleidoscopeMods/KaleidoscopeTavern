@@ -1,6 +1,7 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.datagen.model;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
+import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.DrinkBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.SandwichBoardBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.SofaBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.StepladderBlock;
@@ -128,8 +129,13 @@ public class BlockStateGenerator extends BlockStateProvider {
         // 葡萄作物
         grapeCrop(ModBlocks.GRAPE_CROP);
 
-        // 果盘
+        // 果盆
         simpleBlock(ModBlocks.PRESSING_TUB.get(), new ModelFile.UncheckedModelFile(modLoc("block/brew/pressing_tub")));
+
+        // 空瓶
+        horizontalBlock(ModBlocks.EMPTY_BOTTLE.get(), new ModelFile.UncheckedModelFile(modLoc("block/brew/empty_bottle")));
+        // 酒
+        drink(ModBlocks.WINE.get(), "wine");
     }
 
     private void sofa(RegistryObject<Block> block, String color) {
@@ -226,5 +232,15 @@ public class BlockStateGenerator extends BlockStateProvider {
             ModelFile.UncheckedModelFile modelFile = new ModelFile.UncheckedModelFile(file);
             return ConfiguredModel.builder().modelFile(modelFile).build();
         });
+    }
+
+    private void drink(Block block, String name) {
+        if (block instanceof DrinkBlock drinkBlock) {
+            horizontalBlock(block, blockState -> {
+                int count = blockState.getValue(drinkBlock.getCountProperty());
+                ResourceLocation file = modLoc("block/brew/drink/%s/count%d".formatted(name, count));
+                return new ModelFile.UncheckedModelFile(file);
+            });
+        }
     }
 }

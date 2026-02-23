@@ -109,5 +109,8 @@ public class ModCreativeTabs {
                 output.accept(ModItems.GRAPE_BUCKET.get());
                 output.accept(ModItems.SWEET_BERRIES_BUCKET.get());
                 output.accept(ModItems.GLOW_BERRIES_BUCKET.get());
+
+                output.accept(ModItems.EMPTY_BOTTLE.get());
+                output.accept(ModItems.WINE.get());
             }).build());
 }
