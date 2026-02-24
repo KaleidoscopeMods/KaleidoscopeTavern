@@ -10,10 +10,11 @@ import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,9 +25,8 @@ public class PressingTubBuilder implements RecipeBuilder {
     private static final String NAME = "pressing_tub";
 
     private Ingredient ingredient = Ingredient.EMPTY;
-    private ItemStack result = ItemStack.EMPTY;
-    private Ingredient carrier = PressingTubRecipeSerializer.DEFAULT_CARRIER;
-    private ResourceLocation liquidTexture = PressingTubRecipeSerializer.DEFAULT_LIQUID_TEXTURE;
+    private Fluid fluid = Fluids.WATER;
+    private int fluidAmount = PressingTubRecipeSerializer.DEFAULT_LIQUID_AMOUNT;
 
     public static PressingTubBuilder builder() {
         return new PressingTubBuilder();
@@ -42,23 +42,13 @@ public class PressingTubBuilder implements RecipeBuilder {
         return this;
     }
 
-    public PressingTubBuilder setResult(ItemLike itemLike) {
-        this.result = new ItemStack(itemLike);
+    public PressingTubBuilder setFluid(Fluid fluid) {
+        this.fluid = fluid;
         return this;
     }
 
-    public PressingTubBuilder setCarrier(ItemLike itemLike) {
-        this.carrier = Ingredient.of(itemLike);
-        return this;
-    }
-
-    public PressingTubBuilder setCarrier(TagKey<Item> itemLike) {
-        this.carrier = Ingredient.of(itemLike);
-        return this;
-    }
-
-    public PressingTubBuilder setLiquidTexture(ResourceLocation liquidTexture) {
-        this.liquidTexture = liquidTexture;
+    public PressingTubBuilder setFluidAmount(int amount) {
+        this.fluidAmount = amount;
         return this;
     }
 
@@ -74,7 +64,7 @@ public class PressingTubBuilder implements RecipeBuilder {
 
     @Override
     public Item getResult() {
-        return this.result.getItem();
+        return this.fluid.getBucket();
     }
 
     @Override
@@ -92,33 +82,28 @@ public class PressingTubBuilder implements RecipeBuilder {
 
     @Override
     public void save(Consumer<FinishedRecipe> recipeOutput, ResourceLocation id) {
-        recipeOutput.accept(new PressingTubFinishedRecipe(id, this.ingredient, this.result, this.carrier, this.liquidTexture));
+        recipeOutput.accept(new PressingTubFinishedRecipe(id, this.ingredient, this.fluid, this.fluidAmount));
     }
 
     public static class PressingTubFinishedRecipe implements FinishedRecipe {
         private final ResourceLocation id;
         private final Ingredient ingredient;
-        private final ItemStack result;
-        private final Ingredient carrier;
-        private final ResourceLocation liquidTexture;
+        private final Fluid fluid;
+        private final int fluidAmount;
 
-        public PressingTubFinishedRecipe(ResourceLocation id, Ingredient ingredient, ItemStack result,
-                                         Ingredient carrier, ResourceLocation liquidTexture) {
+        public PressingTubFinishedRecipe(ResourceLocation id, Ingredient ingredient, Fluid fluid, int fluidAmount) {
             this.id = id;
             this.ingredient = ingredient;
-            this.result = result;
-            this.carrier = carrier;
-            this.liquidTexture = liquidTexture;
+            this.fluid = fluid;
+            this.fluidAmount = fluidAmount;
         }
 
         @Override
         public void serializeRecipeData(JsonObject json) {
             json.add("ingredient", this.ingredient.toJson());
-            JsonObject itemJson = new JsonObject();
-            itemJson.addProperty("item", Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(this.result.getItem())).toString());
-            json.add("result", itemJson);
-            json.add("carrier", this.carrier.toJson());
-            json.addProperty("liquid_texture", this.liquidTexture.toString());
+            ResourceLocation fluidId = Objects.requireNonNull(ForgeRegistries.FLUIDS.getKey(this.fluid));
+            json.addProperty("fluid", fluidId.toString());
+            json.addProperty("fluid_amount", this.fluidAmount);
         }
 
         @Override

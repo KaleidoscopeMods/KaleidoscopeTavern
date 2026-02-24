@@ -1,31 +1,31 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModRecipes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.SingleItemRecipe;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
 import org.apache.commons.lang3.StringUtils;
 
 public class PressingTubRecipe extends SingleItemRecipe {
     /**
-     * 取出物品时的容器，默认是铁桶
+     * 输出的流体种类，默认为水
      */
-    private final Ingredient carrier;
+    private final Fluid fluid;
     /**
-     * 压榨时渲染的液体贴图，默认是水的贴图
+     * 输出的流体数量，默认 125 mB，相当于一个标准桶的八分之一
      */
-    private final ResourceLocation liquidTexture;
+    private final int fluidAmount;
 
-    public PressingTubRecipe(ResourceLocation id, Ingredient ingredient, ItemStack result,
-                             Ingredient carrier, ResourceLocation liquidTexture) {
+    public PressingTubRecipe(ResourceLocation id, Ingredient ingredient,
+                             Fluid fluid, int fluidAmount) {
         super(ModRecipes.PRESSING_TUB_RECIPE, ModRecipes.PRESSING_TUB_SERIALIZER.get(),
-                id, StringUtils.EMPTY, ingredient, result);
-        this.carrier = carrier;
-        this.liquidTexture = liquidTexture;
+                id, StringUtils.EMPTY, ingredient, fluid.getBucket().getDefaultInstance());
+        this.fluid = fluid;
+        this.fluidAmount = fluidAmount;
     }
 
     @Override
@@ -46,39 +46,11 @@ public class PressingTubRecipe extends SingleItemRecipe {
         return this.result;
     }
 
-    public Ingredient getCarrier() {
-        return carrier;
+    public Fluid getFluid() {
+        return fluid;
     }
 
-    public ResourceLocation getLiquidTexture() {
-        return liquidTexture;
-    }
-
-    /**
-     * 仅用于 BlockEntity 的缓存，避免每次都要查询配方来获取这些信息
-     *
-     */
-    public record PressingTubRecipeCache(
-            ResourceLocation id,
-            ItemStack result,
-            ResourceLocation liquidTexture) {
-        public static PressingTubRecipeCache fromRecipe(PressingTubRecipe recipe) {
-            return new PressingTubRecipeCache(recipe.getId(), recipe.getResult(), recipe.getLiquidTexture());
-        }
-
-        public static PressingTubRecipeCache fromTag(CompoundTag tag) {
-            ResourceLocation id = new ResourceLocation(tag.getString("id"));
-            ItemStack result = ItemStack.of(tag.getCompound("result"));
-            ResourceLocation liquidTexture = new ResourceLocation(tag.getString("liquid_texture"));
-            return new PressingTubRecipeCache(id, result, liquidTexture);
-        }
-
-        public CompoundTag toTag() {
-            CompoundTag tag = new CompoundTag();
-            tag.putString("id", id.toString());
-            tag.put("result", result.save(new CompoundTag()));
-            tag.putString("liquid_texture", liquidTexture.toString());
-            return tag;
-        }
+    public int getFluidAmount() {
+        return fluidAmount;
     }
 }

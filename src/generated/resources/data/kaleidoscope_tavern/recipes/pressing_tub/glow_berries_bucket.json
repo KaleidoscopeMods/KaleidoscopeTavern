@@ -1,13 +1,8 @@
 {
   "type": "kaleidoscope_tavern:pressing_tub",
-  "carrier": {
-    "item": "minecraft:bucket"
-  },
+  "fluid": "kaleidoscope_tavern:glow_berries_juice",
+  "fluid_amount": 125,
   "ingredient": {
     "item": "minecraft:glow_berries"
-  },
-  "liquid_texture": "kaleidoscope_tavern:textures/pressing_tub/glow_berries_juice.png",
-  "result": {
-    "item": "kaleidoscope_tavern:glow_berries_bucket"
   }
 }

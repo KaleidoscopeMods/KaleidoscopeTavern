@@ -3,7 +3,6 @@ package com.github.ysbbbbbb.kaleidoscopetavern.blockentity.brew;
 import com.github.ysbbbbbb.kaleidoscopetavern.api.blockentity.IPressingTub;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.BaseBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe.PressingTubRecipe;
-import com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe.PressingTubRecipe.PressingTubRecipeCache;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModRecipes;
 import com.github.ysbbbbbb.kaleidoscopetavern.util.ItemUtils;
@@ -13,8 +12,8 @@ import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -22,14 +21,21 @@ import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.SoundActions;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidType;
+import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
@@ -52,17 +58,24 @@ public class PressingTubBlockEntity extends BaseBlockEntity implements IPressing
         }
     };
     /**
-     * 当前压榨桶内的液体量，强制认定 8 数量才能够完成压榨并取出
+     * 当前压榨桶内的液体量，最大为 1000 mb
      */
-    private int liquidAmount = 0;
-    /**
-     * 当前压榨桶缓存的配方，用于持续压榨的判断，客户端渲染和者交互提示等用途，默认值为 null 代表没有缓存的配方
-     */
-    private @Nullable PressingTubRecipeCache cachedRecipe = null;
+    private final FluidTank fluid = new FluidTank(FluidType.BUCKET_VOLUME) {
+        @Override
+        protected void onContentsChanged() {
+            // 液体量改变时，需要强制刷新状态，以便客户端同步
+            refresh();
+        }
+    };
+
     /**
      * 物品栏的 Capability，用于漏斗自动化
      */
     private @Nullable LazyOptional<IItemHandler> itemCapability = null;
+    /**
+     * 流体栏的 Capability，用于科技模组的自动化
+     */
+    private @Nullable LazyOptional<FluidTank> fluidCapability = null;
 
     public PressingTubBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlocks.PRESSING_TUB_BE.get(), pos, state);
@@ -72,22 +85,14 @@ public class PressingTubBlockEntity extends BaseBlockEntity implements IPressing
     public void load(CompoundTag tag) {
         super.load(tag);
         this.items.deserializeNBT(tag.getCompound("items"));
-        this.liquidAmount = tag.getInt("liquid_amount");
-        if (tag.contains("cached_recipe")) {
-            this.cachedRecipe = PressingTubRecipeCache.fromTag(tag.getCompound("cached_recipe"));
-        } else {
-            this.cachedRecipe = null;
-        }
+        this.fluid.readFromNBT(tag.getCompound("fluid"));
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         tag.put("items", this.items.serializeNBT());
-        tag.putInt("liquid_amount", this.liquidAmount);
-        if (this.cachedRecipe != null) {
-            tag.put("cached_recipe", this.cachedRecipe.toTag());
-        }
+        tag.put("fluid", this.fluid.writeToNBT(new CompoundTag()));
     }
 
     @Override
@@ -143,7 +148,7 @@ public class PressingTubBlockEntity extends BaseBlockEntity implements IPressing
         ItemStack stack = items.getStackInSlot(0);
         if (stack.isEmpty()) {
             // 如果有流体，播放正常压榨效果
-            if (this.liquidAmount > 0) {
+            if (this.getLiquidAmount() > 0) {
                 playSuccessPressEffect(null);
             } else {
                 // 没有流体，播放失败压榨效果
@@ -154,15 +159,12 @@ public class PressingTubBlockEntity extends BaseBlockEntity implements IPressing
 
         SimpleContainer container = new SimpleContainer(stack);
         return this.quickCheck.getRecipeFor(container, level).map(recipe -> {
-            // 没有缓存配方则设置缓存配方
-            if (this.cachedRecipe == null) {
-                this.cachedRecipe = PressingTubRecipeCache.fromRecipe(recipe);
-                // 第一下的压榨音效
-                playSuccessPressEffect(stack);
-            }
+            // 准备放入的流体
+            FluidStack fluidStack = new FluidStack(recipe.getFluid(), recipe.getFluidAmount());
+            FluidStack fluidInTub = this.fluid.getFluid();
 
-            // 配方不同，无法继续压榨
-            if (!this.cachedRecipe.id().equals(recipe.getId())) {
+            // 如果已经有流体，但是结果不匹配，无法继续压榨
+            if (!fluidInTub.isEmpty() && !fluidStack.isFluidEqual(fluidInTub)) {
                 playFailPressEffect(stack);
                 // 丢出内容物并刷新状态
                 if (this.dropContents()) {
@@ -172,7 +174,7 @@ public class PressingTubBlockEntity extends BaseBlockEntity implements IPressing
             }
 
             // 液体已满，无法继续压榨
-            if (this.liquidAmount >= IPressingTub.MAX_LIQUID_AMOUNT) {
+            if (this.getLiquidAmount() >= IPressingTub.MAX_LIQUID_AMOUNT) {
                 playFinishedPressEffect();
                 return false;
             }
@@ -185,9 +187,10 @@ public class PressingTubBlockEntity extends BaseBlockEntity implements IPressing
             }
 
             // 成功压榨，增加液体量，减少物品槽内的物品数量
-            playSuccessPressEffect(stack);
-            this.liquidAmount++;
+            this.fluid.fill(fluidStack, IFluidHandler.FluidAction.EXECUTE);
             this.items.extractItem(0, 1, false);
+
+            playSuccessPressEffect(stack);
             return true;
         }).orElseGet(() -> {
             playFailPressEffect(stack);
@@ -287,50 +290,41 @@ public class PressingTubBlockEntity extends BaseBlockEntity implements IPressing
 
     @Override
     public boolean getResult(LivingEntity target, ItemStack carriedStack) {
-        if (this.cachedRecipe == null || level == null) {
-            this.clearData();
-            this.refresh();
+        if (level == null) {
             return false;
         }
-        if (this.liquidAmount < IPressingTub.MAX_LIQUID_AMOUNT) {
+        // 必须完全满液体才能取出产物
+        if (this.fluid.getFluidAmount() < IPressingTub.MAX_LIQUID_AMOUNT) {
             return false;
         }
-        ResourceLocation id = this.cachedRecipe.id();
-        return level.getRecipeManager().byKey(id).map(recipe -> {
-            if (recipe instanceof PressingTubRecipe pressingTubRecipe) {
-                if (pressingTubRecipe.getCarrier().test(carriedStack)) {
-                    ItemStack output = this.cachedRecipe.result().copy();
-                    ItemUtils.getItemToLivingEntity(target, output);
+
+        // 复制一份物品
+        ItemStack copy = carriedStack.copyWithCount(1);
+        // 开始把果盆中的流体转移到容器里
+        return FluidUtil.getFluidHandler(copy).map(stackFluid -> {
+            // 先模拟转移一次
+            FluidStack transfer = FluidUtil.tryFluidTransfer(stackFluid, fluid, IPressingTub.MAX_LIQUID_AMOUNT, false);
+            // 如果成功转移
+            if (!transfer.isEmpty()) {
+                // 真正转移液体
+                FluidUtil.tryFluidTransfer(stackFluid, fluid, IPressingTub.MAX_LIQUID_AMOUNT, true);
+                // 获取结果
+                ItemStack result = stackFluid.getContainer();
+                // 扣除玩家物品
+                if (!(target instanceof Player player) || !player.isCreative()) {
                     carriedStack.shrink(1);
-                    this.clearData();
-                    this.refresh();
-
-                    if (level instanceof ServerLevel) {
-                        level.playSound(null,
-                                worldPosition.getX() + 0.5,
-                                worldPosition.getY() + 0.5,
-                                worldPosition.getZ() + 0.5,
-                                SoundEvents.BUCKET_FILL,
-                                SoundSource.BLOCKS,
-                                0.5F + this.level.random.nextFloat(),
-                                this.level.random.nextFloat() * 0.7F + 0.6F);
-                    }
-
-                    return true;
                 }
-                // 容器不匹配，什么也不做
-            } else {
-                // 配方类型不匹配，清除数据并刷新状态
-                this.clearData();
-                this.refresh();
+                // 给玩家物品
+                ItemUtils.getItemToLivingEntity(target, result);
+                // 播放音效
+                SoundEvent sound = transfer.getFluid().getFluidType().getSound(transfer, SoundActions.BUCKET_FILL);
+                if (sound != null) {
+                    target.playSound(sound);
+                }
+                return true;
             }
             return false;
-        }).orElseGet(() -> {
-            // 没有找到配方，清除数据并刷新状态
-            this.clearData();
-            this.refresh();
-            return false;
-        });
+        }).orElse(false);
     }
 
     public boolean dropContents() {
@@ -392,46 +386,40 @@ public class PressingTubBlockEntity extends BaseBlockEntity implements IPressing
         }
     }
 
-    public void clearData() {
-        // 物品栏不清除，其他都清除
-        this.liquidAmount = 0;
-        this.cachedRecipe = null;
-    }
-
     @Override
     public ItemStackHandler getItems() {
         return items;
     }
 
     @Override
+    public FluidTank getFluid() {
+        return fluid;
+    }
+
+    @Override
     public int getLiquidAmount() {
-        return liquidAmount;
-    }
-
-    @Override
-    public void setLiquidAmount(int liquidAmount) {
-        this.liquidAmount = Math.min(liquidAmount, IPressingTub.MAX_LIQUID_AMOUNT);
-    }
-
-    @Override
-    public @Nullable PressingTubRecipeCache getCachedRecipe() {
-        return this.cachedRecipe;
-    }
-
-    @Override
-    public void setCachedRecipe(@Nullable PressingTubRecipeCache cachedRecipe) {
-        this.cachedRecipe = cachedRecipe;
+        return this.fluid.getFluidAmount();
     }
 
     @Override
     @SuppressWarnings("all")
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        // 只能输入，不能输出
-        if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER && (side == null || side.getAxis() != Direction.Axis.Y)) {
-            if (this.itemCapability == null) {
-                this.itemCapability = LazyOptional.of(() -> this.items);
+        if (!this.remove) {
+            // 物品只能输入，不能输出
+            if (cap == ForgeCapabilities.ITEM_HANDLER && (side == null || side.getAxis() != Direction.Axis.Y)) {
+                if (this.itemCapability == null) {
+                    this.itemCapability = LazyOptional.of(() -> this.items);
+                }
+                return this.itemCapability.cast();
             }
-            return this.itemCapability.cast();
+
+            // 流体可以输入输出
+            if (cap == ForgeCapabilities.FLUID_HANDLER) {
+                if (this.fluidCapability == null) {
+                    this.fluidCapability = LazyOptional.of(() -> this.fluid);
+                }
+                return this.fluidCapability.cast();
+            }
         }
         return super.getCapability(cap, side);
     }
@@ -439,9 +427,16 @@ public class PressingTubBlockEntity extends BaseBlockEntity implements IPressing
     @Override
     public void setBlockState(BlockState blockState) {
         super.setBlockState(blockState);
+
         if (this.itemCapability != null) {
             LazyOptional<?> oldHandler = this.itemCapability;
             this.itemCapability = null;
+            oldHandler.invalidate();
+        }
+
+        if (this.fluidCapability != null) {
+            LazyOptional<?> oldHandler = this.fluidCapability;
+            this.fluidCapability = null;
             oldHandler.invalidate();
         }
     }
@@ -449,9 +444,15 @@ public class PressingTubBlockEntity extends BaseBlockEntity implements IPressing
     @Override
     public void invalidateCaps() {
         super.invalidateCaps();
+
         if (itemCapability != null) {
             itemCapability.invalidate();
             itemCapability = null;
+        }
+
+        if (fluidCapability != null) {
+            fluidCapability.invalidate();
+            fluidCapability = null;
         }
     }
 }

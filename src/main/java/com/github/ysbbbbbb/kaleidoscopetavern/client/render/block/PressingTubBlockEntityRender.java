@@ -1,32 +1,34 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.client.render.block;
 
+import com.github.ysbbbbbb.kaleidoscopetavern.api.blockentity.IPressingTub;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.brew.PressingTubBlockEntity;
-import com.github.ysbbbbbb.kaleidoscopetavern.client.model.brew.JuiceLayerModel;
-import com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe.PressingTubRecipe.PressingTubRecipeCache;
+import com.github.ysbbbbbb.kaleidoscopetavern.util.RenderUtils;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
 
 public class PressingTubBlockEntityRender implements BlockEntityRenderer<PressingTubBlockEntity> {
     private final ItemRenderer itemRenderer;
-    private final JuiceLayerModel juiceLayer;
 
     public PressingTubBlockEntityRender(BlockEntityRendererProvider.Context context) {
         this.itemRenderer = context.getItemRenderer();
-        this.juiceLayer = new JuiceLayerModel(context.bakeLayer(JuiceLayerModel.LAYER_LOCATION));
     }
 
     @Override
     public void render(PressingTubBlockEntity pressingTub, float partialTick, PoseStack poseStack,
                        MultiBufferSource buffer, int packedLight, int packedOverlay) {
+        Level level = pressingTub.getLevel();
+        if (level == null) {
+            return;
+        }
+
         // 渲染四个位置的物品，多余的朝上堆叠
         ItemStack stack = pressingTub.getItems().getStackInSlot(0);
         int count = stack.getCount();
@@ -60,17 +62,10 @@ public class PressingTubBlockEntityRender implements BlockEntityRenderer<Pressin
         // 如果有流体，渲染流体
         int liquidAmount = pressingTub.getLiquidAmount();
         if (liquidAmount > 0) {
-            PressingTubRecipeCache cachedRecipe = pressingTub.getCachedRecipe();
-            if (cachedRecipe != null) {
-                ResourceLocation texture = cachedRecipe.liquidTexture();
-                poseStack.pushPose();
-                poseStack.translate(0, liquidAmount * 0.03125f, 0);
-                poseStack.translate(0.5, 1.5, 0.5);
-                poseStack.mulPose(Axis.ZN.rotationDegrees(180));
-                VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutoutNoCull(texture));
-                juiceLayer.renderToBuffer(poseStack, consumer, packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
-                poseStack.popPose();
-            }
+            float liquidPercent = liquidAmount / (float) IPressingTub.MAX_LIQUID_AMOUNT;
+            float y = 0.125f + liquidPercent * 0.25f;
+            Fluid fluid = pressingTub.getFluid().getFluid().getFluid();
+            RenderUtils.renderFluid(fluid, poseStack, buffer, packedLight, 12, y);
         }
     }
 

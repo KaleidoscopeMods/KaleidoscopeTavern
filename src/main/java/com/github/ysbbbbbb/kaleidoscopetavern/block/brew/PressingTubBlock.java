@@ -2,19 +2,16 @@ package com.github.ysbbbbbb.kaleidoscopetavern.block.brew;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.api.blockentity.IPressingTub;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.brew.PressingTubBlockEntity;
-import com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe.PressingTubRecipe;
-import com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe.PressingTubRecipe.PressingTubRecipeCache;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -35,6 +32,8 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.templates.FluidTank;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -171,7 +170,7 @@ public class PressingTubBlock extends BaseEntityBlock implements SimpleWaterlogg
         if (!stack.isEmpty()) {
             return stack;
         }
-        if (!(level instanceof ServerLevel serverLevel)) {
+        if (level.isClientSide()) {
             return stack;
         }
 
@@ -182,25 +181,13 @@ public class PressingTubBlock extends BaseEntityBlock implements SimpleWaterlogg
         if (pressingTub.getLiquidAmount() < IPressingTub.MAX_LIQUID_AMOUNT) {
             return stack;
         }
-
-        // 检查是否是铁桶容器
-        PressingTubRecipeCache cachedRecipe = pressingTub.getCachedRecipe();
-        if (cachedRecipe == null) {
-            return stack;
+        // 判断产物是否是铁桶容器的
+        FluidTank fluid = pressingTub.getFluid();
+        Item bucket = fluid.getFluid().getFluid().getBucket();
+        if (bucket instanceof BucketItem) {
+            fluid.drain(IPressingTub.MAX_LIQUID_AMOUNT, IFluidHandler.FluidAction.EXECUTE);
+            return bucket.getDefaultInstance();
         }
-        var recipeOpt = serverLevel.getRecipeManager().byKey(cachedRecipe.id());
-        if (recipeOpt.isEmpty()) {
-            return stack;
-        }
-        if (!(recipeOpt.get() instanceof PressingTubRecipe pressingTubRecipe)) {
-            return stack;
-        }
-        Ingredient carrier = pressingTubRecipe.getCarrier();
-        if (!carrier.test(Items.BUCKET.getDefaultInstance())) {
-            return stack;
-        }
-        pressingTub.clearData();
-        pressingTub.refresh();
-        return pressingTubRecipe.getResult().copy();
+        return stack;
     }
 }

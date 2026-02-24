@@ -1,13 +1,8 @@
 {
   "type": "kaleidoscope_tavern:pressing_tub",
-  "carrier": {
-    "item": "minecraft:bucket"
-  },
+  "fluid": "kaleidoscope_tavern:sweet_berries_juice",
+  "fluid_amount": 125,
   "ingredient": {
     "item": "minecraft:sweet_berries"
-  },
-  "liquid_texture": "kaleidoscope_tavern:textures/pressing_tub/sweet_berries_juice.png",
-  "result": {
-    "item": "kaleidoscope_tavern:sweet_berries_bucket"
   }
 }

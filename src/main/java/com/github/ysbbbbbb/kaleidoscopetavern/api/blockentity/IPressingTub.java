@@ -1,10 +1,10 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.api.blockentity;
 
-import com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe.PressingTubRecipe.PressingTubRecipeCache;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.fluids.FluidType;
+import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * 果盆方块实体的接口，定义果盆的核心交互逻辑。
@@ -12,7 +12,10 @@ import org.jetbrains.annotations.Nullable;
  * 果盆允许玩家放入食材并通过跳踩进行压榨，液体量达到 {@value #MAX_LIQUID_AMOUNT} 后可用容器取出产物。
  */
 public interface IPressingTub {
-    int MAX_LIQUID_AMOUNT = 8;
+    /**
+     * 果盆内液体的最大容量，单位为毫桶（mB），默认为 1000 mB，相当于一个标准桶的容量。
+     */
+    int MAX_LIQUID_AMOUNT = FluidType.BUCKET_VOLUME;
     float MIN_FALL_DISTANCE = 0.5F;
 
     /**
@@ -23,31 +26,18 @@ public interface IPressingTub {
     ItemStackHandler getItems();
 
     /**
+     * 获取果盆的液体槽。
+     * <p>
+     * 果盆内只能容纳一种液体，最大容量为 {@value #MAX_LIQUID_AMOUNT} 毫桶。
+     */
+    FluidTank getFluid();
+
+    /**
      * 获取果盆当前积累的液体量。
      * <p>
      * 液体量达到 {@value #MAX_LIQUID_AMOUNT} 时，方可取出压榨产物。
      */
     int getLiquidAmount();
-
-    /**
-     * 设置果盆当前的液体量，上限为 {@value #MAX_LIQUID_AMOUNT}。
-     */
-    void setLiquidAmount(int amount);
-
-    /**
-     * 获取果盆当前缓存的配方。
-     * <p>
-     * 用于持续压榨的判断、客户端渲染及交互提示等用途。返回 {@code null} 表示尚无缓存配方。
-     */
-    @Nullable
-    PressingTubRecipeCache getCachedRecipe();
-
-    /**
-     * 设置果盆当前缓存的配方。
-     * <p>
-     * 用于持续压榨的判断、客户端渲染及交互提示等用途。传入 {@code null} 表示清除缓存配方。
-     */
-    void setCachedRecipe(@Nullable PressingTubRecipeCache cachedRecipe);
 
     /**
      * 向果盆内添加待压榨的食材，成功返回 {@code true}，失败返回 {@code false}。
