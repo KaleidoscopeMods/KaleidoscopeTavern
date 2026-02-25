@@ -1,5 +1,8 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.datagen.recipe;
 
+import com.github.ysbbbbbb.kaleidoscopetavern.datagen.builder.BarrelBuilder;
+import com.github.ysbbbbbb.kaleidoscopetavern.init.ModFluids;
+import com.github.ysbbbbbb.kaleidoscopetavern.init.ModItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 
@@ -12,6 +15,9 @@ public class BarrelRecipeProvider extends ModRecipeProvider {
 
     @Override
     public void buildRecipes(Consumer<FinishedRecipe> consumer) {
-        // TODO: 在此添加酒桶配方
+        BarrelBuilder.builder()
+                .setFluid(ModFluids.GRAPE_JUICE.get())
+                .setResult(ModItems.WINE.get())
+                .save(consumer);
     }
 }

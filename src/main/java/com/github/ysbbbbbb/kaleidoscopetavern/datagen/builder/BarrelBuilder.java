@@ -2,6 +2,7 @@ package com.github.ysbbbbbb.kaleidoscopetavern.datagen.builder;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.crafting.serializer.BarrelRecipeSerializer;
+import com.github.ysbbbbbb.kaleidoscopetavern.init.ModItems;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModRecipes;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
@@ -16,6 +17,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,8 +31,8 @@ public class BarrelBuilder implements RecipeBuilder {
 
     private final List<Ingredient> ingredients = Lists.newArrayList();
 
-    private ResourceLocation liquid;
-    private Ingredient carrier = Ingredient.EMPTY;
+    private Fluid fluid = Fluids.WATER;
+    private Ingredient carrier = Ingredient.of(ModItems.EMPTY_BOTTLE.get());
     private ItemStack result = ItemStack.EMPTY;
     private int unitTime = BarrelRecipeSerializer.DEFAULT_UNIT_TIME;
 
@@ -52,8 +55,8 @@ public class BarrelBuilder implements RecipeBuilder {
         return this;
     }
 
-    public BarrelBuilder setLiquid(ResourceLocation liquid) {
-        this.liquid = liquid;
+    public BarrelBuilder setFluid(Fluid fluid) {
+        this.fluid = fluid;
         return this;
     }
 
@@ -107,22 +110,22 @@ public class BarrelBuilder implements RecipeBuilder {
 
     @Override
     public void save(Consumer<FinishedRecipe> recipeOutput, ResourceLocation id) {
-        recipeOutput.accept(new BarrelFinishedRecipe(id, this.ingredients, this.liquid, this.carrier, this.result, this.unitTime));
+        recipeOutput.accept(new BarrelFinishedRecipe(id, this.ingredients, this.fluid, this.carrier, this.result, this.unitTime));
     }
 
     public static class BarrelFinishedRecipe implements FinishedRecipe {
         private final ResourceLocation id;
         private final List<Ingredient> ingredients;
-        private final ResourceLocation liquid;
+        private final Fluid fluid;
         private final Ingredient carrier;
         private final ItemStack result;
         private final int unitTime;
 
-        public BarrelFinishedRecipe(ResourceLocation id, List<Ingredient> ingredients, ResourceLocation liquid,
+        public BarrelFinishedRecipe(ResourceLocation id, List<Ingredient> ingredients, Fluid fluid,
                                     Ingredient carrier, ItemStack result, int unitTime) {
             this.id = id;
             this.ingredients = ingredients;
-            this.liquid = liquid;
+            this.fluid = fluid;
             this.carrier = carrier;
             this.result = result;
             this.unitTime = unitTime;
@@ -130,13 +133,16 @@ public class BarrelBuilder implements RecipeBuilder {
 
         @Override
         public void serializeRecipeData(JsonObject json) {
-            JsonArray ingredientsArray = new JsonArray();
-            for (Ingredient ingredient : this.ingredients) {
-                ingredientsArray.add(ingredient.toJson());
+            // Ingredient 是全空时，不写入 ingredients 字段
+            if (!this.ingredients.stream().allMatch(Ingredient::isEmpty)) {
+                JsonArray ingredientsArray = new JsonArray();
+                for (Ingredient ingredient : this.ingredients) {
+                    ingredientsArray.add(ingredient.toJson());
+                }
+                json.add("ingredients", ingredientsArray);
             }
-            json.add("ingredients", ingredientsArray);
 
-            json.addProperty("liquid", this.liquid.toString());
+            json.addProperty("fluid", Objects.requireNonNull(ForgeRegistries.FLUIDS.getKey(this.fluid)).toString());
 
             json.add("carrier", this.carrier.toJson());
 

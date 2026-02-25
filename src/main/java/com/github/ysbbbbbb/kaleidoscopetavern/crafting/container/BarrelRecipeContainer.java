@@ -1,28 +1,32 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.crafting.container;
 
 import net.minecraft.core.NonNullList;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.material.Fluid;
 
 import java.util.List;
 
 public class BarrelRecipeContainer extends SimpleContainer {
-    private final ResourceLocation liquid;
+    private final Fluid fluid;
 
-    public BarrelRecipeContainer(List<ItemStack> items, ResourceLocation liquid) {
+    public BarrelRecipeContainer(List<ItemStack> items, Fluid fluid) {
         super(items.size());
         for (int i = 0; i < items.size(); i++) {
             this.setItem(i, items.get(i));
         }
-        this.liquid = liquid;
+        this.fluid = fluid;
     }
 
-    public ResourceLocation getLiquid() {
-        return liquid;
+    public Fluid getFluid() {
+        return fluid;
     }
 
     public NonNullList<ItemStack> getItems() {
         return items;
+    }
+
+    public boolean itemsIsEmpty() {
+        return items.stream().allMatch(ItemStack::isEmpty);
     }
 }

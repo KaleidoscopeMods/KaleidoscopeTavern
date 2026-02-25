@@ -18,8 +18,8 @@ import static net.minecraft.util.GsonHelper.getAsJsonArray;
 import static net.minecraft.util.GsonHelper.getAsJsonObject;
 
 public class PressingTubRecipeSerializer implements RecipeSerializer<PressingTubRecipe> {
-    public static final ResourceLocation DEFAULT_LIQUID_ID = new ResourceLocation("minecraft", "water");
-    public static final int DEFAULT_LIQUID_AMOUNT = IPressingTub.MAX_LIQUID_AMOUNT / 8;
+    public static final ResourceLocation DEFAULT_FLUID_ID = new ResourceLocation("minecraft", "water");
+    public static final int DEFAULT_FLUID_AMOUNT = IPressingTub.MAX_FLUID_AMOUNT / 8;
 
     @Override
     public PressingTubRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
@@ -30,13 +30,13 @@ public class PressingTubRecipeSerializer implements RecipeSerializer<PressingTub
             ingredient = Ingredient.fromJson(getAsJsonObject(json, "ingredient"), false);
         }
 
-        ResourceLocation fluidId = new ResourceLocation(GsonHelper.getAsString(json, "fluid", DEFAULT_LIQUID_ID.toString()));
+        ResourceLocation fluidId = new ResourceLocation(GsonHelper.getAsString(json, "fluid", DEFAULT_FLUID_ID.toString()));
         Fluid fluid = ForgeRegistries.FLUIDS.getValue(fluidId);
         if (fluid == null) {
             throw new JsonParseException("Unknown fluid: " + fluidId);
         }
 
-        int fluidAmount = GsonHelper.getAsInt(json, "fluid_amount", DEFAULT_LIQUID_AMOUNT);
+        int fluidAmount = GsonHelper.getAsInt(json, "fluid_amount", DEFAULT_FLUID_AMOUNT);
 
         return new PressingTubRecipe(recipeId, ingredient, fluid, fluidAmount);
     }

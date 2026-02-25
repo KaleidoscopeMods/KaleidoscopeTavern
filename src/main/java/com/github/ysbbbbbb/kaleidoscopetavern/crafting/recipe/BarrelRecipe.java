@@ -11,14 +11,15 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.util.RecipeMatcher;
 
 /**
  * 酒桶的配方类
  *
  * @param id          配方 ID
- * @param ingredients 酒桶输入的原料，没有数量参数，最大只允许 4 种物品输入
- * @param liquid      酒桶输入的流体，使用流体的注册 ID 来表示，例如 "minecraft:water"。只能有一个流体输入
+ * @param ingredients 酒桶输入的原料，没有数量参数，最大只允许 4 种物品输入。可以有 0 种物品输入，此时表示只使用流体酿造
+ * @param fluid       酒桶输入的流体，只能有一个流体输入
  * @param carrier     酒桶的容器，必须是 ItemBlock 及其子类，且只能有一个输入
  * @param result      酒桶的输出物品，其必须是 BottleBlockItem 及其子类，只能有一个输出
  * @param unitTime    酿造单位时间，单位为 tick。<br>
@@ -28,14 +29,20 @@ import net.minecraftforge.common.util.RecipeMatcher;
 public record BarrelRecipe(
         ResourceLocation id,
         NonNullList<Ingredient> ingredients,
-        ResourceLocation liquid,
+        Fluid fluid,
         Ingredient carrier,
         ItemStack result,
         int unitTime
 ) implements Recipe<BarrelRecipeContainer> {
     @Override
     public boolean matches(BarrelRecipeContainer container, Level level) {
-        return container.getLiquid().equals(this.liquid)
+        boolean emptyIngredients = this.ingredients.stream().allMatch(Ingredient::isEmpty);
+        // 如果全为空
+        if (emptyIngredients) {
+            return container.getFluid().isSame(this.fluid) && container.itemsIsEmpty();
+        }
+        // 否则匹配输入的流体和物品
+        return container.getFluid().isSame(this.fluid)
                && RecipeMatcher.findMatches(container.items, ingredients) != null;
     }
 

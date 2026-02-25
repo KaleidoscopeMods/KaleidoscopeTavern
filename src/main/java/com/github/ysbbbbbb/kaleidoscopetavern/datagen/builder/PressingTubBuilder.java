@@ -26,7 +26,7 @@ public class PressingTubBuilder implements RecipeBuilder {
 
     private Ingredient ingredient = Ingredient.EMPTY;
     private Fluid fluid = Fluids.WATER;
-    private int fluidAmount = PressingTubRecipeSerializer.DEFAULT_LIQUID_AMOUNT;
+    private int fluidAmount = PressingTubRecipeSerializer.DEFAULT_FLUID_AMOUNT;
 
     public static PressingTubBuilder builder() {
         return new PressingTubBuilder();

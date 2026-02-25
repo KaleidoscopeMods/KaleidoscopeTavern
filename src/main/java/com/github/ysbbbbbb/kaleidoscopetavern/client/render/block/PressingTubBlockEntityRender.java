@@ -60,10 +60,10 @@ public class PressingTubBlockEntityRender implements BlockEntityRenderer<Pressin
         }
 
         // 如果有流体，渲染流体
-        int liquidAmount = pressingTub.getLiquidAmount();
-        if (liquidAmount > 0) {
-            float liquidPercent = liquidAmount / (float) IPressingTub.MAX_LIQUID_AMOUNT;
-            float y = 0.125f + liquidPercent * 0.25f;
+        int fluidAmount = pressingTub.getFluidAmount();
+        if (fluidAmount > 0) {
+            float percent = fluidAmount / (float) IPressingTub.MAX_FLUID_AMOUNT;
+            float y = 0.125f + percent * 0.25f;
             Fluid fluid = pressingTub.getFluid().getFluid().getFluid();
             RenderUtils.renderFluid(fluid, poseStack, buffer, packedLight, 12, y);
         }

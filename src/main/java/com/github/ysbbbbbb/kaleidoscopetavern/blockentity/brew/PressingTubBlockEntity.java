@@ -148,7 +148,7 @@ public class PressingTubBlockEntity extends BaseBlockEntity implements IPressing
         ItemStack stack = items.getStackInSlot(0);
         if (stack.isEmpty()) {
             // 如果有流体，播放正常压榨效果
-            if (this.getLiquidAmount() > 0) {
+            if (this.getFluidAmount() > 0) {
                 playSuccessPressEffect(null);
             } else {
                 // 没有流体，播放失败压榨效果
@@ -174,7 +174,7 @@ public class PressingTubBlockEntity extends BaseBlockEntity implements IPressing
             }
 
             // 液体已满，无法继续压榨
-            if (this.getLiquidAmount() >= IPressingTub.MAX_LIQUID_AMOUNT) {
+            if (this.getFluidAmount() >= IPressingTub.MAX_FLUID_AMOUNT) {
                 playFinishedPressEffect();
                 return false;
             }
@@ -294,7 +294,7 @@ public class PressingTubBlockEntity extends BaseBlockEntity implements IPressing
             return false;
         }
         // 必须完全满液体才能取出产物
-        if (this.fluid.getFluidAmount() < IPressingTub.MAX_LIQUID_AMOUNT) {
+        if (this.fluid.getFluidAmount() < IPressingTub.MAX_FLUID_AMOUNT) {
             return false;
         }
 
@@ -303,11 +303,11 @@ public class PressingTubBlockEntity extends BaseBlockEntity implements IPressing
         // 开始把果盆中的流体转移到容器里
         return FluidUtil.getFluidHandler(copy).map(stackFluid -> {
             // 先模拟转移一次
-            FluidStack transfer = FluidUtil.tryFluidTransfer(stackFluid, fluid, IPressingTub.MAX_LIQUID_AMOUNT, false);
+            FluidStack transfer = FluidUtil.tryFluidTransfer(stackFluid, fluid, IPressingTub.MAX_FLUID_AMOUNT, false);
             // 如果成功转移
             if (!transfer.isEmpty()) {
                 // 真正转移液体
-                FluidUtil.tryFluidTransfer(stackFluid, fluid, IPressingTub.MAX_LIQUID_AMOUNT, true);
+                FluidUtil.tryFluidTransfer(stackFluid, fluid, IPressingTub.MAX_FLUID_AMOUNT, true);
                 // 获取结果
                 ItemStack result = stackFluid.getContainer();
                 // 扣除玩家物品
@@ -397,7 +397,7 @@ public class PressingTubBlockEntity extends BaseBlockEntity implements IPressing
     }
 
     @Override
-    public int getLiquidAmount() {
+    public int getFluidAmount() {
         return this.fluid.getFluidAmount();
     }
 

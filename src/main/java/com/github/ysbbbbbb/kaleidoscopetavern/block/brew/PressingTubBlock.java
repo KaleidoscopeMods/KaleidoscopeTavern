@@ -159,7 +159,7 @@ public class PressingTubBlock extends BaseEntityBlock implements SimpleWaterlogg
     public int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if (blockEntity instanceof IPressingTub pressingTub) {
-            return pressingTub.getLiquidAmount();
+            return pressingTub.getFluidAmount();
         }
         return 0;
     }
@@ -178,14 +178,14 @@ public class PressingTubBlock extends BaseEntityBlock implements SimpleWaterlogg
         if (!(blockEntity instanceof PressingTubBlockEntity pressingTub)) {
             return stack;
         }
-        if (pressingTub.getLiquidAmount() < IPressingTub.MAX_LIQUID_AMOUNT) {
+        if (pressingTub.getFluidAmount() < IPressingTub.MAX_FLUID_AMOUNT) {
             return stack;
         }
         // 判断产物是否是铁桶容器的
         FluidTank fluid = pressingTub.getFluid();
         Item bucket = fluid.getFluid().getFluid().getBucket();
         if (bucket instanceof BucketItem) {
-            fluid.drain(IPressingTub.MAX_LIQUID_AMOUNT, IFluidHandler.FluidAction.EXECUTE);
+            fluid.drain(IPressingTub.MAX_FLUID_AMOUNT, IFluidHandler.FluidAction.EXECUTE);
             return bucket.getDefaultInstance();
         }
         return stack;
