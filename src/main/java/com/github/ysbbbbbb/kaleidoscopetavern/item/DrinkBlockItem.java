@@ -1,5 +1,6 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.item;
 
+import com.github.ysbbbbbb.kaleidoscopetavern.api.blockentity.IBarrel;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.DrinkBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.brew.DrinkBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.datamap.data.DrinkEffectData;
@@ -16,6 +17,8 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.AreaEffectCloud;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -122,7 +125,7 @@ public class DrinkBlockItem extends BottleBlockItem implements IHasContainer {
         }
         var effects = effectData.effects();
         int brewLevel = BottleBlockItem.getBrewLevel(drink);
-        if (brewLevel < 1 || brewLevel >= effects.size()) {
+        if (brewLevel < IBarrel.BREWING_STARTED || brewLevel > effects.size()) {
             return;
         }
         // brew level 从 1 开始，所以要 -1 来获取对应的效果列表
@@ -136,6 +139,38 @@ public class DrinkBlockItem extends BottleBlockItem implements IHasContainer {
                 entity.addEffect(instance);
             }
         }
+    }
+
+    public void makeAreaOfEffectCloud(Level level, double x, double y, double z, int brewLevel, @Nullable Entity owner) {
+        DrinkEffectData effectData = DrinkEffectDataReloadListener.INSTANCE.get(this);
+        if (effectData == null) {
+            return;
+        }
+        var effects = effectData.effects();
+        if (brewLevel < IBarrel.BREWING_STARTED || brewLevel > effects.size()) {
+            return;
+        }
+
+        AreaEffectCloud cloud = new AreaEffectCloud(level, x, y, z);
+        if (owner instanceof LivingEntity livingEntity) {
+            cloud.setOwner(livingEntity);
+        }
+        cloud.setRadius(brewLevel / 2f);
+        cloud.setRadiusOnUse(-0.5F);
+        cloud.setWaitTime(5);
+        cloud.setRadiusPerTick(-cloud.getRadius() / (float) cloud.getDuration());
+
+        // brew level 从 1 开始，所以要 -1 来获取对应的效果列表
+        for (DrinkEffectData.Entry entry : effects.get(brewLevel - 1)) {
+            if (level.random.nextFloat() < entry.probability()) {
+                MobEffect effect = entry.effect();
+                int duration = entry.duration() * 20;
+                int amplifier = entry.amplifier();
+                cloud.addEffect(new MobEffectInstance(effect, duration, amplifier));
+            }
+        }
+
+        level.addFreshEntity(cloud);
     }
 
     @Override

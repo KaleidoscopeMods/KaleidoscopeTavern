@@ -6,7 +6,9 @@ import com.github.ysbbbbbb.kaleidoscopetavern.client.model.deco.LargeChalkboardM
 import com.github.ysbbbbbb.kaleidoscopetavern.client.model.deco.SmallChalkboardModel;
 import com.github.ysbbbbbb.kaleidoscopetavern.client.render.entity.SitRenderer;
 import com.github.ysbbbbbb.kaleidoscopetavern.client.render.entity.StringLightsLayer;
+import com.github.ysbbbbbb.kaleidoscopetavern.client.render.entity.ThrownMolotovRenderer;
 import com.github.ysbbbbbb.kaleidoscopetavern.entity.SitEntity;
+import com.github.ysbbbbbb.kaleidoscopetavern.entity.ThrownMolotovEntity;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.world.entity.EntityType;
@@ -20,6 +22,7 @@ public class ModEntitiesRender {
     @SubscribeEvent
     public static void onEntityRenderers(EntityRenderersEvent.RegisterRenderers evt) {
         EntityRenderers.register(SitEntity.TYPE, SitRenderer::new);
+        EntityRenderers.register(ThrownMolotovEntity.TYPE, ThrownMolotovRenderer::new);
     }
 
     @SubscribeEvent

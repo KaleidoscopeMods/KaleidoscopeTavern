@@ -132,7 +132,7 @@ public interface ModBlocks {
     // 空瓶
     RegistryObject<Block> EMPTY_BOTTLE = BLOCKS.register("empty_bottle", BottleBlock::new);
     // 燃烧瓶
-    RegistryObject<Block> MOLOTOV = BLOCKS.register("molotov", BottleBlock::new);
+    RegistryObject<Block> MOLOTOV = BLOCKS.register("molotov", MolotovBlock::new);
     // 酒桶
     RegistryObject<Block> BARREL = BLOCKS.register("barrel", BarrelBlock::new);
     // 酒柜

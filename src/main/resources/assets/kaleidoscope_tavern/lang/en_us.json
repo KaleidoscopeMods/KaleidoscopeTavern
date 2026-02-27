@@ -83,6 +83,8 @@
   "item.kaleidoscope_tavern.grape_bucket": "Grape Bucket",
   "item.kaleidoscope_tavern.sweet_berries_bucket": "Sweet Berries Bucket",
   "item.kaleidoscope_tavern.glow_berries_bucket": "Glow Berries Bucket",
+  "entity.kaleidoscope_tavern.thrown_molotov": "Thrown Molotov",
+  "entity.kaleidoscope_tavern.sit": "Sit",
   "tooltip.kaleidoscope_tavern.ysbb_painting": "YSBB",
   "tooltip.kaleidoscope_tavern.tartaric_acid_painting": "Tartaric Acid",
   "tooltip.kaleidoscope_tavern.cr019_painting": "CR019",

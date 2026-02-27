@@ -83,6 +83,8 @@
   "item.kaleidoscope_tavern.grape_bucket": "葡萄桶",
   "item.kaleidoscope_tavern.sweet_berries_bucket": "甜浆果桶",
   "item.kaleidoscope_tavern.glow_berries_bucket": "发光浆果桶",
+  "entity.kaleidoscope_tavern.thrown_molotov": "莫洛托夫鸡尾酒",
+  "entity.kaleidoscope_tavern.sit": "座位",
   "tooltip.kaleidoscope_tavern.ysbb_painting": "药水棒冰",
   "tooltip.kaleidoscope_tavern.tartaric_acid_painting": "酒石酸菌",
   "tooltip.kaleidoscope_tavern.cr019_painting": "CR019",
