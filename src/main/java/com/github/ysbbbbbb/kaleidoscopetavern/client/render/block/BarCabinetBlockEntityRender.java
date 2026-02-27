@@ -29,7 +29,7 @@ public class BarCabinetBlockEntityRender implements BlockEntityRenderer<BarCabin
         ItemStack leftStack = barCabinet.getLeftItem();
         ItemStack rightStack = barCabinet.getRightItem();
 
-        float scale = 0.8125f;
+        float scale = 0.9f;
         float angle = direction.get2DDataValue() * 90f;
 
         if (barCabinet.isSingle()) {
