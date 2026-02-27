@@ -1,0 +1,61 @@
+{
+  "item": "kaleidoscope_tavern:vodka",
+  "effects": [
+    [
+      {
+        "effect": "minecraft:nausea",
+        "duration": 35,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "minecraft:nausea",
+        "duration": 10,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "minecraft:haste",
+        "duration": 10,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "minecraft:haste",
+        "duration": 30,
+        "amplifier": 1,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "minecraft:haste",
+        "duration": 90,
+        "amplifier": 2,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "minecraft:haste",
+        "duration": 270,
+        "amplifier": 3,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "minecraft:haste",
+        "duration": 480,
+        "amplifier": 5,
+        "probability": 1.0
+      }
+    ]
+  ]
+}

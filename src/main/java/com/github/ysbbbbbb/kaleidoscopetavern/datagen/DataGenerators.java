@@ -1,5 +1,6 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.datagen;
 
+import com.github.ysbbbbbb.kaleidoscopetavern.datagen.datamap.DrinkEffectDataProvider;
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.loottable.LootTableGenerator;
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.model.BlockModelGenerator;
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.model.BlockStateGenerator;
@@ -26,6 +27,8 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new ModRecipeGenerator(pack));
 
         generator.addProvider(event.includeServer(), new LootTableGenerator(pack));
+
+        generator.addProvider(event.includeServer(), new DrinkEffectDataProvider(pack));
 
         var block = vanillaPack.addProvider(packOutput -> new TagBlock(packOutput, registries, helper));
     }

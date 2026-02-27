@@ -1,0 +1,61 @@
+{
+  "item": "kaleidoscope_tavern:ice_wine",
+  "effects": [
+    [
+      {
+        "effect": "minecraft:nausea",
+        "duration": 35,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "minecraft:nausea",
+        "duration": 10,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "minecraft:fire_resistance",
+        "duration": 10,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "minecraft:fire_resistance",
+        "duration": 40,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "minecraft:fire_resistance",
+        "duration": 160,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "minecraft:fire_resistance",
+        "duration": 640,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "minecraft:fire_resistance",
+        "duration": 999999,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ]
+  ]
+}

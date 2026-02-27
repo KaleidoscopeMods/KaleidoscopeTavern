@@ -1,0 +1,91 @@
+{
+  "item": "kaleidoscope_tavern:wine",
+  "effects": [
+    [
+      {
+        "effect": "minecraft:nausea",
+        "duration": 35,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "minecraft:nausea",
+        "duration": 10,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "minecraft:instant_health",
+        "duration": 0,
+        "amplifier": 0,
+        "probability": 1.0
+      },
+      {
+        "effect": "minecraft:health_boost",
+        "duration": 10,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "minecraft:instant_health",
+        "duration": 0,
+        "amplifier": 1,
+        "probability": 1.0
+      },
+      {
+        "effect": "minecraft:health_boost",
+        "duration": 20,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "minecraft:instant_health",
+        "duration": 0,
+        "amplifier": 1,
+        "probability": 1.0
+      },
+      {
+        "effect": "minecraft:health_boost",
+        "duration": 40,
+        "amplifier": 1,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "minecraft:instant_health",
+        "duration": 0,
+        "amplifier": 1,
+        "probability": 1.0
+      },
+      {
+        "effect": "minecraft:health_boost",
+        "duration": 80,
+        "amplifier": 2,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "minecraft:instant_health",
+        "duration": 0,
+        "amplifier": 2,
+        "probability": 1.0
+      },
+      {
+        "effect": "minecraft:health_boost",
+        "duration": 160,
+        "amplifier": 3,
+        "probability": 1.0
+      }
+    ]
+  ]
+}
