@@ -1,5 +1,6 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.item;
 
+import com.github.ysbbbbbb.kaleidoscopetavern.api.blockentity.IBarrel;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
@@ -42,7 +43,11 @@ public class BottleBlockItem extends BlockItem {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
-        Component brewLevelText = Component.translatable("message.kaleidoscope_tavern.barrel.brew_level.%d".formatted(getBrewLevel(stack)));
-        tooltip.add(Component.translatable("tooltip.kaleidoscope_tavern.bottle_block.brew_level", brewLevelText).withStyle(ChatFormatting.GRAY));
+        int brewLevel = getBrewLevel(stack);
+        if (0 < brewLevel) {
+            brewLevel = Math.min(brewLevel, IBarrel.BREWING_FINISHED);
+            Component brewLevelText = Component.translatable("message.kaleidoscope_tavern.barrel.brew_level.%d".formatted(brewLevel));
+            tooltip.add(Component.translatable("tooltip.kaleidoscope_tavern.bottle_block.brew_level", brewLevelText).withStyle(ChatFormatting.GRAY));
+        }
     }
 }

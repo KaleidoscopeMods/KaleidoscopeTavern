@@ -1,5 +1,6 @@
 {
   "item_group.kaleidoscope_tavern.tavern_main.name": "森罗物语：酒馆",
+  "item_group.kaleidoscope_tavern.tavern_deco.name": "森罗物语：酒馆装饰",
   "block.kaleidoscope_tavern.white_sofa": "白色沙发",
   "block.kaleidoscope_tavern.light_gray_sofa": "淡灰色沙发",
   "block.kaleidoscope_tavern.gray_sofa": "灰色沙发",
@@ -101,8 +102,8 @@
   "gui.kaleidoscope_tavern.text.edit.text_alignment.left": "左对齐",
   "gui.kaleidoscope_tavern.text.edit.text_alignment.center": "居中",
   "gui.kaleidoscope_tavern.text.edit.text_alignment.right": "右对齐",
-  "message.kaleidoscope_tavern.barrel.brew_level.1": "§o难以下咽",
-  "message.kaleidoscope_tavern.barrel.brew_level.2": "§8劣质",
+  "message.kaleidoscope_tavern.barrel.brew_level.1": "§8难以下咽",
+  "message.kaleidoscope_tavern.barrel.brew_level.2": "§7劣质",
   "message.kaleidoscope_tavern.barrel.brew_level.3": "§3普通",
   "message.kaleidoscope_tavern.barrel.brew_level.4": "§b优质",
   "message.kaleidoscope_tavern.barrel.brew_level.5": "§c精酿",
@@ -117,8 +118,8 @@
   "message.kaleidoscope_tavern.barrel.tap_extract_empty": "酒桶已空，无法取酒！",
   "message.kaleidoscope_tavern.barrel.tap_extract_empty_container": "你需要在下方放置一个容器来取酒！",
   "message.kaleidoscope_tavern.barrel.tap_extract_invalid_container": "无法将酒取到这个容器里！",
-  "message.kaleidoscope_tavern.barrel.brew_info.next": "%s | 品质：%s | 需要 %s 时间转变为 %s",
-  "message.kaleidoscope_tavern.barrel.brew_info.full": "%s | 品质：%s （最大品质）",
+  "message.kaleidoscope_tavern.barrel.brew_info.next": "%sx%d | 品质：%s | 下一阶段：%s",
+  "message.kaleidoscope_tavern.barrel.brew_info.full": "%sx%d | 品质：%s （最大品质）",
   "message.kaleidoscope_tavern.barrel.not_brewing": "酿造尚未开始！",
   "message.kaleidoscope_tavern.tap.not_connected": "龙头没有连接到酒桶！",
   "message.kaleidoscope_tavern.tap.connected_is_invalid": "龙头连接的位置不正确！"

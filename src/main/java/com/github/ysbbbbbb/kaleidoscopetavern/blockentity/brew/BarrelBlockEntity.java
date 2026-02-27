@@ -462,7 +462,8 @@ public class BarrelBlockEntity extends BaseBlockEntity implements IBarrel {
             return;
         }
 
-        Component resultText = output.getStackInSlot(0).getHoverName();
+        ItemStack result = output.getStackInSlot(0);
+        Component resultText = result.getHoverName();
         Component levelText = Component.translatable("message.kaleidoscope_tavern.barrel.brew_level.%d".formatted(this.brewLevel));
 
         if (!this.isBrewing()) {
@@ -472,14 +473,13 @@ public class BarrelBlockEntity extends BaseBlockEntity implements IBarrel {
         }
 
         if (this.isMaxBrewLevel()) {
-            Component message = Component.translatable("message.kaleidoscope_tavern.barrel.brew_info.full", resultText, levelText);
+            Component message = Component.translatable("message.kaleidoscope_tavern.barrel.brew_info.full", resultText, result.getCount(), levelText);
             player.connection.send(new ClientboundSetActionBarTextPacket(message));
             return;
         }
 
         Component timeText = Component.literal(StringUtil.formatTickDuration(Math.max(this.brewTime, 0)));
-        Component nextLevelText = Component.translatable("message.kaleidoscope_tavern.barrel.brew_level.%d".formatted(this.brewLevel + 1));
-        Component message = Component.translatable("message.kaleidoscope_tavern.barrel.brew_info.next", resultText, levelText, timeText, nextLevelText);
+        Component message = Component.translatable("message.kaleidoscope_tavern.barrel.brew_info.next", resultText, result.getCount(), levelText, timeText);
         player.connection.send(new ClientboundSetActionBarTextPacket(message));
     }
 

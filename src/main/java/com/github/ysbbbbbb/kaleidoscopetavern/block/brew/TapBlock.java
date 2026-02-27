@@ -75,7 +75,7 @@ public class TapBlock extends BaseEntityBlock implements SimpleWaterloggedBlock 
                 state = state.setValue(OPEN, false);
                 level.setBlock(pos, state, Block.UPDATE_ALL);
 
-                level.playSound(null, pos, SoundEvents.BARREL_CLOSE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                level.playSound(null, pos, SoundEvents.IRON_TRAPDOOR_CLOSE, SoundSource.BLOCKS, 1.0F, 0.8F);
                 return InteractionResult.SUCCESS;
             }
 
@@ -104,7 +104,7 @@ public class TapBlock extends BaseEntityBlock implements SimpleWaterloggedBlock 
             if (barrelEntity.canTapExtract(level, pos, player)) {
                 state = state.setValue(OPEN, true);
                 level.setBlock(pos, state, Block.UPDATE_ALL);
-                level.playSound(null, pos, SoundEvents.BARREL_OPEN, SoundSource.BLOCKS, 1.0F, 1.0F);
+                level.playSound(null, pos, SoundEvents.IRON_TRAPDOOR_OPEN, SoundSource.BLOCKS, 1.0F, 0.8F);
 
                 // 播放滴水粒子效果
                 if (level.getBlockEntity(pos) instanceof TapBlockEntity tapEntity) {
@@ -148,7 +148,18 @@ public class TapBlock extends BaseEntityBlock implements SimpleWaterloggedBlock 
             tapEntity.setParticle(null);
         }
 
-        level.playSound(null, pos, SoundEvents.BARREL_CLOSE, SoundSource.BLOCKS, 1.0F, 1.0F);
+        // 播放酒瓶转化效果
+        level.playSound(null, pos.below(), SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS, 1.0F, 1.0F);
+        level.sendParticles(
+                ParticleTypes.WAX_OFF,
+                pos.getX() + 0.5,
+                pos.getY() - 0.5,
+                pos.getZ() + 0.5,
+                10, 0.1, 0.1, 0.1, 0.05
+        );
+
+        // 关闭音效
+        level.playSound(null, pos, SoundEvents.IRON_TRAPDOOR_CLOSE, SoundSource.BLOCKS, 1.0F, 0.8F);
     }
 
     @Override

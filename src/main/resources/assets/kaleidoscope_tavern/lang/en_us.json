@@ -1,5 +1,6 @@
 {
   "item_group.kaleidoscope_tavern.tavern_main.name": "Kaleidoscope: Tavern",
+  "item_group.kaleidoscope_tavern.tavern_deco.name": "Kaleidoscope: Tavern Deco",
   "block.kaleidoscope_tavern.white_sofa": "White Sofa",
   "block.kaleidoscope_tavern.light_gray_sofa": "Light Gray Sofa",
   "block.kaleidoscope_tavern.gray_sofa": "Gray Sofa",
@@ -101,8 +102,8 @@
   "gui.kaleidoscope_tavern.text.edit.text_alignment.left": "Left",
   "gui.kaleidoscope_tavern.text.edit.text_alignment.center": "Center",
   "gui.kaleidoscope_tavern.text.edit.text_alignment.right": "Right",
-  "message.kaleidoscope_tavern.barrel.brew_level.1": "§oUndrinkable",
-  "message.kaleidoscope_tavern.barrel.brew_level.2": "§8Inferior",
+  "message.kaleidoscope_tavern.barrel.brew_level.1": "§8Undrinkable",
+  "message.kaleidoscope_tavern.barrel.brew_level.2": "§7Inferior",
   "message.kaleidoscope_tavern.barrel.brew_level.3": "§3Common",
   "message.kaleidoscope_tavern.barrel.brew_level.4": "§bFine",
   "message.kaleidoscope_tavern.barrel.brew_level.5": "§cCrafted",
@@ -117,8 +118,8 @@
   "message.kaleidoscope_tavern.barrel.tap_extract_empty": "Can't extract when it's empty!",
   "message.kaleidoscope_tavern.barrel.tap_extract_empty_container": "You need to place a container to extract!",
   "message.kaleidoscope_tavern.barrel.tap_extract_invalid_container": "Can't extract to this container!",
-  "message.kaleidoscope_tavern.barrel.brew_info.next": "%s | Level: %s | Need %s time to %s",
-  "message.kaleidoscope_tavern.barrel.brew_info.full": "%s | Level: %s (Max)",
+  "message.kaleidoscope_tavern.barrel.brew_info.next": "%s x%d | Level: %s | Next Level: %s",
+  "message.kaleidoscope_tavern.barrel.brew_info.full": "%s x%d | Level: %s (Max)",
   "message.kaleidoscope_tavern.barrel.not_brewing": "Brewing has not started yet!",
   "message.kaleidoscope_tavern.tap.not_connected": "The tap is not connected to barrel!",
   "message.kaleidoscope_tavern.tap.connected_is_invalid": "The tap is not connected to a valid position!"
