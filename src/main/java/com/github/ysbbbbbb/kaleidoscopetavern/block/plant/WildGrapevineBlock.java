@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -70,6 +71,22 @@ public class WildGrapevineBlock extends GrowingPlantHeadBlock implements Bonemea
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(SHEARED);
+    }
+
+    @Override
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        BlockPos relative = pos.relative(this.growthDirection.getOpposite());
+        BlockState relativeState = level.getBlockState(relative);
+        return relativeState.is(this.getHeadBlock())
+               || relativeState.is(this.getBodyBlock())
+               || this.canAttachTo(relativeState)
+               || relativeState.isFaceSturdy(level, relative, this.growthDirection);
+    }
+
+    @Override
+    protected boolean canAttachTo(BlockState state) {
+        // 树叶不属于 SupportType.FULL，故需要特殊判断一下
+        return state.is(BlockTags.LEAVES);
     }
 
     @Override
