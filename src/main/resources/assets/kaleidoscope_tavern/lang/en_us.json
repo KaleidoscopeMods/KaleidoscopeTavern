@@ -100,6 +100,7 @@
   "tooltip.kaleidoscope_tavern.mona_lisa_painting": "Mona Lisa",
   "tooltip.kaleidoscope_tavern.mondrian_painting": "Mondrian",
   "tooltip.kaleidoscope_tavern.bottle_block.brew_level": "Brew Level: %s",
+  "jei.kaleidoscope_tavern.pressing_tub.need_press_count": "Need to be pressed %d times",
   "block.kaleidoscope_tavern.bar_counter": "Bar Counter",
   "block.kaleidoscope_tavern.stepladder": "Stepladder",
   "gui.kaleidoscope_tavern.text.edit.placeholder": "Write something...",
@@ -126,5 +127,7 @@
   "message.kaleidoscope_tavern.barrel.brew_info.full": "%s x%d | Level: %s (Max)",
   "message.kaleidoscope_tavern.barrel.not_brewing": "Brewing has not started yet!",
   "message.kaleidoscope_tavern.tap.not_connected": "The tap is not connected to barrel!",
-  "message.kaleidoscope_tavern.tap.connected_is_invalid": "The tap is not connected to a valid position!"
+  "message.kaleidoscope_tavern.tap.connected_is_invalid": "The tap is not connected to a valid position!",
+  "emi.category.kaleidoscope_tavern.barrel": "Barrel",
+  "emi.category.kaleidoscope_tavern.pressing_tub": "Pressing Tub"
 }

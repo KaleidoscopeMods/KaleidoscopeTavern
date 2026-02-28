@@ -100,6 +100,7 @@
   "tooltip.kaleidoscope_tavern.mona_lisa_painting": "蒙娜丽莎",
   "tooltip.kaleidoscope_tavern.mondrian_painting": "蒙德里安",
   "tooltip.kaleidoscope_tavern.bottle_block.brew_level": "品质：%s",
+  "jei.kaleidoscope_tavern.pressing_tub.need_press_count": "需要踩踏 %d 次",
   "block.kaleidoscope_tavern.bar_counter": "吧台",
   "block.kaleidoscope_tavern.stepladder": "人字梯",
   "gui.kaleidoscope_tavern.text.edit.placeholder": "写点什么吧……",
@@ -126,5 +127,7 @@
   "message.kaleidoscope_tavern.barrel.brew_info.full": "%sx%d | 品质：%s （最大品质）",
   "message.kaleidoscope_tavern.barrel.not_brewing": "酿造尚未开始！",
   "message.kaleidoscope_tavern.tap.not_connected": "龙头没有连接到酒桶！",
-  "message.kaleidoscope_tavern.tap.connected_is_invalid": "龙头连接的位置不正确！"
+  "message.kaleidoscope_tavern.tap.connected_is_invalid": "龙头连接的位置不正确！",
+  "emi.category.kaleidoscope_tavern.barrel": "酒桶",
+  "emi.category.kaleidoscope_tavern.pressing_tub": "果盆"
 }

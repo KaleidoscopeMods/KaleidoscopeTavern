@@ -137,7 +137,7 @@ dependencies {
     // JEI
     compileOnly fg.deobf("mezz.jei:jei-1.20.1-common-api:${jei_version}")
     compileOnly fg.deobf("mezz.jei:jei-1.20.1-forge-api:${jei_version}")
-    compileOnly fg.deobf("mezz.jei:jei-1.20.1-forge:${jei_version}")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.20.1-forge:${jei_version}")
 
     // REI 前置
     implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:11.1.106")
@@ -149,7 +149,7 @@ dependencies {
 
     // EMI
     compileOnly fg.deobf("dev.emi:emi-forge:1.1.22+1.20.1:api")
-    implementation fg.deobf("dev.emi:emi-forge:1.1.22+1.20.1")
+    // implementation fg.deobf("dev.emi:emi-forge:1.1.22+1.20.1")
 
     // Jade
     implementation fg.deobf("maven.modrinth:jade:11.13.1+forge")

@@ -14,6 +14,8 @@ public class ModRecipeGenerator extends ModRecipeProvider {
         super(output);
         providers.add(new PressingTubRecipeProvider(output));
         providers.add(new BarrelRecipeProvider(output));
+        providers.add(new ShapedRecipeProvider(output));
+        providers.add(new ShapelessRecipeProvider(output));
     }
 
     @Override
