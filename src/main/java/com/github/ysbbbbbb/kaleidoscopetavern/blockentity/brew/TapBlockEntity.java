@@ -22,7 +22,7 @@ public class TapBlockEntity extends BaseBlockEntity {
     /**
      * 空拧状态，此时只会持续一小段时间
      */
-    public static final int EMPTY_OPEN_TICKS = 40;
+    public static final int EMPTY_OPEN_TICKS = 5;
 
     /**
      * 龙头有不同的状态
@@ -82,7 +82,7 @@ public class TapBlockEntity extends BaseBlockEntity {
 
     private void onEmptyOpen(Level level) {
         BlockPos pos = this.getBlockPos();
-        if (level instanceof ServerLevel serverLevel) {
+        if (level instanceof ServerLevel serverLevel && this.tickCounter % 2 == 0) {
             serverLevel.sendParticles(ParticleTypes.CLOUD,
                     pos.getX() + 0.5, pos.getY() + 0.25, pos.getZ() + 0.5,
                     1, 0.1, 0.1, 0.1, 0.01);
@@ -107,5 +107,6 @@ public class TapBlockEntity extends BaseBlockEntity {
 
     public void setState(int state) {
         this.state = state;
+        this.tickCounter = 0;
     }
 }

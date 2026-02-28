@@ -5,7 +5,9 @@ import com.github.ysbbbbbb.kaleidoscopetavern.network.NetworkHandler;
 import com.github.ysbbbbbb.kaleidoscopetavern.network.message.TextOpenS2CMessage;
 import com.github.ysbbbbbb.kaleidoscopetavern.util.TextAlignment;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -13,7 +15,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.StringUtils;
@@ -118,7 +119,15 @@ public abstract class TextBlockEntity extends BaseBlockEntity {
         if (itemInHand.getItem() instanceof HoneycombItem) {
             textBlock.setWaxed(true);
             textBlock.refresh();
-            level.levelEvent(null, LevelEvent.PARTICLES_AND_SOUND_WAX_ON, pos, 0);
+            if (level instanceof ServerLevel serverLevel) {
+                serverLevel.sendParticles(ParticleTypes.WAX_ON,
+                        pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5,
+                        10, 0.5, 0.2, 0.5, 0.1
+                );
+                serverLevel.playSound(null, pos, SoundEvents.HONEYCOMB_WAX_ON,
+                        SoundSource.BLOCKS, 1.0F, 1.0F
+                );
+            }
             if (!player.isCreative()) {
                 itemInHand.shrink(1);
             }

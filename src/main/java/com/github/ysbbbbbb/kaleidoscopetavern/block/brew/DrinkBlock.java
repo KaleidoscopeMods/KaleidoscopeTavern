@@ -134,7 +134,7 @@ public class DrinkBlock extends BottleBlock implements EntityBlock {
 
         // 生成药水云
         if (maxBrewLevel > 0 && this.asItem() instanceof DrinkBlockItem item) {
-            item.makeAreaOfEffectCloud(level, pos.getX(), pos.getY(), pos.getZ(), maxBrewLevel, projectile.getOwner());
+            item.makeThrownPotion(level, pos.getX(), pos.getY(), pos.getZ(), maxBrewLevel, projectile.getOwner());
         }
 
         super.onProjectileHit(level, state, hit, projectile);

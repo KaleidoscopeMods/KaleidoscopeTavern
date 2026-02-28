@@ -1,13 +1,14 @@
 {
   "values": [
-    "#kaleidoscope_tavern:sofa",
-    "#kaleidoscope_tavern:bar_stool",
     "#kaleidoscope_tavern:sandwich_board",
     "#kaleidoscope_tavern:painting",
     "kaleidoscope_tavern:chalkboard",
     "kaleidoscope_tavern:bar_counter",
+    "kaleidoscope_tavern:stepladder",
     "kaleidoscope_tavern:trellis",
     "kaleidoscope_tavern:grapevine_trellis",
-    "kaleidoscope_tavern:pressing_tub"
+    "kaleidoscope_tavern:pressing_tub",
+    "kaleidoscope_tavern:bar_cabinet",
+    "kaleidoscope_tavern:glass_bar_cabinet"
   ]
 }

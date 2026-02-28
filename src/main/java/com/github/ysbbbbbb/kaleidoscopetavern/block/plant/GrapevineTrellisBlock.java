@@ -30,6 +30,7 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -60,6 +61,7 @@ public class GrapevineTrellisBlock extends Block implements SimpleWaterloggedBlo
                 .sound(SoundType.WOOD)
                 .randomTicks()
                 .noOcclusion()
+                .pushReaction(PushReaction.DESTROY)
                 .ignitedByLava());
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(TYPE, TrellisType.SINGLE)

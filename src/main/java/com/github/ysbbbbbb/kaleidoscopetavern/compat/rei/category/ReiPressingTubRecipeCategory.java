@@ -37,7 +37,7 @@ public class ReiPressingTubRecipeCategory implements DisplayCategory<DefaultCust
     private static final ResourceLocation BG = KaleidoscopeTavern.modLoc("textures/gui/jei/pressing_tub.png");
 
     public static final int WIDTH = 155;
-    public static final int HEIGHT = 85;
+    public static final int HEIGHT = 54;
 
     @Override
     public CategoryIdentifier<? extends DefaultCustomDisplay> getCategoryIdentifier() {
@@ -53,12 +53,12 @@ public class ReiPressingTubRecipeCategory implements DisplayCategory<DefaultCust
         widgets.add(Widgets.createRecipeBase(bounds));
         widgets.add(Widgets.createTexturedWidget(BG, startX, startY, 0, 0, WIDTH, HEIGHT));
 
-        widgets.add(Widgets.createSlot(new Point(startX + 32, startY + 25))
+        widgets.add(Widgets.createSlot(new Point(startX + 32, startY + 13))
                 .entries(display.getInputEntries().get(0))
                 .disableBackground()
                 .markInput());
 
-        widgets.add(Widgets.createSlot(new Point(startX + 128, startY + 30))
+        widgets.add(Widgets.createSlot(new Point(startX + 128, startY + 18))
                 .entries(display.getOutputEntries().get(0))
                 .disableBackground()
                 .markOutput());
@@ -82,7 +82,7 @@ public class ReiPressingTubRecipeCategory implements DisplayCategory<DefaultCust
     private void drawCenteredString(GuiGraphics guiGraphics, Component text) {
         Font font = Minecraft.getInstance().font;
         FormattedCharSequence sequence = text.getVisualOrderText();
-        guiGraphics.drawString(font, sequence, 77 - font.width(sequence) / 2, 70, 0x555555, false);
+        guiGraphics.drawString(font, sequence, (WIDTH - font.width(sequence) - 5), 42, 0x555555, false);
     }
 
     @Override

@@ -71,7 +71,7 @@ public class TapBlock extends BaseEntityBlock implements SimpleWaterloggedBlock 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
                                  InteractionHand hand, BlockHitResult hitResult) {
-        if (player.getItemInHand(hand).isEmpty() && player instanceof ServerPlayer serverPlayer && hand == InteractionHand.MAIN_HAND) {
+        if (hand == InteractionHand.MAIN_HAND) {
             // 如果龙头已经是开启的，直接无视条件关闭
             if (state.getValue(OPEN)) {
                 state = state.setValue(OPEN, false);
@@ -88,22 +88,26 @@ public class TapBlock extends BaseEntityBlock implements SimpleWaterloggedBlock 
             BlockState barrelState = level.getBlockState(relative);
             if (!(barrelState.getBlock() instanceof BarrelBlock)) {
                 Component message = Component.translatable("message.kaleidoscope_tavern.tap.not_connected");
-                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(message));
+                if (player instanceof ServerPlayer serverPlayer) {
+                    serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(message));
+                }
                 this.emptyOpen(level, pos, state);
-                return InteractionResult.PASS;
+                return InteractionResult.SUCCESS;
             }
 
             if (!isValidConnection(barrelState, tapFacing)) {
                 Component message = Component.translatable("message.kaleidoscope_tavern.tap.connected_is_invalid");
-                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(message));
+                if (player instanceof ServerPlayer serverPlayer) {
+                    serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(message));
+                }
                 this.emptyOpen(level, pos, state);
-                return InteractionResult.PASS;
+                return InteractionResult.SUCCESS;
             }
 
             BarrelBlockEntity barrelEntity = BarrelBlock.getBarrelEntity(level, relative, barrelState);
             if (barrelEntity == null) {
                 this.emptyOpen(level, pos, state);
-                return InteractionResult.PASS;
+                return InteractionResult.SUCCESS;
             }
 
             if (barrelEntity.canTapExtract(level, pos, player)) {

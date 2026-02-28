@@ -29,7 +29,7 @@ public class EmiPressingTubRecipe extends BasicEmiRecipe {
     private static final ResourceLocation BG = KaleidoscopeTavern.modLoc("textures/gui/jei/pressing_tub.png");
 
     public static final int WIDTH = 155;
-    public static final int HEIGHT = 85;
+    public static final int HEIGHT = 54;
 
     public EmiPressingTubRecipe(ResourceLocation id, List<EmiIngredient> inputs, List<EmiStack> outputs) {
         super(CATEGORY, id, WIDTH, HEIGHT);
@@ -62,16 +62,16 @@ public class EmiPressingTubRecipe extends BasicEmiRecipe {
     public void addWidgets(WidgetHolder widgets) {
         widgets.addTexture(BG, 1, 1, WIDTH, HEIGHT, 0, 0);
 
-        widgets.addSlot(inputs.get(0), 32, 25)
+        widgets.addSlot(inputs.get(0), 32, 13)
                 .drawBack(false);
 
-        widgets.addSlot(outputs.get(0), 124, 26)
+        widgets.addSlot(outputs.get(0), 124, 14)
                 .recipeContext(this)
                 .large(true);
 
         Component tip = Component.translatable("jei.kaleidoscope_tavern.pressing_tub.need_press_count", inputs.get(0).getAmount());
         FormattedCharSequence sequence = tip.getVisualOrderText();
         Font font = Minecraft.getInstance().font;
-        widgets.addText(tip, 77 - font.width(sequence) / 2, 74, 0x555555, false);
+        widgets.addText(tip, (WIDTH - font.width(sequence) - 5), 44, 0x555555, false);
     }
 }

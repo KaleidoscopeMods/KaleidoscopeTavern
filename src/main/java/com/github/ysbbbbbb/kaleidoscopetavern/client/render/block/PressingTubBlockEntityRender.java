@@ -64,10 +64,10 @@ public class PressingTubBlockEntityRender implements BlockEntityRenderer<Pressin
                 float z = ((i % 4) / 2 == 0) ? -0.15f : 0.15f + stableRandom(seed, i, 2) * 0.0625f;
                 float y = (float) (i / 4) * 0.03125f + stableRandom(seed, i, 3) * 0.05f;
 
-                float yRot = stableRandom(seed, i, 4) * 10f;
+                float yRot = stableRandom(seed, i, 4) * count / 10f;
                 float zRot = stableRandom(seed, i, 5) * 360f;
 
-                poseStack.translate(0.5f + x, 0.125f + y, 0.5f + z);
+                poseStack.translate(0.5f + x, 0.2f + y, 0.5f + z);
                 poseStack.scale(0.5f, 0.5f, 0.5f);
                 poseStack.mulPose(Axis.XN.rotationDegrees(90));
 

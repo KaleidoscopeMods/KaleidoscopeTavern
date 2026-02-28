@@ -46,7 +46,7 @@ public class BarrelBlockEntityRender implements BlockEntityRenderer<BarrelBlockE
             // 如果有流体，渲染流体
             this.renderFluid(barrel, poseStack, buffer, packedLight);
             // 渲染物品
-            this.renderItems(barrel, poseStack, buffer, packedLight, partialTick);
+            this.renderItems(barrel, poseStack, buffer, packedLight, packedOverlay, partialTick);
         }
     }
 
@@ -85,7 +85,8 @@ public class BarrelBlockEntityRender implements BlockEntityRenderer<BarrelBlockE
         }
     }
 
-    private void renderItems(BarrelBlockEntity barrel, PoseStack poseStack, MultiBufferSource buffer, int packedLight, float partialTick) {
+    private void renderItems(BarrelBlockEntity barrel, PoseStack poseStack, MultiBufferSource buffer,
+                             int packedLight, int packedOverlay, float partialTick) {
         if (barrel.getLevel() == null) {
             return;
         }
@@ -120,7 +121,7 @@ public class BarrelBlockEntityRender implements BlockEntityRenderer<BarrelBlockE
                     poseStack.mulPose(Axis.ZN.rotationDegrees(zRot));
 
                     itemRenderer.renderStatic(stack, ItemDisplayContext.FIXED, packedLight,
-                            packedLight, poseStack, buffer, barrel.getLevel(), 0);
+                            packedOverlay, poseStack, buffer, barrel.getLevel(), 0);
                     poseStack.popPose();
                 }
             }

@@ -1,5 +1,8 @@
 {
   "values": [
-    "#kaleidoscope_tavern:string_lights"
+    "#kaleidoscope_tavern:sofa",
+    "#kaleidoscope_tavern:bar_stool",
+    "#kaleidoscope_tavern:string_lights",
+    "kaleidoscope_tavern:tap"
   ]
 }

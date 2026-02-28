@@ -38,7 +38,7 @@ public class PressingTubCategory implements IRecipeCategory<PressingTubRecipe> {
     private static final MutableComponent TITLE = Component.translatable("block.kaleidoscope_tavern.pressing_tub");
 
     public static final int WIDTH = 155;
-    public static final int HEIGHT = 85;
+    public static final int HEIGHT = 50;
 
     private final IDrawable bgDraw;
     private final IDrawable iconDraw;
@@ -73,7 +73,7 @@ public class PressingTubCategory implements IRecipeCategory<PressingTubRecipe> {
     private void drawCenteredString(GuiGraphics guiGraphics, Component text) {
         Font font = Minecraft.getInstance().font;
         FormattedCharSequence sequence = text.getVisualOrderText();
-        guiGraphics.drawString(font, sequence, 77 - font.width(sequence) / 2, 74, 0x555555, false);
+        guiGraphics.drawString(font, sequence, (WIDTH - font.width(sequence) - 5), 42, 0x555555, false);
     }
 
     @Override
@@ -88,11 +88,11 @@ public class PressingTubCategory implements IRecipeCategory<PressingTubRecipe> {
             List<ItemStack> list = Arrays.stream(input.getItems())
                     .map(s -> s.copyWithCount(finalNeedPressCount))
                     .toList();
-            builder.addSlot(RecipeIngredientRole.INPUT, 32, 25)
+            builder.addSlot(RecipeIngredientRole.INPUT, 32, 13)
                     .addIngredients(VanillaTypes.ITEM_STACK, list);
         }
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 128, 30)
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 128, 18)
                 .addItemLike(recipe.getFluid().getBucket());
     }
 
