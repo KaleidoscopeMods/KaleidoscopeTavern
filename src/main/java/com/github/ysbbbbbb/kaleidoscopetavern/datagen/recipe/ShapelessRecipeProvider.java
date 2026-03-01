@@ -103,7 +103,7 @@ public class ShapelessRecipeProvider extends ModRecipeProvider {
                 .unlockedBy("has_item_frame", has(Items.ITEM_FRAME))
                 .save(consumer);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, ModItems.PRESSING_TUB.get())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, ModItems.PRESSING_TUB.get(), 2)
                 .requires(Items.BARREL)
                 .unlockedBy("has_barrel", has(Items.BARREL))
                 .save(consumer);

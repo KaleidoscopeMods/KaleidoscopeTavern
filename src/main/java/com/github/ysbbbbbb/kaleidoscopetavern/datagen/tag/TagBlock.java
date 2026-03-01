@@ -124,6 +124,7 @@ public class TagBlock extends BlockTagsProvider {
                 .add(ModBlocks.TRELLIS.get())
                 .add(ModBlocks.GRAPEVINE_TRELLIS.get())
                 .add(ModBlocks.PRESSING_TUB.get())
+                .add(ModBlocks.BARREL.get())
                 .add(ModBlocks.BAR_CABINET.get())
                 .add(ModBlocks.GLASS_BAR_CABINET.get());
 

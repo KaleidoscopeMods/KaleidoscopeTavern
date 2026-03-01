@@ -77,7 +77,7 @@ public class BarrelBlockEntityRender implements BlockEntityRenderer<BarrelBlockE
             poseStack.translate(0, 2, 0);
 
             float percent = fluidAmount / (float) IBarrel.MAX_FLUID_AMOUNT;
-            float y = percent * 0.75f;
+            float y = percent * 0.65f;
             Fluid fluid = fluidTank.getFluid().getFluid();
             RenderUtils.renderFluid(fluid, poseStack, buffer, packedLight, 16, y);
 
@@ -96,6 +96,7 @@ public class BarrelBlockEntityRender implements BlockEntityRenderer<BarrelBlockE
 
         ItemStackHandler items = barrel.getIngredient();
 
+        int globalIndex = 0;
         for (int index = 0; index < items.getSlots(); index++) {
             ItemStack stack = items.getStackInSlot(index);
             int count = stack.getCount() / 2 + 1;
@@ -103,26 +104,26 @@ public class BarrelBlockEntityRender implements BlockEntityRenderer<BarrelBlockE
                 for (int i = 0; i < count; i++) {
                     poseStack.pushPose();
 
-                    float x = ((index % 4) % 2 == 0) ? -0.2f : 0.2f + stableRandom(seed, i, index + 1) * 0.1f;
-                    float z = ((index % 4) / 2 == 0) ? -0.2f : 0.2f + stableRandom(seed, i, index + 2) * 0.1f;
-                    float y = (float) (i / 4) * 0.0625f + stableRandom(seed, i, index + 3) * 0.05f;
+                    float x = stableRandom(seed, globalIndex, index + 1) * 0.4f;
+                    float z = stableRandom(seed, globalIndex, index + 2) * 0.4f;
+                    float y = (float) (globalIndex / 4) * 0.025f + stableRandom(seed, globalIndex, index + 3) * 0.05f;
 
                     // 添加一些上下浮动效果
-                    y += (float) (Math.sin(time / 10f + i) * 0.02f);
+                    y += (float) (Math.sin(time / 10f + globalIndex) * 0.02f);
 
-                    float yRot = stableRandom(seed, i, index + 4) * 5f;
-                    float zRot = stableRandom(seed, i, index + 5) * 360f;
+                    float yRot = stableRandom(seed, globalIndex, index + 4) * 5f;
+                    float zRot = stableRandom(seed, globalIndex, index + 5) * 360f;
 
                     poseStack.translate(0.5f + x, 2.7f + y, 0.5f + z);
                     poseStack.scale(0.5f, 0.5f, 0.5f);
                     poseStack.mulPose(Axis.XN.rotationDegrees(90));
-
                     poseStack.mulPose(Axis.YN.rotationDegrees(yRot));
                     poseStack.mulPose(Axis.ZN.rotationDegrees(zRot));
 
                     itemRenderer.renderStatic(stack, ItemDisplayContext.FIXED, packedLight,
                             packedOverlay, poseStack, buffer, barrel.getLevel(), 0);
                     poseStack.popPose();
+                    globalIndex++;
                 }
             }
         }

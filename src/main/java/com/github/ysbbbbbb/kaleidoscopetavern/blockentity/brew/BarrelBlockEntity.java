@@ -30,6 +30,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
@@ -224,7 +225,8 @@ public class BarrelBlockEntity extends BaseBlockEntity implements IBarrel {
             return false;
         }
         int count = stack.getCount();
-        ItemStack remaining = ItemHandlerHelper.insertItemStacked(this.ingredient, stack.copy(), false);
+        // 只尝试放入 16 个
+        ItemStack remaining = this.addIngredientOnce(this.ingredient, stack.copy(), false);
         // 如果数量发生了变化，代表成功添加了部分或全部物品
         if (remaining.getCount() < count) {
             // 不需要刷新，因为 items 内部会调用 onContentsChanged 来刷新状态
@@ -237,6 +239,48 @@ public class BarrelBlockEntity extends BaseBlockEntity implements IBarrel {
         }
         this.tip(user, "add_ingredient_no_space");
         return false;
+    }
+
+    /**
+     * 单次投料逻辑，会优先放置到已有相同物品的槽位
+     * 然后放置成功一次后，立即返回，而不是继续尝试放置，避免一次性放入过多物品
+     */
+    public ItemStack addIngredientOnce(IItemHandler inventory, ItemStack stack, boolean simulate) {
+        if (stack.isEmpty()) {
+            return stack;
+        }
+
+        // 不可堆叠的物品，直接尝试放入任意空槽
+        if (!stack.isStackable()) {
+            return ItemHandlerHelper.insertItem(inventory, stack, simulate);
+        }
+
+        int slots = inventory.getSlots();
+        int beforeCount = stack.getCount();
+
+        // 优先尝试合并到已有相同物品的槽位
+        for (int i = 0; i < slots; i++) {
+            ItemStack slot = inventory.getStackInSlot(i);
+            if (ItemHandlerHelper.canItemStacksStackRelaxed(slot, stack)) {
+                stack = inventory.insertItem(i, stack, simulate);
+                // 放置成功一次后，立即返回，避免一次性放入过多物品
+                if (stack.getCount() < beforeCount) {
+                    return stack;
+                }
+            }
+        }
+
+        // 没有可合并的槽位，找第一个空槽放入
+        if (!stack.isEmpty()) {
+            for (int i = 0; i < slots; i++) {
+                if (inventory.getStackInSlot(i).isEmpty()) {
+                    // 放置到空槽后，立即返回，避免一次性放入过多物品
+                    return inventory.insertItem(i, stack, simulate);
+                }
+            }
+        }
+
+        return stack;
     }
 
     @Override

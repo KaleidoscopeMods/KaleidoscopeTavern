@@ -133,6 +133,7 @@ public class TapBlock extends BaseEntityBlock implements SimpleWaterloggedBlock 
             }
 
             this.emptyOpen(level, pos, state);
+            return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;
     }
