@@ -44,7 +44,7 @@ public class WildGrapevineBlock extends GrowingPlantHeadBlock implements Bonemea
             .pushReaction(PushReaction.DESTROY);
 
     public WildGrapevineBlock() {
-        super(PROPERTIES, Direction.DOWN, SHAPE, false, 0.1);
+        super(PROPERTIES, Direction.DOWN, SHAPE, false, 0.15);
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(AGE, 0)
                 .setValue(SHEARED, false));

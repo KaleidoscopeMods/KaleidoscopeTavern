@@ -67,7 +67,7 @@ public class GrapevineTrellisBlock extends Block implements SimpleWaterloggedBlo
                 .setValue(TYPE, TrellisType.SINGLE)
                 .setValue(AGE, 0)
                 .setValue(WATERLOGGED, false));
-        this.growPerTickProbability = 0.1F;
+        this.growPerTickProbability = 0.25F;
     }
 
     @Override
