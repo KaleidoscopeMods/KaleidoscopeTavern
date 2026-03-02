@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=east,open=false,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/brew/tap/close",
+      "y": 90
+    },
+    "facing=east,open=false,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/brew/tap/close",
+      "y": 90
+    },
+    "facing=east,open=true,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/brew/tap/open",
+      "y": 90
+    },
+    "facing=east,open=true,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/brew/tap/open",
+      "y": 90
+    },
+    "facing=north,open=false,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/brew/tap/close"
+    },
+    "facing=north,open=false,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/brew/tap/close"
+    },
+    "facing=north,open=true,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/brew/tap/open"
+    },
+    "facing=north,open=true,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/brew/tap/open"
+    },
+    "facing=south,open=false,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/brew/tap/close",
+      "y": 180
+    },
+    "facing=south,open=false,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/brew/tap/close",
+      "y": 180
+    },
+    "facing=south,open=true,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/brew/tap/open",
+      "y": 180
+    },
+    "facing=south,open=true,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/brew/tap/open",
+      "y": 180
+    },
+    "facing=west,open=false,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/brew/tap/close",
+      "y": 270
+    },
+    "facing=west,open=false,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/brew/tap/close",
+      "y": 270
+    },
+    "facing=west,open=true,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/brew/tap/open",
+      "y": 270
+    },
+    "facing=west,open=true,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/brew/tap/open",
+      "y": 270
+    }
+  }
+}

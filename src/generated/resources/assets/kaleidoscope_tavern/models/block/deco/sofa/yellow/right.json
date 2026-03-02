@@ -1,0 +1,7 @@
+{
+  "parent": "kaleidoscope_tavern:block/deco/sofa/base/right",
+  "textures": {
+    "particle": "minecraft:block/yellow_wool",
+    "texture": "kaleidoscope_tavern:block/deco/sofa/yellow"
+  }
+}

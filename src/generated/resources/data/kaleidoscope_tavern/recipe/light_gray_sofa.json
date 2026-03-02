@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "tag": "c:ingots/iron"
+    },
+    "W": {
+      "item": "minecraft:light_gray_wool"
+    }
+  },
+  "pattern": [
+    "W W",
+    "WWW",
+    "L L"
+  ],
+  "result": {
+    "count": 1,
+    "id": "kaleidoscope_tavern:light_gray_sofa"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:chain"
+    },
+    "L": {
+      "tag": "c:ingots/iron"
+    },
+    "W": {
+      "item": "minecraft:magenta_wool"
+    }
+  },
+  "pattern": [
+    "W",
+    "C",
+    "L"
+  ],
+  "result": {
+    "count": 1,
+    "id": "kaleidoscope_tavern:magenta_bar_stool"
+  }
+}

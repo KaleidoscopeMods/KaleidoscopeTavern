@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=east,tilt=false,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/brew/pressing_tub",
+      "y": 90
+    },
+    "facing=east,tilt=false,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/brew/pressing_tub",
+      "y": 90
+    },
+    "facing=east,tilt=true,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/brew/tilt_pressing_tub",
+      "y": 90
+    },
+    "facing=east,tilt=true,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/brew/tilt_pressing_tub",
+      "y": 90
+    },
+    "facing=north,tilt=false,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/brew/pressing_tub"
+    },
+    "facing=north,tilt=false,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/brew/pressing_tub"
+    },
+    "facing=north,tilt=true,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/brew/tilt_pressing_tub"
+    },
+    "facing=north,tilt=true,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/brew/tilt_pressing_tub"
+    },
+    "facing=south,tilt=false,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/brew/pressing_tub",
+      "y": 180
+    },
+    "facing=south,tilt=false,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/brew/pressing_tub",
+      "y": 180
+    },
+    "facing=south,tilt=true,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/brew/tilt_pressing_tub",
+      "y": 180
+    },
+    "facing=south,tilt=true,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/brew/tilt_pressing_tub",
+      "y": 180
+    },
+    "facing=west,tilt=false,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/brew/pressing_tub",
+      "y": 270
+    },
+    "facing=west,tilt=false,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/brew/pressing_tub",
+      "y": 270
+    },
+    "facing=west,tilt=true,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/brew/tilt_pressing_tub",
+      "y": 270
+    },
+    "facing=west,tilt=true,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/brew/tilt_pressing_tub",
+      "y": 270
+    }
+  }
+}

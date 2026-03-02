@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_base_sandwich_board": {
+      "conditions": {
+        "items": [
+          {
+            "items": "kaleidoscope_tavern:base_sandwich_board"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "kaleidoscope_tavern:allium_sandwich_board_from_allium"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_base_sandwich_board"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "kaleidoscope_tavern:allium_sandwich_board_from_allium"
+    ]
+  }
+}

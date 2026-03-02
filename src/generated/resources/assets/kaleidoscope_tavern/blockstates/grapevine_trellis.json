@@ -1,0 +1,172 @@
+{
+  "variants": {
+    "age=0,type=cross_east_west,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/cross_east_west"
+    },
+    "age=0,type=cross_east_west,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/cross_east_west"
+    },
+    "age=0,type=cross_north_south,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/cross_north_south"
+    },
+    "age=0,type=cross_north_south,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/cross_north_south"
+    },
+    "age=0,type=cross_up_down,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/cross_up_down"
+    },
+    "age=0,type=cross_up_down,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/cross_up_down"
+    },
+    "age=0,type=east_west,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/east_west"
+    },
+    "age=0,type=east_west,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/east_west"
+    },
+    "age=0,type=north_south,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/north_south"
+    },
+    "age=0,type=north_south,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/north_south"
+    },
+    "age=0,type=single,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/single_stage0"
+    },
+    "age=0,type=single,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/single_stage0"
+    },
+    "age=0,type=six_direction,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/six_direction"
+    },
+    "age=0,type=six_direction,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/six_direction"
+    },
+    "age=1,type=cross_east_west,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/cross_east_west"
+    },
+    "age=1,type=cross_east_west,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/cross_east_west"
+    },
+    "age=1,type=cross_north_south,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/cross_north_south"
+    },
+    "age=1,type=cross_north_south,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/cross_north_south"
+    },
+    "age=1,type=cross_up_down,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/cross_up_down"
+    },
+    "age=1,type=cross_up_down,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/cross_up_down"
+    },
+    "age=1,type=east_west,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/east_west"
+    },
+    "age=1,type=east_west,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/east_west"
+    },
+    "age=1,type=north_south,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/north_south"
+    },
+    "age=1,type=north_south,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/north_south"
+    },
+    "age=1,type=single,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/single_stage1"
+    },
+    "age=1,type=single,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/single_stage1"
+    },
+    "age=1,type=six_direction,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/six_direction"
+    },
+    "age=1,type=six_direction,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/six_direction"
+    },
+    "age=2,type=cross_east_west,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/cross_east_west"
+    },
+    "age=2,type=cross_east_west,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/cross_east_west"
+    },
+    "age=2,type=cross_north_south,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/cross_north_south"
+    },
+    "age=2,type=cross_north_south,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/cross_north_south"
+    },
+    "age=2,type=cross_up_down,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/cross_up_down"
+    },
+    "age=2,type=cross_up_down,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/cross_up_down"
+    },
+    "age=2,type=east_west,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/east_west"
+    },
+    "age=2,type=east_west,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/east_west"
+    },
+    "age=2,type=north_south,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/north_south"
+    },
+    "age=2,type=north_south,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/north_south"
+    },
+    "age=2,type=single,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/single_stage2"
+    },
+    "age=2,type=single,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/single_stage2"
+    },
+    "age=2,type=six_direction,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/six_direction"
+    },
+    "age=2,type=six_direction,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/six_direction"
+    },
+    "age=3,type=cross_east_west,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/cross_east_west"
+    },
+    "age=3,type=cross_east_west,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/cross_east_west"
+    },
+    "age=3,type=cross_north_south,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/cross_north_south"
+    },
+    "age=3,type=cross_north_south,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/cross_north_south"
+    },
+    "age=3,type=cross_up_down,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/cross_up_down"
+    },
+    "age=3,type=cross_up_down,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/cross_up_down"
+    },
+    "age=3,type=east_west,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/east_west"
+    },
+    "age=3,type=east_west,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/east_west"
+    },
+    "age=3,type=north_south,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/north_south"
+    },
+    "age=3,type=north_south,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/north_south"
+    },
+    "age=3,type=single,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/single_stage3"
+    },
+    "age=3,type=single,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/single_stage3"
+    },
+    "age=3,type=six_direction,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/six_direction"
+    },
+    "age=3,type=six_direction,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/plant/grapevine_trellis/six_direction"
+    }
+  }
+}

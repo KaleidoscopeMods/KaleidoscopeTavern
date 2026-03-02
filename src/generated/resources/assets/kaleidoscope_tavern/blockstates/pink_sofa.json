@@ -1,0 +1,184 @@
+{
+  "variants": {
+    "connection=left,facing=east,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/left",
+      "y": 90
+    },
+    "connection=left,facing=east,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/left",
+      "y": 90
+    },
+    "connection=left,facing=north,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/left"
+    },
+    "connection=left,facing=north,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/left"
+    },
+    "connection=left,facing=south,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/left",
+      "y": 180
+    },
+    "connection=left,facing=south,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/left",
+      "y": 180
+    },
+    "connection=left,facing=west,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/left",
+      "y": 270
+    },
+    "connection=left,facing=west,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/left",
+      "y": 270
+    },
+    "connection=left_corner,facing=east,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/left_corner",
+      "y": 90
+    },
+    "connection=left_corner,facing=east,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/left_corner",
+      "y": 90
+    },
+    "connection=left_corner,facing=north,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/left_corner"
+    },
+    "connection=left_corner,facing=north,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/left_corner"
+    },
+    "connection=left_corner,facing=south,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/left_corner",
+      "y": 180
+    },
+    "connection=left_corner,facing=south,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/left_corner",
+      "y": 180
+    },
+    "connection=left_corner,facing=west,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/left_corner",
+      "y": 270
+    },
+    "connection=left_corner,facing=west,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/left_corner",
+      "y": 270
+    },
+    "connection=middle,facing=east,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/middle",
+      "y": 90
+    },
+    "connection=middle,facing=east,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/middle",
+      "y": 90
+    },
+    "connection=middle,facing=north,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/middle"
+    },
+    "connection=middle,facing=north,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/middle"
+    },
+    "connection=middle,facing=south,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/middle",
+      "y": 180
+    },
+    "connection=middle,facing=south,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/middle",
+      "y": 180
+    },
+    "connection=middle,facing=west,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/middle",
+      "y": 270
+    },
+    "connection=middle,facing=west,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/middle",
+      "y": 270
+    },
+    "connection=right,facing=east,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/right",
+      "y": 90
+    },
+    "connection=right,facing=east,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/right",
+      "y": 90
+    },
+    "connection=right,facing=north,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/right"
+    },
+    "connection=right,facing=north,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/right"
+    },
+    "connection=right,facing=south,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/right",
+      "y": 180
+    },
+    "connection=right,facing=south,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/right",
+      "y": 180
+    },
+    "connection=right,facing=west,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/right",
+      "y": 270
+    },
+    "connection=right,facing=west,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/right",
+      "y": 270
+    },
+    "connection=right_corner,facing=east,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/right_corner",
+      "y": 90
+    },
+    "connection=right_corner,facing=east,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/right_corner",
+      "y": 90
+    },
+    "connection=right_corner,facing=north,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/right_corner"
+    },
+    "connection=right_corner,facing=north,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/right_corner"
+    },
+    "connection=right_corner,facing=south,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/right_corner",
+      "y": 180
+    },
+    "connection=right_corner,facing=south,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/right_corner",
+      "y": 180
+    },
+    "connection=right_corner,facing=west,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/right_corner",
+      "y": 270
+    },
+    "connection=right_corner,facing=west,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/right_corner",
+      "y": 270
+    },
+    "connection=single,facing=east,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/single",
+      "y": 90
+    },
+    "connection=single,facing=east,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/single",
+      "y": 90
+    },
+    "connection=single,facing=north,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/single"
+    },
+    "connection=single,facing=north,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/single"
+    },
+    "connection=single,facing=south,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/single",
+      "y": 180
+    },
+    "connection=single,facing=south,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/single",
+      "y": 180
+    },
+    "connection=single,facing=west,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/single",
+      "y": 270
+    },
+    "connection=single,facing=west,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sofa/pink/single",
+      "y": 270
+    }
+  }
+}

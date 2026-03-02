@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_grapevine": {
+      "conditions": {
+        "items": [
+          {
+            "items": "kaleidoscope_tavern:grapevine"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "kaleidoscope_tavern:glass_bar_cabinet"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_grapevine"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "kaleidoscope_tavern:glass_bar_cabinet"
+    ]
+  }
+}

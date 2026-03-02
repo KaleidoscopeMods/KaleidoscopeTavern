@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "H": {
+      "item": "minecraft:hopper"
+    },
+    "L": {
+      "item": "minecraft:lever"
+    }
+  },
+  "pattern": [
+    "L",
+    "H"
+  ],
+  "result": {
+    "count": 1,
+    "id": "kaleidoscope_tavern:tap"
+  }
+}

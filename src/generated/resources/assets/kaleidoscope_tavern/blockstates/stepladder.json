@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=east,half=bottom,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/stepladder/bottom",
+      "y": 90
+    },
+    "facing=east,half=bottom,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/stepladder/bottom",
+      "y": 90
+    },
+    "facing=east,half=top,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/stepladder/top",
+      "y": 90
+    },
+    "facing=east,half=top,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/stepladder/top",
+      "y": 90
+    },
+    "facing=north,half=bottom,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/stepladder/bottom"
+    },
+    "facing=north,half=bottom,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/stepladder/bottom"
+    },
+    "facing=north,half=top,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/stepladder/top"
+    },
+    "facing=north,half=top,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/stepladder/top"
+    },
+    "facing=south,half=bottom,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/stepladder/bottom",
+      "y": 180
+    },
+    "facing=south,half=bottom,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/stepladder/bottom",
+      "y": 180
+    },
+    "facing=south,half=top,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/stepladder/top",
+      "y": 180
+    },
+    "facing=south,half=top,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/stepladder/top",
+      "y": 180
+    },
+    "facing=west,half=bottom,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/stepladder/bottom",
+      "y": 270
+    },
+    "facing=west,half=bottom,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/stepladder/bottom",
+      "y": 270
+    },
+    "facing=west,half=top,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/stepladder/top",
+      "y": 270
+    },
+    "facing=west,half=top,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/stepladder/top",
+      "y": 270
+    }
+  }
+}

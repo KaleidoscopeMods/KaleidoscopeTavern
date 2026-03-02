@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=east,position=left": {
+      "model": "kaleidoscope_tavern:block/brew/bar_cabinet/left",
+      "y": 90
+    },
+    "facing=east,position=middle": {
+      "model": "kaleidoscope_tavern:block/brew/bar_cabinet/middle",
+      "y": 90
+    },
+    "facing=east,position=right": {
+      "model": "kaleidoscope_tavern:block/brew/bar_cabinet/right",
+      "y": 90
+    },
+    "facing=east,position=single": {
+      "model": "kaleidoscope_tavern:block/brew/bar_cabinet/single",
+      "y": 90
+    },
+    "facing=north,position=left": {
+      "model": "kaleidoscope_tavern:block/brew/bar_cabinet/left"
+    },
+    "facing=north,position=middle": {
+      "model": "kaleidoscope_tavern:block/brew/bar_cabinet/middle"
+    },
+    "facing=north,position=right": {
+      "model": "kaleidoscope_tavern:block/brew/bar_cabinet/right"
+    },
+    "facing=north,position=single": {
+      "model": "kaleidoscope_tavern:block/brew/bar_cabinet/single"
+    },
+    "facing=south,position=left": {
+      "model": "kaleidoscope_tavern:block/brew/bar_cabinet/left",
+      "y": 180
+    },
+    "facing=south,position=middle": {
+      "model": "kaleidoscope_tavern:block/brew/bar_cabinet/middle",
+      "y": 180
+    },
+    "facing=south,position=right": {
+      "model": "kaleidoscope_tavern:block/brew/bar_cabinet/right",
+      "y": 180
+    },
+    "facing=south,position=single": {
+      "model": "kaleidoscope_tavern:block/brew/bar_cabinet/single",
+      "y": 180
+    },
+    "facing=west,position=left": {
+      "model": "kaleidoscope_tavern:block/brew/bar_cabinet/left",
+      "y": 270
+    },
+    "facing=west,position=middle": {
+      "model": "kaleidoscope_tavern:block/brew/bar_cabinet/middle",
+      "y": 270
+    },
+    "facing=west,position=right": {
+      "model": "kaleidoscope_tavern:block/brew/bar_cabinet/right",
+      "y": 270
+    },
+    "facing=west,position=single": {
+      "model": "kaleidoscope_tavern:block/brew/bar_cabinet/single",
+      "y": 270
+    }
+  }
+}

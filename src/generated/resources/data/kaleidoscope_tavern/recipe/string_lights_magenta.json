@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:chain"
+    },
+    "D": {
+      "item": "minecraft:magenta_dye"
+    },
+    "L": {
+      "item": "minecraft:lantern"
+    }
+  },
+  "pattern": [
+    "CCC",
+    "LLL",
+    "DDD"
+  ],
+  "result": {
+    "count": 8,
+    "id": "kaleidoscope_tavern:string_lights_magenta"
+  }
+}

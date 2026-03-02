@@ -1,0 +1,11 @@
+{
+  "type": "kaleidoscope_tavern:barrel",
+  "carrier": {
+    "item": "kaleidoscope_tavern:empty_bottle"
+  },
+  "fluid": "minecraft:lava",
+  "result": {
+    "count": 1,
+    "id": "kaleidoscope_tavern:molotov"
+  }
+}
