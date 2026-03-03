@@ -4,6 +4,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import net.neoforged.neoforge.items.IItemHandler;
 
@@ -27,6 +28,14 @@ public class BarrelRecipeContainer implements RecipeInput {
     @Override
     public int size() {
         return items.size();
+    }
+
+    /**
+     * 需要重写这个方法，把流体算在内，才不会导致流体不为空但物品为空时被误判为输入空了
+     */
+    @Override
+    public boolean isEmpty() {
+        return this.fluid.isSame(Fluids.EMPTY);
     }
 
     public Fluid getFluid() {
