@@ -74,6 +74,8 @@ mixin {
 }
 
 repositories {
+    maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" }
+    maven { url = "https://maven.createmod.net" }
     maven {
         name = "Jared's maven"
         url = "https://maven.blamejared.com/"
@@ -162,6 +164,11 @@ dependencies {
 
     runtimeOnly fg.deobf("maven.modrinth:nbtedit-reborn:5.0.3+mc1.20.1")
     runtimeOnly fg.deobf("maven.modrinth:kiwi:11.5.5")
+
+    // Ponder
+    implementation fg.deobf("net.createmod.ponder:Ponder-Forge-1.20.1:1.0.80")
+    compileOnly fg.deobf("dev.engine-room.flywheel:flywheel-forge-api-1.20.1:1.0.4")
+    runtimeOnly fg.deobf("maven.modrinth:create:1.20.1-6.0.6")
 }
 
 tasks.named('processResources', ProcessResources).configure {
