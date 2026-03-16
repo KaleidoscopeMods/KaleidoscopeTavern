@@ -2,6 +2,7 @@ package com.github.ysbbbbbb.kaleidoscopetavern.client.init;
 
 
 import com.github.ysbbbbbb.kaleidoscopetavern.client.model.brew.BarrelModel;
+import com.github.ysbbbbbb.kaleidoscopetavern.client.model.deco.BarStoolBodyModel;
 import com.github.ysbbbbbb.kaleidoscopetavern.client.model.deco.LargeChalkboardModel;
 import com.github.ysbbbbbb.kaleidoscopetavern.client.model.deco.SmallChalkboardModel;
 import com.github.ysbbbbbb.kaleidoscopetavern.client.render.entity.SitRenderer;
@@ -29,6 +30,7 @@ public class ModEntitiesRender {
     public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(SmallChalkboardModel.LAYER_LOCATION, SmallChalkboardModel::createBodyLayer);
         event.registerLayerDefinition(LargeChalkboardModel.LAYER_LOCATION, LargeChalkboardModel::createBodyLayer);
+        event.registerLayerDefinition(BarStoolBodyModel.LAYER_LOCATION, BarStoolBodyModel::createBodyLayer);
         event.registerLayerDefinition(BarrelModel.LAYER_LOCATION, BarrelModel::createBodyLayer);
     }
 
