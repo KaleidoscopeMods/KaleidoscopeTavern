@@ -69,6 +69,8 @@ sourceSets.main.resources {
 }
 
 repositories {
+    maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" }
+    maven { url = "https://maven.createmod.net" }
     maven {
         name = "Jared's maven"
         url = "https://maven.blamejared.com/"
@@ -145,6 +147,13 @@ dependencies {
 
     runtimeOnly "maven.modrinth:nbtedit-reborn:5.2.11+mc1.21.1-neoforge"
     runtimeOnly "maven.modrinth:kiwi:15.6.1+neoforge"
+
+    // Ponder
+    implementation "net.createmod.ponder:Ponder-NeoForge-1.21.1:1.0.56"
+    runtimeOnly "maven.modrinth:create:1.21.1-6.0.6"
+
+    // 节气
+    // runtimeOnly "curse.maven:ecliptic-seasons-1118306:7041469"
 }
 
 tasks.withType(ProcessResources).configureEach {

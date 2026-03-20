@@ -5,9 +5,11 @@ import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.brew.*;
+import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.BarStoolBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.ChalkboardBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.SandwichBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -42,22 +44,22 @@ public interface ModBlocks {
     DeferredBlock<Block> PINK_SOFA = BLOCKS.register("pink_sofa", SofaBlock::new);
 
     // 高脚凳
-    DeferredBlock<Block> WHITE_BAR_STOOL = BLOCKS.register("white_bar_stool", BarStoolBlock::new);
-    DeferredBlock<Block> LIGHT_GRAY_BAR_STOOL = BLOCKS.register("light_gray_bar_stool", BarStoolBlock::new);
-    DeferredBlock<Block> GRAY_BAR_STOOL = BLOCKS.register("gray_bar_stool", BarStoolBlock::new);
-    DeferredBlock<Block> BLACK_BAR_STOOL = BLOCKS.register("black_bar_stool", BarStoolBlock::new);
-    DeferredBlock<Block> BROWN_BAR_STOOL = BLOCKS.register("brown_bar_stool", BarStoolBlock::new);
-    DeferredBlock<Block> RED_BAR_STOOL = BLOCKS.register("red_bar_stool", BarStoolBlock::new);
-    DeferredBlock<Block> ORANGE_BAR_STOOL = BLOCKS.register("orange_bar_stool", BarStoolBlock::new);
-    DeferredBlock<Block> YELLOW_BAR_STOOL = BLOCKS.register("yellow_bar_stool", BarStoolBlock::new);
-    DeferredBlock<Block> LIME_BAR_STOOL = BLOCKS.register("lime_bar_stool", BarStoolBlock::new);
-    DeferredBlock<Block> GREEN_BAR_STOOL = BLOCKS.register("green_bar_stool", BarStoolBlock::new);
-    DeferredBlock<Block> CYAN_BAR_STOOL = BLOCKS.register("cyan_bar_stool", BarStoolBlock::new);
-    DeferredBlock<Block> LIGHT_BLUE_BAR_STOOL = BLOCKS.register("light_blue_bar_stool", BarStoolBlock::new);
-    DeferredBlock<Block> BLUE_BAR_STOOL = BLOCKS.register("blue_bar_stool", BarStoolBlock::new);
-    DeferredBlock<Block> PURPLE_BAR_STOOL = BLOCKS.register("purple_bar_stool", BarStoolBlock::new);
-    DeferredBlock<Block> MAGENTA_BAR_STOOL = BLOCKS.register("magenta_bar_stool", BarStoolBlock::new);
-    DeferredBlock<Block> PINK_BAR_STOOL = BLOCKS.register("pink_bar_stool", BarStoolBlock::new);
+    DeferredBlock<Block> WHITE_BAR_STOOL = BLOCKS.register("white_bar_stool", () -> new BarStoolBlock(DyeColor.WHITE));
+    DeferredBlock<Block> LIGHT_GRAY_BAR_STOOL = BLOCKS.register("light_gray_bar_stool", () -> new BarStoolBlock(DyeColor.LIGHT_GRAY));
+    DeferredBlock<Block> GRAY_BAR_STOOL = BLOCKS.register("gray_bar_stool", () -> new BarStoolBlock(DyeColor.GRAY));
+    DeferredBlock<Block> BLACK_BAR_STOOL = BLOCKS.register("black_bar_stool", () -> new BarStoolBlock(DyeColor.BLACK));
+    DeferredBlock<Block> BROWN_BAR_STOOL = BLOCKS.register("brown_bar_stool", () -> new BarStoolBlock(DyeColor.BROWN));
+    DeferredBlock<Block> RED_BAR_STOOL = BLOCKS.register("red_bar_stool", () -> new BarStoolBlock(DyeColor.RED));
+    DeferredBlock<Block> ORANGE_BAR_STOOL = BLOCKS.register("orange_bar_stool", () -> new BarStoolBlock(DyeColor.ORANGE));
+    DeferredBlock<Block> YELLOW_BAR_STOOL = BLOCKS.register("yellow_bar_stool", () -> new BarStoolBlock(DyeColor.YELLOW));
+    DeferredBlock<Block> LIME_BAR_STOOL = BLOCKS.register("lime_bar_stool", () -> new BarStoolBlock(DyeColor.LIME));
+    DeferredBlock<Block> GREEN_BAR_STOOL = BLOCKS.register("green_bar_stool", () -> new BarStoolBlock(DyeColor.GREEN));
+    DeferredBlock<Block> CYAN_BAR_STOOL = BLOCKS.register("cyan_bar_stool", () -> new BarStoolBlock(DyeColor.CYAN));
+    DeferredBlock<Block> LIGHT_BLUE_BAR_STOOL = BLOCKS.register("light_blue_bar_stool", () -> new BarStoolBlock(DyeColor.LIGHT_BLUE));
+    DeferredBlock<Block> BLUE_BAR_STOOL = BLOCKS.register("blue_bar_stool", () -> new BarStoolBlock(DyeColor.BLUE));
+    DeferredBlock<Block> PURPLE_BAR_STOOL = BLOCKS.register("purple_bar_stool", () -> new BarStoolBlock(DyeColor.PURPLE));
+    DeferredBlock<Block> MAGENTA_BAR_STOOL = BLOCKS.register("magenta_bar_stool", () -> new BarStoolBlock(DyeColor.MAGENTA));
+    DeferredBlock<Block> PINK_BAR_STOOL = BLOCKS.register("pink_bar_stool", () -> new BarStoolBlock(DyeColor.PINK));
 
     // 黑板
     DeferredBlock<Block> CHALKBOARD = BLOCKS.register("chalkboard", ChalkboardBlock::new);
@@ -239,6 +241,27 @@ public interface ModBlocks {
             "chalkboard", () -> BlockEntityType.Builder
                     .of(ChalkboardBlockEntity::new, CHALKBOARD.get())
                     .build(null)
+    );
+
+
+    Supplier<BlockEntityType<BarStoolBlockEntity>> BAR_STOOL_BE = BLOCK_ENTITIES.register(
+            "bar_stool", () -> BlockEntityType.Builder.of(BarStoolBlockEntity::new,
+                    BLUE_BAR_STOOL.get(),
+                    GREEN_BAR_STOOL.get(),
+                    ORANGE_BAR_STOOL.get(),
+                    PURPLE_BAR_STOOL.get(),
+                    YELLOW_BAR_STOOL.get(),
+                    BLACK_BAR_STOOL.get(),
+                    WHITE_BAR_STOOL.get(),
+                    GRAY_BAR_STOOL.get(),
+                    BROWN_BAR_STOOL.get(),
+                    LIME_BAR_STOOL.get(),
+                    MAGENTA_BAR_STOOL.get(),
+                    CYAN_BAR_STOOL.get(),
+                    LIGHT_BLUE_BAR_STOOL.get(),
+                    PINK_BAR_STOOL.get(),
+                    LIGHT_GRAY_BAR_STOOL.get(),
+                    RED_BAR_STOOL.get()).build(null)
     );
 
     Supplier<BlockEntityType<SandwichBlockEntity>> SANDWICH_BOARD_BE = BLOCK_ENTITIES.register(

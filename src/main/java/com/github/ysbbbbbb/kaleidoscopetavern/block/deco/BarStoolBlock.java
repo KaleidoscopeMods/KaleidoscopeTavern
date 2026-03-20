@@ -1,6 +1,8 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.block.deco;
 
+import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.BarStoolBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.entity.SitEntity;
+import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -8,19 +10,21 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -35,9 +39,13 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 @SuppressWarnings("deprecation")
-public class BarStoolBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
-    public static final MapCodec<BarStoolBlock> CODEC = simpleCodec(p -> new BarStoolBlock());
+public class BarStoolBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
+    public static final MapCodec<BarStoolBlock> CODEC = simpleCodec(p -> new BarStoolBlock(DyeColor.WHITE));
+
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+
+    private final DyeColor color;
 
     public static final VoxelShape NORTH_SHAPE = Shapes.or(
             Block.box(5, 0, 5, 11, 2, 11),
@@ -67,7 +75,7 @@ public class BarStoolBlock extends HorizontalDirectionalBlock implements SimpleW
             Block.box(11, 15, 2, 14, 21, 14)
     );
 
-    public BarStoolBlock() {
+    public BarStoolBlock(DyeColor color) {
         super(Properties.of()
                 .mapColor(MapColor.WOOD)
                 .instrument(NoteBlockInstrument.GUITAR)
@@ -78,6 +86,7 @@ public class BarStoolBlock extends HorizontalDirectionalBlock implements SimpleW
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(WATERLOGGED, false));
+        this.color = color;
     }
 
     @Override
@@ -112,6 +121,9 @@ public class BarStoolBlock extends HorizontalDirectionalBlock implements SimpleW
             entitySit.setYRot(state.getValue(FACING).toYRot());
             level.addFreshEntity(entitySit);
             player.startRiding(entitySit, true);
+            if (level.getBlockEntity(pos) instanceof BarStoolBlockEntity blockEntity) {
+                blockEntity.setSitEntity(entitySit);
+            }
             return ItemInteractionResult.SUCCESS;
         }
         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
@@ -128,6 +140,16 @@ public class BarStoolBlock extends HorizontalDirectionalBlock implements SimpleW
     }
 
     @Override
+    public BlockState rotate(BlockState blockState, Rotation rotation) {
+        return blockState.setValue(FACING, rotation.rotate(blockState.getValue(FACING)));
+    }
+
+    @Override
+    public BlockState mirror(BlockState blockState, Mirror mirror) {
+        return blockState.rotate(mirror.getRotation(blockState.getValue(FACING)));
+    }
+
+    @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return switch (pState.getValue(FACING)) {
             case SOUTH -> SOUTH_SHAPE;
@@ -138,7 +160,30 @@ public class BarStoolBlock extends HorizontalDirectionalBlock implements SimpleW
     }
 
     @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+    protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
+    }
+
+    @Override
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
+    }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return new BarStoolBlockEntity(blockPos, blockState, color);
+    }
+
+    @Override
+    public <T extends BlockEntity> @Nullable BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
+        if (level.isClientSide()) {
+            return null;
+        }
+        return createTickerHelper(blockEntityType, ModBlocks.BAR_STOOL_BE.get(),
+                (levelIn, pos, stateIn, tap) -> tap.tick());
+    }
+
+    public DyeColor getColor() {
+        return color;
     }
 }
