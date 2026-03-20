@@ -439,7 +439,11 @@ public class BarrelBlockEntity extends BaseBlockEntity implements IBarrel {
 
     private void transform(Level level, BlockPos below, BlockState belowState, BottleBlockItem result) {
         // 取出一个酒瓶，仅用于计数
-        output.extractItem(0, 1, false);
+        ItemStack stack = output.extractItem(0, 1, false);
+        if (!stack.isEmpty()) {
+            // 刷新状态
+            this.refresh();
+        }
 
         // 将方块变成对应的酒瓶
         BlockState state = result.getBlock().defaultBlockState();
