@@ -15,8 +15,6 @@ import net.createmod.ponder.api.scene.Selection;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -27,8 +25,9 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 public class BarrelScenes {
     public static void introduction(SceneBuilder scene, SceneBuildingUtil util) {
         Level level = Minecraft.getInstance().level;
-        if (level == null) return;
-        Pig pig = new Pig(EntityType.PIG, level);
+        if (level == null) {
+            return;
+        }
 
         scene.title("barrel_introduction", "");
         scene.configureBasePlate(0, 0, 5);
