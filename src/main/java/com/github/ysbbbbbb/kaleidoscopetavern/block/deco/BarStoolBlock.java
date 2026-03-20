@@ -29,7 +29,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -41,7 +40,36 @@ import java.util.List;
 public class BarStoolBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+
     private final DyeColor color;
+
+    public static final VoxelShape NORTH_SHAPE = Shapes.or(
+            Block.box(5, 0, 5, 11, 2, 11),
+            Block.box(7, 1, 7, 9, 12, 9),
+            Block.box(2, 12, 3, 14, 15, 14),
+            Block.box(2, 15, 11, 14, 21, 14)
+    );
+
+    public static final VoxelShape SOUTH_SHAPE = Shapes.or(
+            Block.box(5, 0, 5, 11, 2, 11),
+            Block.box(7, 1, 7, 9, 12, 9),
+            Block.box(2, 12, 2, 14, 15, 13),
+            Block.box(2, 15, 2, 14, 21, 5)
+    );
+
+    public static final VoxelShape EAST_SHAPE = Shapes.or(
+            Block.box(5, 0, 5, 11, 2, 11),
+            Block.box(7, 1, 7, 9, 12, 9),
+            Block.box(2, 12, 2, 13, 15, 14),
+            Block.box(2, 15, 2, 5, 21, 14)
+    );
+
+    public static final VoxelShape WEST_SHAPE = Shapes.or(
+            Block.box(5, 0, 5, 11, 2, 11),
+            Block.box(7, 1, 7, 9, 12, 9),
+            Block.box(3, 12, 2, 14, 15, 14),
+            Block.box(11, 15, 2, 14, 21, 14)
+    );
 
     public BarStoolBlock(DyeColor color) {
         super(Properties.of()
@@ -58,24 +86,12 @@ public class BarStoolBlock extends BaseEntityBlock implements SimpleWaterloggedB
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        List<SitEntity> entities = level.getEntitiesOfClass(SitEntity.class, new AABB(pos));
-        if (entities.isEmpty()) {
-            SitEntity entitySit = new SitEntity(level, pos, 0.875);
-            entitySit.setYRot(state.getValue(FACING).toYRot());
-            level.addFreshEntity(entitySit);
-            player.startRiding(entitySit, true);
-            return InteractionResult.SUCCESS;
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState,
+                                  LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+        if (state.getValue(WATERLOGGED)) {
+            level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
-        return InteractionResult.PASS;
-    }
-
-    @Override
-    public BlockState updateShape(BlockState blockState, Direction direction, BlockState blockState2, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos blockPos2) {
-        if (blockState.getValue(WATERLOGGED)) {
-            levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
-        }
-        return super.updateShape(blockState, direction, blockState2, levelAccessor, blockPos, blockPos2);
+        return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
     }
 
     @Override
@@ -90,6 +106,22 @@ public class BarStoolBlock extends BaseEntityBlock implements SimpleWaterloggedB
         return this.defaultBlockState()
                 .setValue(FACING, context.getHorizontalDirection().getOpposite())
                 .setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
+    }
+
+    @Override
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        List<SitEntity> entities = level.getEntitiesOfClass(SitEntity.class, new AABB(pos));
+        if (entities.isEmpty()) {
+            SitEntity entitySit = new SitEntity(level, pos, 0.875);
+            entitySit.setYRot(state.getValue(FACING).toYRot());
+            level.addFreshEntity(entitySit);
+            player.startRiding(entitySit, true);
+            if (level.getBlockEntity(pos) instanceof BarStoolBlockEntity blockEntity) {
+                blockEntity.setSitEntity(entitySit);
+            }
+            return InteractionResult.SUCCESS;
+        }
+        return InteractionResult.PASS;
     }
 
     @Override
@@ -114,12 +146,12 @@ public class BarStoolBlock extends BaseEntityBlock implements SimpleWaterloggedB
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        VoxelShape shape = Shapes.empty();
-        shape = Shapes.join(shape, Shapes.box(0.3125, 0, 0.3125, 0.6875, 0.125, 0.6875), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.4375, 0.0625, 0.4375, 0.5625, 0.75, 0.5625), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.125, 0.75, 0.125, 0.875, 0.9375, 0.875), BooleanOp.OR);
-
-        return shape;
+        return switch (pState.getValue(FACING)) {
+            case SOUTH -> SOUTH_SHAPE;
+            case EAST -> EAST_SHAPE;
+            case WEST -> WEST_SHAPE;
+            default -> NORTH_SHAPE;
+        };
     }
 
     @Override
@@ -137,6 +169,11 @@ public class BarStoolBlock extends BaseEntityBlock implements SimpleWaterloggedB
         if (level.isClientSide()) {
             return null;
         }
-        return createTickerHelper(blockEntityType, ModBlocks.BAR_STOOL_BE.get(), BarStoolBlockEntity::tick);
+        return createTickerHelper(blockEntityType, ModBlocks.BAR_STOOL_BE.get(),
+                (levelIn, pos, stateIn, tap) -> tap.tick());
+    }
+
+    public DyeColor getColor() {
+        return color;
     }
 }
