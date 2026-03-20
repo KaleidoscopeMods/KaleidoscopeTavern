@@ -5,8 +5,10 @@ import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.brew.*;
+import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.BarStoolBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.ChalkboardBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.SandwichBlockEntity;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -40,22 +42,22 @@ public interface ModBlocks {
     RegistryObject<Block> PINK_SOFA = BLOCKS.register("pink_sofa", SofaBlock::new);
 
     // 高脚凳
-    RegistryObject<Block> WHITE_BAR_STOOL = BLOCKS.register("white_bar_stool", BarStoolBlock::new);
-    RegistryObject<Block> LIGHT_GRAY_BAR_STOOL = BLOCKS.register("light_gray_bar_stool", BarStoolBlock::new);
-    RegistryObject<Block> GRAY_BAR_STOOL = BLOCKS.register("gray_bar_stool", BarStoolBlock::new);
-    RegistryObject<Block> BLACK_BAR_STOOL = BLOCKS.register("black_bar_stool", BarStoolBlock::new);
-    RegistryObject<Block> BROWN_BAR_STOOL = BLOCKS.register("brown_bar_stool", BarStoolBlock::new);
-    RegistryObject<Block> RED_BAR_STOOL = BLOCKS.register("red_bar_stool", BarStoolBlock::new);
-    RegistryObject<Block> ORANGE_BAR_STOOL = BLOCKS.register("orange_bar_stool", BarStoolBlock::new);
-    RegistryObject<Block> YELLOW_BAR_STOOL = BLOCKS.register("yellow_bar_stool", BarStoolBlock::new);
-    RegistryObject<Block> LIME_BAR_STOOL = BLOCKS.register("lime_bar_stool", BarStoolBlock::new);
-    RegistryObject<Block> GREEN_BAR_STOOL = BLOCKS.register("green_bar_stool", BarStoolBlock::new);
-    RegistryObject<Block> CYAN_BAR_STOOL = BLOCKS.register("cyan_bar_stool", BarStoolBlock::new);
-    RegistryObject<Block> LIGHT_BLUE_BAR_STOOL = BLOCKS.register("light_blue_bar_stool", BarStoolBlock::new);
-    RegistryObject<Block> BLUE_BAR_STOOL = BLOCKS.register("blue_bar_stool", BarStoolBlock::new);
-    RegistryObject<Block> PURPLE_BAR_STOOL = BLOCKS.register("purple_bar_stool", BarStoolBlock::new);
-    RegistryObject<Block> MAGENTA_BAR_STOOL = BLOCKS.register("magenta_bar_stool", BarStoolBlock::new);
-    RegistryObject<Block> PINK_BAR_STOOL = BLOCKS.register("pink_bar_stool", BarStoolBlock::new);
+    RegistryObject<Block> WHITE_BAR_STOOL = BLOCKS.register("white_bar_stool", () -> new BarStoolBlock(DyeColor.WHITE));
+    RegistryObject<Block> LIGHT_GRAY_BAR_STOOL = BLOCKS.register("light_gray_bar_stool", () -> new BarStoolBlock(DyeColor.LIGHT_GRAY));
+    RegistryObject<Block> GRAY_BAR_STOOL = BLOCKS.register("gray_bar_stool", () -> new BarStoolBlock(DyeColor.GRAY));
+    RegistryObject<Block> BLACK_BAR_STOOL = BLOCKS.register("black_bar_stool", () -> new BarStoolBlock(DyeColor.BLACK));
+    RegistryObject<Block> BROWN_BAR_STOOL = BLOCKS.register("brown_bar_stool", () -> new BarStoolBlock(DyeColor.BROWN));
+    RegistryObject<Block> RED_BAR_STOOL = BLOCKS.register("red_bar_stool", () -> new BarStoolBlock(DyeColor.RED));
+    RegistryObject<Block> ORANGE_BAR_STOOL = BLOCKS.register("orange_bar_stool", () -> new BarStoolBlock(DyeColor.ORANGE));
+    RegistryObject<Block> YELLOW_BAR_STOOL = BLOCKS.register("yellow_bar_stool", () -> new BarStoolBlock(DyeColor.YELLOW));
+    RegistryObject<Block> LIME_BAR_STOOL = BLOCKS.register("lime_bar_stool", () -> new BarStoolBlock(DyeColor.LIME));
+    RegistryObject<Block> GREEN_BAR_STOOL = BLOCKS.register("green_bar_stool", () -> new BarStoolBlock(DyeColor.GREEN));
+    RegistryObject<Block> CYAN_BAR_STOOL = BLOCKS.register("cyan_bar_stool", () -> new BarStoolBlock(DyeColor.CYAN));
+    RegistryObject<Block> LIGHT_BLUE_BAR_STOOL = BLOCKS.register("light_blue_bar_stool", () -> new BarStoolBlock(DyeColor.LIGHT_BLUE));
+    RegistryObject<Block> BLUE_BAR_STOOL = BLOCKS.register("blue_bar_stool", () -> new BarStoolBlock(DyeColor.BLUE));
+    RegistryObject<Block> PURPLE_BAR_STOOL = BLOCKS.register("purple_bar_stool", () -> new BarStoolBlock(DyeColor.PURPLE));
+    RegistryObject<Block> MAGENTA_BAR_STOOL = BLOCKS.register("magenta_bar_stool", () -> new BarStoolBlock(DyeColor.MAGENTA));
+    RegistryObject<Block> PINK_BAR_STOOL = BLOCKS.register("pink_bar_stool", () -> new BarStoolBlock(DyeColor.PINK));
 
     // 黑板
     RegistryObject<Block> CHALKBOARD = BLOCKS.register("chalkboard", ChalkboardBlock::new);
@@ -237,6 +239,26 @@ public interface ModBlocks {
             "chalkboard", () -> BlockEntityType.Builder
                     .of(ChalkboardBlockEntity::new, CHALKBOARD.get())
                     .build(null)
+    );
+
+    RegistryObject<BlockEntityType<BarStoolBlockEntity>> BAR_STOOL_BE = BLOCK_ENTITIES.register(
+            "bar_stool", () -> BlockEntityType.Builder.of(BarStoolBlockEntity::new,
+                    BLUE_BAR_STOOL.get(),
+                    GREEN_BAR_STOOL.get(),
+                    ORANGE_BAR_STOOL.get(),
+                    PURPLE_BAR_STOOL.get(),
+                    YELLOW_BAR_STOOL.get(),
+                    BLACK_BAR_STOOL.get(),
+                    WHITE_BAR_STOOL.get(),
+                    GRAY_BAR_STOOL.get(),
+                    BROWN_BAR_STOOL.get(),
+                    LIME_BAR_STOOL.get(),
+                    MAGENTA_BAR_STOOL.get(),
+                    CYAN_BAR_STOOL.get(),
+                    LIGHT_BLUE_BAR_STOOL.get(),
+                    PINK_BAR_STOOL.get(),
+                    LIGHT_GRAY_BAR_STOOL.get(),
+                    RED_BAR_STOOL.get()).build(null)
     );
 
     RegistryObject<BlockEntityType<SandwichBlockEntity>> SANDWICH_BOARD_BE = BLOCK_ENTITIES.register(

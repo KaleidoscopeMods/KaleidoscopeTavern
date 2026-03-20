@@ -1,3 +1,7 @@
 {
-  "parent": "kaleidoscope_tavern:block/deco/bar_stool/purple"
+  "parent": "kaleidoscope_tavern:item/bar_stool_base",
+  "textures": {
+    "particle": "minecraft:block/purple_wool",
+    "texture": "kaleidoscope_tavern:block/deco/bar_stool/purple"
+  }
 }

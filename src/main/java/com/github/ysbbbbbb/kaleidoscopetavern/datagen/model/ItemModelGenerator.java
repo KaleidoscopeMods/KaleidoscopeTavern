@@ -78,7 +78,7 @@ public class ItemModelGenerator extends ItemModelProvider {
         basicItem(ModItems.GLOW_BERRIES_BUCKET.get());
 
         basicItem(ModItems.TAP.get());
-        basicItem(ModItems.BARREL.get());
+        //basicItem(ModItems.BARREL.get());
 
         basicItem(ModItems.EMPTY_BOTTLE.get());
         basicItem(ModItems.MOLOTOV.get());
@@ -102,8 +102,11 @@ public class ItemModelGenerator extends ItemModelProvider {
 
     private void barStool(String color) {
         String name = "item/%s_bar_stool".formatted(color);
-        ResourceLocation parent = modLoc("block/deco/bar_stool/%s".formatted(color));
-        withExistingParent(name, parent);
+        ResourceLocation parent = modLoc("item/bar_stool_base");
+        getBuilder(name)
+                .parent(getExistingFile(parent))
+                .texture("particle", new ResourceLocation("block/%s_wool".formatted(color)))
+                .texture("texture", modLoc("block/deco/bar_stool/%s".formatted(color)));
     }
 
     private void sandwichBoard(String type) {
