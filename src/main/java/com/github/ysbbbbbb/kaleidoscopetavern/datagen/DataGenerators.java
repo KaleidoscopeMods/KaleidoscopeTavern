@@ -7,6 +7,7 @@ import com.github.ysbbbbbb.kaleidoscopetavern.datagen.model.BlockStateGenerator;
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.model.ItemModelGenerator;
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.recipe.ModRecipeGenerator;
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.tag.TagBlock;
+import com.github.ysbbbbbb.kaleidoscopetavern.datagen.tag.TagItem;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -31,5 +32,6 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new DrinkEffectDataProvider(pack));
 
         var block = vanillaPack.addProvider(packOutput -> new TagBlock(packOutput, registries, helper));
+        vanillaPack.addProvider(packOutput -> new TagItem(packOutput, registries, block.contentsGetter(), helper));
     }
 }

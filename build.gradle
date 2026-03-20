@@ -169,6 +169,9 @@ dependencies {
     implementation fg.deobf("net.createmod.ponder:Ponder-Forge-1.20.1:1.0.80")
     compileOnly fg.deobf("dev.engine-room.flywheel:flywheel-forge-api-1.20.1:1.0.4")
     runtimeOnly fg.deobf("maven.modrinth:create:1.20.1-6.0.6")
+
+    // 节气
+    runtimeOnly fg.deobf("curse.maven:ecliptic-seasons-1118306:6838718")
 }
 
 tasks.named('processResources', ProcessResources).configure {

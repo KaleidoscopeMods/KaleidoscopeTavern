@@ -2,6 +2,7 @@ package com.github.ysbbbbbb.kaleidoscopetavern.datagen.tag;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
+import com.github.ysbbbbbb.kaleidoscopetavern.init.tag.TagCommon;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.tag.TagMod;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -138,5 +139,23 @@ public class TagBlock extends BlockTagsProvider {
                 .add(ModBlocks.WILD_GRAPEVINE.get())
                 .add(ModBlocks.WILD_GRAPEVINE_PLANT.get())
                 .add(ModBlocks.GRAPEVINE_TRELLIS.get());
+
+        // 兼容静谧四季模组
+        this.tag(TagCommon.SPRING_CROPS_BLOCK).add(
+                ModBlocks.GRAPEVINE_TRELLIS.get()
+        );
+        this.tag(TagCommon.SUMMER_CROPS_BLOCK).add(
+                ModBlocks.GRAPEVINE_TRELLIS.get(),
+                ModBlocks.GRAPE_CROP.get()
+        );
+        this.tag(TagCommon.AUTUMN_CROPS_BLOCK).add(
+                ModBlocks.GRAPE_CROP.get()
+        );
+
+        // 节气模组：湿度
+        this.tag(TagCommon.AVERAGE_MOIST).add(
+                ModBlocks.GRAPEVINE_TRELLIS.get(),
+                ModBlocks.GRAPE_CROP.get()
+        );
     }
 }
