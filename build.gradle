@@ -170,6 +170,8 @@ dependencies {
     compileOnly fg.deobf("dev.engine-room.flywheel:flywheel-forge-api-1.20.1:1.0.4")
     runtimeOnly fg.deobf("maven.modrinth:create:1.20.1-6.0.6")
 
+    runtimeOnly fg.deobf("curse.maven:carry-on-274259:4882500")
+
     // 节气
     runtimeOnly fg.deobf("curse.maven:ecliptic-seasons-1118306:6838718")
 }
