@@ -3,15 +3,19 @@ package com.github.ysbbbbbb.kaleidoscopetavern.datagen.loottable;
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModItems;
+import net.minecraft.Util;
 import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.functions.SetNbtFunction;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -145,6 +149,13 @@ public class BlockLootTables extends BlockLootSubProvider {
         // 酒柜
         dropSelf(ModBlocks.BAR_CABINET.get());
         dropSelf(ModBlocks.GLASS_BAR_CABINET.get());
+
+        // 杂项瓶子
+        add(ModBlocks.WATER_BOTTLE.get(), this.createItemWithNbtTable(Items.POTION,
+                Util.make(new CompoundTag(), tag -> tag.putString("Potion", "minecraft:water")))
+        );
+        dropOther(ModBlocks.HONEY_BOTTLE.get(), Items.HONEY_BOTTLE);
+        dropOther(ModBlocks.DRAGON_BREATH_BOTTLE.get(), Items.DRAGON_BREATH);
     }
 
     @Override
@@ -179,6 +190,15 @@ public class BlockLootTables extends BlockLootSubProvider {
                 .setRolls(ConstantValue.exactly(1))
                 .apply(SetItemCountFunction.setCount(countProvider))
                 .add(LootItem.lootTableItem(item));
+        builder.withPool(this.applyExplosionCondition(item, pool));
+        return builder;
+    }
+
+    protected LootTable.Builder createItemWithNbtTable(ItemLike item, CompoundTag nbt) {
+        LootTable.Builder builder = LootTable.lootTable();
+        LootPool.Builder pool = LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1))
+                .add(LootItem.lootTableItem(item).apply(SetNbtFunction.setTag(nbt)));
         builder.withPool(this.applyExplosionCondition(item, pool));
         return builder;
     }

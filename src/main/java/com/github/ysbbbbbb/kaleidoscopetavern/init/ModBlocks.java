@@ -142,6 +142,11 @@ public interface ModBlocks {
     RegistryObject<Block> BAR_CABINET = BLOCKS.register("bar_cabinet", BarCabinetBlock::new);
     RegistryObject<Block> GLASS_BAR_CABINET = BLOCKS.register("glass_bar_cabinet", BarCabinetBlock::new);
 
+    // 杂项的瓶子
+    RegistryObject<Block> WATER_BOTTLE = BLOCKS.register("water_bottle", BottleBlock::new);
+    RegistryObject<Block> HONEY_BOTTLE = BLOCKS.register("honey_bottle", BottleBlock::new);
+    RegistryObject<Block> DRAGON_BREATH_BOTTLE = BLOCKS.register("dragon_breath_bottle", BottleBlock::new);
+
     // 酒
     RegistryObject<Block> WINE = BLOCKS.register("wine", DrinkBlock.create().maxCount(4).shapes(
             Block.box(6, 0, 6, 10, 16, 10),

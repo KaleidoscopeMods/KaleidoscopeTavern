@@ -79,6 +79,9 @@
   "block.kaleidoscope_tavern.bar_cabinet": "Bar Cabinet",
   "block.kaleidoscope_tavern.glass_bar_cabinet": "Glass Bar Cabinet",
   "block.kaleidoscope_tavern.table": "Table",
+  "block.kaleidoscope_tavern.water_bottle": "Water Bottle",
+  "block.kaleidoscope_tavern.honey_bottle": "Honey Bottle",
+  "block.kaleidoscope_tavern.dragon_breath_bottle": "Dragon Breath Bottle",
   "item.kaleidoscope_tavern.grapevine": "Grapevine",
   "item.kaleidoscope_tavern.grape": "Grape",
   "item.kaleidoscope_tavern.grape_bucket": "Grape Bucket",
@@ -168,6 +171,6 @@
   "kaleidoscope_tavern.ponder.grapevine_planting.text_4": "When a Trellis with a Grapevine has an empty space below it, it will begin to bear grapes.",
   "kaleidoscope_tavern.ponder.grapevine_planting.text_5": "Once the grapes are ripe, harvesting them with an empty hand yields 1-2 grapes.",
   "kaleidoscope_tavern.ponder.grapevine_planting.text_6": "Harvesting with Shears yields 2-3 grapes.",
-  "kaleidoscope_tavern.ponder.tag.brewing" : "Brewing",
-  "kaleidoscope_tavern.ponder.tag.brewing.description" : "Everything you need to know to start brewing from scratch."
+  "kaleidoscope_tavern.ponder.tag.brewing": "Brewing",
+  "kaleidoscope_tavern.ponder.tag.brewing.description": "Everything you need to know to start brewing from scratch."
 }
