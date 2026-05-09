@@ -8,12 +8,14 @@ import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.TapBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.SandwichBoardBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.SofaBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.StepladderBlock;
+import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.TableBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.GrapeCropBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.GrapevineTrellisBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.TrellisBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.properties.ConnectionType;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.properties.TrellisType;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
+import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -159,6 +161,48 @@ public class BlockStateGenerator extends BlockStateProvider {
         drink(ModBlocks.WHISKEY.get(), "whiskey");
         drink(ModBlocks.ICE_WINE.get(), "ice_wine");
         drink(ModBlocks.VINEGAR.get(), "vinegar");
+
+        // 桌子
+        table();
+    }
+
+    private void table() {
+        ModelFile.UncheckedModelFile leftModel = new ModelFile.UncheckedModelFile(modLoc("block/deco/table/left"));
+        ModelFile.UncheckedModelFile rightModel = new ModelFile.UncheckedModelFile(modLoc("block/deco/table/right"));
+        ModelFile.UncheckedModelFile middleModel = new ModelFile.UncheckedModelFile(modLoc("block/deco/table/middle"));
+
+        ModelFile.UncheckedModelFile leftModelRot = new ModelFile.UncheckedModelFile(modLoc("block/deco/table/left_rot"));
+        ModelFile.UncheckedModelFile rightModelRot = new ModelFile.UncheckedModelFile(modLoc("block/deco/table/right_rot"));
+        ModelFile.UncheckedModelFile middleModelRot = new ModelFile.UncheckedModelFile(modLoc("block/deco/table/middle_rot"));
+
+        getVariantBuilder(ModBlocks.TABLE.get()).forAllStates(blockState -> {
+            int position = blockState.getValue(TableBlock.POSITION);
+            if (position == TableBlock.SINGLE) {
+                return ConfiguredModel.builder()
+                        .modelFile(new ModelFile.UncheckedModelFile(modLoc("block/deco/table/single")))
+                        .build();
+            }
+            boolean isRotation = blockState.getValue(TableBlock.AXIS) == Direction.Axis.Z;
+            if (position == TableBlock.LEFT) {
+                if (isRotation) {
+                    return ConfiguredModel.builder().modelFile(rightModelRot).build();
+                } else {
+                    return ConfiguredModel.builder().modelFile(rightModel).build();
+                }
+            }
+            if (position == TableBlock.RIGHT) {
+                if (isRotation) {
+                    return ConfiguredModel.builder().modelFile(leftModelRot).build();
+                } else {
+                    return ConfiguredModel.builder().modelFile(leftModel).build();
+                }
+            }
+            if (isRotation) {
+                return ConfiguredModel.builder().modelFile(middleModelRot).build();
+            } else {
+                return ConfiguredModel.builder().modelFile(middleModel).build();
+            }
+        });
     }
 
     private void sofa(RegistryObject<Block> block, String color) {

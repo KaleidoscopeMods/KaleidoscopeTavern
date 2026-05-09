@@ -49,6 +49,7 @@ public interface ModItems {
 
     // 黑板
     RegistryObject<Item> CHALKBOARD = ITEMS.register("chalkboard", () -> new BlockItem(ModBlocks.CHALKBOARD.get(), new Item.Properties()));
+    RegistryObject<Item> TABLE = ITEMS.register("table", () -> new BlockItem(ModBlocks.TABLE.get(), new Item.Properties()));
 
     // 展板
     RegistryObject<Item> BASE_SANDWICH_BOARD = ITEMS.register("base_sandwich_board", () -> new SandwichBoardBlockItem(ModBlocks.BASE_SANDWICH_BOARD));

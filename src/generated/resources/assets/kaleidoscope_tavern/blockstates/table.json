@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "axis=x,position=0,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/table/single"
+    },
+    "axis=x,position=0,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/table/single"
+    },
+    "axis=x,position=1,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/table/right"
+    },
+    "axis=x,position=1,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/table/right"
+    },
+    "axis=x,position=2,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/table/middle"
+    },
+    "axis=x,position=2,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/table/middle"
+    },
+    "axis=x,position=3,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/table/left"
+    },
+    "axis=x,position=3,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/table/left"
+    },
+    "axis=z,position=0,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/table/single"
+    },
+    "axis=z,position=0,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/table/single"
+    },
+    "axis=z,position=1,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/table/right_rot"
+    },
+    "axis=z,position=1,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/table/right_rot"
+    },
+    "axis=z,position=2,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/table/middle_rot"
+    },
+    "axis=z,position=2,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/table/middle_rot"
+    },
+    "axis=z,position=3,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/table/left_rot"
+    },
+    "axis=z,position=3,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/table/left_rot"
+    }
+  }
+}

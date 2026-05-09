@@ -51,6 +51,8 @@ public interface ModCreativeTabs {
                 output.accept(ModItems.BAR_COUNTER.get());
                 output.accept(ModItems.STEPLADDER.get());
 
+                output.accept(ModItems.TABLE.get());
+
                 output.accept(ModItems.STRING_LIGHTS_COLORLESS.get());
                 output.accept(ModItems.STRING_LIGHTS_WHITE.get());
                 output.accept(ModItems.STRING_LIGHTS_LIGHT_GRAY.get());

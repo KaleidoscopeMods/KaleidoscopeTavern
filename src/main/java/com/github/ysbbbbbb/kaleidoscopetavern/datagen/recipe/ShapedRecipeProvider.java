@@ -180,6 +180,17 @@ public class ShapedRecipeProvider extends ModRecipeProvider {
                 .define('P', Tags.Items.GLASS_PANES)
                 .unlockedBy("has_grapevine", has(ModItems.GRAPEVINE.get()))
                 .save(consumer);
+
+        // 桌子
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.TABLE.get())
+                .pattern("WWW")
+                .pattern(" F ")
+                .pattern(" I ")
+                .define('W', ItemTags.PLANKS)
+                .define('F', ItemTags.FENCES)
+                .define('I', Tags.Items.INGOTS_IRON)
+                .unlockedBy("has_fence", has(ItemTags.FENCES))
+                .save(consumer);
     }
 
     private void sofa(Consumer<FinishedRecipe> consumer, RegistryObject<Item> item, Item wool) {

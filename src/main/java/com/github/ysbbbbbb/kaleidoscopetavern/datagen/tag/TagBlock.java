@@ -120,6 +120,7 @@ public class TagBlock extends BlockTagsProvider {
                 .addTag(TagMod.SANDWICH_BOARD)
                 .addTag(TagMod.PAINTING)
                 .add(ModBlocks.CHALKBOARD.get())
+                .add(ModBlocks.TABLE.get())
                 .add(ModBlocks.BAR_COUNTER.get())
                 .add(ModBlocks.STEPLADDER.get())
                 .add(ModBlocks.TRELLIS.get())

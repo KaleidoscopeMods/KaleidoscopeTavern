@@ -61,6 +61,7 @@ public interface ModBlocks {
 
     // 黑板
     RegistryObject<Block> CHALKBOARD = BLOCKS.register("chalkboard", ChalkboardBlock::new);
+    RegistryObject<Block> TABLE = BLOCKS.register("table", TableBlock::new);
 
     // 展板
     RegistryObject<Block> BASE_SANDWICH_BOARD = BLOCKS.register("base_sandwich_board", SandwichBoardBlock::new);

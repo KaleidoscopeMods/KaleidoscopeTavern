@@ -66,6 +66,8 @@ public class BlockLootTables extends BlockLootSubProvider {
 
         // 黑板
         dropSelf(ModBlocks.CHALKBOARD.get());
+        // 桌子
+        dropSelf(ModBlocks.TABLE.get());
 
         // 展板
         dropSelf(ModBlocks.BASE_SANDWICH_BOARD.get());
