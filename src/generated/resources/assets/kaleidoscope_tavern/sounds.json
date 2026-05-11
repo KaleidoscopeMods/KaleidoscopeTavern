@@ -1,0 +1,8 @@
+{
+  "effect.vision": {
+    "sounds": [
+      "kaleidoscope_tavern:effect/vision"
+    ],
+    "subtitle": "subtitles.kaleidoscope_tavern.effect.vision"
+  }
+}

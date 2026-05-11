@@ -34,6 +34,7 @@ public class CommonRegistry {
         TapBehaviorManager.register(Blocks.BEE_NEST, new BeehiveTapBehavior());
         TapBehaviorManager.register(Blocks.BEEHIVE, new BeehiveTapBehavior());
         TapBehaviorManager.register(Blocks.DRAGON_HEAD, new DragonHeadTapBehavior());
+        TapBehaviorManager.register(Blocks.DRAGON_WALL_HEAD, new DragonHeadTapBehavior());
         TapBehaviorManager.register(Blocks.MELON, new WatermelonTapBehavior());
     }
 

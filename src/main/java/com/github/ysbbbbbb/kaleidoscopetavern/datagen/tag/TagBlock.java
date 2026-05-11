@@ -7,6 +7,7 @@ import com.github.ysbbbbbb.kaleidoscopetavern.init.tag.TagMod;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
@@ -145,6 +146,23 @@ public class TagBlock extends BlockTagsProvider {
                 ModBlocks.GRAPEVINE_TRELLIS.get(),
                 ModBlocks.ICE_GRAPEVINE_TRELLIS.get(),
                 ModBlocks.GOLD_GRAPEVINE_TRELLIS.get()
+        );
+
+        this.tag(TagMod.GRASS_STEALTH_PLANTS).add(
+                Blocks.GRASS,
+                Blocks.TALL_GRASS,
+                Blocks.FERN,
+                Blocks.LARGE_FERN,
+                Blocks.DEAD_BUSH,
+                Blocks.NETHER_SPROUTS,
+                Blocks.CRIMSON_ROOTS,
+                Blocks.WARPED_ROOTS,
+                Blocks.LILAC,
+                Blocks.ROSE_BUSH,
+                Blocks.PEONY,
+                Blocks.PITCHER_PLANT,
+                Blocks.SUGAR_CANE,
+                Blocks.SWEET_BERRY_BUSH
         );
 
         // 兼容静谧四季模组

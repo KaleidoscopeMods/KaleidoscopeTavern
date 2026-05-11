@@ -37,6 +37,10 @@ public interface TagMod {
      * 藤架
      */
     TagKey<Block> GRAPEVINE_TRELLISES = blockTag("grapevine_trellises");
+    /**
+     * 穿草隐身效果起效的方块
+     */
+    TagKey<Block> GRASS_STEALTH_PLANTS = blockTag("grass_stealth_plants");
 
     static TagKey<Item> itemTag(String name) {
         return TagKey.create(Registries.ITEM, KaleidoscopeTavern.modLoc(name));

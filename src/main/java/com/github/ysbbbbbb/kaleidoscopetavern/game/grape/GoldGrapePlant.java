@@ -26,7 +26,7 @@ public class GoldGrapePlant {
         BlockState state = event.state();
 
         BlockState belowState = level.getBlockState(pos.below());
-        if (belowState.is(Blocks.NETHERITE_BLOCK) || belowState.is(Blocks.MAGMA_BLOCK)) {
+        if (belowState.is(Blocks.NETHERRACK) || belowState.is(Blocks.MAGMA_BLOCK)) {
             BlockState plantedState = ModBlocks.GOLD_GRAPEVINE_TRELLIS.get()
                     .defaultBlockState()
                     .setValue(TrellisBlock.WATERLOGGED, state.getValue(TrellisBlock.WATERLOGGED));

@@ -3,6 +3,7 @@ package com.github.ysbbbbbb.kaleidoscopetavern.datagen;
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.datamap.DrinkEffectDataProvider;
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.loottable.LootTableGenerator;
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.misc.ParticleDescriptionGenerator;
+import com.github.ysbbbbbb.kaleidoscopetavern.datagen.misc.SoundDefinitionsGenerator;
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.model.BlockModelGenerator;
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.model.BlockStateGenerator;
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.model.ItemModelGenerator;
@@ -33,6 +34,8 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new DrinkEffectDataProvider(pack));
 
         generator.addProvider(event.includeClient(), new ParticleDescriptionGenerator(pack, helper));
+
+        generator.addProvider(event.includeServer(), new SoundDefinitionsGenerator(pack, helper));
 
         var block = vanillaPack.addProvider(packOutput -> new TagBlock(packOutput, registries, helper));
         vanillaPack.addProvider(packOutput -> new TagItem(packOutput, registries, block.contentsGetter(), helper));
