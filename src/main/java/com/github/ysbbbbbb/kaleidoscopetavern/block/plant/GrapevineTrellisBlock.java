@@ -145,7 +145,7 @@ public class GrapevineTrellisBlock extends Block implements SimpleWaterloggedBlo
      * 指定位置是否能够生长葡萄藤
      */
     public boolean canGrowInto(BlockState checkState) {
-        return checkState.is(ModBlocks.TRELLIS.get());
+        return checkState.is(ModBlocks.TRELLIS.get()) && !checkState.getValue(TrellisBlock.WAXED);
     }
 
     /**

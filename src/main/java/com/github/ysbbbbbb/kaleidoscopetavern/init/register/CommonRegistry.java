@@ -6,9 +6,11 @@ import com.github.ysbbbbbb.kaleidoscopetavern.block.dispenser.BottleBlockDispens
 import com.github.ysbbbbbb.kaleidoscopetavern.game.tap.TapBehaviorManager;
 import com.github.ysbbbbbb.kaleidoscopetavern.game.tap.impl.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
+import com.github.ysbbbbbb.kaleidoscopetavern.init.ModItems;
 import com.github.ysbbbbbb.kaleidoscopetavern.item.BottleBlockItem;
 import com.github.ysbbbbbb.kaleidoscopetavern.network.NetworkHandler;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -20,6 +22,7 @@ public class CommonRegistry {
     @SubscribeEvent
     public static void onSetupEvent(FMLCommonSetupEvent event) {
         event.enqueueWork(NetworkHandler::init);
+        event.enqueueWork(CommonRegistry::addComposter);
         event.enqueueWork(CommonRegistry::addTapBehavior);
         event.enqueueWork(CommonRegistry::addDispenserBehavior);
     }
@@ -32,6 +35,14 @@ public class CommonRegistry {
         TapBehaviorManager.register(Blocks.BEEHIVE, new BeehiveTapBehavior());
         TapBehaviorManager.register(Blocks.DRAGON_HEAD, new DragonHeadTapBehavior());
         TapBehaviorManager.register(Blocks.MELON, new WatermelonTapBehavior());
+    }
+
+    private static void addComposter() {
+        ComposterBlock.COMPOSTABLES.put(ModItems.GRAPEVINE.get(), 0.25F);
+        ComposterBlock.COMPOSTABLES.put(ModItems.GRAPE.get(), 0.5F);
+        ComposterBlock.COMPOSTABLES.put(ModItems.ICE_GRAPE.get(), 0.5F);
+        ComposterBlock.COMPOSTABLES.put(ModItems.GOLD_GRAPE.get(), 0.5F);
+        ComposterBlock.COMPOSTABLES.put(ModItems.GREEN_GRAPE.get(), 0.5F);
     }
 
     private static void addDispenserBehavior() {
