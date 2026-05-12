@@ -134,17 +134,17 @@ public class DrinkEffectDataProvider implements DataProvider {
 
         // 甜浆果酒
         add(ModItems.SWEET_BERRY_WINE,
-                List.of(effect(ModEffects.BLOODY_MARY.get(), 0, 0)),
+                List.of(effect(ModEffects.BLOODY_MARY.get(), 40, 0)),
                 List.of(effect(ModEffects.BLOODY_MARY.get(), 120, 0)),
-                List.of(effect(ModEffects.BLOODY_MARY.get(), 0, 0)),
+                List.of(effect(ModEffects.BLOODY_MARY.get(), 240, 0)),
                 List.of(effect(ModEffects.BLOODY_MARY.get(), 480, 0))
         );
 
         // 红皇后
         add(ModItems.RED_QUEEN,
-                List.of(effect(ModEffects.BLOODY_MARY.get(), 0, 0)),
+                List.of(effect(ModEffects.BLOODY_MARY.get(), 40, 0)),
                 List.of(effect(ModEffects.BLOODY_MARY.get(), 120, 0)),
-                List.of(effect(ModEffects.BLOODY_MARY.get(), 0, 0)),
+                List.of(effect(ModEffects.BLOODY_MARY.get(), 240, 0)),
                 List.of(effect(ModEffects.BLOODY_MARY.get(), 480, 0))
         );
 
@@ -236,7 +236,7 @@ public class DrinkEffectDataProvider implements DataProvider {
                 List.of(effect(ModEffects.VISION.get(), 720, 2))
         );
 
-        // 醋（失败产物）- 效果带有概率
+        // 醋（失败产物）
         add(ModItems.VINEGAR,
                 List.of(
                         new DrinkEffectData.Entry(MobEffects.BLINDNESS, 10, 0, 0.15f),
