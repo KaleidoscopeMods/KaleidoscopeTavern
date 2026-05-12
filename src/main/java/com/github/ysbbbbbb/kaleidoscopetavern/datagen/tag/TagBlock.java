@@ -5,6 +5,7 @@ import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.tag.TagCommon;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.tag.TagMod;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
@@ -193,5 +194,11 @@ public class TagBlock extends BlockTagsProvider {
                 ModBlocks.ICE_GRAPE_CROP.get(),
                 ModBlocks.GOLD_GRAPE_CROP.get()
         );
+
+        // Carry On 黑名单
+        var blacklist = tag(TagCommon.CARRYON_BLOCK_BLACKLIST);
+        BuiltInRegistries.BLOCK.keySet().stream()
+                .filter(id -> id.getNamespace().equals(KaleidoscopeTavern.MOD_ID))
+                .forEach(id -> blacklist.add(BuiltInRegistries.BLOCK.get(id)));
     }
 }

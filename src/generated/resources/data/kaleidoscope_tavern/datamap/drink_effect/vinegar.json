@@ -19,6 +19,12 @@
     ],
     [
       {
+        "effect": "kaleidoscope_tavern:slightly_tipsy",
+        "duration": 30,
+        "amplifier": 0,
+        "probability": 1.0
+      },
+      {
         "effect": "minecraft:blindness",
         "duration": 10,
         "amplifier": 0,
@@ -51,6 +57,12 @@
     ],
     [
       {
+        "effect": "kaleidoscope_tavern:slightly_tipsy",
+        "duration": 30,
+        "amplifier": 0,
+        "probability": 1.0
+      },
+      {
         "effect": "minecraft:blindness",
         "duration": 30,
         "amplifier": 1,
@@ -83,6 +95,12 @@
     ],
     [
       {
+        "effect": "kaleidoscope_tavern:slightly_tipsy",
+        "duration": 20,
+        "amplifier": 0,
+        "probability": 1.0
+      },
+      {
         "effect": "minecraft:blindness",
         "duration": 60,
         "amplifier": 2,
@@ -114,6 +132,12 @@
       }
     ],
     [
+      {
+        "effect": "kaleidoscope_tavern:slightly_tipsy",
+        "duration": 10,
+        "amplifier": 0,
+        "probability": 1.0
+      },
       {
         "effect": "minecraft:blindness",
         "duration": 100,

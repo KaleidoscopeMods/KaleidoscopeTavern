@@ -33,6 +33,11 @@ public interface TagCommon {
     TagKey<Block> MOIST_HUMID = eclipticSeasonsTag("crops/moist_humid");
     TagKey<Block> HUMID_HUMID = eclipticSeasonsTag("crops/humid_humid");
 
+    /**
+     * CarryOn 黑名单标签，被此标签包含的方块将无法被 CarryOn 抱起
+     */
+    TagKey<Block> CARRYON_BLOCK_BLACKLIST = TagKey.create(Registries.BLOCK, ResourceLocation.parse("carryon:block_blacklist"));
+
     static TagKey<Item> itemTag(String name) {
         return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", name));
     }
