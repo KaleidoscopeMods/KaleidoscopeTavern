@@ -35,33 +35,46 @@ public interface ModCreativeTabs {
 
                 output.accept(ModItems.EMPTY_BOTTLE.get());
                 output.accept(ModItems.MOLOTOV.get());
+                output.accept(ModItems.WATERMELON_JUICE.get());
 
                 output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.VINEGAR));
+
+                // 葡萄桶
                 output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.WINE));
-                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.ICE_WINE));
                 output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.SAKURA_WINE));
-                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.PLUM_WINE));
                 output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.CHAMPAGNE));
-                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.VODKA));
                 output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.BRANDY));
                 output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.CARIGNAN));
-                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.WHISKEY));
+
+                // 冰葡萄桶
+                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.ICE_WINE));
                 output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.POLARIS_SWEET_WHITE));
-                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.HONEY_WINE));
-                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.RED_QUEEN));
-                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.MINERS_STAR));
-                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.RUM));
-                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.RIESLING_DRY_WHITE));
-                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.SUNSET_GLOW));
-                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.MADAME_SHEXIANG));
-                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.SWEET_BERRY_WINE));
                 output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.SHERRY));
                 output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.MOTHER_SNOW));
+
+                // 黄金葡萄桶
+                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.MINERS_STAR));
+                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.HONEY_WINE));
+                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.MADAME_SHEXIANG));
+                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.SUNSET_GLOW));
+
+                // 青提桶
+                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.SAUVIGNON_BLANC_DRY_WHITE));
+                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.RIESLING_DRY_WHITE));
+
+                // 发光浆果桶
                 output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.LUMINOUS_BRIDE));
                 output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.GLOWFLOWER_BREW));
-                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.SAUVIGNON_BLANC_DRY_WHITE));
 
-                output.accept(ModItems.WATERMELON_JUICE.get());
+                // 甜浆果桶
+                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.PLUM_WINE));
+                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.SWEET_BERRY_WINE));
+                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.RED_QUEEN));
+
+                // 水桶
+                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.VODKA));
+                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.WHISKEY));
+                output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.RUM));
             }).build());
 
     RegistryObject<CreativeModeTab> TAVERN_DECO_TAB = TABS.register("tavern_deco", () -> CreativeModeTab.builder()

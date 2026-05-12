@@ -19,7 +19,7 @@
     ],
     [
       {
-        "effect": "minecraft:strength",
+        "effect": "minecraft:bad_omen",
         "duration": 80,
         "amplifier": 0,
         "probability": 1.0
@@ -27,7 +27,7 @@
     ],
     [
       {
-        "effect": "minecraft:strength",
+        "effect": "minecraft:bad_omen",
         "duration": 240,
         "amplifier": 0,
         "probability": 1.0
@@ -35,7 +35,7 @@
     ],
     [
       {
-        "effect": "minecraft:strength",
+        "effect": "minecraft:bad_omen",
         "duration": 240,
         "amplifier": 1,
         "probability": 1.0
@@ -43,7 +43,7 @@
     ],
     [
       {
-        "effect": "minecraft:strength",
+        "effect": "minecraft:bad_omen",
         "duration": 540,
         "amplifier": 1,
         "probability": 1.0

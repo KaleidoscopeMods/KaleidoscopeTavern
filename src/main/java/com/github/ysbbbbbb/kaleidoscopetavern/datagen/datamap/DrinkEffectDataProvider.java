@@ -166,10 +166,10 @@ public class DrinkEffectDataProvider implements DataProvider {
 
         // 朗姆酒
         add(ModItems.RUM,
-                List.of(effect(MobEffects.DAMAGE_BOOST, 80, 0)),
-                List.of(effect(MobEffects.DAMAGE_BOOST, 240, 0)),
-                List.of(effect(MobEffects.DAMAGE_BOOST, 240, 1)),
-                List.of(effect(MobEffects.DAMAGE_BOOST, 540, 1))
+                List.of(effect(MobEffects.BAD_OMEN, 80, 0)),
+                List.of(effect(MobEffects.BAD_OMEN, 240, 0)),
+                List.of(effect(MobEffects.BAD_OMEN, 240, 1)),
+                List.of(effect(MobEffects.BAD_OMEN, 540, 1))
         );
 
         // 矿工之星
