@@ -2,13 +2,13 @@ package com.github.ysbbbbbb.kaleidoscopetavern.effect;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.init.tag.TagMod;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 
 public class GrassStealthEffect extends BaseEffect {
     public GrassStealthEffect(int color) {
@@ -31,15 +31,19 @@ public class GrassStealthEffect extends BaseEffect {
         if (notInGrassStealthPlant(level, pos) && notInGrassStealthPlant(level, abovePos)) {
             return true;
         }
-
-        livingEntity.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 20));
         if (livingEntity instanceof Player player) {
             player.causeFoodExhaustion(0.1F);
         }
+        // 清除周围生物对玩家的敌意
+        level.getEntitiesOfClass(Mob.class, new AABB(pos).inflate(32)).forEach(e -> {
+            if (e.getTarget() == livingEntity) {
+                e.setTarget(null);
+            }
+        });
         return true;
     }
 
-    private static boolean notInGrassStealthPlant(Level level, BlockPos pos) {
+    public static boolean notInGrassStealthPlant(Level level, BlockPos pos) {
         BlockState blockState = level.getBlockState(pos);
         if (blockState.getBlock() instanceof CropBlock cropBlock) {
             return !cropBlock.isMaxAge(blockState);
