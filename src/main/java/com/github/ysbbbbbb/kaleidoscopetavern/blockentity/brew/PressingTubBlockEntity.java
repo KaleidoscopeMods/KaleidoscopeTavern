@@ -34,6 +34,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
+import static com.github.ysbbbbbb.kaleidoscopetavern.config.GeneralConfig.PRESSING_TUB_DROP_CONTENTS_ON_NON_JUICEABLE;
+
 @SuppressWarnings("deprecation")
 public class PressingTubBlockEntity extends BaseBlockEntity implements IPressingTub {
     private final RecipeManager.CachedCheck<SingleRecipeInput, PressingTubRecipe> quickCheck = RecipeManager.createCheck(ModRecipes.PRESSING_TUB_RECIPE);
@@ -151,7 +153,7 @@ public class PressingTubBlockEntity extends BaseBlockEntity implements IPressing
             if (!fluidInTub.isEmpty() && !FluidStack.isSameFluidSameComponents(fluidStack, fluidInTub)) {
                 playFailPressEffect(stack);
                 // 丢出内容物并刷新状态
-                if (this.dropContents()) {
+                if (PRESSING_TUB_DROP_CONTENTS_ON_NON_JUICEABLE.get() && this.dropContents()) {
                     this.refresh();
                 }
                 return false;
@@ -179,7 +181,7 @@ public class PressingTubBlockEntity extends BaseBlockEntity implements IPressing
         }).orElseGet(() -> {
             playFailPressEffect(stack);
             // 没有找到配方，丢出内容物并刷新状态
-            if (this.dropContents()) {
+            if (PRESSING_TUB_DROP_CONTENTS_ON_NON_JUICEABLE.get() && this.dropContents()) {
                 this.refresh();
             }
             return false;

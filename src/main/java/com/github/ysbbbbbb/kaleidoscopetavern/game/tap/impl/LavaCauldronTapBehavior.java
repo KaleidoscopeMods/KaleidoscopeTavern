@@ -1,6 +1,7 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.game.tap.impl;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.api.blockentity.ITapBehavior;
+import com.github.ysbbbbbb.kaleidoscopetavern.config.GeneralConfig;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModParticles;
 import net.minecraft.core.BlockPos;
@@ -20,8 +21,12 @@ public class LavaCauldronTapBehavior implements ITapBehavior {
             BlockPos tapPos, BlockState tapState,
             BlockState sourceState, BlockState destinationState
     ) {
-        // 下方是空炼药锅、没有满的炼药锅，或者是空瓶
-        return destinationState.is(Blocks.CAULDRON) || destinationState.is(ModBlocks.EMPTY_BOTTLE.get());
+        if (GeneralConfig.INFINITE_LAVA_FROM_TAP.get()) {
+            // 如果配置允许无限水龙头取熔岩，那么只要下方是炼药锅或者空瓶就行
+            return destinationState.is(Blocks.CAULDRON) || destinationState.is(ModBlocks.EMPTY_BOTTLE.get());
+        }
+        // 否则只能取燃烧瓶
+        return destinationState.is(ModBlocks.EMPTY_BOTTLE.get());
     }
 
     @Override
@@ -41,7 +46,7 @@ public class LavaCauldronTapBehavior implements ITapBehavior {
             BlockState sourceState, BlockState destinationState
     ) {
         // 如果下方是空炼药锅
-        if (destinationState.is(Blocks.CAULDRON)) {
+        if (GeneralConfig.INFINITE_LAVA_FROM_TAP.get() && destinationState.is(Blocks.CAULDRON)) {
             level.setBlockAndUpdate(tapPos.below(), Blocks.LAVA_CAULDRON.defaultBlockState());
             level.playSound(null, tapPos.below(), SoundEvents.LAVA_POP, SoundSource.BLOCKS, 1.0F, 1.0F);
             ITapBehavior.sendParticles(level, tapPos);

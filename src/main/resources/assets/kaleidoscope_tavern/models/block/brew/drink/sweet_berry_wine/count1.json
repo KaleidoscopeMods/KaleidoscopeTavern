@@ -1,125 +1,61 @@
 {
-  "format_version": "1.21.6",
-  "credit": "Made with Blockbench",
-  "render_type": "cutout",
-  "textures": {
-    "0": "kaleidoscope_tavern:block/brew/sweet_berry_wine",
-    "particle": "kaleidoscope_tavern:block/brew/sweet_berry_wine"
-  },
-  "elements": [
-    {
-      "name": "count1",
-      "from": [7, 11, 7],
-      "to": [9, 15, 9],
-      "rotation": {
-        "angle": 0,
-        "axis": "y",
-        "origin": [8, 0, 8]
-      },
-      "faces": {
-        "north": {
-          "uv": [3, 1, 5, 5],
-          "texture": "#0"
-        },
-        "east": {
-          "uv": [3, 1, 5, 5],
-          "texture": "#0"
-        },
-        "south": {
-          "uv": [3, 1, 5, 5],
-          "texture": "#0"
-        },
-        "west": {
-          "uv": [3, 1, 5, 5],
-          "texture": "#0"
-        },
-        "up": {
-          "uv": [10, 5, 12, 7],
-          "texture": "#0"
-        },
-        "down": {
-          "uv": [3, 0, 5, 2],
-          "texture": "#0"
-        }
-      }
-    }, {
-      "name": "count1",
-      "from": [5, 0, 5],
-      "to": [11, 10, 11],
-      "rotation": {
-        "angle": 0,
-        "axis": "y",
-        "origin": [8, 0, 8]
-      },
-      "faces": {
-        "north": {
-          "uv": [1, 6, 7, 16],
-          "texture": "#0"
-        },
-        "east": {
-          "uv": [1, 6, 7, 16],
-          "texture": "#0"
-        },
-        "south": {
-          "uv": [1, 6, 7, 16],
-          "texture": "#0"
-        },
-        "west": {
-          "uv": [1, 6, 7, 16],
-          "texture": "#0"
-        },
-        "up": {
-          "uv": [8, 10, 14, 16],
-          "texture": "#0"
-        },
-        "down": {
-          "uv": [1, 10, 7, 16],
-          "texture": "#0"
-        }
-      }
-    }, {
-      "name": "count1",
-      "from": [6, 10, 6],
-      "to": [10, 11, 10],
-      "rotation": {
-        "angle": 0,
-        "axis": "y",
-        "origin": [8, 0, 8]
-      },
-      "faces": {
-        "north": {
-          "uv": [2, 5, 6, 6],
-          "texture": "#0"
-        },
-        "east": {
-          "uv": [2, 5, 6, 6],
-          "texture": "#0"
-        },
-        "south": {
-          "uv": [2, 5, 6, 6],
-          "texture": "#0"
-        },
-        "west": {
-          "uv": [2, 5, 6, 6],
-          "texture": "#0"
-        },
-        "up": {
-          "uv": [9, 11, 13, 15],
-          "texture": "#0"
-        },
-        "down": {
-          "uv": [2, 7, 6, 11],
-          "texture": "#0"
-        }
-      }
-    }
-  ],
-  "groups": [
-    {
-      "name": "count1",
-      "origin": [8, 0, 8],
-      "color": 0,
-      "children": [0, 1, 2]
-    }
-  ]
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"render_type": "cutout",
+	"textures": {
+		"0": "kaleidoscope_tavern:block/brew/sweet_berry_wine",
+		"particle": "kaleidoscope_tavern:block/brew/sweet_berry_wine"
+	},
+	"elements": [
+		{
+			"name": "count1",
+			"from": [7, 11, 7],
+			"to": [9, 15, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [3, 1, 5, 5], "texture": "#0"},
+				"east": {"uv": [3, 1, 5, 5], "texture": "#0"},
+				"south": {"uv": [3, 1, 5, 5], "texture": "#0"},
+				"west": {"uv": [3, 1, 5, 5], "texture": "#0"},
+				"up": {"uv": [10, 5, 12, 7], "texture": "#0"},
+				"down": {"uv": [3, 0, 5, 2], "texture": "#0"}
+			}
+		},
+		{
+			"name": "count1",
+			"from": [5, 0, 5],
+			"to": [11, 10, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [1, 6, 7, 16], "texture": "#0"},
+				"east": {"uv": [1, 6, 7, 16], "texture": "#0"},
+				"south": {"uv": [1, 6, 7, 16], "texture": "#0"},
+				"west": {"uv": [1, 6, 7, 16], "texture": "#0"},
+				"up": {"uv": [8, 10, 14, 16], "texture": "#0"},
+				"down": {"uv": [8, 10, 14, 16], "texture": "#0"}
+			}
+		},
+		{
+			"name": "count1",
+			"from": [6, 10, 6],
+			"to": [10, 11, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [2, 5, 6, 6], "texture": "#0"},
+				"east": {"uv": [2, 5, 6, 6], "texture": "#0"},
+				"south": {"uv": [2, 5, 6, 6], "texture": "#0"},
+				"west": {"uv": [2, 5, 6, 6], "texture": "#0"},
+				"up": {"uv": [9, 11, 13, 15], "texture": "#0"},
+				"down": {"uv": [2, 7, 6, 11], "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "count1",
+			"origin": [8, 0, 8],
+			"color": 0,
+			"children": [0, 1, 2]
+		}
+	]
 }
