@@ -12,11 +12,7 @@ import net.neoforged.neoforge.common.SoundActions;
 import net.neoforged.neoforge.fluids.FluidType;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * 果汁流体类型。
- * 26.1 移除了 IClientFluidTypeExtensions.getStillTexture/getFlowingTexture，
- * 流体纹理现在通过 assets 下的 blockstates/models JSON 文件指定。
- */
+
 public class JuiceFluidType extends FluidType {
     private final Identifier id;
 

@@ -3,12 +3,12 @@ package com.github.ysbbbbbb.kaleidoscopetavern.util;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.FluidModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
 import org.joml.Matrix4f;
 
 public class RenderUtils {
@@ -23,8 +23,10 @@ public class RenderUtils {
      * @param y              流体平面贴图的高度，根据实际流体显示高度调整
      */
     public static void renderFluid(Fluid fluid, PoseStack.Pose pose, VertexConsumer vertexConsumer, int light, int size, float y) {
-        TextureAtlasSprite sprite = getStillFluidSprite(fluid);
-        int color = getFluidColor(fluid);
+        FluidState fluidState = fluid.defaultFluidState();
+        FluidModel model = Minecraft.getInstance().getModelManager().getFluidStateModelSet().get(fluidState);
+        TextureAtlasSprite sprite = model.stillMaterial().sprite();
+        int color = model.fluidTintSource() != null ? model.fluidTintSource().color(fluidState) : -1;
         renderSurface(pose, vertexConsumer, sprite, color, light, Mth.clamp(size, 1, 16), y);
     }
 
@@ -91,17 +93,5 @@ public class RenderUtils {
         h = (h ^ (h >>> 27)) * 0x94d049bb133111ebL;
         h ^= (h >>> 31);
         return (float) (int) h / (float) Integer.MAX_VALUE;
-    }
-
-    // 26.1 TODO: IClientFluidTypeExtensions 不再提供 getStillTexture/getTintColor
-    // 流体纹理和颜色现在通过 JSON 模型系统指定。需要重新设计流体渲染。
-    // 26.1: getTextureAtlas 已移除，改用 getAtlasManager().getAtlasOrThrow()
-    private static TextureAtlasSprite getStillFluidSprite(Fluid fluid) {
-        return Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(TextureAtlas.LOCATION_BLOCKS).getSprite(Identifier.withDefaultNamespace("block/water_still"));
-    }
-
-    // 26.1 TODO: getTintColor 已移除，流体颜色通过 JSON 模型 tintindex 指定
-    private static int getFluidColor(Fluid fluid) {
-        return 0xFFFFFFFF;
     }
 }

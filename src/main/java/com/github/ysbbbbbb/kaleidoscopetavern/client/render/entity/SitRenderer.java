@@ -23,11 +23,6 @@ public class SitRenderer extends EntityRenderer<SitEntity, EntityRenderState> {
     }
 
     @Override
-    public void extractRenderState(SitEntity entity, EntityRenderState state, float partialTick) {
-        // SitEntity 是不可见的坐骑锚点，不提供任何数据
-    }
-
-    @Override
     public void submit(EntityRenderState state, PoseStack poseStack,
                        SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
         // SitEntity 是不可见的坐骑锚点，不渲染任何内容

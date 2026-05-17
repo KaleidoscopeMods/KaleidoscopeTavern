@@ -7,25 +7,22 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
-import net.neoforged.neoforge.fluids.capability.wrappers.FluidBucketWrapper;
+import net.neoforged.neoforge.transfer.fluid.BucketResourceHandler;
 
 @EventBusSubscriber(modid = KaleidoscopeTavern.MOD_ID)
 public class CapabilitiesRegistry {
     @SubscribeEvent
     public static void registerGenericItemHandlers(RegisterCapabilitiesEvent event) {
-        // 26.1: Capabilities.ItemHandler → Capabilities.Item, Capabilities.FluidHandler → Capabilities.Fluid
         event.registerBlockEntity(Capabilities.Item.BLOCK, ModBlocks.PRESSING_TUB_BE.get(), (b, v) -> b.getItems());
         event.registerBlockEntity(Capabilities.Fluid.BLOCK, ModBlocks.PRESSING_TUB_BE.get(), (b, v) -> b.getFluid());
 
-        // 26.1 TODO: Capabilities.Fluid.ITEM 期望 ResourceHandler<FluidResource>，但 FluidBucketWrapper 实现 IFluidHandlerItem
-        // 需要迁移到基于 SimpleFluidContent 数据组件的新流体物品系统
-        // event.registerItem(Capabilities.Fluid.ITEM, (stack, ctx) -> new FluidBucketWrapper(stack),
-        //         ModItems.GRAPE_BUCKET,
-        //         ModItems.ICE_GRAPE_BUCKET,
-        //         ModItems.GOLD_GRAPE_BUCKET,
-        //         ModItems.GREEN_GRAPE_BUCKET,
-        //         ModItems.GLOW_BERRIES_BUCKET,
-        //         ModItems.SWEET_BERRIES_BUCKET
-        // );
+        event.registerItem(Capabilities.Fluid.ITEM, (stack, access) -> new BucketResourceHandler(access),
+                ModItems.GRAPE_BUCKET,
+                ModItems.ICE_GRAPE_BUCKET,
+                ModItems.GOLD_GRAPE_BUCKET,
+                ModItems.GREEN_GRAPE_BUCKET,
+                ModItems.GLOW_BERRIES_BUCKET,
+                ModItems.SWEET_BERRIES_BUCKET
+        );
     }
 }
