@@ -3,6 +3,7 @@ package com.github.ysbbbbbb.kaleidoscopetavern.api.blockentity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.neoforge.transfer.access.ItemAccess;
 import net.neoforged.neoforge.transfer.fluid.FluidStacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 
@@ -97,5 +98,5 @@ public interface IPressingTub {
      * @param target       执行取出操作的实体，通常为玩家
      * @param carriedStack 实体当前手持的物品，用于校验是否为合法的取出容器
      */
-    boolean getResult(LivingEntity target, ItemStack carriedStack);
+    boolean getResult(LivingEntity target, ItemAccess carriedStack);
 }

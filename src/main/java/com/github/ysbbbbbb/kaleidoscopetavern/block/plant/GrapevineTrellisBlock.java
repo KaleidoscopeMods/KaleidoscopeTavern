@@ -163,7 +163,7 @@ public class GrapevineTrellisBlock extends Block implements SimpleWaterloggedBlo
      * 必须要求下方有一格的空气方块
      */
     public boolean canGrowGrape(LevelReader level, BlockPos pos) {
-        if (pos.getY() < level.getMaxY() + 1) {
+        if (pos.getY() < level.getMinY() + 1) {
             return false;
         }
         return level.getBlockState(pos.below()).isAir();

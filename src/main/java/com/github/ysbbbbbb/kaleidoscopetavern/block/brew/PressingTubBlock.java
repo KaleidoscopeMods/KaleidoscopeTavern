@@ -37,6 +37,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.transfer.access.ItemAccess;
 import net.neoforged.neoforge.transfer.fluid.FluidStacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
@@ -116,7 +117,7 @@ public class PressingTubBlock extends BaseEntityBlock implements SimpleWaterlogg
         }
 
         // 然后尝试能否取出
-        if (pressingTub.getResult(player, itemInHand)) {
+        if (pressingTub.getResult(player, ItemAccess.forPlayerInteraction(player, hand))) {
             return InteractionResult.SUCCESS;
         }
 

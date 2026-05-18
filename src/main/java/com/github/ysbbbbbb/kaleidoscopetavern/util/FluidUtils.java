@@ -1,7 +1,6 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.util;
 
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.transfer.ResourceHandlerUtil;
 import net.neoforged.neoforge.transfer.access.ItemAccess;
@@ -20,13 +19,13 @@ public class FluidUtils {
      * @param amount  要转移的流体量，单位为毫桶（mB）
      * @return 如果成功转移了流体，返回 true；如果没有转移任何流体，返回 false
      */
-    public static boolean emptyItem(LivingEntity user, ItemStack bucket, FluidStacksResourceHandler handler, int amount) {
+    public static boolean emptyItem(LivingEntity user, ItemAccess bucket, FluidStacksResourceHandler handler, int amount) {
         // 开始把桶中的流体转移到流体容器中
-        var stackFluid = ItemAccess.forStack(bucket).oneByOne().getCapability(Capabilities.Fluid.ITEM);
+        var stackFluid = bucket.getCapability(Capabilities.Fluid.ITEM);
         if (stackFluid == null || stackFluid.getResource(0).isEmpty()) {
             return false;
         }
-        var moved = ResourceHandlerUtil.moveFirst(stackFluid, handler, _ -> true, Integer.MAX_VALUE, null);
+        var moved = ResourceHandlerUtil.moveFirst(stackFluid, handler, _ -> true, amount, null);
         if (moved != null) {
             FluidUtil.triggerSoundAndGameEvent(moved.resource(), user.level(), user.position(), null, false);
             return true;
@@ -45,13 +44,13 @@ public class FluidUtils {
      * @param amount  要转移的流体量，单位为毫桶（mB）
      * @return 如果成功转移了流体，返回 true；如果没有转移任何流体，返回 false
      */
-    public static boolean fillItem(LivingEntity user, ItemStack bucket, FluidStacksResourceHandler handler, int amount) {
+    public static boolean fillItem(LivingEntity user, ItemAccess bucket, FluidStacksResourceHandler handler, int amount) {
         // 开始把流体容器中的流体转移到桶里
-        var stackFluid = ItemAccess.forStack(bucket).oneByOne().getCapability(Capabilities.Fluid.ITEM);
+        var stackFluid = bucket.getCapability(Capabilities.Fluid.ITEM);
         if (stackFluid == null) {
             return false;
         }
-        var moved = ResourceHandlerUtil.moveFirst(handler, stackFluid, _ -> true, Integer.MAX_VALUE, null);
+        var moved = ResourceHandlerUtil.moveFirst(handler, stackFluid, _ -> true, amount, null);
         if (moved != null) {
             FluidUtil.triggerSoundAndGameEvent(moved.resource(), user.level(), user.position(), null, true);
             return true;
@@ -59,8 +58,11 @@ public class FluidUtils {
         return false;
     }
 
-    public static boolean isFluidContainer(ItemStack stack) {
-        var stackFluid = ItemAccess.forStack(stack).oneByOne().getCapability(Capabilities.Fluid.ITEM);
+    public static boolean isFluidContainer(ItemAccess bucket) {
+        if (bucket.getAmount() <= 0) {
+            return false;
+        }
+        var stackFluid = bucket.getCapability(Capabilities.Fluid.ITEM);
         return stackFluid != null;
     }
 }

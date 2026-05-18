@@ -33,6 +33,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.transfer.access.ItemAccess;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import net.neoforged.neoforge.transfer.fluid.FluidStacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
@@ -334,7 +335,7 @@ public class BarrelBlockEntity extends BaseBlockEntity implements IBarrel {
     }
 
     @Override
-    public boolean addFluid(LivingEntity user, ItemStack stack) {
+    public boolean addFluid(LivingEntity user, ItemAccess stack) {
         // 盖子必须打开才能添加液体
         if (!open) {
             return false;
@@ -359,7 +360,7 @@ public class BarrelBlockEntity extends BaseBlockEntity implements IBarrel {
     }
 
     @Override
-    public boolean removeFluid(LivingEntity user, ItemStack stack) {
+    public boolean removeFluid(LivingEntity user, ItemAccess stack) {
         // 盖子必须打开才能移除液体
         if (!open) {
             return false;

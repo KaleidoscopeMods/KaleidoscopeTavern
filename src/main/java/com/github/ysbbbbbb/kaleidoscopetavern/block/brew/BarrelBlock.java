@@ -36,6 +36,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.transfer.access.ItemAccess;
 import net.neoforged.neoforge.transfer.fluid.FluidUtil;
 import org.jetbrains.annotations.Nullable;
 
@@ -113,15 +114,16 @@ public class BarrelBlock extends BaseEntityBlock {
 
             // 只有点击中心，才能进行添加物品或流体的交互
             if (clickedLid) {
+                ItemAccess itemAccess = ItemAccess.forPlayerInteraction(player, hand);
                 // 如果拿的是流体容器
-                if (FluidUtils.isFluidContainer(itemInHand)) {
+                if (FluidUtils.isFluidContainer(itemAccess)) {
                     FluidStack fluidStack = FluidUtil.getFirstStackContained(itemInHand);
                     // 尝试先从容器中倒出流体到酒桶里，如果成功了就结束了
-                    if (!fluidStack.isEmpty() && barrelEntity.addFluid(player, itemInHand)) {
+                    if (!fluidStack.isEmpty() && barrelEntity.addFluid(player, itemAccess)) {
                         return InteractionResult.SUCCESS;
                     }
                     // 如果倒出失败了，再尝试从酒桶里装流体到容器里
-                    if (barrelEntity.removeFluid(player, itemInHand)) {
+                    if (barrelEntity.removeFluid(player, itemAccess)) {
                         return InteractionResult.SUCCESS;
                     }
                     // 流体容器不可作为原料输入

@@ -29,6 +29,8 @@ import net.minecraft.world.level.block.state.properties.Half;
 
 import java.util.Optional;
 
+import static net.minecraft.client.data.models.BlockModelGenerators.*;
+
 public final class ModBlockModels {
     private final String modId;
 
@@ -42,7 +44,6 @@ public final class ModBlockModels {
         generateSandwichBoardModels(blockModels);
         generatePaintingModels(blockModels);
         generateCrossModels(blockModels);
-
 
 
         generateSofaBlockStates(blockModels);
@@ -468,18 +469,18 @@ public final class ModBlockModels {
      */
     private static PropertyDispatch<VariantMutator> paintingRotation() {
         return PropertyDispatch.modify(PaintingBlock.ATTACH_FACE, PaintingBlock.FACING)
-                .select(AttachFace.WALL, Direction.NORTH, BlockModelGenerators.NOP)
-                .select(AttachFace.WALL, Direction.EAST, BlockModelGenerators.Y_ROT_90)
-                .select(AttachFace.WALL, Direction.SOUTH, BlockModelGenerators.Y_ROT_180)
-                .select(AttachFace.WALL, Direction.WEST, BlockModelGenerators.Y_ROT_270)
-                .select(AttachFace.FLOOR, Direction.NORTH, BlockModelGenerators.X_ROT_270)
-                .select(AttachFace.FLOOR, Direction.EAST, BlockModelGenerators.X_ROT_270.then(BlockModelGenerators.Y_ROT_90))
-                .select(AttachFace.FLOOR, Direction.SOUTH, BlockModelGenerators.X_ROT_270.then(BlockModelGenerators.Y_ROT_180))
-                .select(AttachFace.FLOOR, Direction.WEST, BlockModelGenerators.X_ROT_270.then(BlockModelGenerators.Y_ROT_270))
-                .select(AttachFace.CEILING, Direction.NORTH, BlockModelGenerators.X_ROT_90)
-                .select(AttachFace.CEILING, Direction.EAST, BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_90))
-                .select(AttachFace.CEILING, Direction.SOUTH, BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_180))
-                .select(AttachFace.CEILING, Direction.WEST, BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_270));
+                .select(AttachFace.CEILING, Direction.NORTH, X_ROT_180.then(Y_ROT_180))
+                .select(AttachFace.CEILING, Direction.EAST, X_ROT_180.then(Y_ROT_270))
+                .select(AttachFace.CEILING, Direction.SOUTH, X_ROT_180)
+                .select(AttachFace.CEILING, Direction.WEST, X_ROT_180.then(Y_ROT_90))
+                .select(AttachFace.FLOOR, Direction.NORTH, NOP)
+                .select(AttachFace.FLOOR, Direction.EAST, Y_ROT_90)
+                .select(AttachFace.FLOOR, Direction.SOUTH, Y_ROT_180)
+                .select(AttachFace.FLOOR, Direction.WEST, Y_ROT_270)
+                .select(AttachFace.WALL, Direction.NORTH, X_ROT_90)
+                .select(AttachFace.WALL, Direction.EAST, X_ROT_90.then(Y_ROT_90))
+                .select(AttachFace.WALL, Direction.SOUTH, X_ROT_90.then(Y_ROT_180))
+                .select(AttachFace.WALL, Direction.WEST, X_ROT_90.then(Y_ROT_270));
     }
 
     private Identifier modLoc(String path) {

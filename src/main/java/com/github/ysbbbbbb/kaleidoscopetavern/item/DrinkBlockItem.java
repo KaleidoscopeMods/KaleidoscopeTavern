@@ -7,17 +7,13 @@ import com.github.ysbbbbbb.kaleidoscopetavern.datamap.data.DrinkEffectData;
 import com.github.ysbbbbbb.kaleidoscopetavern.datamap.resources.DrinkEffectDataReloadListener;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModItems;
 import com.google.common.collect.Lists;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -26,9 +22,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownSplashPotion;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemUseAnimation;
-import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -44,18 +39,9 @@ public class DrinkBlockItem extends BottleBlockItem implements IHasContainer {
     public DrinkBlockItem(Identifier id, Block block) {
         super(block, new Properties()
                 .stacksTo(16)
+                .component(DataComponents.CONSUMABLE, Consumables.DEFAULT_DRINK)
                 .setId(ResourceKey.create(Registries.ITEM, id))
                 .craftRemainder(ModItems.EMPTY_BOTTLE.get()));
-    }
-
-    @Override
-    public int getUseDuration(ItemStack stack, LivingEntity entity) {
-        return 32;
-    }
-
-    @Override
-    public ItemUseAnimation getUseAnimation(ItemStack stack) {
-        return ItemUseAnimation.DRINK;
     }
 
     @Override
@@ -108,25 +94,14 @@ public class DrinkBlockItem extends BottleBlockItem implements IHasContainer {
     }
 
     @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
-        return ItemUtils.startUsingInstantly(level, player, hand);
-    }
-
-    @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
-        if (entity instanceof ServerPlayer serverPlayer) {
-            CriteriaTriggers.CONSUME_ITEM.trigger(serverPlayer, stack);
-            serverPlayer.awardStat(Stats.ITEM_USED.get(this));
-        }
         this.addDrinkEffect(stack, level, entity);
-        if (entity instanceof Player player && !player.isCreative()) {
-            stack.shrink(1);
-        }
+        super.finishUsingItem(stack, level, entity);
         return returnContainerToEntity(stack, level, entity);
     }
 
     protected void addDrinkEffect(ItemStack drink, Level level, LivingEntity entity) {
-        DrinkEffectData effectData = DrinkEffectDataReloadListener.INSTANCE.get(drink.getItem());
+        DrinkEffectData effectData = DrinkEffectDataReloadListener.get(drink);
         if (effectData == null) {
             return;
         }
@@ -152,7 +127,7 @@ public class DrinkBlockItem extends BottleBlockItem implements IHasContainer {
     }
 
     public void makeThrownPotion(Level level, double x, double y, double z, int brewLevel, @Nullable Entity owner) {
-        DrinkEffectData effectData = DrinkEffectDataReloadListener.INSTANCE.get(this);
+        DrinkEffectData effectData = DrinkEffectDataReloadListener.get(this);
         if (effectData == null) {
             return;
         }

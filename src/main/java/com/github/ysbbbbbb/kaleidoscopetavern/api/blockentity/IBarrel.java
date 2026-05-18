@@ -6,6 +6,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.transfer.access.ItemAccess;
 import net.neoforged.neoforge.transfer.fluid.FluidStacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import org.jetbrains.annotations.NotNull;
@@ -94,7 +95,7 @@ public interface IBarrel {
      * - 物品槽不为空
      * - 流体槽已满
      */
-    boolean addFluid(@NotNull LivingEntity user, ItemStack stack);
+    boolean addFluid(@NotNull LivingEntity user, ItemAccess stack);
 
     /**
      * 移除流体
@@ -108,7 +109,7 @@ public interface IBarrel {
      * - 物品槽不为空
      * - 流体槽已空
      */
-    boolean removeFluid(@NotNull LivingEntity user, ItemStack stack);
+    boolean removeFluid(@NotNull LivingEntity user, ItemAccess stack);
 
     /**
      * 检查酒桶是否正在酿造中

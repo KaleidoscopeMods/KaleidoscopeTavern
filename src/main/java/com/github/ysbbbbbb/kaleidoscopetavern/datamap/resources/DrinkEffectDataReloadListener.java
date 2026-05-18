@@ -11,17 +11,35 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Map;
 
 @NullMarked
 public class DrinkEffectDataReloadListener extends SimpleJsonResourceReloadListener<JsonElement> {
-    public static final Map<ItemStackTemplate, DrinkEffectData> INSTANCE = Maps.newHashMap();
+    private static final Map<ItemStackTemplate, DrinkEffectData> INSTANCE = Maps.newHashMap();
 
     public DrinkEffectDataReloadListener() {
         super(ExtraCodecs.JSON, FileToIdConverter.json("datamap/drink_effect"));
+    }
+
+    @Nullable
+    public static DrinkEffectData get(ItemStack stack) {
+        return INSTANCE.get(new ItemStackTemplate(stack.getItem()));
+    }
+
+    @Nullable
+    public static DrinkEffectData get(Item item) {
+        return INSTANCE.get(new ItemStackTemplate(item));
+    }
+
+    @Nullable
+    public static DrinkEffectData get(ItemStackTemplate template) {
+        return INSTANCE.get(template);
     }
 
     @Override

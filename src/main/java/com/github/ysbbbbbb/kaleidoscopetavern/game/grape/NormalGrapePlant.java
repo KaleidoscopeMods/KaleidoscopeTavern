@@ -26,7 +26,7 @@ public class NormalGrapePlant {
         BlockState state = event.state();
 
         BlockState belowState = level.getBlockState(pos.below());
-        if (belowState.is(BlockTags.DIRT)) {
+        if (belowState.is(BlockTags.DIRT) || belowState.is(BlockTags.GRASS_BLOCKS)) {
             BlockState plantedState = ModBlocks.GRAPEVINE_TRELLIS.get()
                     .defaultBlockState()
                     .setValue(TrellisBlock.WATERLOGGED, state.getValue(TrellisBlock.WATERLOGGED));
