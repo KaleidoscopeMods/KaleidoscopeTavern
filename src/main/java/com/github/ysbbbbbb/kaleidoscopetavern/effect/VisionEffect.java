@@ -39,7 +39,8 @@ public class VisionEffect extends BaseEffect {
             entity.addEffect(new MobEffectInstance(MobEffects.GLOWING, 60));
         }
         if (apply) {
-            living.playSound(ModSounds.EFFECT_VISION.get());
+            level.playSound(null, living.getX(), living.getY(), living.getZ(),
+                    ModSounds.EFFECT_VISION.get(), living.getSoundSource());
         }
         return true;
     }
