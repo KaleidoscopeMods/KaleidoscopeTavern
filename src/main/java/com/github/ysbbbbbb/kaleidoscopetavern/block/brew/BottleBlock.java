@@ -1,5 +1,7 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.block.brew;
 
+import com.github.ysbbbbbb.kaleidoscopetavern.init.ModItems;
+import com.github.ysbbbbbb.kaleidoscopetavern.item.DrinkBlockItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -7,6 +9,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -22,7 +25,6 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
@@ -57,18 +59,32 @@ public class BottleBlock extends HorizontalDirectionalBlock implements SimpleWat
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
-                                 InteractionHand hand, BlockHitResult hitResult) {
-        // 如果是空手，那么可以尝试取回
-        if (player.getItemInHand(hand).isEmpty()) {
-            if (level instanceof ServerLevel serverLevel) {
-                getDrops(state, serverLevel, pos, null)
-                        .forEach(stack -> ItemHandlerHelper.giveItemToPlayer(player, stack));
-                level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_SUPPRESS_DROPS | Block.UPDATE_ALL);
-                level.playSound(null, pos, SoundType.STONE.getPlaceSound(), player.getSoundSource(), 1.0F, 1.0F);
-            }
-            return InteractionResult.SUCCESS;
+                                  InteractionHand hand, BlockHitResult hitResult) {
+        ItemStack heldItem = player.getItemInHand(hand);
+        if (!heldItem.isEmpty() && !isPickupAllowed(heldItem)) {
+            return InteractionResult.PASS;
         }
-        return InteractionResult.PASS;
+        if (level instanceof ServerLevel serverLevel) {
+            boolean bothEmpty = player.getItemInHand(InteractionHand.MAIN_HAND).isEmpty()
+                    && player.getItemInHand(InteractionHand.OFF_HAND).isEmpty();
+            for (ItemStack stack : getDrops(state, serverLevel, pos, null)) {
+                if (bothEmpty) {
+                    Block.popResource(level, pos, stack);
+                } else {
+                    ItemStack remainder = stack.copy();
+                    if (!player.getInventory().add(remainder)) {
+                        Block.popResource(level, pos, remainder);
+                    }
+                }
+            }
+            level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_SUPPRESS_DROPS | Block.UPDATE_ALL);
+            level.playSound(null, pos, SoundType.STONE.getPlaceSound(), player.getSoundSource(), 1.0F, 1.0F);
+        }
+        return InteractionResult.SUCCESS;
+    }
+
+    protected boolean isPickupAllowed(ItemStack stack) {
+        return stack.is(ModItems.EMPTY_BOTTLE.get()) || stack.getItem() instanceof DrinkBlockItem;
     }
 
     @Override
