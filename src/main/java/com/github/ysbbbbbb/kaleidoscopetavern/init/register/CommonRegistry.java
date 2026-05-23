@@ -3,6 +3,7 @@ package com.github.ysbbbbbb.kaleidoscopetavern.init.register;
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.BottleBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.dispenser.BottleBlockDispenseBehavior;
+import com.github.ysbbbbbb.kaleidoscopetavern.compat.curios.CuriosCompat;
 import com.github.ysbbbbbb.kaleidoscopetavern.game.tap.TapBehaviorManager;
 import com.github.ysbbbbbb.kaleidoscopetavern.game.tap.impl.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
@@ -25,6 +26,7 @@ public class CommonRegistry {
         event.enqueueWork(CommonRegistry::addComposter);
         event.enqueueWork(CommonRegistry::addTapBehavior);
         event.enqueueWork(CommonRegistry::addDispenserBehavior);
+        event.enqueueWork(CuriosCompat::commonSetup);
     }
 
     private static void addTapBehavior() {
