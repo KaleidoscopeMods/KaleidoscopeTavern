@@ -185,8 +185,6 @@ tasks.named('jar', Jar).configure {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = "UTF-8"
-    options.compilerArgs << '-Xmaxerrs' << '20000'
-    options.compilerArgs << "-Xlint:-removal"
 }
 
 java {

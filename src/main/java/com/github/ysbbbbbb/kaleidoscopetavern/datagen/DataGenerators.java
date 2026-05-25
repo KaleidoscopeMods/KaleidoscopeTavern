@@ -10,6 +10,8 @@ import com.github.ysbbbbbb.kaleidoscopetavern.datagen.model.ModModelProvider;
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.recipe.ModRecipeGenerator;
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.tag.TagBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.tag.TagItem;
+import com.github.ysbbbbbb.kaleidoscopetavern.init.ModDatapackRegistries;
+import net.minecraft.core.RegistrySetBuilder;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -23,20 +25,17 @@ public class DataGenerators {
         var pack = generator.getPackOutput();
 
         generator.addProvider(true, new ModModelProvider(pack));
-        event.createProvider(ParticleDescriptionGenerator::new);
-
         generator.addProvider(true, new LootTableGenerator(pack, registries));
-
-        generator.addProvider(true, new DrinkEffectDataProvider(pack));
-
         generator.addProvider(true, new DataMapGenerator(pack, registries));
 
+        event.createProvider(ParticleDescriptionGenerator::new);
         event.createProvider(SoundDefinitionsGenerator::new);
-
-        event.createBlockAndItemTags(TagBlock::new,
-                (output, lookup, blockTags) -> new TagItem(output, lookup)
-        );
-
         event.createProvider(ModRecipeGenerator.Runner::new);
+        event.createDatapackRegistryObjects(new RegistrySetBuilder().add(
+                ModDatapackRegistries.DRINK_EFFECT,
+                DrinkEffectDataProvider::bootstrap
+        ));
+
+        event.createBlockAndItemTags(TagBlock::new, TagItem::new);
     }
 }

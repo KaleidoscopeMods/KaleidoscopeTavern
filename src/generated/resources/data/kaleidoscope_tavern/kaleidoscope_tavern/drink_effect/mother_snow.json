@@ -1,0 +1,79 @@
+{
+  "effects": {
+    "1": [
+      {
+        "amplifier": 0,
+        "duration": 30,
+        "effect": "minecraft:nausea",
+        "probability": 1.0
+      }
+    ],
+    "2": [
+      {
+        "amplifier": 0,
+        "duration": 45,
+        "effect": "kaleidoscope_tavern:slightly_tipsy",
+        "probability": 1.0
+      }
+    ],
+    "3": [
+      {
+        "amplifier": 0,
+        "duration": 30,
+        "effect": "kaleidoscope_tavern:slightly_tipsy",
+        "probability": 1.0
+      },
+      {
+        "amplifier": 0,
+        "duration": 80,
+        "effect": "minecraft:fire_resistance",
+        "probability": 1.0
+      }
+    ],
+    "4": [
+      {
+        "amplifier": 0,
+        "duration": 30,
+        "effect": "kaleidoscope_tavern:slightly_tipsy",
+        "probability": 1.0
+      },
+      {
+        "amplifier": 0,
+        "duration": 240,
+        "effect": "minecraft:fire_resistance",
+        "probability": 1.0
+      }
+    ],
+    "5": [
+      {
+        "amplifier": 0,
+        "duration": 20,
+        "effect": "kaleidoscope_tavern:slightly_tipsy",
+        "probability": 1.0
+      },
+      {
+        "amplifier": 0,
+        "duration": 720,
+        "effect": "minecraft:fire_resistance",
+        "probability": 1.0
+      }
+    ],
+    "6": [
+      {
+        "amplifier": 0,
+        "duration": 10,
+        "effect": "kaleidoscope_tavern:slightly_tipsy",
+        "probability": 1.0
+      },
+      {
+        "amplifier": 0,
+        "duration": 2160,
+        "effect": "minecraft:fire_resistance",
+        "probability": 1.0
+      }
+    ]
+  },
+  "item": {
+    "id": "kaleidoscope_tavern:mother_snow"
+  }
+}

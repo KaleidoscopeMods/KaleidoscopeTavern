@@ -2,23 +2,14 @@ package com.github.ysbbbbbb.kaleidoscopetavern.datagen.datamap;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.datamap.data.DrinkEffectData;
+import com.github.ysbbbbbb.kaleidoscopetavern.init.ModDatapackRegistries;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModEffects;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModItems;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.hash.Hashing;
-import com.google.common.hash.HashingOutputStream;
-import com.google.gson.JsonElement;
-import com.google.gson.stream.JsonWriter;
-import com.mojang.serialization.JsonOps;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataProvider;
-import net.minecraft.data.PackOutput;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.util.Util;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
@@ -26,36 +17,18 @@ import net.minecraft.world.item.ItemStackTemplate;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.jspecify.annotations.NullMarked;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.util.Comparator;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.ToIntFunction;
 
 @NullMarked
-public class DrinkEffectDataProvider implements DataProvider {
+public final class DrinkEffectDataProvider {
     private static final int[] SLIGHTLY_TIPSY_DURATIONS = {45, 30, 30, 20, 10};
 
-    private static final ToIntFunction<String> ORDER_FIELDS = Util.make(new Object2IntOpenHashMap<>(), map -> {
-        map.put("item", 0);
-        map.defaultReturnValue(1);
-    });
-
-    private final Map<String, DrinkEffectData> data = Maps.newLinkedHashMap();
-    private final PackOutput output;
-
-    public DrinkEffectDataProvider(PackOutput output) {
-        this.output = output;
-    }
-
-    private void addEntry() {
+    public static void bootstrap(BootstrapContext<DrinkEffectData> context) {
         // 葡萄酒
-        add(ModItems.WINE,
+        add(context, ModItems.WINE,
                 List.of(effect(MobEffects.REGENERATION, 80, 0)),
                 List.of(effect(MobEffects.REGENERATION, 240, 0)),
                 List.of(effect(MobEffects.REGENERATION, 240, 1)),
@@ -63,7 +36,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         );
 
         // 樱花葡萄酒
-        add(ModItems.SAKURA_WINE,
+        add(context, ModItems.SAKURA_WINE,
                 List.of(effect(MobEffects.REGENERATION, 80, 0)),
                 List.of(effect(MobEffects.REGENERATION, 240, 0)),
                 List.of(effect(MobEffects.REGENERATION, 240, 1)),
@@ -71,7 +44,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         );
 
         // 香槟
-        add(ModItems.CHAMPAGNE,
+        add(context, ModItems.CHAMPAGNE,
                 List.of(effect(ModEffects.HIGH_HEELS, 80, 0)),
                 List.of(effect(ModEffects.HIGH_HEELS, 240, 0)),
                 List.of(effect(ModEffects.HIGH_HEELS, 720, 0)),
@@ -79,7 +52,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         );
 
         // 白兰地
-        add(ModItems.BRANDY,
+        add(context, ModItems.BRANDY,
                 List.of(effect(ModEffects.HIGH_HEELS, 80, 0)),
                 List.of(effect(ModEffects.HIGH_HEELS, 240, 0)),
                 List.of(effect(ModEffects.HIGH_HEELS, 720, 0)),
@@ -87,7 +60,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         );
 
         // 佳丽私酿
-        add(ModItems.CARIGNAN,
+        add(context, ModItems.CARIGNAN,
                 List.of(effect(MobEffects.INSTANT_HEALTH, 0, 0)),
                 List.of(effect(MobEffects.INSTANT_HEALTH, 0, 1)),
                 List.of(effect(MobEffects.INSTANT_HEALTH, 0, 2)),
@@ -95,7 +68,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         );
 
         // 冰葡萄酒
-        add(ModItems.ICE_WINE,
+        add(context, ModItems.ICE_WINE,
                 List.of(effect(MobEffects.FIRE_RESISTANCE, 80, 0)),
                 List.of(effect(MobEffects.FIRE_RESISTANCE, 240, 0)),
                 List.of(effect(MobEffects.FIRE_RESISTANCE, 720, 0)),
@@ -103,7 +76,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         );
 
         // 北极星甜白
-        add(ModItems.POLARIS_SWEET_WHITE,
+        add(context, ModItems.POLARIS_SWEET_WHITE,
                 List.of(effect(MobEffects.FIRE_RESISTANCE, 80, 0)),
                 List.of(effect(MobEffects.FIRE_RESISTANCE, 240, 0)),
                 List.of(effect(MobEffects.FIRE_RESISTANCE, 720, 0)),
@@ -111,7 +84,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         );
 
         // 雪婆婆
-        add(ModItems.MOTHER_SNOW,
+        add(context, ModItems.MOTHER_SNOW,
                 List.of(effect(MobEffects.FIRE_RESISTANCE, 80, 0)),
                 List.of(effect(MobEffects.FIRE_RESISTANCE, 240, 0)),
                 List.of(effect(MobEffects.FIRE_RESISTANCE, 720, 0)),
@@ -119,7 +92,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         );
 
         // 雪莉
-        add(ModItems.SHERRY,
+        add(context, ModItems.SHERRY,
                 List.of(effect(MobEffects.FIRE_RESISTANCE, 80, 0)),
                 List.of(effect(MobEffects.FIRE_RESISTANCE, 240, 0)),
                 List.of(effect(MobEffects.FIRE_RESISTANCE, 720, 0)),
@@ -127,7 +100,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         );
 
         // 梅酒
-        add(ModItems.PLUM_WINE,
+        add(context, ModItems.PLUM_WINE,
                 List.of(effect(MobEffects.WATER_BREATHING, 80, 0)),
                 List.of(effect(MobEffects.WATER_BREATHING, 240, 0)),
                 List.of(effect(MobEffects.WATER_BREATHING, 720, 0)),
@@ -135,7 +108,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         );
 
         // 甜浆果酒
-        add(ModItems.SWEET_BERRY_WINE,
+        add(context, ModItems.SWEET_BERRY_WINE,
                 List.of(effect(ModEffects.BLOODY_MARY, 40, 0)),
                 List.of(effect(ModEffects.BLOODY_MARY, 120, 0)),
                 List.of(effect(ModEffects.BLOODY_MARY, 240, 0)),
@@ -143,7 +116,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         );
 
         // 红皇后
-        add(ModItems.RED_QUEEN,
+        add(context, ModItems.RED_QUEEN,
                 List.of(effect(ModEffects.BLOODY_MARY, 40, 0)),
                 List.of(effect(ModEffects.BLOODY_MARY, 120, 0)),
                 List.of(effect(ModEffects.BLOODY_MARY, 240, 0)),
@@ -151,7 +124,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         );
 
         // 伏特加
-        add(ModItems.VODKA,
+        add(context, ModItems.VODKA,
                 List.of(effect(MobEffects.STRENGTH, 80, 0)),
                 List.of(effect(MobEffects.STRENGTH, 240, 0)),
                 List.of(effect(MobEffects.STRENGTH, 240, 1)),
@@ -159,7 +132,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         );
 
         // 威士忌
-        add(ModItems.WHISKEY,
+        add(context, ModItems.WHISKEY,
                 List.of(effect(MobEffects.STRENGTH, 80, 0)),
                 List.of(effect(MobEffects.STRENGTH, 240, 0)),
                 List.of(effect(MobEffects.STRENGTH, 240, 1)),
@@ -167,7 +140,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         );
 
         // 朗姆酒
-        addWithLevel2Effects(ModItems.RUM,
+        addWithLevel2Effects(context, ModItems.RUM,
                 List.of(effect(MobEffects.BAD_OMEN, 1200, 0)),
                 List.of(effect(MobEffects.BAD_OMEN, 1200, 1)),
                 List.of(effect(MobEffects.BAD_OMEN, 1200, 2)),
@@ -176,7 +149,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         );
 
         // 矿工之星
-        add(ModItems.MINERS_STAR,
+        add(context, ModItems.MINERS_STAR,
                 List.of(effect(MobEffects.HASTE, 80, 0)),
                 List.of(effect(MobEffects.HASTE, 240, 0)),
                 List.of(effect(MobEffects.HASTE, 240, 1)),
@@ -184,7 +157,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         );
 
         // 蜂蜜葡萄酒
-        add(ModItems.HONEY_WINE,
+        add(context, ModItems.HONEY_WINE,
                 List.of(effect(MobEffects.RESISTANCE, 80, 0)),
                 List.of(effect(MobEffects.RESISTANCE, 240, 0)),
                 List.of(effect(MobEffects.RESISTANCE, 240, 1)),
@@ -192,7 +165,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         );
 
         // 奢香夫人
-        add(ModItems.MADAME_SHEXIANG,
+        add(context, ModItems.MADAME_SHEXIANG,
                 List.of(effect(MobEffects.RESISTANCE, 80, 0)),
                 List.of(effect(MobEffects.RESISTANCE, 240, 0)),
                 List.of(effect(MobEffects.RESISTANCE, 240, 1)),
@@ -200,7 +173,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         );
 
         // 落日余晖
-        add(ModItems.SUNSET_GLOW,
+        add(context, ModItems.SUNSET_GLOW,
                 List.of(effect(MobEffects.RESISTANCE, 80, 0)),
                 List.of(effect(MobEffects.RESISTANCE, 240, 0)),
                 List.of(effect(MobEffects.RESISTANCE, 240, 1)),
@@ -208,7 +181,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         );
 
         // 长相思干白
-        add(ModItems.SAUVIGNON_BLANC_DRY_WHITE,
+        add(context, ModItems.SAUVIGNON_BLANC_DRY_WHITE,
                 List.of(effect(ModEffects.GRASS_STEALTH, 80, 0)),
                 List.of(effect(ModEffects.GRASS_STEALTH, 160, 0)),
                 List.of(effect(ModEffects.GRASS_STEALTH, 240, 0)),
@@ -216,7 +189,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         );
 
         // 雷司令干白
-        add(ModItems.RIESLING_DRY_WHITE,
+        add(context, ModItems.RIESLING_DRY_WHITE,
                 List.of(effect(ModEffects.GRASS_STEALTH, 80, 0)),
                 List.of(effect(ModEffects.GRASS_STEALTH, 160, 0)),
                 List.of(effect(ModEffects.GRASS_STEALTH, 240, 0)),
@@ -224,7 +197,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         );
 
         // 夜光新娘
-        add(ModItems.LUMINOUS_BRIDE,
+        add(context, ModItems.LUMINOUS_BRIDE,
                 List.of(effect(MobEffects.NIGHT_VISION, 80, 0)),
                 List.of(effect(MobEffects.NIGHT_VISION, 240, 0)),
                 List.of(effect(MobEffects.NIGHT_VISION, 720, 0)),
@@ -232,7 +205,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         );
 
         // 萤花酿
-        add(ModItems.GLOWFLOWER_BREW,
+        add(context, ModItems.GLOWFLOWER_BREW,
                 List.of(effect(ModEffects.VISION, 80, 0)),
                 List.of(effect(ModEffects.VISION, 180, 1)),
                 List.of(effect(ModEffects.VISION, 360, 1)),
@@ -240,7 +213,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         );
 
         // 醋（失败产物）
-        add(ModItems.VINEGAR,
+        add(context, ModItems.VINEGAR,
                 List.of(
                         new DrinkEffectData.Entry(MobEffects.BLINDNESS, 10, 0, 0.15f),
                         new DrinkEffectData.Entry(MobEffects.MINING_FATIGUE, 10, 0, 0.15f),
@@ -272,29 +245,28 @@ public class DrinkEffectDataProvider implements DataProvider {
         );
     }
 
-    /**
-     * 使用物品注册名的 path 部分作为文件名
-     */
     @SafeVarargs
-    public final void add(DeferredItem<Item> key, List<DrinkEffectData.Entry>... levelAbove2) {
+    private static void add(
+            BootstrapContext<DrinkEffectData> context,
+            DeferredItem<Item> key,
+            List<DrinkEffectData.Entry>... levelAbove2
+    ) {
         var itemKey = BuiltInRegistries.ITEM.getKey(key.value());
-        this.add(itemKey.getPath(), key, levelAbove2);
+        add(context, itemKey.getPath(), key, levelAbove2);
     }
 
-    private DrinkEffectData.Entry effect(Holder<MobEffect> effect, int duration, int amplifier) {
-        return new DrinkEffectData.Entry(effect, duration, amplifier, 1f);
-    }
-
-    /**
-     * 使用自定义文件名
-     */
     @SafeVarargs
-    public final void add(String fileName, DeferredItem<Item> key, List<DrinkEffectData.Entry>... levelAbove2) {
+    private static void add(
+            BootstrapContext<DrinkEffectData> context,
+            String fileName,
+            DeferredItem<Item> key,
+            List<DrinkEffectData.Entry>... levelAbove2
+    ) {
         int length = levelAbove2.length;
         if (length == 0) {
             throw new IllegalArgumentException("At least one level above 2 must be provided");
         }
-        this.addWithLevel2Effects(fileName, key,
+        addWithLevel2Effects(context, fileName, key,
                 List.of(),
                 levelAbove2[0],
                 levelAbove2[Math.min(1, length - 1)],
@@ -304,84 +276,58 @@ public class DrinkEffectDataProvider implements DataProvider {
     }
 
     @SafeVarargs
-    private void addWithLevel2Effects(DeferredItem<Item> key, List<DrinkEffectData.Entry>... levelAbove1) {
+    private static void addWithLevel2Effects(
+            BootstrapContext<DrinkEffectData> context,
+            DeferredItem<Item> key,
+            List<DrinkEffectData.Entry>... levelAbove1
+    ) {
         var itemKey = BuiltInRegistries.ITEM.getKey(key.get());
-        this.addWithLevel2Effects(itemKey.getPath(), key, levelAbove1);
+        addWithLevel2Effects(context, itemKey.getPath(), key, levelAbove1);
     }
 
     @SafeVarargs
-    private void addWithLevel2Effects(String fileName, DeferredItem<Item> key,
-                                      List<DrinkEffectData.Entry>... levelAbove1) {
+    private static void addWithLevel2Effects(
+            BootstrapContext<DrinkEffectData> context,
+            String fileName,
+            DeferredItem<Item> key,
+            List<DrinkEffectData.Entry>... levelAbove1
+    ) {
         int length = levelAbove1.length;
         if (length == 0) {
             throw new IllegalArgumentException("At least one level above 1 must be provided");
         }
 
-        var effects = Lists.<List<DrinkEffectData.Entry>>newArrayListWithExpectedSize(SLIGHTLY_TIPSY_DURATIONS.length + 1);
+        Map<Integer, List<DrinkEffectData.Entry>> effects = new LinkedHashMap<>();
+
         // 等级 1，固定为反胃 30s
-        effects.add(List.of(new DrinkEffectData.Entry(MobEffects.NAUSEA, 30, 0, 1f)));
+        effects.put(1, List.of(effect(MobEffects.NAUSEA, 30, 0)));
+
         // 等级 2-6，除难以下咽外，都会额外附带对应时长的微醺效果
         for (int i = 0; i < SLIGHTLY_TIPSY_DURATIONS.length; i++) {
-            effects.add(withSlightlyTipsy(SLIGHTLY_TIPSY_DURATIONS[i], levelAbove1[Math.min(i, length - 1)]));
+            List<DrinkEffectData.Entry> entries = levelAbove1[Math.min(i, length - 1)];
+            entries = withSlightlyTipsy(SLIGHTLY_TIPSY_DURATIONS[i], entries);
+            effects.put(i + 2, entries);
         }
 
-        this.add(fileName, new DrinkEffectData(new ItemStackTemplate(key.get()), effects));
+        ItemStackTemplate template = new ItemStackTemplate(key.get());
+        register(context, fileName, new DrinkEffectData(template, effects));
     }
 
-    private List<DrinkEffectData.Entry> withSlightlyTipsy(int duration, List<DrinkEffectData.Entry> entries) {
-        var result = Lists.<DrinkEffectData.Entry>newArrayListWithExpectedSize(entries.size() + 1);
-        result.add(effect(ModEffects.SLIGHTLY_TIPSY, duration, 0));
+    private static List<DrinkEffectData.Entry> withSlightlyTipsy(int duration, List<DrinkEffectData.Entry> entries) {
+        List<DrinkEffectData.Entry> result = new ArrayList<>(entries.size() + 1);
+        DrinkEffectData.Entry effect = effect(ModEffects.SLIGHTLY_TIPSY, duration, 0);
+        result.add(effect);
         result.addAll(entries);
-        return result;
+        return List.copyOf(result);
     }
 
-    public void add(String fileName, DrinkEffectData value) {
-        this.data.put(fileName, value);
+    private static DrinkEffectData.Entry effect(Holder<MobEffect> effect, int duration, int amplifier) {
+        return new DrinkEffectData.Entry(effect, duration, amplifier, 1f);
     }
 
-    @Override
-    public CompletableFuture<?> run(CachedOutput cache) {
-        this.addEntry();
-
-        List<CompletableFuture<?>> futures = Lists.newArrayList();
-        var pathProvider = this.output.createPathProvider(PackOutput.Target.DATA_PACK, "datamap/drink_effect");
-
-        for (var entry : data.entrySet()) {
-            DrinkEffectData.CODEC
-                    .encodeStart(JsonOps.INSTANCE, entry.getValue())
-                    .resultOrPartial(KaleidoscopeTavern.LOGGER::error)
-                    .ifPresent(json -> {
-                        var filePath = pathProvider.json(KaleidoscopeTavern.modLoc(entry.getKey()));
-                        var future = this.saveStable(cache, json, filePath);
-                        futures.add(future);
-                    });
-        }
-
-        return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
-    }
-
-    @SuppressWarnings("all")
-    private CompletableFuture<?> saveStable(CachedOutput output, JsonElement json, Path path) {
-        return CompletableFuture.runAsync(() -> {
-            try {
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                HashingOutputStream hashing = new HashingOutputStream(Hashing.sha1(), stream);
-
-                try (JsonWriter writer = new JsonWriter(new OutputStreamWriter(hashing, StandardCharsets.UTF_8))) {
-                    writer.setSerializeNulls(false);
-                    writer.setIndent("  ");
-                    GsonHelper.writeValue(writer, json, Comparator.comparingInt(ORDER_FIELDS));
-                }
-
-                output.writeIfNeeded(path, stream.toByteArray(), hashing.hash());
-            } catch (IOException ioexception) {
-                KaleidoscopeTavern.LOGGER.error("Failed to save file to {}", path, ioexception);
-            }
-        }, Util.backgroundExecutor());
-    }
-
-    @Override
-    public String getName() {
-        return "Drink Effect Data";
+    private static void register(BootstrapContext<DrinkEffectData> context, String fileName, DrinkEffectData value) {
+        Identifier id = KaleidoscopeTavern.modLoc(fileName);
+        var key = ResourceKey.create(ModDatapackRegistries.DRINK_EFFECT, id);
+        context.register(key, value);
     }
 }

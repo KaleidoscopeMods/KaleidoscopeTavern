@@ -35,6 +35,8 @@ public class KaleidoscopeTavern {
         ModParticles.PARTICLES.register(modEventBus);
         ModEffects.EFFECTS.register(modEventBus);
         ModSounds.SOUND_EVENTS.register(modEventBus);
+
+        ModDatapackRegistries.register(modEventBus);
     }
 
     public static Identifier modLoc(String path) {

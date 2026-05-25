@@ -1,0 +1,175 @@
+{
+  "effects": {
+    "1": [
+      {
+        "amplifier": 0,
+        "duration": 30,
+        "effect": "minecraft:nausea",
+        "probability": 1.0
+      }
+    ],
+    "2": [
+      {
+        "amplifier": 0,
+        "duration": 45,
+        "effect": "kaleidoscope_tavern:slightly_tipsy",
+        "probability": 1.0
+      }
+    ],
+    "3": [
+      {
+        "amplifier": 0,
+        "duration": 30,
+        "effect": "kaleidoscope_tavern:slightly_tipsy",
+        "probability": 1.0
+      },
+      {
+        "amplifier": 0,
+        "duration": 10,
+        "effect": "minecraft:blindness",
+        "probability": 0.15
+      },
+      {
+        "amplifier": 0,
+        "duration": 10,
+        "effect": "minecraft:mining_fatigue",
+        "probability": 0.15
+      },
+      {
+        "amplifier": 0,
+        "duration": 10,
+        "effect": "minecraft:speed",
+        "probability": 0.15
+      },
+      {
+        "amplifier": 0,
+        "duration": 10,
+        "effect": "minecraft:jump_boost",
+        "probability": 0.15
+      },
+      {
+        "amplifier": 0,
+        "duration": 10,
+        "effect": "minecraft:haste",
+        "probability": 0.15
+      }
+    ],
+    "4": [
+      {
+        "amplifier": 0,
+        "duration": 30,
+        "effect": "kaleidoscope_tavern:slightly_tipsy",
+        "probability": 1.0
+      },
+      {
+        "amplifier": 1,
+        "duration": 30,
+        "effect": "minecraft:blindness",
+        "probability": 0.15
+      },
+      {
+        "amplifier": 1,
+        "duration": 30,
+        "effect": "minecraft:mining_fatigue",
+        "probability": 0.15
+      },
+      {
+        "amplifier": 1,
+        "duration": 30,
+        "effect": "minecraft:speed",
+        "probability": 0.15
+      },
+      {
+        "amplifier": 1,
+        "duration": 30,
+        "effect": "minecraft:jump_boost",
+        "probability": 0.15
+      },
+      {
+        "amplifier": 1,
+        "duration": 30,
+        "effect": "minecraft:haste",
+        "probability": 0.15
+      }
+    ],
+    "5": [
+      {
+        "amplifier": 0,
+        "duration": 20,
+        "effect": "kaleidoscope_tavern:slightly_tipsy",
+        "probability": 1.0
+      },
+      {
+        "amplifier": 2,
+        "duration": 60,
+        "effect": "minecraft:blindness",
+        "probability": 0.15
+      },
+      {
+        "amplifier": 2,
+        "duration": 60,
+        "effect": "minecraft:mining_fatigue",
+        "probability": 0.15
+      },
+      {
+        "amplifier": 2,
+        "duration": 60,
+        "effect": "minecraft:speed",
+        "probability": 0.15
+      },
+      {
+        "amplifier": 2,
+        "duration": 60,
+        "effect": "minecraft:jump_boost",
+        "probability": 0.15
+      },
+      {
+        "amplifier": 2,
+        "duration": 60,
+        "effect": "minecraft:haste",
+        "probability": 0.15
+      }
+    ],
+    "6": [
+      {
+        "amplifier": 0,
+        "duration": 10,
+        "effect": "kaleidoscope_tavern:slightly_tipsy",
+        "probability": 1.0
+      },
+      {
+        "amplifier": 2,
+        "duration": 100,
+        "effect": "minecraft:blindness",
+        "probability": 0.15
+      },
+      {
+        "amplifier": 2,
+        "duration": 100,
+        "effect": "minecraft:mining_fatigue",
+        "probability": 0.15
+      },
+      {
+        "amplifier": 2,
+        "duration": 100,
+        "effect": "minecraft:speed",
+        "probability": 0.15
+      },
+      {
+        "amplifier": 2,
+        "duration": 100,
+        "effect": "minecraft:jump_boost",
+        "probability": 0.15
+      },
+      {
+        "amplifier": 2,
+        "duration": 100,
+        "effect": "minecraft:haste",
+        "probability": 0.15
+      }
+    ]
+  },
+  "item": {
+    "id": "kaleidoscope_tavern:vinegar"
+  }
+}

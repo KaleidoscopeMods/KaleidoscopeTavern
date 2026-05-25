@@ -1,17 +1,13 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.item;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.api.blockentity.IBarrel;
-import com.github.ysbbbbbb.kaleidoscopetavern.datamap.data.DrinkEffectData;
-import com.github.ysbbbbbb.kaleidoscopetavern.datamap.resources.DrinkEffectDataReloadListener;
+import com.github.ysbbbbbb.kaleidoscopetavern.datamap.DrinkEffectResolver;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModDataComponents;
-import com.google.common.collect.Lists;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.PotionContents;
@@ -63,31 +59,15 @@ public class BottleBlockItem extends BlockItem {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag flag) {
         int brewLevel = getBrewLevel(stack);
         if (0 < brewLevel) {
             Component brewLevelText = Component.translatable("message.kaleidoscope_tavern.barrel.brew_level.%d".formatted(brewLevel));
             builder.accept(Component.translatable("tooltip.kaleidoscope_tavern.bottle_block.brew_level", brewLevelText).withStyle(ChatFormatting.GRAY));
 
-            DrinkEffectData effectData = DrinkEffectDataReloadListener.get(stack);
-            if (effectData == null) {
-                return;
-            }
-            var effects = effectData.effects();
-            if (effects.isEmpty()) {
-                return;
-            }
-
-            List<MobEffectInstance> effectsShow = Lists.newArrayList();
-            for (DrinkEffectData.Entry entry : effects.get(brewLevel - 1)) {
-                if (entry.probability() >= 1.0F) {
-                    Holder<MobEffect> effect = entry.effect();
-                    int duration = entry.duration() * 20;
-                    int amplifier = entry.amplifier();
-                    effectsShow.add(new MobEffectInstance(effect, duration, amplifier));
-                }
-            }
+            List<MobEffectInstance> effectsShow = DrinkEffectResolver.guaranteedInstances(
+                    DrinkEffectResolver.entriesFor(context.registries(), stack, brewLevel)
+            );
 
             if (!effectsShow.isEmpty()) {
                 PotionContents.addPotionTooltip(effectsShow, builder, 1.0F, context.tickRate());

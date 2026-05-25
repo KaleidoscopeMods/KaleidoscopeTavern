@@ -3,10 +3,8 @@ package com.github.ysbbbbbb.kaleidoscopetavern.item;
 import com.github.ysbbbbbb.kaleidoscopetavern.api.blockentity.IBarrel;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.DrinkBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.brew.DrinkBlockEntity;
-import com.github.ysbbbbbb.kaleidoscopetavern.datamap.data.DrinkEffectData;
-import com.github.ysbbbbbb.kaleidoscopetavern.datamap.resources.DrinkEffectDataReloadListener;
+import com.github.ysbbbbbb.kaleidoscopetavern.datamap.DrinkEffectResolver;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModItems;
-import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
@@ -101,54 +99,27 @@ public class DrinkBlockItem extends BottleBlockItem implements IHasContainer {
     }
 
     protected void addDrinkEffect(ItemStack drink, Level level, LivingEntity entity) {
-        DrinkEffectData effectData = DrinkEffectDataReloadListener.get(drink);
-        if (effectData == null) {
-            return;
-        }
-        var effects = effectData.effects();
-        if (effects.isEmpty()) {
+        if (level.isClientSide()) {
             return;
         }
         int brewLevel = BottleBlockItem.getBrewLevel(drink);
-        if (brewLevel < IBarrel.BREWING_STARTED) {
-            return;
-        }
-        brewLevel = Math.min(brewLevel, effects.size());
-        // brew level 从 1 开始，所以要 -1 来获取对应的效果列表
-        for (DrinkEffectData.Entry entry : effects.get(brewLevel - 1)) {
-            if (!level.isClientSide() && level.getRandom().nextFloat() < entry.probability()) {
-                // json 里的持续时间是秒，但是内部游戏是 tick，需要转化
-                int duration = entry.duration() * 20;
-                int amplifier = entry.amplifier();
-                MobEffectInstance instance = new MobEffectInstance(entry.effect(), duration, amplifier);
-                entity.addEffect(instance);
-            }
+        var entries = DrinkEffectResolver.entriesFor(level.registryAccess(), drink, brewLevel);
+        for (MobEffectInstance instance : DrinkEffectResolver.rollInstances(entries, level.getRandom())) {
+            entity.addEffect(instance);
         }
     }
 
     public void makeThrownPotion(Level level, double x, double y, double z, int brewLevel, @Nullable Entity owner) {
-        DrinkEffectData effectData = DrinkEffectDataReloadListener.get(this);
-        if (effectData == null) {
-            return;
-        }
-        var effects = effectData.effects();
-        if (effects.isEmpty()) {
-            return;
-        }
-        brewLevel = BottleBlockItem.clampBrewLevel(brewLevel);
         if (brewLevel < IBarrel.BREWING_STARTED) {
             return;
         }
-        brewLevel = Math.min(brewLevel, effects.size());
 
-        // brew level 从 1 开始，所以要 -1 来获取对应的效果列表
-        List<MobEffectInstance> instances = Lists.newArrayList();
-        for (DrinkEffectData.Entry entry : effects.get(brewLevel - 1)) {
-            if (level.getRandom().nextFloat() < entry.probability()) {
-                int duration = entry.duration() * 20;
-                int amplifier = entry.amplifier();
-                instances.add(new MobEffectInstance(entry.effect(), duration, amplifier));
-            }
+        List<MobEffectInstance> instances = DrinkEffectResolver.rollInstances(
+                DrinkEffectResolver.entriesFor(level.registryAccess(), this, brewLevel),
+                level.getRandom()
+        );
+        if (instances.isEmpty()) {
+            return;
         }
 
         // 生成投掷药水实体（26.1 使用 ThrownSplashPotion）
