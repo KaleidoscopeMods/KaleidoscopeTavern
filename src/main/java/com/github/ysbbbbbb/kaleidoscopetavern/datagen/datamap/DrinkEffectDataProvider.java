@@ -88,10 +88,10 @@ public class DrinkEffectDataProvider implements DataProvider {
 
         // 佳丽私酿
         add(ModItems.CARIGNAN,
-                List.of(effect(MobEffects.HEAL, 0, 0)),
-                List.of(effect(MobEffects.HEAL, 0, 1)),
-                List.of(effect(MobEffects.HEAL, 0, 2)),
-                List.of(effect(MobEffects.HEAL, 0, 3))
+                List.of(effect(MobEffects.HEAL, 1, 0)),
+                List.of(effect(MobEffects.HEAL, 1, 1)),
+                List.of(effect(MobEffects.HEAL, 1, 2)),
+                List.of(effect(MobEffects.HEAL, 1, 3))
         );
 
         // 冰葡萄酒
