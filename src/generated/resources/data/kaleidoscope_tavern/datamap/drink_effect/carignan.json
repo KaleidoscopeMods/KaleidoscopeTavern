@@ -26,7 +26,7 @@
       },
       {
         "effect": "minecraft:instant_health",
-        "duration": 0,
+        "duration": 1,
         "amplifier": 0,
         "probability": 1.0
       }
@@ -40,7 +40,7 @@
       },
       {
         "effect": "minecraft:instant_health",
-        "duration": 0,
+        "duration": 1,
         "amplifier": 1,
         "probability": 1.0
       }
@@ -54,7 +54,7 @@
       },
       {
         "effect": "minecraft:instant_health",
-        "duration": 0,
+        "duration": 1,
         "amplifier": 2,
         "probability": 1.0
       }
@@ -68,7 +68,7 @@
       },
       {
         "effect": "minecraft:instant_health",
-        "duration": 0,
+        "duration": 1,
         "amplifier": 3,
         "probability": 1.0
       }
