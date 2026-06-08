@@ -8,6 +8,7 @@ import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.brew.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.BarStoolBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.ChalkboardBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.SandwichBlockEntity;
+import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.TiltedRackBlockEntity;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -171,6 +172,9 @@ public interface ModBlocks {
     // 酒柜
     RegistryObject<Block> BAR_CABINET = BLOCKS.register("bar_cabinet", BarCabinetBlock::new);
     RegistryObject<Block> GLASS_BAR_CABINET = BLOCKS.register("glass_bar_cabinet", BarCabinetBlock::new);
+
+    // 酒架
+    RegistryObject<Block> TILTED_RACK = BLOCKS.register("tilted_rack", TiltedRackBlock::new);
 
     // 杂项的瓶子
     RegistryObject<Block> WATER_BOTTLE = BLOCKS.register("water_bottle", BottleBlock::new);
@@ -495,6 +499,12 @@ public interface ModBlocks {
     RegistryObject<BlockEntityType<BarCabinetBlockEntity>> BAR_CABINET_BE = BLOCK_ENTITIES.register(
             "bar_cabinet", () -> BlockEntityType.Builder
                     .of(BarCabinetBlockEntity::new, BAR_CABINET.get(), GLASS_BAR_CABINET.get())
+                    .build(null)
+    );
+
+    RegistryObject<BlockEntityType<TiltedRackBlockEntity>> TILTED_RACK_BE = BLOCK_ENTITIES.register(
+            "tilted_rack", () -> BlockEntityType.Builder
+                    .of(TiltedRackBlockEntity::new, TILTED_RACK.get())
                     .build(null)
     );
 }

@@ -133,6 +133,9 @@ public interface ModItems {
     RegistryObject<Item> BAR_CABINET = ITEMS.register("bar_cabinet", () -> new BlockItem(ModBlocks.BAR_CABINET.get(), new Item.Properties()));
     RegistryObject<Item> GLASS_BAR_CABINET = ITEMS.register("glass_bar_cabinet", () -> new BlockItem(ModBlocks.GLASS_BAR_CABINET.get(), new Item.Properties()));
 
+    // 酒架
+    RegistryObject<Item> TILTED_RACK = ITEMS.register("tilted_rack", () -> new BlockItem(ModBlocks.TILTED_RACK.get(), new Item.Properties()));
+
     // 空瓶
     RegistryObject<Item> EMPTY_BOTTLE = ITEMS.register("empty_bottle", () -> new BottleBlockItem(ModBlocks.EMPTY_BOTTLE.get()));
     // 燃烧瓶

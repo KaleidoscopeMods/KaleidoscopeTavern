@@ -155,6 +155,9 @@ public class BlockLootTables extends BlockLootSubProvider {
         dropSelf(ModBlocks.BAR_CABINET.get());
         dropSelf(ModBlocks.GLASS_BAR_CABINET.get());
 
+        // 酒架
+        dropSelf(ModBlocks.TILTED_RACK.get());
+
         // 杂项瓶子
         add(ModBlocks.WATER_BOTTLE.get(), this.createItemWithNbtTable(Items.POTION,
                 Util.make(new CompoundTag(), tag -> tag.putString("Potion", "minecraft:water")))

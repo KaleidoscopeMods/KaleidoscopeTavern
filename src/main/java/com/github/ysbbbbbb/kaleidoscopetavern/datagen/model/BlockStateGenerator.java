@@ -159,6 +159,9 @@ public class BlockStateGenerator extends BlockStateProvider {
         barCabinet(ModBlocks.BAR_CABINET, "bar_cabinet");
         barCabinet(ModBlocks.GLASS_BAR_CABINET, "glass_bar_cabinet");
 
+        // 酒架
+        horizontalBlock(ModBlocks.TILTED_RACK.get(), new ModelFile.UncheckedModelFile(modLoc("block/deco/tilted_rack")));
+
         // 酒
         drink(ModBlocks.WINE.get(), "wine");
         drink(ModBlocks.CHAMPAGNE.get(), "champagne");
