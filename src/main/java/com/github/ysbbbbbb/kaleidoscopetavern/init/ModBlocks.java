@@ -3,6 +3,7 @@ package com.github.ysbbbbbb.kaleidoscopetavern.init;
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.*;
+import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.GlasswareBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.brew.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.*;
@@ -160,8 +161,11 @@ public interface ModBlocks {
     RegistryObject<Block> PRESSING_TUB = BLOCKS.register("pressing_tub", PressingTubBlock::new);
     // 龙头
     RegistryObject<Block> TAP = BLOCKS.register("tap", TapBlock::new);
+
     // 空瓶
     RegistryObject<Block> EMPTY_BOTTLE = BLOCKS.register("empty_bottle", BottleBlock::new);
+    RegistryObject<Block> EMPTY_GLASSWARE = BLOCKS.register("empty_glassware", GlasswareBlock::new);
+
     // 燃烧瓶
     RegistryObject<Block> MOLOTOV = BLOCKS.register("molotov", MolotovBlock::new);
     // 酒桶

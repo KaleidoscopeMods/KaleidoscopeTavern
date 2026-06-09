@@ -141,6 +141,8 @@ public interface ModItems {
 
     // 空瓶
     RegistryObject<Item> EMPTY_BOTTLE = ITEMS.register("empty_bottle", () -> new BottleBlockItem(ModBlocks.EMPTY_BOTTLE.get()));
+    RegistryObject<Item> EMPTY_GLASSWARE = ITEMS.register("empty_glassware", () -> new GlasswareBlockItem(ModBlocks.EMPTY_GLASSWARE.get()));
+
     // 燃烧瓶
     RegistryObject<Item> MOLOTOV = ITEMS.register("molotov", () -> new MolotovBlockItem(ModBlocks.MOLOTOV.get()));
     // 酒

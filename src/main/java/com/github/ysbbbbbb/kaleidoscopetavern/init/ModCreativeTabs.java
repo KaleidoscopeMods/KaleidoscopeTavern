@@ -34,6 +34,7 @@ public interface ModCreativeTabs {
                 output.accept(ModItems.GLOW_BERRIES_BUCKET.get());
 
                 output.accept(ModItems.EMPTY_BOTTLE.get());
+                output.accept(ModItems.EMPTY_GLASSWARE.get());
                 output.accept(ModItems.MOLOTOV.get());
                 output.accept(ModItems.WATERMELON_JUICE.get());
 

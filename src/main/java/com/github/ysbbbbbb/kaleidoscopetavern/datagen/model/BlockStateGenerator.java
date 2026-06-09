@@ -148,6 +148,7 @@ public class BlockStateGenerator extends BlockStateProvider {
 
         // 空瓶
         horizontalBlock(ModBlocks.EMPTY_BOTTLE.get(), new ModelFile.UncheckedModelFile(modLoc("block/brew/empty_bottle")));
+        horizontalBlock(ModBlocks.EMPTY_GLASSWARE.get(), new ModelFile.UncheckedModelFile(modLoc("block/mixology/empty_glassware")));
         horizontalBlock(ModBlocks.MOLOTOV.get(), new ModelFile.UncheckedModelFile(modLoc("block/brew/molotov")));
 
         // 杂项瓶子

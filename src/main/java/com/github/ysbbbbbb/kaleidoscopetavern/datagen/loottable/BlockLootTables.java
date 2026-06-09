@@ -146,6 +146,7 @@ public class BlockLootTables extends BlockLootSubProvider {
         dropSelf(ModBlocks.PRESSING_TUB.get());
         // 空瓶子
         dropSelf(ModBlocks.EMPTY_BOTTLE.get());
+        dropSelf(ModBlocks.EMPTY_GLASSWARE.get());
         dropSelf(ModBlocks.MOLOTOV.get());
         // 龙头
         dropSelf(ModBlocks.TAP.get());

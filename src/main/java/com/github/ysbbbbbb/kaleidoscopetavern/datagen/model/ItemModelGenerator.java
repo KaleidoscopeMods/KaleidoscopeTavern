@@ -78,7 +78,6 @@ public class ItemModelGenerator extends ItemModelProvider {
         withExistingParent("item/cellar_cabinet", modLoc("block/brew/cellar_cabinet/single"));
         withExistingParent("item/tilted_rack", modLoc("block/deco/tilted_rack"));
         withExistingParent("item/circular_rack", modLoc("block/deco/circular_rack"));
-        withExistingParent("item/holder", modLoc("block/deco/holder"));
 
         withExistingParent("item/table", modLoc("block/deco/table/single"));
 
@@ -90,9 +89,11 @@ public class ItemModelGenerator extends ItemModelProvider {
         basicItem(ModItems.GLOW_BERRIES_BUCKET.get());
 
         basicItem(ModItems.TAP.get());
-        //basicItem(ModItems.BARREL.get());
+        basicItem(ModItems.HOLDER.get());
 
         basicItem(ModItems.EMPTY_BOTTLE.get());
+        basicItem(ModItems.EMPTY_GLASSWARE.get());
+
         basicItem(ModItems.MOLOTOV.get());
         basicItem(ModItems.WINE.get());
         basicItem(ModItems.CHAMPAGNE.get());
