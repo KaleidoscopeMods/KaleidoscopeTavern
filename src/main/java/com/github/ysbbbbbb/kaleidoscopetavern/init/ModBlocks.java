@@ -3,6 +3,7 @@ package com.github.ysbbbbbb.kaleidoscopetavern.init;
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.*;
+import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.CocktailBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.GlasswareBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.brew.*;
@@ -165,6 +166,22 @@ public interface ModBlocks {
     // 空瓶
     RegistryObject<Block> EMPTY_BOTTLE = BLOCKS.register("empty_bottle", BottleBlock::new);
     RegistryObject<Block> EMPTY_GLASSWARE = BLOCKS.register("empty_glassware", GlasswareBlock::new);
+
+    // 鸡尾酒
+    RegistryObject<Block> ORDINARY_COCKTAIL = BLOCKS.register("ordinary_cocktail", CocktailBlock::new);
+    RegistryObject<Block> MYSTERY_COCKTAIL = BLOCKS.register("mystery_cocktail", CocktailBlock::new);
+    RegistryObject<Block> WHITE_LADY = BLOCKS.register("white_lady", CocktailBlock::new);
+    RegistryObject<Block> EMERALD = BLOCKS.register("emerald", CocktailBlock::new);
+    RegistryObject<Block> BRASS_HEART = BLOCKS.register("brass_heart", CocktailBlock::new);
+    RegistryObject<Block> GODFATHER = BLOCKS.register("godfather", CocktailBlock::new);
+    RegistryObject<Block> GRASSHOPPER = BLOCKS.register("grasshopper", CocktailBlock::new);
+    RegistryObject<Block> SCREWDRIVER = BLOCKS.register("screwdriver", CocktailBlock::new);
+    RegistryObject<Block> MOJITO = BLOCKS.register("mojito", CocktailBlock::new);
+    RegistryObject<Block> ALLIUM_GARDEN = BLOCKS.register("allium_garden", CocktailBlock::new);
+    RegistryObject<Block> DEPTH_CHARGE = BLOCKS.register("depth_charge", CocktailBlock::new);
+    RegistryObject<Block> NETHER_SPECIAL = BLOCKS.register("nether_special", CocktailBlock::new);
+    RegistryObject<Block> BLOODY_MARY = BLOCKS.register("bloody_mary", CocktailBlock::new);
+    RegistryObject<Block> SCULK_SPECIAL = BLOCKS.register("sculk_special", CocktailBlock::new);
 
     // 燃烧瓶
     RegistryObject<Block> MOLOTOV = BLOCKS.register("molotov", MolotovBlock::new);

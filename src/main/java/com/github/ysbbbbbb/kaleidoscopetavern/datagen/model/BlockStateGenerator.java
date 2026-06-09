@@ -149,6 +149,22 @@ public class BlockStateGenerator extends BlockStateProvider {
         // 空瓶
         horizontalBlock(ModBlocks.EMPTY_BOTTLE.get(), new ModelFile.UncheckedModelFile(modLoc("block/brew/empty_bottle")));
         horizontalBlock(ModBlocks.EMPTY_GLASSWARE.get(), new ModelFile.UncheckedModelFile(modLoc("block/mixology/empty_glassware")));
+
+        // 鸡尾酒
+        horizontalBlock(ModBlocks.ORDINARY_COCKTAIL.get(), new ModelFile.UncheckedModelFile(modLoc("block/mixology/ordinary_cocktail")));
+        horizontalBlock(ModBlocks.MYSTERY_COCKTAIL.get(), new ModelFile.UncheckedModelFile(modLoc("block/mixology/mystery_cocktail")));
+        horizontalBlock(ModBlocks.WHITE_LADY.get(), new ModelFile.UncheckedModelFile(modLoc("block/mixology/white_lady")));
+        horizontalBlock(ModBlocks.EMERALD.get(), new ModelFile.UncheckedModelFile(modLoc("block/mixology/emerald")));
+        horizontalBlock(ModBlocks.BRASS_HEART.get(), new ModelFile.UncheckedModelFile(modLoc("block/mixology/brass_heart")));
+        horizontalBlock(ModBlocks.GODFATHER.get(), new ModelFile.UncheckedModelFile(modLoc("block/mixology/godfather")));
+        horizontalBlock(ModBlocks.GRASSHOPPER.get(), new ModelFile.UncheckedModelFile(modLoc("block/mixology/grasshopper")));
+        horizontalBlock(ModBlocks.SCREWDRIVER.get(), new ModelFile.UncheckedModelFile(modLoc("block/mixology/screwdriver")));
+        horizontalBlock(ModBlocks.MOJITO.get(), new ModelFile.UncheckedModelFile(modLoc("block/mixology/mojito")));
+        horizontalBlock(ModBlocks.ALLIUM_GARDEN.get(), new ModelFile.UncheckedModelFile(modLoc("block/mixology/allium_garden")));
+        horizontalBlock(ModBlocks.DEPTH_CHARGE.get(), new ModelFile.UncheckedModelFile(modLoc("block/mixology/depth_charge")));
+        horizontalBlock(ModBlocks.NETHER_SPECIAL.get(), new ModelFile.UncheckedModelFile(modLoc("block/mixology/nether_special")));
+        horizontalBlock(ModBlocks.BLOODY_MARY.get(), new ModelFile.UncheckedModelFile(modLoc("block/mixology/bloody_mary")));
+        horizontalBlock(ModBlocks.SCULK_SPECIAL.get(), new ModelFile.UncheckedModelFile(modLoc("block/mixology/sculk_special")));
         horizontalBlock(ModBlocks.MOLOTOV.get(), new ModelFile.UncheckedModelFile(modLoc("block/brew/molotov")));
 
         // 杂项瓶子

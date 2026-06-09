@@ -76,6 +76,22 @@ public interface ModCreativeTabs {
                 output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.VODKA));
                 output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.WHISKEY));
                 output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.RUM));
+
+                // 鸡尾酒
+                output.accept(ModItems.ORDINARY_COCKTAIL.get());
+                output.accept(ModItems.MYSTERY_COCKTAIL.get());
+                output.accept(ModItems.WHITE_LADY.get());
+                output.accept(ModItems.EMERALD.get());
+                output.accept(ModItems.BRASS_HEART.get());
+                output.accept(ModItems.GODFATHER.get());
+                output.accept(ModItems.GRASSHOPPER.get());
+                output.accept(ModItems.SCREWDRIVER.get());
+                output.accept(ModItems.MOJITO.get());
+                output.accept(ModItems.ALLIUM_GARDEN.get());
+                output.accept(ModItems.DEPTH_CHARGE.get());
+                output.accept(ModItems.NETHER_SPECIAL.get());
+                output.accept(ModItems.BLOODY_MARY.get());
+                output.accept(ModItems.SCULK_SPECIAL.get());
             }).build());
 
     RegistryObject<CreativeModeTab> TAVERN_DECO_TAB = TABS.register("tavern_deco", () -> CreativeModeTab.builder()

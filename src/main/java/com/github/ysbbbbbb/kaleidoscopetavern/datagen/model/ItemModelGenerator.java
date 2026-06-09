@@ -94,6 +94,21 @@ public class ItemModelGenerator extends ItemModelProvider {
         basicItem(ModItems.EMPTY_BOTTLE.get());
         basicItem(ModItems.EMPTY_GLASSWARE.get());
 
+        basicItem(ModItems.ORDINARY_COCKTAIL.get());
+        basicItem(ModItems.MYSTERY_COCKTAIL.get());
+        basicItem(ModItems.WHITE_LADY.get());
+        basicItem(ModItems.EMERALD.get());
+        basicItem(ModItems.BRASS_HEART.get());
+        basicItem(ModItems.GODFATHER.get());
+        basicItem(ModItems.GRASSHOPPER.get());
+        basicItem(ModItems.SCREWDRIVER.get());
+        basicItem(ModItems.MOJITO.get());
+        basicItem(ModItems.ALLIUM_GARDEN.get());
+        basicItem(ModItems.DEPTH_CHARGE.get());
+        basicItem(ModItems.NETHER_SPECIAL.get());
+        basicItem(ModItems.BLOODY_MARY.get());
+        basicItem(ModItems.SCULK_SPECIAL.get());
+
         basicItem(ModItems.MOLOTOV.get());
         basicItem(ModItems.WINE.get());
         basicItem(ModItems.CHAMPAGNE.get());

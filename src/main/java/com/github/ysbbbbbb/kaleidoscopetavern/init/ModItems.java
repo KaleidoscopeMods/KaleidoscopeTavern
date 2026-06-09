@@ -143,6 +143,22 @@ public interface ModItems {
     RegistryObject<Item> EMPTY_BOTTLE = ITEMS.register("empty_bottle", () -> new BottleBlockItem(ModBlocks.EMPTY_BOTTLE.get()));
     RegistryObject<Item> EMPTY_GLASSWARE = ITEMS.register("empty_glassware", () -> new GlasswareBlockItem(ModBlocks.EMPTY_GLASSWARE.get()));
 
+    // 鸡尾酒
+    RegistryObject<Item> ORDINARY_COCKTAIL = ITEMS.register("ordinary_cocktail", () -> new CocktailBlockItem(ModBlocks.ORDINARY_COCKTAIL.get()));
+    RegistryObject<Item> MYSTERY_COCKTAIL = ITEMS.register("mystery_cocktail", () -> new CocktailBlockItem(ModBlocks.MYSTERY_COCKTAIL.get()));
+    RegistryObject<Item> WHITE_LADY = ITEMS.register("white_lady", () -> new CocktailBlockItem(ModBlocks.WHITE_LADY.get()));
+    RegistryObject<Item> EMERALD = ITEMS.register("emerald", () -> new CocktailBlockItem(ModBlocks.EMERALD.get()));
+    RegistryObject<Item> BRASS_HEART = ITEMS.register("brass_heart", () -> new CocktailBlockItem(ModBlocks.BRASS_HEART.get()));
+    RegistryObject<Item> GODFATHER = ITEMS.register("godfather", () -> new CocktailBlockItem(ModBlocks.GODFATHER.get()));
+    RegistryObject<Item> GRASSHOPPER = ITEMS.register("grasshopper", () -> new CocktailBlockItem(ModBlocks.GRASSHOPPER.get()));
+    RegistryObject<Item> SCREWDRIVER = ITEMS.register("screwdriver", () -> new CocktailBlockItem(ModBlocks.SCREWDRIVER.get()));
+    RegistryObject<Item> MOJITO = ITEMS.register("mojito", () -> new CocktailBlockItem(ModBlocks.MOJITO.get()));
+    RegistryObject<Item> ALLIUM_GARDEN = ITEMS.register("allium_garden", () -> new CocktailBlockItem(ModBlocks.ALLIUM_GARDEN.get()));
+    RegistryObject<Item> DEPTH_CHARGE = ITEMS.register("depth_charge", () -> new CocktailBlockItem(ModBlocks.DEPTH_CHARGE.get()));
+    RegistryObject<Item> NETHER_SPECIAL = ITEMS.register("nether_special", () -> new CocktailBlockItem(ModBlocks.NETHER_SPECIAL.get()));
+    RegistryObject<Item> BLOODY_MARY = ITEMS.register("bloody_mary", () -> new CocktailBlockItem(ModBlocks.BLOODY_MARY.get()));
+    RegistryObject<Item> SCULK_SPECIAL = ITEMS.register("sculk_special", () -> new CocktailBlockItem(ModBlocks.SCULK_SPECIAL.get()));
+
     // 燃烧瓶
     RegistryObject<Item> MOLOTOV = ITEMS.register("molotov", () -> new MolotovBlockItem(ModBlocks.MOLOTOV.get()));
     // 酒

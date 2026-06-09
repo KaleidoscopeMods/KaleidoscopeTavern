@@ -144,10 +144,28 @@ public class BlockLootTables extends BlockLootSubProvider {
 
         // 果盆
         dropSelf(ModBlocks.PRESSING_TUB.get());
+
         // 空瓶子
         dropSelf(ModBlocks.EMPTY_BOTTLE.get());
         dropSelf(ModBlocks.EMPTY_GLASSWARE.get());
+
+        // 鸡尾酒
+        dropSelf(ModBlocks.ORDINARY_COCKTAIL.get());
+        dropSelf(ModBlocks.MYSTERY_COCKTAIL.get());
+        dropSelf(ModBlocks.WHITE_LADY.get());
+        dropSelf(ModBlocks.EMERALD.get());
+        dropSelf(ModBlocks.BRASS_HEART.get());
+        dropSelf(ModBlocks.GODFATHER.get());
+        dropSelf(ModBlocks.GRASSHOPPER.get());
+        dropSelf(ModBlocks.SCREWDRIVER.get());
+        dropSelf(ModBlocks.MOJITO.get());
+        dropSelf(ModBlocks.ALLIUM_GARDEN.get());
+        dropSelf(ModBlocks.DEPTH_CHARGE.get());
+        dropSelf(ModBlocks.NETHER_SPECIAL.get());
+        dropSelf(ModBlocks.BLOODY_MARY.get());
+        dropSelf(ModBlocks.SCULK_SPECIAL.get());
         dropSelf(ModBlocks.MOLOTOV.get());
+
         // 龙头
         dropSelf(ModBlocks.TAP.get());
         // 酒桶
