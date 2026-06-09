@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:chain"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "pattern": [
+    " C ",
+    " C ",
+    "I I"
+  ],
+  "result": {
+    "item": "kaleidoscope_tavern:holder"
+  },
+  "show_notification": true
+}

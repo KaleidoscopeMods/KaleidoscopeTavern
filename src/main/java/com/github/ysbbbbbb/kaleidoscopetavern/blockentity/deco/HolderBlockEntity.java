@@ -4,8 +4,9 @@ import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class TiltedRackBlockEntity extends StorageBlockEntity {
-    public TiltedRackBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlocks.TILTED_RACK_BE.get(), pos, state, 3);
+public class HolderBlockEntity extends StorageBlockEntity {
+    public HolderBlockEntity(BlockPos pos, BlockState state) {
+        super(ModBlocks.HOLDER_BE.get(), pos, state, 1);
     }
 }
+

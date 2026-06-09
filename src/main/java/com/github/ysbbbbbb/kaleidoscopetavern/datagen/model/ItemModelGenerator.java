@@ -75,7 +75,10 @@ public class ItemModelGenerator extends ItemModelProvider {
         withExistingParent("item/pressing_tub", modLoc("block/brew/pressing_tub"));
         withExistingParent("item/bar_cabinet", modLoc("block/brew/bar_cabinet/single"));
         withExistingParent("item/glass_bar_cabinet", modLoc("block/brew/glass_bar_cabinet/single"));
+        withExistingParent("item/cellar_cabinet", modLoc("block/brew/cellar_cabinet/single"));
         withExistingParent("item/tilted_rack", modLoc("block/deco/tilted_rack"));
+        withExistingParent("item/circular_rack", modLoc("block/deco/circular_rack"));
+        withExistingParent("item/holder", modLoc("block/deco/holder"));
 
         withExistingParent("item/table", modLoc("block/deco/table/single"));
 

@@ -181,6 +181,46 @@ public class ShapedRecipeProvider extends ModRecipeProvider {
                 .unlockedBy("has_grapevine", has(ModItems.GRAPEVINE.get()))
                 .save(consumer);
 
+        // 窖藏酒柜
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.CELLAR_CABINET.get())
+                .pattern("GGG")
+                .pattern("GTG")
+                .pattern("GGG")
+                .define('G', ModItems.GRAPEVINE.get())
+                .define('T', ItemTags.TRAPDOORS)
+                .unlockedBy("has_grapevine", has(ModItems.GRAPEVINE.get()))
+                .save(consumer);
+
+        // 倾斜酒架
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.TILTED_RACK.get(), 3)
+                .pattern("I  ")
+                .pattern("CI ")
+                .pattern("C I")
+                .define('I', Tags.Items.INGOTS_IRON)
+                .define('C', Items.CHAIN)
+                .unlockedBy("has_chain", has(Items.CHAIN))
+                .save(consumer);
+
+        // 圆周酒架
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.CIRCULAR_RACK.get(), 2)
+                .pattern("IRI")
+                .pattern("IRI")
+                .pattern("IRI")
+                .define('I', Tags.Items.INGOTS_IRON)
+                .define('R', Items.END_ROD)
+                .unlockedBy("has_chain", has(Items.END_ROD))
+                .save(consumer);
+
+        // 单体酒架
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.HOLDER.get())
+                .pattern(" C ")
+                .pattern(" C ")
+                .pattern("I I")
+                .define('I', Tags.Items.INGOTS_IRON)
+                .define('C', Items.CHAIN)
+                .unlockedBy("has_chain", has(Items.CHAIN))
+                .save(consumer);
+
         // 桌子
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.TABLE.get())
                 .pattern("WWW")

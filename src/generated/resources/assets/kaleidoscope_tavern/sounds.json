@@ -1,4 +1,10 @@
 {
+  "block.holder.pop": {
+    "sounds": [
+      "kaleidoscope_tavern:block/holder_pop"
+    ],
+    "subtitle": "subtitles.kaleidoscope_tavern.block.holder.pop"
+  },
   "effect.vision": {
     "sounds": [
       "kaleidoscope_tavern:effect/vision"

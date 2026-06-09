@@ -11,6 +11,7 @@ public class ModSounds {
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, KaleidoscopeTavern.MOD_ID);
 
     public static final RegistryObject<SoundEvent> EFFECT_VISION = registerSound("effect.vision");
+    public static final RegistryObject<SoundEvent> HOLDER_POP = registerSound("block.holder.pop");
 
     private static RegistryObject<SoundEvent> registerSound(String name) {
         return SOUND_EVENTS.register(name, () -> SoundEvent.createFixedRangeEvent(new ResourceLocation(KaleidoscopeTavern.MOD_ID, name), 16.0F));

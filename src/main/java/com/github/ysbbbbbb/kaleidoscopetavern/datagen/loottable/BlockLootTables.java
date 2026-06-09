@@ -154,9 +154,12 @@ public class BlockLootTables extends BlockLootSubProvider {
         // 酒柜
         dropSelf(ModBlocks.BAR_CABINET.get());
         dropSelf(ModBlocks.GLASS_BAR_CABINET.get());
+        dropSelf(ModBlocks.CELLAR_CABINET.get());
 
         // 酒架
         dropSelf(ModBlocks.TILTED_RACK.get());
+        dropSelf(ModBlocks.CIRCULAR_RACK.get());
+        dropSelf(ModBlocks.HOLDER.get());
 
         // 杂项瓶子
         add(ModBlocks.WATER_BOTTLE.get(), this.createItemWithNbtTable(Items.POTION,

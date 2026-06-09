@@ -132,9 +132,12 @@ public interface ModItems {
     // 酒柜
     RegistryObject<Item> BAR_CABINET = ITEMS.register("bar_cabinet", () -> new BlockItem(ModBlocks.BAR_CABINET.get(), new Item.Properties()));
     RegistryObject<Item> GLASS_BAR_CABINET = ITEMS.register("glass_bar_cabinet", () -> new BlockItem(ModBlocks.GLASS_BAR_CABINET.get(), new Item.Properties()));
+    RegistryObject<Item> CELLAR_CABINET = ITEMS.register("cellar_cabinet", () -> new BlockItem(ModBlocks.CELLAR_CABINET.get(), new Item.Properties()));
 
     // 酒架
     RegistryObject<Item> TILTED_RACK = ITEMS.register("tilted_rack", () -> new BlockItem(ModBlocks.TILTED_RACK.get(), new Item.Properties()));
+    RegistryObject<Item> CIRCULAR_RACK = ITEMS.register("circular_rack", () -> new BlockItem(ModBlocks.CIRCULAR_RACK.get(), new Item.Properties()));
+    RegistryObject<Item> HOLDER = ITEMS.register("holder", () -> new BlockItem(ModBlocks.HOLDER.get(), new Item.Properties()));
 
     // 空瓶
     RegistryObject<Item> EMPTY_BOTTLE = ITEMS.register("empty_bottle", () -> new BottleBlockItem(ModBlocks.EMPTY_BOTTLE.get()));

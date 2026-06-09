@@ -33,6 +33,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -150,6 +151,11 @@ public class DrinkBlockItem extends BottleBlockItem implements IHasContainer {
     }
 
     public void makeThrownPotion(Level level, double x, double y, double z, int brewLevel, @Nullable Entity owner) {
+        this.makeThrownPotion(level, x, y, z, brewLevel, owner, null);
+    }
+
+    public void makeThrownPotion(Level level, double x, double y, double z, int brewLevel,
+                                 @Nullable Entity owner, @Nullable Vec3 movement) {
         DrinkEffectData effectData = DrinkEffectDataReloadListener.INSTANCE.get(this);
         if (effectData == null) {
             return;
@@ -185,6 +191,10 @@ public class DrinkBlockItem extends BottleBlockItem implements IHasContainer {
         ItemStack stack = new ItemStack(this);
         PotionUtils.setCustomEffects(stack, instances);
         potion.setItem(stack);
+
+        if (movement != null) {
+            potion.setDeltaMovement(movement);
+        }
 
         level.addFreshEntity(potion);
     }

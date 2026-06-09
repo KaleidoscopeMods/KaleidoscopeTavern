@@ -19,6 +19,10 @@ public class SoundDefinitionsGenerator extends SoundDefinitionsProvider {
         SoundDefinition paddySound = definition().subtitle(subtitle("effect.vision"))
                 .with(sound("effect/vision"));
         this.add(ModSounds.EFFECT_VISION.get(), paddySound);
+
+        SoundDefinition holderPopSound = definition().subtitle(subtitle("block.holder.pop"))
+                .with(sound("block/holder_pop"));
+        this.add(ModSounds.HOLDER_POP.get(), holderPopSound);
     }
 
     protected static SoundDefinition.Sound sound(final String name) {

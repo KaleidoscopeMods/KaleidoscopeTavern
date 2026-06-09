@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "R": {
+      "item": "minecraft:end_rod"
+    }
+  },
+  "pattern": [
+    "IRI",
+    "IRI",
+    "IRI"
+  ],
+  "result": {
+    "count": 2,
+    "item": "kaleidoscope_tavern:circular_rack"
+  },
+  "show_notification": true
+}

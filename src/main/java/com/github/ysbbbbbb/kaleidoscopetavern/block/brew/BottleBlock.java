@@ -117,6 +117,11 @@ public class BottleBlock extends HorizontalDirectionalBlock implements SimpleWat
         return SHAPE;
     }
 
+    @Override
+    public float getShadeBrightness(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+        return 1.0F;
+    }
+
     /**
      * 是否为异形酒瓶，这决定了酒柜中可以放入一瓶还是两瓶
      */

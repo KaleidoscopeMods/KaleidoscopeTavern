@@ -1,12 +1,10 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.client.render.block;
 
-import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.BarCabinetBlock;
+import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.TiltedRackBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.TiltedRackBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.BlockRenderDispatcher;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;
@@ -14,17 +12,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
 @SuppressWarnings("deprecation")
-public class TiltedRackBlockEntityRender implements BlockEntityRenderer<TiltedRackBlockEntity> {
-    private final BlockRenderDispatcher blockRender;
-
+public class TiltedRackBlockEntityRender extends StorageBlockEntityRender<TiltedRackBlockEntity> {
     public TiltedRackBlockEntityRender(BlockEntityRendererProvider.Context context) {
-        this.blockRender = context.getBlockRenderDispatcher();
+        super(context);
     }
 
     @Override
     public void render(TiltedRackBlockEntity tiltedRack, float partialTick, PoseStack poseStack,
                        MultiBufferSource buffer, int packedLight, int packedOverlay) {
-        Direction direction = tiltedRack.getBlockState().getValue(BarCabinetBlock.FACING);
+        Direction direction = tiltedRack.getBlockState().getValue(TiltedRackBlock.FACING);
         var items = tiltedRack.getItems();
 
         float scale = 0.9f;
@@ -44,7 +40,7 @@ public class TiltedRackBlockEntityRender implements BlockEntityRenderer<TiltedRa
             poseStack.pushPose();
             BlockState state = blockItem.getBlock().defaultBlockState();
             poseStack.scale(scale, scale, scale);
-            poseStack.translate(0.375 - 0.325 * i, 0.3125, 0.02);
+            poseStack.translate(0.425 - 0.375 * i, 0.3125, 0.02 + (i - 1) * 0.005);
             poseStack.mulPose(Axis.XP.rotationDegrees(22.5f));
             this.blockRender.renderSingleBlock(state, poseStack, buffer, packedLight, packedOverlay);
             poseStack.popPose();

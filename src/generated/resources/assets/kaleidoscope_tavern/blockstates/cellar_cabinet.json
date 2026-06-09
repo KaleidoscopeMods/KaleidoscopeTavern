@@ -1,0 +1,124 @@
+{
+  "variants": {
+    "facing=east,position=left,powered=false": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/left",
+      "y": 90
+    },
+    "facing=east,position=left,powered=true": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/left",
+      "y": 90
+    },
+    "facing=east,position=middle,powered=false": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/middle",
+      "y": 90
+    },
+    "facing=east,position=middle,powered=true": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/middle",
+      "y": 90
+    },
+    "facing=east,position=right,powered=false": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/right",
+      "y": 90
+    },
+    "facing=east,position=right,powered=true": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/right",
+      "y": 90
+    },
+    "facing=east,position=single,powered=false": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/single",
+      "y": 90
+    },
+    "facing=east,position=single,powered=true": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/single",
+      "y": 90
+    },
+    "facing=north,position=left,powered=false": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/left"
+    },
+    "facing=north,position=left,powered=true": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/left"
+    },
+    "facing=north,position=middle,powered=false": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/middle"
+    },
+    "facing=north,position=middle,powered=true": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/middle"
+    },
+    "facing=north,position=right,powered=false": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/right"
+    },
+    "facing=north,position=right,powered=true": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/right"
+    },
+    "facing=north,position=single,powered=false": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/single"
+    },
+    "facing=north,position=single,powered=true": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/single"
+    },
+    "facing=south,position=left,powered=false": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/left",
+      "y": 180
+    },
+    "facing=south,position=left,powered=true": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/left",
+      "y": 180
+    },
+    "facing=south,position=middle,powered=false": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/middle",
+      "y": 180
+    },
+    "facing=south,position=middle,powered=true": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/middle",
+      "y": 180
+    },
+    "facing=south,position=right,powered=false": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/right",
+      "y": 180
+    },
+    "facing=south,position=right,powered=true": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/right",
+      "y": 180
+    },
+    "facing=south,position=single,powered=false": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/single",
+      "y": 180
+    },
+    "facing=south,position=single,powered=true": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/single",
+      "y": 180
+    },
+    "facing=west,position=left,powered=false": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/left",
+      "y": 270
+    },
+    "facing=west,position=left,powered=true": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/left",
+      "y": 270
+    },
+    "facing=west,position=middle,powered=false": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/middle",
+      "y": 270
+    },
+    "facing=west,position=middle,powered=true": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/middle",
+      "y": 270
+    },
+    "facing=west,position=right,powered=false": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/right",
+      "y": 270
+    },
+    "facing=west,position=right,powered=true": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/right",
+      "y": 270
+    },
+    "facing=west,position=single,powered=false": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/single",
+      "y": 270
+    },
+    "facing=west,position=single,powered=true": {
+      "model": "kaleidoscope_tavern:block/brew/cellar_cabinet/single",
+      "y": 270
+    }
+  }
+}

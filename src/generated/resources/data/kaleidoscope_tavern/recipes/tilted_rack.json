@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:chain"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "pattern": [
+    "I  ",
+    "CI ",
+    "C I"
+  ],
+  "result": {
+    "count": 3,
+    "item": "kaleidoscope_tavern:tilted_rack"
+  },
+  "show_notification": true
+}

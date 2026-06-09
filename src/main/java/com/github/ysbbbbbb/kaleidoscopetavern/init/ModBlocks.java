@@ -5,10 +5,7 @@ import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.brew.*;
-import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.BarStoolBlockEntity;
-import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.ChalkboardBlockEntity;
-import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.SandwichBlockEntity;
-import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.TiltedRackBlockEntity;
+import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.*;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -172,9 +169,12 @@ public interface ModBlocks {
     // 酒柜
     RegistryObject<Block> BAR_CABINET = BLOCKS.register("bar_cabinet", BarCabinetBlock::new);
     RegistryObject<Block> GLASS_BAR_CABINET = BLOCKS.register("glass_bar_cabinet", BarCabinetBlock::new);
+    RegistryObject<Block> CELLAR_CABINET = BLOCKS.register("cellar_cabinet", CellarCabinetBlock::new);
 
     // 酒架
     RegistryObject<Block> TILTED_RACK = BLOCKS.register("tilted_rack", TiltedRackBlock::new);
+    RegistryObject<Block> CIRCULAR_RACK = BLOCKS.register("circular_rack", CircularRackBlock::new);
+    RegistryObject<Block> HOLDER = BLOCKS.register("holder", HolderBlock::new);
 
     // 杂项的瓶子
     RegistryObject<Block> WATER_BOTTLE = BLOCKS.register("water_bottle", BottleBlock::new);
@@ -502,9 +502,27 @@ public interface ModBlocks {
                     .build(null)
     );
 
+    RegistryObject<BlockEntityType<CellarCabinetBlockEntity>> CELLAR_CABINET_BE = BLOCK_ENTITIES.register(
+            "cellar_cabinet", () -> BlockEntityType.Builder
+                    .of(CellarCabinetBlockEntity::new, CELLAR_CABINET.get())
+                    .build(null)
+    );
+
     RegistryObject<BlockEntityType<TiltedRackBlockEntity>> TILTED_RACK_BE = BLOCK_ENTITIES.register(
             "tilted_rack", () -> BlockEntityType.Builder
                     .of(TiltedRackBlockEntity::new, TILTED_RACK.get())
+                    .build(null)
+    );
+
+    RegistryObject<BlockEntityType<CircularRackBlockEntity>> CIRCULAR_RACK_BE = BLOCK_ENTITIES.register(
+            "circular_rack", () -> BlockEntityType.Builder
+                    .of(CircularRackBlockEntity::new, CIRCULAR_RACK.get())
+                    .build(null)
+    );
+
+    RegistryObject<BlockEntityType<HolderBlockEntity>> HOLDER_BE = BLOCK_ENTITIES.register(
+            "holder", () -> BlockEntityType.Builder
+                    .of(HolderBlockEntity::new, HOLDER.get())
                     .build(null)
     );
 }
