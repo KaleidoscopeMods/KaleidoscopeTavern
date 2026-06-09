@@ -2,9 +2,11 @@ package com.github.ysbbbbbb.kaleidoscopetavern.block;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.BottleBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.StorageBlockEntity;
+import com.github.ysbbbbbb.kaleidoscopetavern.entity.ThrownMolotovEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModSounds;
 import com.github.ysbbbbbb.kaleidoscopetavern.item.BottleBlockItem;
 import com.github.ysbbbbbb.kaleidoscopetavern.item.DrinkBlockItem;
+import com.github.ysbbbbbb.kaleidoscopetavern.item.MolotovBlockItem;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.core.BlockPos;
@@ -105,7 +107,7 @@ public abstract class AbstractStorageBlock extends HorizontalDirectionalBlock im
             BlockState state, Level level, BlockPos pos, Player player,
             InteractionHand hand, BlockHitResult hitResult
     ) {
-        if (level.isClientSide || hand != InteractionHand.MAIN_HAND) {
+        if (hand != InteractionHand.MAIN_HAND) {
             return InteractionResult.PASS;
         }
 
@@ -211,7 +213,7 @@ public abstract class AbstractStorageBlock extends HorizontalDirectionalBlock im
 
         // 随机选择一个不为空的
         for (int i = 0; i < items.getSlots(); i++) {
-            if (items.getStackInSlot(i).getItem() instanceof DrinkBlockItem) {
+            if (items.getStackInSlot(i).getItem() instanceof BottleBlockItem) {
                 slots.add(i);
             }
         }
@@ -235,6 +237,20 @@ public abstract class AbstractStorageBlock extends HorizontalDirectionalBlock im
 
             drink.makeThrownPotion(level, shootPos.x(), shootPos.y(), shootPos.z(), brewLevel, null, movement);
             level.playSound(null, pos, ModSounds.HOLDER_POP.get(), SoundSource.BLOCKS, 0.9F, 1.0F);
+            return;
+        }
+
+        if (stack.getItem() instanceof MolotovBlockItem) {
+            items.setStackInSlot(slot, ItemStack.EMPTY);
+            storage.refresh();
+
+            Direction direction = state.getValue(FACING);
+            Vec3 shootPos = this.getShootPos(direction, pos, slot);
+            Vec3 movement = this.getMovement(direction, pos, slot);
+
+            ThrownMolotovEntity molotov = new ThrownMolotovEntity(level, shootPos.x(), shootPos.y(), shootPos.z());
+            molotov.setDeltaMovement(movement);
+            level.addFreshEntity(molotov);
         }
     }
 

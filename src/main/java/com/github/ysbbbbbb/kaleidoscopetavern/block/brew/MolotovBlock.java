@@ -16,7 +16,7 @@ public class MolotovBlock extends BottleBlock {
                 .instabreak()
                 .lightLevel(s -> 14)
                 .pushReaction(PushReaction.DESTROY)
-                .sound(SoundType.GLASS), false);
+                .sound(SoundType.GLASS));
     }
 
     @Override
