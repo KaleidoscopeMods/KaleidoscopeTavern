@@ -32,27 +32,34 @@ public class BottleBlock extends HorizontalDirectionalBlock implements SimpleWat
 
     /**
      * 是否为异形酒瓶，这决定了酒柜中可以放入一瓶还是两瓶
+     * @deprecated 现在通过 Item Tag 来决定了，不应当再使用此 tag
      */
-    private final boolean irregular;
+    @Deprecated(forRemoval = true)
+    private final boolean irregular = false;
 
-    public BottleBlock(Properties properties, boolean irregular) {
+    public BottleBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(WATERLOGGED, false));
-        this.irregular = irregular;
     }
 
-    public BottleBlock(boolean irregular) {
+    public BottleBlock() {
         this(Properties.of()
                 .noOcclusion()
                 .instabreak()
                 .pushReaction(PushReaction.DESTROY)
-                .sound(SoundType.GLASS), irregular);
+                .sound(SoundType.GLASS));
     }
 
-    public BottleBlock() {
-        this(false);
+    @Deprecated(forRemoval = true)
+    public BottleBlock(Properties properties, boolean irregular) {
+        this(properties);
+    }
+
+    @Deprecated(forRemoval = true)
+    public BottleBlock(boolean irregular) {
+        this();
     }
 
     @Override
@@ -124,7 +131,9 @@ public class BottleBlock extends HorizontalDirectionalBlock implements SimpleWat
 
     /**
      * 是否为异形酒瓶，这决定了酒柜中可以放入一瓶还是两瓶
+     * @deprecated 现在通过 Item Tag 来决定了，不应当再使用此 tag
      */
+    @Deprecated(forRemoval = true)
     public boolean irregular() {
         return this.irregular;
     }

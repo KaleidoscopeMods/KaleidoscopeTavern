@@ -2,12 +2,14 @@ package com.github.ysbbbbbb.kaleidoscopetavern.block.deco;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.block.AbstractStorageBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.HolderBlockEntity;
+import com.github.ysbbbbbb.kaleidoscopetavern.init.tag.TagMod;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -41,7 +43,12 @@ public class HolderBlock extends AbstractStorageBlock {
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
                                  InteractionHand hand, BlockHitResult hitResult) {
-        return super.handleUse(state, level, pos, player, hand, hitResult, true);
+        return super.handleUse(state, level, pos, player, hand, hitResult);
+    }
+
+    @Override
+    protected boolean blockListCheck(ItemStack stack) {
+        return stack.is(TagMod.HOLDER_BLOCKLIST);
     }
 
     @Override

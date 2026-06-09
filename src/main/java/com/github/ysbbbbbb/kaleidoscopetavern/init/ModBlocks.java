@@ -212,13 +212,13 @@ public interface ModBlocks {
             Block.box(0, 0, 0, 16, 16, 16)
     ).build());
 
-    RegistryObject<Block> BRANDY = BLOCKS.register("brandy", DrinkBlock.create().irregular().maxCount(3).shapes(
+    RegistryObject<Block> BRANDY = BLOCKS.register("brandy", DrinkBlock.create().maxCount(3).shapes(
             Block.box(3, 0, 6, 13, 13, 10),
             Block.box(1, 0, 3, 15, 12, 12),
             Block.box(1, 0, 1, 16, 12, 13)
     ).build());
 
-    RegistryObject<Block> CARIGNAN = BLOCKS.register("carignan", DrinkBlock.create().irregular().maxCount(3).shapes(
+    RegistryObject<Block> CARIGNAN = BLOCKS.register("carignan", DrinkBlock.create().maxCount(3).shapes(
             Block.box(3, 0, 6, 13, 12, 10),
             Block.box(1, 0, 3, 15, 12, 12),
             Block.box(0, 0, 1, 16, 12, 13)

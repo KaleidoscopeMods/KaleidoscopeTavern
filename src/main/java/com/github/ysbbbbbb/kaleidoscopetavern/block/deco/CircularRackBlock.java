@@ -2,6 +2,7 @@ package com.github.ysbbbbbb.kaleidoscopetavern.block.deco;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.block.AbstractStorageBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.CircularRackBlockEntity;
+import com.github.ysbbbbbb.kaleidoscopetavern.init.tag.TagMod;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -10,6 +11,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -35,7 +37,12 @@ public class CircularRackBlock extends AbstractStorageBlock {
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
                                  InteractionHand hand, BlockHitResult hitResult) {
-        return super.handleUse(state, level, pos, player, hand, hitResult, false);
+        return super.handleUse(state, level, pos, player, hand, hitResult);
+    }
+
+    @Override
+    protected boolean blockListCheck(ItemStack stack) {
+        return stack.is(TagMod.CIRCULAR_RACK_BLOCKLIST);
     }
 
     @Override
@@ -79,9 +86,15 @@ public class CircularRackBlock extends AbstractStorageBlock {
             return;
         }
         if (level.getBlockEntity(pos) instanceof CircularRackBlockEntity rack && rack.hasAnyItem()) {
-            double x = pos.getX() + 0.5 + (random.nextDouble() - 0.5);
-            double y = pos.getY() + 0.5;
-            double z = pos.getZ() + 0.5 + (random.nextDouble() - 0.5);
+            // 让粒子在边线飘动
+            double x = pos.getX();
+            double y = pos.getY();
+            double z = pos.getZ();
+
+            x = random.nextBoolean() ? x + 0.125 + random.nextDouble() * 0.25 : x + 0.875 - random.nextDouble() * 0.25;
+            y = y + random.nextDouble();
+            z = random.nextBoolean() ? z + 0.125 + random.nextDouble() * 0.25 : z + 0.875 - random.nextDouble() * 0.25;
+
             level.addParticle(ParticleTypes.END_ROD, x, y, z, 0.01, 0.01, 0.01);
         }
     }

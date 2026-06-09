@@ -41,6 +41,26 @@ public interface TagMod {
      * 穿草隐身效果起效的方块
      */
     TagKey<Block> GRASS_STEALTH_PLANTS = blockTag("grass_stealth_plants");
+    /**
+     * 酒柜异形酒瓶名单，这种类型的酒只允许放入一瓶
+     */
+    TagKey<Item> BAR_CABINET_IRREGULAR = itemTag("bar_cabinet_irregular");
+    /**
+     * 窖藏酒柜黑名单，即不允许放入窖藏酒柜的酒
+     */
+    TagKey<Item> CELLAR_CABINET_BLOCKLIST = itemTag("cellar_cabinet_blocklist");
+    /**
+     * 倾斜酒架黑名单，即不允许放入倾斜酒架的酒
+     */
+    TagKey<Item> TILTED_RACK_BLOCKLIST = itemTag("tilted_rack_blocklist");
+    /**
+     * 圆周酒架黑名单，即不允许放入圆周酒架的酒
+     */
+    TagKey<Item> CIRCULAR_RACK_BLOCKLIST = itemTag("circular_rack_blocklist");
+    /**
+     * 单体酒架黑名单，即不允许放入单体酒架的酒
+     */
+    TagKey<Item> HOLDER_BLOCKLIST = itemTag("holder_blocklist");
 
     static TagKey<Item> itemTag(String name) {
         return TagKey.create(Registries.ITEM, KaleidoscopeTavern.modLoc(name));

@@ -129,13 +129,17 @@ public class TagBlock extends BlockTagsProvider {
                 .add(ModBlocks.PRESSING_TUB.get())
                 .add(ModBlocks.BARREL.get())
                 .add(ModBlocks.BAR_CABINET.get())
-                .add(ModBlocks.GLASS_BAR_CABINET.get());
+                .add(ModBlocks.GLASS_BAR_CABINET.get())
+                .add(ModBlocks.CELLAR_CABINET.get());
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .addTag(TagMod.SOFA)
                 .addTag(TagMod.BAR_STOOL)
                 .addTag(TagMod.STRING_LIGHTS)
-                .add(ModBlocks.TAP.get());
+                .add(ModBlocks.TAP.get())
+                .add(ModBlocks.TILTED_RACK.get())
+                .add(ModBlocks.CIRCULAR_RACK.get())
+                .add(ModBlocks.HOLDER.get());
 
         this.tag(BlockTags.CLIMBABLE)
                 .add(ModBlocks.WILD_GRAPEVINE.get())

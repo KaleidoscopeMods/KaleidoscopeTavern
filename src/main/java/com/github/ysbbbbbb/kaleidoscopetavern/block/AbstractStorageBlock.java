@@ -72,6 +72,8 @@ public abstract class AbstractStorageBlock extends HorizontalDirectionalBlock im
      */
     protected abstract Vec3 getMovement(Direction direction, BlockPos pos, int slot);
 
+    protected abstract boolean blockListCheck(ItemStack stack);
+
     /**
      * 获取旋转后的局部X坐标，范围 0-1
      */
@@ -101,7 +103,7 @@ public abstract class AbstractStorageBlock extends HorizontalDirectionalBlock im
 
     protected InteractionResult handleUse(
             BlockState state, Level level, BlockPos pos, Player player,
-            InteractionHand hand, BlockHitResult hitResult, boolean checkIrregular
+            InteractionHand hand, BlockHitResult hitResult
     ) {
         if (level.isClientSide || hand != InteractionHand.MAIN_HAND) {
             return InteractionResult.PASS;
@@ -121,11 +123,11 @@ public abstract class AbstractStorageBlock extends HorizontalDirectionalBlock im
         if (handItem.isEmpty()) {
             return takeOut(level, pos, player, hand, storage, clickedSlot);
         }
-        return putOn(level, pos, player, checkIrregular, storage, clickedSlot);
+        return putOn(level, pos, player, storage, clickedSlot);
     }
 
     protected InteractionResult putOn(
-            Level level, BlockPos pos, Player player, boolean checkIrregular,
+            Level level, BlockPos pos, Player player,
             StorageBlockEntity storage, int clickedSlot
     ) {
         ItemStackHandler items = storage.getItems();
@@ -137,7 +139,7 @@ public abstract class AbstractStorageBlock extends HorizontalDirectionalBlock im
             return InteractionResult.FAIL;
         }
 
-        if (checkIrregular && bottleBlock.irregular()) {
+        if (this.blockListCheck(handItem)) {
             this.sendMessage(player, Component.translatable("message.kaleidoscope_tavern.rack.irregular"));
             return InteractionResult.FAIL;
         }
