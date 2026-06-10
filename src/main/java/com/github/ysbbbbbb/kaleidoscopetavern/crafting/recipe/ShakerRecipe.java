@@ -1,6 +1,8 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModRecipes;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
@@ -16,7 +18,8 @@ import net.minecraftforge.common.util.RecipeMatcher;
 public record ShakerRecipe(
         ResourceLocation id,
         NonNullList<Ingredient> ingredients,
-        ItemStack result
+        ItemStack result,
+        Int2ObjectMap<ChatFormatting> ingredientColors
 ) implements Recipe<SimpleContainer> {
     @Override
     public boolean matches(SimpleContainer container, Level level) {
@@ -26,6 +29,11 @@ public record ShakerRecipe(
     @Override
     public ItemStack assemble(SimpleContainer pContainer, RegistryAccess pRegistryAccess) {
         return this.result.copy();
+    }
+
+    @Override
+    public NonNullList<Ingredient> getIngredients() {
+        return this.ingredients;
     }
 
     @Override

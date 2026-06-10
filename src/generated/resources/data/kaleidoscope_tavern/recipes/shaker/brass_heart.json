@@ -1,0 +1,17 @@
+{
+  "type": "kaleidoscope_tavern:shaker",
+  "ingredients": [
+    {
+      "tag": "kaleidoscope_tavern:cocktail_ingredient_gold"
+    },
+    {
+      "tag": "kaleidoscope_tavern:cocktail_ingredient_gold"
+    },
+    {
+      "tag": "kaleidoscope_tavern:cocktail_ingredient_gold"
+    }
+  ],
+  "result": {
+    "item": "kaleidoscope_tavern:brass_heart"
+  }
+}
