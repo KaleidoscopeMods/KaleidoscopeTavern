@@ -1,0 +1,27 @@
+{
+  "parent": "kaleidoscope_tavern:block/mixology/white_lady",
+  "transform": {
+    "left_rotation": [
+      -0.0,
+      -0.0,
+      -0.0,
+      1.0
+    ],
+    "right_rotation": [
+      0.0,
+      0.9807853,
+      0.0,
+      -0.19509035
+    ],
+    "scale": [
+      1.0000001,
+      1.0,
+      1.0000001
+    ],
+    "translation": [
+      -1.1532815,
+      0.0,
+      -0.770598
+    ]
+  }
+}

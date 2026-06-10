@@ -1,62 +1,122 @@
 {
   "variants": {
-    "facing=east,open=false,waterlogged=false": {
+    "facing=east,open=false,triggered=false,waterlogged=false": {
       "model": "kaleidoscope_tavern:block/brew/tap/close",
       "y": 90
     },
-    "facing=east,open=false,waterlogged=true": {
+    "facing=east,open=false,triggered=false,waterlogged=true": {
       "model": "kaleidoscope_tavern:block/brew/tap/close",
       "y": 90
     },
-    "facing=east,open=true,waterlogged=false": {
+    "facing=east,open=false,triggered=true,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/brew/tap/close",
+      "y": 90
+    },
+    "facing=east,open=false,triggered=true,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/brew/tap/close",
+      "y": 90
+    },
+    "facing=east,open=true,triggered=false,waterlogged=false": {
       "model": "kaleidoscope_tavern:block/brew/tap/open",
       "y": 90
     },
-    "facing=east,open=true,waterlogged=true": {
+    "facing=east,open=true,triggered=false,waterlogged=true": {
       "model": "kaleidoscope_tavern:block/brew/tap/open",
       "y": 90
     },
-    "facing=north,open=false,waterlogged=false": {
+    "facing=east,open=true,triggered=true,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/brew/tap/open",
+      "y": 90
+    },
+    "facing=east,open=true,triggered=true,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/brew/tap/open",
+      "y": 90
+    },
+    "facing=north,open=false,triggered=false,waterlogged=false": {
       "model": "kaleidoscope_tavern:block/brew/tap/close"
     },
-    "facing=north,open=false,waterlogged=true": {
+    "facing=north,open=false,triggered=false,waterlogged=true": {
       "model": "kaleidoscope_tavern:block/brew/tap/close"
     },
-    "facing=north,open=true,waterlogged=false": {
+    "facing=north,open=false,triggered=true,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/brew/tap/close"
+    },
+    "facing=north,open=false,triggered=true,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/brew/tap/close"
+    },
+    "facing=north,open=true,triggered=false,waterlogged=false": {
       "model": "kaleidoscope_tavern:block/brew/tap/open"
     },
-    "facing=north,open=true,waterlogged=true": {
+    "facing=north,open=true,triggered=false,waterlogged=true": {
       "model": "kaleidoscope_tavern:block/brew/tap/open"
     },
-    "facing=south,open=false,waterlogged=false": {
+    "facing=north,open=true,triggered=true,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/brew/tap/open"
+    },
+    "facing=north,open=true,triggered=true,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/brew/tap/open"
+    },
+    "facing=south,open=false,triggered=false,waterlogged=false": {
       "model": "kaleidoscope_tavern:block/brew/tap/close",
       "y": 180
     },
-    "facing=south,open=false,waterlogged=true": {
+    "facing=south,open=false,triggered=false,waterlogged=true": {
       "model": "kaleidoscope_tavern:block/brew/tap/close",
       "y": 180
     },
-    "facing=south,open=true,waterlogged=false": {
+    "facing=south,open=false,triggered=true,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/brew/tap/close",
+      "y": 180
+    },
+    "facing=south,open=false,triggered=true,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/brew/tap/close",
+      "y": 180
+    },
+    "facing=south,open=true,triggered=false,waterlogged=false": {
       "model": "kaleidoscope_tavern:block/brew/tap/open",
       "y": 180
     },
-    "facing=south,open=true,waterlogged=true": {
+    "facing=south,open=true,triggered=false,waterlogged=true": {
       "model": "kaleidoscope_tavern:block/brew/tap/open",
       "y": 180
     },
-    "facing=west,open=false,waterlogged=false": {
+    "facing=south,open=true,triggered=true,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/brew/tap/open",
+      "y": 180
+    },
+    "facing=south,open=true,triggered=true,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/brew/tap/open",
+      "y": 180
+    },
+    "facing=west,open=false,triggered=false,waterlogged=false": {
       "model": "kaleidoscope_tavern:block/brew/tap/close",
       "y": 270
     },
-    "facing=west,open=false,waterlogged=true": {
+    "facing=west,open=false,triggered=false,waterlogged=true": {
       "model": "kaleidoscope_tavern:block/brew/tap/close",
       "y": 270
     },
-    "facing=west,open=true,waterlogged=false": {
+    "facing=west,open=false,triggered=true,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/brew/tap/close",
+      "y": 270
+    },
+    "facing=west,open=false,triggered=true,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/brew/tap/close",
+      "y": 270
+    },
+    "facing=west,open=true,triggered=false,waterlogged=false": {
       "model": "kaleidoscope_tavern:block/brew/tap/open",
       "y": 270
     },
-    "facing=west,open=true,waterlogged=true": {
+    "facing=west,open=true,triggered=false,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/brew/tap/open",
+      "y": 270
+    },
+    "facing=west,open=true,triggered=true,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/brew/tap/open",
+      "y": 270
+    },
+    "facing=west,open=true,triggered=true,waterlogged=true": {
       "model": "kaleidoscope_tavern:block/brew/tap/open",
       "y": 270
     }

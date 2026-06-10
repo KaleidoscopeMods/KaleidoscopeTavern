@@ -1,0 +1,27 @@
+{
+  "parent": "kaleidoscope_tavern:block/mixology/bloody_mary",
+  "transform": {
+    "left_rotation": [
+      -0.0,
+      -0.0,
+      -0.0,
+      1.0
+    ],
+    "right_rotation": [
+      0.0,
+      -0.5555702,
+      0.0,
+      0.83146966
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "translation": [
+      -0.770598,
+      0.0,
+      0.15328151
+    ]
+  }
+}

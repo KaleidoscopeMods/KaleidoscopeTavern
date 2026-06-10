@@ -1,0 +1,27 @@
+{
+  "parent": "kaleidoscope_tavern:block/mixology/brass_heart",
+  "transform": {
+    "left_rotation": [
+      -0.0,
+      -0.0,
+      -0.0,
+      1.0
+    ],
+    "right_rotation": [
+      0.0,
+      -0.70710677,
+      0.0,
+      0.70710677
+    ],
+    "scale": [
+      0.99999994,
+      1.0,
+      0.99999994
+    ],
+    "translation": [
+      -1.0,
+      0.0,
+      0.0
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "parent": "kaleidoscope_tavern:block/mixology/emerald",
+  "transform": {
+    "left_rotation": [
+      -0.0,
+      -0.0,
+      -0.0,
+      1.0
+    ],
+    "right_rotation": [
+      0.0,
+      0.9238795,
+      0.0,
+      -0.38268346
+    ],
+    "scale": [
+      1.0,
+      0.9999999,
+      1.0
+    ],
+    "translation": [
+      -1.2071068,
+      0.0,
+      -0.5
+    ]
+  }
+}

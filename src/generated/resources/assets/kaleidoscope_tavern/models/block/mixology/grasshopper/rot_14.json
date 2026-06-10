@@ -1,0 +1,27 @@
+{
+  "parent": "kaleidoscope_tavern:block/mixology/grasshopper",
+  "transform": {
+    "left_rotation": [
+      -0.0,
+      -0.0,
+      -0.0,
+      1.0
+    ],
+    "right_rotation": [
+      0.0,
+      0.38268346,
+      0.0,
+      0.9238794
+    ],
+    "scale": [
+      0.9999999,
+      0.9999999,
+      0.9999998
+    ],
+    "translation": [
+      0.20710677,
+      0.0,
+      -0.5000001
+    ]
+  }
+}
