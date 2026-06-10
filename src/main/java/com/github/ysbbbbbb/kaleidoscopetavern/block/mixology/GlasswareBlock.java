@@ -16,6 +16,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.RotationSegment;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
@@ -26,14 +28,16 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
-public class GlasswareBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
+public class GlasswareBlock extends Block implements SimpleWaterloggedBlock {
+    public static final IntegerProperty ROTATION = BlockStateProperties.ROTATION_16;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+
     public static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 10, 12);
 
     public GlasswareBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any()
-                .setValue(FACING, Direction.NORTH)
+                .setValue(ROTATION, 0)
                 .setValue(WATERLOGGED, false));
     }
 
@@ -73,10 +77,11 @@ public class GlasswareBlock extends HorizontalDirectionalBlock implements Simple
     @Override
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
+        boolean isWaterAt = context.getLevel().isWaterAt(context.getClickedPos());
+        int rotation = RotationSegment.convertToSegment(context.getRotation());
         return this.defaultBlockState()
-                .setValue(FACING, context.getHorizontalDirection().getOpposite())
-                .setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
+                .setValue(ROTATION, rotation)
+                .setValue(WATERLOGGED, isWaterAt);
     }
 
     @Override
@@ -94,7 +99,7 @@ public class GlasswareBlock extends HorizontalDirectionalBlock implements Simple
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, WATERLOGGED);
+        builder.add(ROTATION, WATERLOGGED);
     }
 
     @Override
@@ -110,5 +115,17 @@ public class GlasswareBlock extends HorizontalDirectionalBlock implements Simple
     @Override
     public float getShadeBrightness(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
         return 1.0F;
+    }
+
+    @Override
+    public BlockState rotate(BlockState state, Rotation rotation) {
+        int max = RotationSegment.getMaxSegmentIndex() + 1;
+        return state.setValue(ROTATION, rotation.rotate(state.getValue(ROTATION), max));
+    }
+
+    @Override
+    public BlockState mirror(BlockState pState, Mirror pMirror) {
+        int max = RotationSegment.getMaxSegmentIndex() + 1;
+        return pState.setValue(ROTATION, pMirror.mirror(pState.getValue(ROTATION), max));
     }
 }

@@ -1,0 +1,12 @@
+{
+  "parent": "kaleidoscope_tavern:block/mixology/depth_charge",
+  "transform": {
+    "origin": "center",
+    "rotation": [
+      0.0,
+      -0.9238795,
+      0.0,
+      0.3826835
+    ]
+  }
+}

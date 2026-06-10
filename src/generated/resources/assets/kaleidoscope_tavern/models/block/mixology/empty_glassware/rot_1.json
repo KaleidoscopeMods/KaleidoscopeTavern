@@ -1,0 +1,12 @@
+{
+  "parent": "kaleidoscope_tavern:block/mixology/empty_glassware",
+  "transform": {
+    "origin": "center",
+    "rotation": [
+      0.0,
+      -0.19509032,
+      0.0,
+      0.98078525
+    ]
+  }
+}

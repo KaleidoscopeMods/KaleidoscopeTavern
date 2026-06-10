@@ -5,8 +5,10 @@ import com.github.ysbbbbbb.kaleidoscopetavern.block.properties.ConnectionType;
 import com.github.ysbbbbbb.kaleidoscopetavern.util.ColorUtils;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.state.properties.RotationSegment;
 import net.minecraftforge.client.model.generators.BlockModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.common.util.TransformationHelper;
 
 public class BlockModelGenerator extends BlockModelProvider {
     public BlockModelGenerator(PackOutput output, ExistingFileHelper existingFileHelper) {
@@ -48,6 +50,22 @@ public class BlockModelGenerator extends BlockModelProvider {
         painting("great_wave");
         painting("mona_lisa");
         painting("mondrian");
+
+        glassware("empty_glassware");
+        glassware("ordinary_cocktail");
+        glassware("mystery_cocktail");
+        glassware("white_lady");
+        glassware("emerald");
+        glassware("brass_heart");
+        glassware("godfather");
+        glassware("grasshopper");
+        glassware("screwdriver");
+        glassware("mojito");
+        glassware("allium_garden");
+        glassware("depth_charge");
+        glassware("nether_special");
+        glassware("bloody_mary");
+        glassware("sculk_special");
 
         cross("block/plant/wild_grapevine", modLoc("block/plant/wild_grapevine")).renderType("cutout");
         cross("block/plant/wild_grapevine_plant", modLoc("block/plant/wild_grapevine_plant")).renderType("cutout");
@@ -92,5 +110,19 @@ public class BlockModelGenerator extends BlockModelProvider {
         ResourceLocation parent = modLoc("block/deco/painting/base");
         withExistingParent(name, parent)
                 .texture("texture", texture);
+    }
+
+    private void glassware(String name) {
+        ResourceLocation parent = modLoc("block/mixology/%s".formatted(name));
+        int max = RotationSegment.getMaxSegmentIndex();
+
+        for (int i = 0; i <= max; i++) {
+            ResourceLocation file = modLoc("block/mixology/%s/rot_%d".formatted(name, i));
+            withExistingParent(file.toString(), parent)
+                    .rootTransforms()
+                    .origin(TransformationHelper.TransformOrigin.CENTER)
+                    .rotation(0, -i * 22.5f, 0, true)
+                    .end();
+        }
     }
 }
