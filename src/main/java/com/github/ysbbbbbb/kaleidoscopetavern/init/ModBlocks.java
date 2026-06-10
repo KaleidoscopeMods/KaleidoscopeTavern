@@ -5,9 +5,11 @@ import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.CocktailBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.GlasswareBlock;
+import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.ShakerBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.brew.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.*;
+import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.mixology.ShakerBlockEntity;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -182,6 +184,9 @@ public interface ModBlocks {
     RegistryObject<Block> NETHER_SPECIAL = BLOCKS.register("nether_special", CocktailBlock::new);
     RegistryObject<Block> BLOODY_MARY = BLOCKS.register("bloody_mary", CocktailBlock::new);
     RegistryObject<Block> SCULK_SPECIAL = BLOCKS.register("sculk_special", CocktailBlock::new);
+
+    // 雪克杯
+    RegistryObject<Block> SHAKER = BLOCKS.register("shaker", ShakerBlock::new);
 
     // 燃烧瓶
     RegistryObject<Block> MOLOTOV = BLOCKS.register("molotov", MolotovBlock::new);
@@ -544,6 +549,12 @@ public interface ModBlocks {
     RegistryObject<BlockEntityType<HolderBlockEntity>> HOLDER_BE = BLOCK_ENTITIES.register(
             "holder", () -> BlockEntityType.Builder
                     .of(HolderBlockEntity::new, HOLDER.get())
+                    .build(null)
+    );
+
+    RegistryObject<BlockEntityType<ShakerBlockEntity>> SHAKER_BE = BLOCK_ENTITIES.register(
+            "shaker", () -> BlockEntityType.Builder
+                    .of(ShakerBlockEntity::new, SHAKER.get())
                     .build(null)
     );
 }

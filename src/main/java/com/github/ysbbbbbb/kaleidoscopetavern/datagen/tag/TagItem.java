@@ -59,6 +59,50 @@ public class TagItem extends ItemTagsProvider {
 
         tag(TagMod.CIRCULAR_RACK_BLOCKLIST);
 
+        tag(TagMod.COCKTAIL_INGREDIENT_GREEN).add(
+                ModItems.SAUVIGNON_BLANC_DRY_WHITE.get(),
+                ModItems.RIESLING_DRY_WHITE.get()
+        );
+
+        tag(TagMod.COCKTAIL_INGREDIENT_YELLOW).add(
+                ModItems.LUMINOUS_BRIDE.get(),
+                ModItems.GLOWFLOWER_BREW.get()
+        );
+
+        tag(TagMod.COCKTAIL_INGREDIENT_GOLD).add(
+                ModItems.MINERS_STAR.get(),
+                ModItems.HONEY_WINE.get(),
+                ModItems.MADAME_SHEXIANG.get(),
+                ModItems.SUNSET_GLOW.get()
+        );
+
+        tag(TagMod.COCKTAIL_INGREDIENT_RED).add(
+                ModItems.PLUM_WINE.get(),
+                ModItems.SWEET_BERRY_WINE.get(),
+                ModItems.RED_QUEEN.get()
+        );
+
+        tag(TagMod.COCKTAIL_INGREDIENT_LIGHT_PURPLE).add(
+                ModItems.WINE.get(),
+                ModItems.CHAMPAGNE.get(),
+                ModItems.SAKURA_WINE.get(),
+                ModItems.BRANDY.get(),
+                ModItems.CARIGNAN.get()
+        );
+
+        tag(TagMod.COCKTAIL_INGREDIENT_BLUE).add(
+                ModItems.ICE_WINE.get(),
+                ModItems.POLARIS_SWEET_WHITE.get(),
+                ModItems.MOTHER_SNOW.get(),
+                ModItems.SHERRY.get()
+        );
+
+        tag(TagMod.COCKTAIL_INGREDIENT_WHITE).add(
+                ModItems.VODKA.get(),
+                ModItems.WHISKEY.get(),
+                ModItems.RUM.get()
+        );
+
         tag(TagCommon.FRUITS_GRAPES).add(
                 ModItems.GRAPE.get()
         );

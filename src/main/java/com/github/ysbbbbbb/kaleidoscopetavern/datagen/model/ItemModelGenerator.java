@@ -66,6 +66,8 @@ public class ItemModelGenerator extends ItemModelProvider {
         basicItem(ModItems.STEPLADDER.get());
         basicItem(ModItems.GRAPEVINE.get());
 
+        basicItem(ModItems.SHAKER.get());
+
         trellis(ModItems.TRELLIS);
         basicItem(ModItems.GRAPE.get());
         basicItem(ModItems.ICE_GRAPE.get());

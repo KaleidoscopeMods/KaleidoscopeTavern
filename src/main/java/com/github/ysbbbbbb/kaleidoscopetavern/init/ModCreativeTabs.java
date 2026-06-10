@@ -25,6 +25,7 @@ public interface ModCreativeTabs {
                 output.accept(ModItems.PRESSING_TUB.get());
                 output.accept(ModItems.BARREL.get());
                 output.accept(ModItems.TAP.get());
+                output.accept(ModItems.SHAKER.get());
 
                 output.accept(ModItems.GRAPE_BUCKET.get());
                 output.accept(ModItems.ICE_GRAPE_BUCKET.get());
