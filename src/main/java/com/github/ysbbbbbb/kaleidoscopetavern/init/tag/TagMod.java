@@ -62,7 +62,11 @@ public interface TagMod {
      */
     TagKey<Item> HOLDER_BLOCKLIST = itemTag("holder_blocklist");
     /**
-     * 鸡尾酒原料
+     * 鸡尾酒原料，只有这个 tag 的物品才能放入雪克杯，避免玩家误放
+     */
+    TagKey<Item> COCKTAIL_INGREDIENT = itemTag("cocktail_ingredient");
+    /**
+     * 鸡尾酒原料颜色分类
      */
     TagKey<Item> COCKTAIL_INGREDIENT_BLACK = itemTag("cocktail_ingredient_black");
     TagKey<Item> COCKTAIL_INGREDIENT_DARK_BLUE = itemTag("cocktail_ingredient_dark_blue");

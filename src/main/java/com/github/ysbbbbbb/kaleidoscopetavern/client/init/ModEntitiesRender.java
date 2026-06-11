@@ -5,6 +5,7 @@ import com.github.ysbbbbbb.kaleidoscopetavern.client.model.brew.BarrelModel;
 import com.github.ysbbbbbb.kaleidoscopetavern.client.model.deco.BarStoolBodyModel;
 import com.github.ysbbbbbb.kaleidoscopetavern.client.model.deco.LargeChalkboardModel;
 import com.github.ysbbbbbb.kaleidoscopetavern.client.model.deco.SmallChalkboardModel;
+import com.github.ysbbbbbb.kaleidoscopetavern.client.model.mixology.ShakerModel;
 import com.github.ysbbbbbb.kaleidoscopetavern.client.render.entity.SitRenderer;
 import com.github.ysbbbbbb.kaleidoscopetavern.client.render.entity.StringLightsLayer;
 import com.github.ysbbbbbb.kaleidoscopetavern.client.render.entity.ThrownMolotovRenderer;
@@ -32,6 +33,7 @@ public class ModEntitiesRender {
         event.registerLayerDefinition(LargeChalkboardModel.LAYER_LOCATION, LargeChalkboardModel::createBodyLayer);
         event.registerLayerDefinition(BarStoolBodyModel.LAYER_LOCATION, BarStoolBodyModel::createBodyLayer);
         event.registerLayerDefinition(BarrelModel.LAYER_LOCATION, BarrelModel::createBodyLayer);
+        event.registerLayerDefinition(ShakerModel.LAYER_LOCATION, ShakerModel::createBodyLayer);
     }
 
     @SubscribeEvent

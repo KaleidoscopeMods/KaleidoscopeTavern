@@ -103,6 +103,34 @@ public class TagItem extends ItemTagsProvider {
                 ModItems.RUM.get()
         );
 
+        tag(TagMod.COCKTAIL_INGREDIENT_BLACK);
+        tag(TagMod.COCKTAIL_INGREDIENT_DARK_BLUE);
+        tag(TagMod.COCKTAIL_INGREDIENT_DARK_GREEN);
+        tag(TagMod.COCKTAIL_INGREDIENT_DARK_AQUA);
+        tag(TagMod.COCKTAIL_INGREDIENT_DARK_RED);
+        tag(TagMod.COCKTAIL_INGREDIENT_DARK_PURPLE);
+        tag(TagMod.COCKTAIL_INGREDIENT_GRAY);
+        tag(TagMod.COCKTAIL_INGREDIENT_DARK_GRAY);
+        tag(TagMod.COCKTAIL_INGREDIENT_AQUA);
+
+        tag(TagMod.COCKTAIL_INGREDIENT)
+                .addTag(TagMod.COCKTAIL_INGREDIENT_BLACK)
+                .addTag(TagMod.COCKTAIL_INGREDIENT_DARK_BLUE)
+                .addTag(TagMod.COCKTAIL_INGREDIENT_DARK_GREEN)
+                .addTag(TagMod.COCKTAIL_INGREDIENT_DARK_AQUA)
+                .addTag(TagMod.COCKTAIL_INGREDIENT_DARK_RED)
+                .addTag(TagMod.COCKTAIL_INGREDIENT_DARK_PURPLE)
+                .addTag(TagMod.COCKTAIL_INGREDIENT_GOLD)
+                .addTag(TagMod.COCKTAIL_INGREDIENT_GRAY)
+                .addTag(TagMod.COCKTAIL_INGREDIENT_DARK_GRAY)
+                .addTag(TagMod.COCKTAIL_INGREDIENT_BLUE)
+                .addTag(TagMod.COCKTAIL_INGREDIENT_GREEN)
+                .addTag(TagMod.COCKTAIL_INGREDIENT_AQUA)
+                .addTag(TagMod.COCKTAIL_INGREDIENT_RED)
+                .addTag(TagMod.COCKTAIL_INGREDIENT_LIGHT_PURPLE)
+                .addTag(TagMod.COCKTAIL_INGREDIENT_YELLOW)
+                .addTag(TagMod.COCKTAIL_INGREDIENT_WHITE);
+
         tag(TagCommon.FRUITS_GRAPES).add(
                 ModItems.GRAPE.get()
         );

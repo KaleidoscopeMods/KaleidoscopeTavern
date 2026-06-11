@@ -1,12 +1,106 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.blockentity.mixology;
 
+import com.github.ysbbbbbb.kaleidoscopetavern.api.blockentity.IShaker;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.BaseBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
+import com.github.ysbbbbbb.kaleidoscopetavern.item.IHasContainer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.ItemStackHandler;
+import org.jetbrains.annotations.Nullable;
 
-public class ShakerBlockEntity extends BaseBlockEntity {
+public class ShakerBlockEntity extends BaseBlockEntity implements IShaker {
+    private final ItemStackHandler storage = new ItemStackHandler(3) {
+        @Override
+        public int getSlotLimit(int slot) {
+            return 1;
+        }
+    };
+
+    public AnimationState putState = new AnimationState();
+
     public ShakerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlocks.SHAKER_BE.get(), pos, state);
+    }
+
+    @Override
+    public boolean addIngredient(ItemStack stack, @Nullable LivingEntity user) {
+        // 先看看满了么
+        if (!hasEmptySlots()) {
+            return false;
+        }
+
+        ItemStack copy = stack.copyWithCount(1);
+        ItemHandlerHelper.insertItemStacked(storage, copy, false);
+        this.refresh();
+
+        // 如果是容器类物品
+        if (stack.getItem() instanceof IHasContainer hasContainer && user != null && level != null) {
+            // 返还容器
+            ItemStack carried = hasContainer.getContainerItem().getDefaultInstance();
+            if (user instanceof Player player) {
+                ItemHandlerHelper.giveItemToPlayer(player, carried);
+            } else {
+                ItemEntity itemEntity = new ItemEntity(level, user.getX(), user.getY(), user.getZ(), carried);
+                level.addFreshEntity(itemEntity);
+            }
+            level.playSound(null, worldPosition, SoundEvents.BOTTLE_EMPTY,
+                    SoundSource.BLOCKS, 0.75F, 1.0F
+            );
+        } else if (level != null) {
+            level.playSound(null, worldPosition, SoundEvents.ITEM_FRAME_ADD_ITEM,
+                    SoundSource.BLOCKS, 0.75F, 1.0F
+            );
+        }
+
+        stack.shrink(1);
+
+        if (level != null) {
+            this.putState.start((int) level.getGameTime());
+        }
+
+        return true;
+    }
+
+    private boolean hasEmptySlots() {
+        for (int i = 0; i < storage.getSlots(); i++) {
+            ItemStack slot = storage.getStackInSlot(i);
+            if (slot.isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag tag) {
+        super.saveAdditional(tag);
+        tag.put("Storage", storage.serializeNBT());
+    }
+
+    @Override
+    public void load(CompoundTag tag) {
+        super.load(tag);
+        this.storage.deserializeNBT(tag.getCompound("Storage"));
+    }
+
+    public ItemStackHandler getStorage() {
+        return storage;
+    }
+
+    public void setStorage(ItemStackHandler storage) {
+        for (int i = 0; i < storage.getSlots(); i++) {
+            ItemStack slot = storage.getStackInSlot(i);
+            this.storage.setStackInSlot(i, slot);
+        }
     }
 }
