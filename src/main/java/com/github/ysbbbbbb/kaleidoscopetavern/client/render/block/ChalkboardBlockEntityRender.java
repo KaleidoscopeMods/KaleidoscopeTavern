@@ -1,6 +1,7 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.client.render.block;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
+import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.ChalkboardBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.ChalkboardBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.client.model.deco.LargeChalkboardModel;
 import com.github.ysbbbbbb.kaleidoscopetavern.client.model.deco.SmallChalkboardModel;
@@ -32,7 +33,9 @@ public class ChalkboardBlockEntityRender extends TextBlockEntityRender<Chalkboar
 
     @Override
     protected void renderModel(ChalkboardBlockEntity textBlock, PoseStack poseStack, MultiBufferSource buffer,
-                               int packedLight, int packedOverlay, Direction facing) {
+                               int packedLight, int packedOverlay) {
+        Direction facing = textBlock.getBlockState().getValue(ChalkboardBlock.FACING);
+
         poseStack.pushPose();
 
         poseStack.translate(0.5, 1.5, 0.5);
@@ -52,7 +55,9 @@ public class ChalkboardBlockEntityRender extends TextBlockEntityRender<Chalkboar
 
     @Override
     protected void renderText(ChalkboardBlockEntity textBlock, PoseStack poseStack, MultiBufferSource buffer,
-                              int packedLight, int packedOverlay, Direction facing) {
+                              int packedLight, int packedOverlay) {
+        Direction facing = textBlock.getBlockState().getValue(ChalkboardBlock.FACING);
+
         poseStack.pushPose();
 
         if (facing == Direction.EAST) {

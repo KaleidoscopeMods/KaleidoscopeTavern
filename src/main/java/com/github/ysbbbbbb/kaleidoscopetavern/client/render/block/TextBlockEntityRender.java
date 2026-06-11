@@ -1,6 +1,5 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.client.render.block;
 
-import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.ChalkboardBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.TextBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.util.TextAlignment;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -12,7 +11,6 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.FormattedCharSequence;
@@ -36,10 +34,8 @@ public abstract class TextBlockEntityRender<T extends TextBlockEntity> implement
     @Override
     public void render(T textBlock, float partialTick, PoseStack poseStack,
                        MultiBufferSource buffer, int packedLight, int packedOverlay) {
-        Direction facing = textBlock.getBlockState().getValue(ChalkboardBlock.FACING);
-
         // 渲染模型本体
-        this.renderModel(textBlock, poseStack, buffer, packedLight, packedOverlay, facing);
+        this.renderModel(textBlock, poseStack, buffer, packedLight, packedOverlay);
 
         // 渲染文本
         // 玩家视角超过 48 格就不渲染文字了，节省性能
@@ -47,7 +43,7 @@ public abstract class TextBlockEntityRender<T extends TextBlockEntity> implement
         if (camera.getPosition().distanceTo(Vec3.atCenterOf(textBlock.getBlockPos())) <= 48) {
             String text = textBlock.getText();
             if (StringUtils.isNotBlank(text)) {
-                this.renderText(textBlock, poseStack, buffer, packedLight, packedOverlay, facing);
+                this.renderText(textBlock, poseStack, buffer, packedLight, packedOverlay);
             }
         }
     }
@@ -56,13 +52,13 @@ public abstract class TextBlockEntityRender<T extends TextBlockEntity> implement
      * 渲染模型本体，子类需要实现这个方法来渲染具体的模型
      */
     protected abstract void renderModel(T textBlock, PoseStack poseStack, MultiBufferSource buffer,
-                                        int packedLight, int packedOverlay, Direction facing);
+                                        int packedLight, int packedOverlay);
 
     /**
      * 渲染文字，子类需要实现这个方法来渲染具体的文字
      */
     protected abstract void renderText(T textBlock, PoseStack poseStack, MultiBufferSource buffer,
-                                       int packedLight, int packedOverlay, Direction facing);
+                                       int packedLight, int packedOverlay);
 
     /**
      * 渲染文字的辅助方法，涉及到文字的旋转、缩放、颜色计算和分行等逻辑，子类可以调用这个方法来简化文字渲染的实现

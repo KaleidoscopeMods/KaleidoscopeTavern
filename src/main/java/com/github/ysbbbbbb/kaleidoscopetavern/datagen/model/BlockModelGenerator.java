@@ -22,6 +22,7 @@ public class BlockModelGenerator extends BlockModelProvider {
             barStool(color);
         }
 
+        sandwichBoardBase();
         sandwichBoard("grass");
         sandwichBoard("allium");
         sandwichBoard("azure_bluet");
@@ -96,12 +97,34 @@ public class BlockModelGenerator extends BlockModelProvider {
                 .texture("particle", particle);
     }
 
+    private void sandwichBoardBase() {
+        ResourceLocation parent = modLoc("block/deco/sandwich_board/base");
+        int max = RotationSegment.getMaxSegmentIndex();
+
+        for (int i = 0; i <= max; i++) {
+            ResourceLocation file = modLoc("block/deco/sandwich_board/base/rot_%d".formatted(i));
+            withExistingParent(file.toString(), parent)
+                    .rootTransforms()
+                    .origin(TransformationHelper.TransformOrigin.CENTER)
+                    .rotation(0, -i * 22.5f, 0, true)
+                    .end();
+        }
+    }
+
     private void sandwichBoard(String type) {
         ResourceLocation texture = modLoc("block/deco/sandwich_board/%s".formatted(type));
-        String name = "block/deco/sandwich_board/%s_top".formatted(type);
         ResourceLocation parent = modLoc("block/deco/sandwich_board/deco_top");
-        withExistingParent(name, parent)
-                .texture("layer1", texture);
+
+        int max = RotationSegment.getMaxSegmentIndex();
+        for (int i = 0; i <= max; i++) {
+            ResourceLocation file = modLoc("block/deco/sandwich_board/%s/rot_%d".formatted(type, i));
+            withExistingParent(file.toString(), parent)
+                    .texture("layer1", texture)
+                    .rootTransforms()
+                    .origin(TransformationHelper.TransformOrigin.CENTER)
+                    .rotation(0, -i * 22.5f, 0, true)
+                    .end();
+        }
     }
 
     private void painting(String type) {

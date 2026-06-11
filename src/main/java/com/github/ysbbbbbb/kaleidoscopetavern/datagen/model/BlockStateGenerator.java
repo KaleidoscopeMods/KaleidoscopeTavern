@@ -272,13 +272,19 @@ public class BlockStateGenerator extends BlockStateProvider {
     }
 
     private void sandwichBoard(RegistryObject<Block> block, String type) {
-        horizontalBlock(block.get(), blockState -> {
+        getVariantBuilder(block.get()).forAllStates(blockState -> {
             Half half = blockState.getValue(SandwichBoardBlock.HALF);
+            int rotation = blockState.getValue(GlasswareBlock.ROTATION);
+
+            ResourceLocation file;
             if (half == Half.BOTTOM) {
-                return new ModelFile.UncheckedModelFile(modLoc("block/deco/sandwich_board/base"));
+                file = modLoc("block/deco/sandwich_board/base/rot_%d".formatted(rotation));
             } else {
-                return new ModelFile.UncheckedModelFile(modLoc("block/deco/sandwich_board/%s_top".formatted(type)));
+                file = modLoc("block/deco/sandwich_board/%s/rot_%d".formatted(type, rotation));
             }
+
+            ModelFile.UncheckedModelFile modelFile = new ModelFile.UncheckedModelFile(file);
+            return ConfiguredModel.builder().modelFile(modelFile).build();
         });
     }
 

@@ -1,0 +1,15 @@
+{
+  "parent": "kaleidoscope_tavern:block/deco/sandwich_board/deco_top",
+  "textures": {
+    "layer1": "kaleidoscope_tavern:block/deco/sandwich_board/grass"
+  },
+  "transform": {
+    "origin": "center",
+    "rotation": [
+      -0.0,
+      -0.19509031,
+      -0.0,
+      -0.98078525
+    ]
+  }
+}
