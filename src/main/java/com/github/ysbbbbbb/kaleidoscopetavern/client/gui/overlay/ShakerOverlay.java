@@ -1,7 +1,9 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.client.gui.overlay;
 
+import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.mixology.ShakerBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
+import com.github.ysbbbbbb.kaleidoscopetavern.init.ModItems;
 import com.github.ysbbbbbb.kaleidoscopetavern.util.ColorUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -9,6 +11,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
@@ -21,6 +24,8 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class ShakerOverlay implements IGuiOverlay {
+    private static final ResourceLocation IMG = new ResourceLocation(KaleidoscopeTavern.MOD_ID, "textures/gui/shaker.png");
+
     @Override
     public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
         Minecraft minecraft = gui.getMinecraft();
@@ -31,6 +36,24 @@ public class ShakerOverlay implements IGuiOverlay {
         if (player == null) {
             return;
         }
+        // 如果指向雪克杯，提示内容
+        this.renderShakerBlockTips(guiGraphics, screenWidth, screenHeight, minecraft, player);
+        this.renderShakerProgress(guiGraphics, screenWidth, screenHeight, player, partialTick);
+    }
+
+    private void renderShakerProgress(GuiGraphics guiGraphics, int screenWidth, int screenHeight, LocalPlayer player, float partialTick) {
+        // 如果手持雪克杯
+        int remainingTicks = player.getUseItemRemainingTicks();
+        if (remainingTicks > 0 && player.getUseItem().is(ModItems.SHAKER.get())) {
+            guiGraphics.blit(IMG, screenWidth / 2 - 91, screenHeight / 2 + 32, 0, 0, 181, 17);
+
+            // 图标移动
+            int offsetX = (int) Math.round((player.getTicksUsingItem() + partialTick) * 1.5);
+            guiGraphics.blit(IMG, screenWidth / 2 - 91 + offsetX, screenHeight / 2 + 26, 181, 0, 11, 13);
+        }
+    }
+
+    private void renderShakerBlockTips(GuiGraphics guiGraphics, int screenWidth, int screenHeight, Minecraft minecraft, LocalPlayer player) {
         HitResult hitResult = minecraft.hitResult;
         if (!(hitResult instanceof BlockHitResult result)) {
             return;
