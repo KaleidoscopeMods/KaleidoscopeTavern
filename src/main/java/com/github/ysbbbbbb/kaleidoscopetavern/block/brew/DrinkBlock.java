@@ -26,7 +26,6 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumMap;
@@ -80,18 +79,24 @@ public class DrinkBlock extends BottleBlock implements EntityBlock {
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
-                                 InteractionHand hand, BlockHitResult hitResult) {
-        // 如果是空手，那么可以尝试取回
-        if (!player.getItemInHand(hand).isEmpty()) {
-            return super.use(state, level, pos, player, hand, hitResult);
+                                  InteractionHand hand, BlockHitResult hitResult) {
+        ItemStack heldItem = player.getItemInHand(hand);
+        if (!heldItem.isEmpty() && !isPickupAllowed(heldItem)) {
+            return InteractionResult.PASS;
         }
 
-        // 尝试给玩家物品
-        if (level.getBlockEntity(pos) instanceof DrinkBlockEntity be) {
+        if (level instanceof net.minecraft.server.level.ServerLevel && level.getBlockEntity(pos) instanceof DrinkBlockEntity be) {
             ItemStack stack = be.removeItem();
             if (!stack.isEmpty()) {
                 be.refresh();
-                ItemHandlerHelper.giveItemToPlayer(player, stack);
+                if (!player.getItemInHand(InteractionHand.MAIN_HAND).isEmpty() || !player.getItemInHand(InteractionHand.OFF_HAND).isEmpty()) {
+                    ItemStack remainder = stack.copy();
+                    if (!player.getInventory().add(remainder)) {
+                        Block.popResource(level, pos, remainder);
+                    }
+                } else {
+                    Block.popResource(level, pos, stack);
+                }
                 // 播放放置的音效
                 level.playSound(null, pos, SoundEvents.GLASS_PLACE, SoundSource.BLOCKS);
             }
