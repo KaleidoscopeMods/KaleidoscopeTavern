@@ -4,14 +4,11 @@ import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.mixology.ShakerBlockEn
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
 import com.github.ysbbbbbb.kaleidoscopetavern.util.ColorUtils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
@@ -23,20 +20,7 @@ import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import net.minecraftforge.items.ItemStackHandler;
 
-import java.util.function.Function;
-
 public class ShakerOverlay implements IGuiOverlay {
-    @SuppressWarnings("all")
-    private final Function<Item, ChatFormatting> colorCache = Util.memoize(item -> {
-        for (TagKey<Item> tagKey : ColorUtils.COCKTAIL_INGREDIENT_COLORS.keySet()) {
-            if (item.builtInRegistryHolder().is(tagKey)) {
-                return ColorUtils.COCKTAIL_INGREDIENT_COLORS.get(tagKey);
-            }
-        }
-        return ChatFormatting.RESET;
-    });
-
-
     @Override
     public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
         Minecraft minecraft = gui.getMinecraft();
@@ -72,7 +56,7 @@ public class ShakerOverlay implements IGuiOverlay {
             if (stack.isEmpty()) {
                 continue;
             }
-            ChatFormatting chatFormatting = this.colorCache.apply(stack.getItem());
+            ChatFormatting chatFormatting = ColorUtils.ITEM_COLOR_CACHE.apply(stack.getItem());
             // 如果没有颜色匹配，渲染物品
             if (chatFormatting == ChatFormatting.RESET) {
                 guiGraphics.renderFakeItem(stack, x, y);

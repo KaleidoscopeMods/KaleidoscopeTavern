@@ -1,6 +1,7 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.client.init;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
+import com.github.ysbbbbbb.kaleidoscopetavern.client.animation.ShakerAnimation;
 import com.github.ysbbbbbb.kaleidoscopetavern.client.gui.overlay.ShakerOverlay;
 import com.github.ysbbbbbb.kaleidoscopetavern.client.render.block.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.compat.ponder.init.PonderCompat;
@@ -21,6 +22,9 @@ public class ClientSetupEvent {
     public static void onClientSetup(FMLClientSetupEvent event) {
         // 其他模组兼容
         PonderCompat.init();
+
+        // 触发类加载
+        ShakerAnimation.trigger();
     }
 
     @SubscribeEvent

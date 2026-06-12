@@ -8,6 +8,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
 import java.util.Map;
+import java.util.function.Function;
 
 public class ColorUtils {
     public static final String[] COLORS = new String[]{
@@ -32,5 +33,16 @@ public class ColorUtils {
         m.put(TagMod.COCKTAIL_INGREDIENT_LIGHT_PURPLE, ChatFormatting.LIGHT_PURPLE);
         m.put(TagMod.COCKTAIL_INGREDIENT_YELLOW, ChatFormatting.YELLOW);
         m.put(TagMod.COCKTAIL_INGREDIENT_WHITE, ChatFormatting.WHITE);
+    });
+
+
+    @SuppressWarnings("deprecation")
+    public static final Function<Item, ChatFormatting> ITEM_COLOR_CACHE = Util.memoize(item -> {
+        for (TagKey<Item> tagKey : ColorUtils.COCKTAIL_INGREDIENT_COLORS.keySet()) {
+            if (item.builtInRegistryHolder().is(tagKey)) {
+                return ColorUtils.COCKTAIL_INGREDIENT_COLORS.get(tagKey);
+            }
+        }
+        return ChatFormatting.RESET;
     });
 }

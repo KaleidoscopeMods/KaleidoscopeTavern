@@ -3,9 +3,12 @@ package com.github.ysbbbbbb.kaleidoscopetavern.blockentity.mixology;
 import com.github.ysbbbbbb.kaleidoscopetavern.api.blockentity.IShaker;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.BaseBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
+import com.github.ysbbbbbb.kaleidoscopetavern.item.BottleBlockItem;
 import com.github.ysbbbbbb.kaleidoscopetavern.item.IHasContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.AnimationState;
@@ -39,6 +42,17 @@ public class ShakerBlockEntity extends BaseBlockEntity implements IShaker {
             return false;
         }
 
+        // 如果是酒，需要首先检查品质，必须是优质以上
+        if (stack.getItem() instanceof BottleBlockItem) {
+            int brewLevel = BottleBlockItem.getBrewLevel(stack);
+            if (brewLevel < 4) {
+                if (user instanceof Player player && !player.level().isClientSide) {
+                    player.sendSystemMessage(Component.translatable("message.kaleidoscope_tavern.shaker.brew_level_too_low"));
+                }
+                return false;
+            }
+        }
+
         ItemStack copy = stack.copyWithCount(1);
         ItemHandlerHelper.insertItemStacked(storage, copy, false);
         this.refresh();
@@ -64,8 +78,17 @@ public class ShakerBlockEntity extends BaseBlockEntity implements IShaker {
 
         stack.shrink(1);
 
+        // 动画
         if (level != null) {
             this.putState.start((int) level.getGameTime());
+        }
+        // 粒子
+        if (this.level instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(
+                    net.minecraft.core.particles.ParticleTypes.BUBBLE_POP,
+                    worldPosition.getX() + 0.5, worldPosition.getY() + 0.75, worldPosition.getZ() + 0.5,
+                    8, 0.2, 0.3, 0.2, 0
+            );
         }
 
         return true;
