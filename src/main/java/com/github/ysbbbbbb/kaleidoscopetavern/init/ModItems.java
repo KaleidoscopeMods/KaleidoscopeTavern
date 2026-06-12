@@ -144,7 +144,7 @@ public interface ModItems {
     RegistryObject<Item> EMPTY_GLASSWARE = ITEMS.register("empty_glassware", () -> new GlasswareBlockItem(ModBlocks.EMPTY_GLASSWARE.get()));
 
     // 鸡尾酒
-    RegistryObject<Item> ORDINARY_COCKTAIL = ITEMS.register("ordinary_cocktail", () -> new CocktailBlockItem(ModBlocks.ORDINARY_COCKTAIL.get()));
+    RegistryObject<Item> ORDINARY_COCKTAIL = ITEMS.register("ordinary_cocktail", () -> new OrdinaryCocktailBlockItem(ModBlocks.ORDINARY_COCKTAIL.get()));
     RegistryObject<Item> MYSTERY_COCKTAIL = ITEMS.register("mystery_cocktail", () -> new CocktailBlockItem(ModBlocks.MYSTERY_COCKTAIL.get()));
     RegistryObject<Item> WHITE_LADY = ITEMS.register("white_lady", () -> new CocktailBlockItem(ModBlocks.WHITE_LADY.get()));
     RegistryObject<Item> EMERALD = ITEMS.register("emerald", () -> new CocktailBlockItem(ModBlocks.EMERALD.get()));

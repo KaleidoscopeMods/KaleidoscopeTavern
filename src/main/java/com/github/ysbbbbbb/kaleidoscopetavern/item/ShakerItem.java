@@ -1,12 +1,16 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.item;
 
+import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.mixology.OrdinaryCocktailBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.client.animation.ShakerAnimation;
+import com.github.ysbbbbbb.kaleidoscopetavern.datamap.data.DrinkEffectData;
+import com.github.ysbbbbbb.kaleidoscopetavern.datamap.resources.DrinkEffectDataReloadListener;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModItems;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModRecipes;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModSounds;
 import com.github.ysbbbbbb.kaleidoscopetavern.util.ColorUtils;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.RegistryAccess;
@@ -22,9 +26,11 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
@@ -36,6 +42,8 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 
 import static com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.GlasswareBlock.ROTATION;
@@ -105,6 +113,61 @@ public class ShakerItem extends BlockItem {
                 }
                 level.setBlockAndUpdate(pos, blockState);
             }
+
+            // 如果是普通鸡尾酒，需要计算效果和颜色
+            if (level.getBlockEntity(pos) instanceof OrdinaryCocktailBlockEntity ordinary) {
+                ItemStackHandler storage = getStorage(stack);
+                Map<Item, DrinkEffectData> instance = DrinkEffectDataReloadListener.INSTANCE;
+
+                List<DrinkEffectData.Entry> effects = Lists.newArrayList();
+                List<ChatFormatting> colors = Lists.newArrayList();
+
+                for (int i = 0; i < storage.getSlots(); i++) {
+                    ItemStack ingredient = storage.getStackInSlot(i);
+                    if (ingredient.isEmpty()) {
+                        continue;
+                    }
+
+                    ChatFormatting color = ColorUtils.ITEM_COLOR_CACHE.apply(ingredient.getItem());
+                    if (color != ChatFormatting.RESET) {
+                        colors.add(color);
+                    }
+
+                    int brewLevel = BottleBlockItem.getBrewLevel(ingredient);
+                    if (brewLevel > 0 && instance.containsKey(ingredient.getItem())) {
+                        DrinkEffectData data = instance.get(ingredient.getItem());
+                        List<List<DrinkEffectData.Entry>> effectsList = data.effects();
+                        brewLevel = Math.min(brewLevel, effectsList.size());
+                        effects.addAll(effectsList.get(brewLevel - 1));
+                    }
+                }
+
+                // 对效果进行特殊计算，将时长合并
+                List<DrinkEffectData.Entry> mergedEffects = Lists.newArrayList();
+                int time = 0;
+                for (DrinkEffectData.Entry entry : effects) {
+                    time += entry.duration();
+                }
+                Set<MobEffect> set = Sets.newHashSet();
+                for (DrinkEffectData.Entry entry : effects) {
+                    if (set.contains(entry.effect())) {
+                        continue;
+                    }
+                    mergedEffects.add(new DrinkEffectData.Entry(
+                            entry.effect(),
+                            time,
+                            entry.amplifier(),
+                            entry.probability()
+                    ));
+                    set.add(entry.effect());
+                }
+
+                int finalColor = ColorUtils.mixColors(colors);
+                ordinary.setColor(finalColor);
+                ordinary.setEffects(mergedEffects);
+                ordinary.refresh();
+            }
+
             if (level instanceof ServerLevel serverLevel) {
                 serverLevel.sendParticles(
                         ParticleTypes.EFFECT,

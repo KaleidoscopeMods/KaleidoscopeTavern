@@ -43,7 +43,7 @@ public record DrinkEffectData(Item item, List<List<Entry>> effects) {
             return value != null ? DataResult.success(value) : DataResult.error(() -> "Unknown mob effect: " + id);
         }, ForgeRegistries.MOB_EFFECTS::getKey);
 
-        private static final Codec<Entry> ENTRY_CODEC = RecordCodecBuilder.create(instance -> instance.group(
+        public static final Codec<Entry> ENTRY_CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 MOB_EFFECT_CODEC.fieldOf("effect").forGetter(Entry::effect),
                 Codec.INT.fieldOf("duration").forGetter(Entry::duration),
                 Codec.INT.fieldOf("amplifier").forGetter(Entry::amplifier),

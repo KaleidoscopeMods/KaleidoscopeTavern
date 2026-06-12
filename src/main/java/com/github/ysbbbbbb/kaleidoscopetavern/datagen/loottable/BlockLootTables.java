@@ -150,7 +150,6 @@ public class BlockLootTables extends BlockLootSubProvider {
         dropSelf(ModBlocks.EMPTY_GLASSWARE.get());
 
         // 鸡尾酒
-        dropSelf(ModBlocks.ORDINARY_COCKTAIL.get());
         dropSelf(ModBlocks.MYSTERY_COCKTAIL.get());
         dropSelf(ModBlocks.WHITE_LADY.get());
         dropSelf(ModBlocks.EMERALD.get());
