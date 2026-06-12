@@ -130,6 +130,10 @@ repositories {
             includeGroup "dev.engine-room.flywheel"
         }
     }
+    maven {
+        name = "Curios"
+        url = "https://maven.theillusivec4.top/"
+    }
 }
 
 dependencies {
@@ -169,6 +173,10 @@ dependencies {
     implementation fg.deobf("net.createmod.ponder:Ponder-Forge-1.20.1:1.0.80")
     compileOnly fg.deobf("dev.engine-room.flywheel:flywheel-forge-api-1.20.1:1.0.4")
     runtimeOnly fg.deobf("maven.modrinth:create:1.20.1-6.0.6")
+
+    // Curios
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
 
     runtimeOnly fg.deobf("curse.maven:carry-on-274259:4882500")
 
