@@ -1,0 +1,13 @@
+{
+  "item": "kaleidoscope_tavern:screwdriver",
+  "effects": [
+    [
+      {
+        "effect": "kaleidoscope_tavern:upside_down",
+        "duration": 0,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ]
+  ]
+}

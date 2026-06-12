@@ -1,0 +1,13 @@
+{
+  "item": "kaleidoscope_tavern:sculk_special",
+  "effects": [
+    [
+      {
+        "effect": "kaleidoscope_tavern:shriek_attack",
+        "duration": 0,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ]
+  ]
+}

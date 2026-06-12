@@ -141,11 +141,16 @@ public class DrinkBlockItem extends BottleBlockItem implements IHasContainer {
         for (DrinkEffectData.Entry entry : effects.get(brewLevel - 1)) {
             if (!level.isClientSide && level.random.nextFloat() < entry.probability()) {
                 MobEffect effect = entry.effect();
-                // json 里的持续时间是秒，但是内部游戏是 tick，需要转化
-                int duration = entry.duration() * 20;
                 int amplifier = entry.amplifier();
-                MobEffectInstance instance = new MobEffectInstance(effect, duration, amplifier);
-                entity.addEffect(instance);
+                if (effect.isInstantenous()) {
+                    // 瞬时效果直接触发，不通过 addEffect
+                    effect.applyInstantenousEffect(entity, entity, entity, amplifier, 1.0);
+                } else {
+                    // json 里的持续时间是秒，但是内部游戏是 tick，需要转化
+                    int duration = entry.duration() * 20;
+                    MobEffectInstance instance = new MobEffectInstance(effect, duration, amplifier);
+                    entity.addEffect(instance);
+                }
             }
         }
     }

@@ -4,6 +4,7 @@ import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -19,6 +20,8 @@ public class ChangeTargetEvent {
         if (newTarget == null || !newTarget.isAlive()) {
             return;
         }
+
+        // 穿草隐身
         if (newTarget.hasEffect(ModEffects.GRASS_STEALTH.get()) && newTarget.isShiftKeyDown()) {
             Level level = newTarget.level();
             BlockPos pos = newTarget.blockPosition();
@@ -26,6 +29,11 @@ public class ChangeTargetEvent {
             if (notInGrassStealthPlant(level, pos) && notInGrassStealthPlant(level, abovePos)) {
                 return;
             }
+            event.setCanceled(true);
+        }
+
+        // 摸金校尉：猪灵不会仇恨玩家
+        if (event.getEntity() instanceof Piglin && newTarget.hasEffect(ModEffects.TOMB_RAIDER.get())) {
             event.setCanceled(true);
         }
     }

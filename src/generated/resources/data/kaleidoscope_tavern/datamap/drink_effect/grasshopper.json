@@ -1,0 +1,13 @@
+{
+  "item": "kaleidoscope_tavern:grasshopper",
+  "effects": [
+    [
+      {
+        "effect": "kaleidoscope_tavern:grass_stealth",
+        "duration": 900,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ]
+  ]
+}

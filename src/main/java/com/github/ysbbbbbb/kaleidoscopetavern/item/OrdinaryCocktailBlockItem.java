@@ -10,6 +10,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.alchemy.PotionUtils;
@@ -58,6 +59,24 @@ public class OrdinaryCocktailBlockItem extends CocktailBlockItem {
     public static void setColor(ItemStack stack, int color) {
         CompoundTag tag = stack.getOrCreateTag();
         tag.putInt(COLOR_TAG, color);
+    }
+
+    @Override
+    protected void addDrinkEffect(ItemStack drink, Level level, LivingEntity entity) {
+        List<DrinkEffectData.Entry> effects = getEffects(drink);
+        for (DrinkEffectData.Entry entry : effects) {
+            if (!level.isClientSide && level.random.nextFloat() < entry.probability()) {
+                MobEffect effect = entry.effect();
+                int amplifier = entry.amplifier();
+                if (effect.isInstantenous()) {
+                    effect.applyInstantenousEffect(entity, entity, entity, amplifier, 1.0);
+                } else {
+                    int duration = entry.duration() * 20;
+                    MobEffectInstance instance = new MobEffectInstance(effect, duration, amplifier);
+                    entity.addEffect(instance);
+                }
+            }
+        }
     }
 
     @Override

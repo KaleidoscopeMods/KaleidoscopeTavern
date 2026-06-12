@@ -239,6 +239,47 @@ public class DrinkEffectDataProvider implements DataProvider {
                 List.of(effect(ModEffects.VISION.get(), 720, 2))
         );
 
+        // === 鸡尾酒 ===
+
+        // 血腥玛丽
+        addCocktail(ModItems.BLOODY_MARY, effect(ModEffects.BLOODY_MARY.get(), 1800, 0));
+
+        // 翡翠
+        addCocktail(ModItems.EMERALD, effect(ModEffects.LONG_REACH.get(), 2700, 0));
+
+        // 绿色蚱蜢
+        addCocktail(ModItems.GRASSHOPPER, effect(ModEffects.GRASS_STEALTH.get(), 900, 0));
+
+        // 绒球葱花园
+        addCocktail(ModItems.ALLIUM_GARDEN, effect(ModEffects.XP_DRAIN.get(), 1800, 0));
+
+        // 深水炸弹
+        addCocktail(ModItems.DEPTH_CHARGE, effect(ModEffects.ARDENT_HEAT.get(), 480, 0));
+
+        // 螺丝起子
+        addCocktail(ModItems.SCREWDRIVER, effect(ModEffects.UPSIDE_DOWN.get(), 0, 0));
+
+        // 教父
+        addCocktail(ModItems.GODFATHER, effect(ModEffects.ZENITH.get(), 0, 0));
+
+        // 白色佳人
+        addCocktail(ModItems.WHITE_LADY, effect(ModEffects.HIGH_HEELS.get(), 3600, 0));
+
+        // 莫吉托
+        addCocktail(ModItems.MOJITO, effect(ModEffects.VISION.get(), 1800, 0));
+
+        // 黄铜心脏
+        addCocktail(ModItems.BRASS_HEART, effect(ModEffects.ARDENT_HEAT.get(), 480, 0));
+
+        // 下界特调
+        addCocktail(ModItems.NETHER_SPECIAL, effect(ModEffects.TOMB_RAIDER.get(), 480, 0));
+
+        // 幽匿特调
+        addCocktail(ModItems.SCULK_SPECIAL, effect(ModEffects.SHRIEK_ATTACK.get(), 0, 0));
+
+        // 迷之鸡尾酒，固定 3 分钟微醺
+        addCocktail(ModItems.MYSTERY_COCKTAIL, effect(ModEffects.SLIGHTLY_TIPSY.get(), 180, 0));
+
         // 醋（失败产物）
         add(ModItems.VINEGAR,
                 List.of(
@@ -286,6 +327,17 @@ public class DrinkEffectDataProvider implements DataProvider {
 
     private DrinkEffectData.Entry effect(MobEffect effect, int duration, int amplifier) {
         return new DrinkEffectData.Entry(effect, duration, amplifier, 1f);
+    }
+
+    /**
+     * 鸡尾酒没有酿造等级，只有单层效果
+     */
+    private void addCocktail(RegistryObject<Item> key, DrinkEffectData.Entry... entries) {
+        var itemKey = ForgeRegistries.ITEMS.getKey(key.get());
+        if (itemKey == null) {
+            throw new IllegalArgumentException("Item not registered: " + key.getId());
+        }
+        this.add(itemKey.getPath(), new DrinkEffectData(key.get(), List.of(List.of(entries))));
     }
 
     /**

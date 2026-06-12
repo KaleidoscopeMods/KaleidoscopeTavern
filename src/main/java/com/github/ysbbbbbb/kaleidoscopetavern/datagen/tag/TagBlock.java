@@ -170,6 +170,11 @@ public class TagBlock extends BlockTagsProvider {
                 Blocks.SUNFLOWER
         );
 
+        this.tag(TagMod.ARDENT_HEAT_BREAKABLE)
+                .addTag(BlockTags.BASE_STONE_OVERWORLD)
+                .addTag(BlockTags.BASE_STONE_NETHER)
+                .add(Blocks.END_STONE);
+
         // 兼容静谧四季模组
         this.tag(TagCommon.SPRING_CROPS_BLOCK).add(
                 ModBlocks.GRAPEVINE_TRELLIS.get()

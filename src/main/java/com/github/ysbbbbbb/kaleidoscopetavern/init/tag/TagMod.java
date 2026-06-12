@@ -42,6 +42,10 @@ public interface TagMod {
      */
     TagKey<Block> GRASS_STEALTH_PLANTS = blockTag("grass_stealth_plants");
     /**
+     * 醇热效果可破坏的石头
+     */
+    TagKey<Block> ARDENT_HEAT_BREAKABLE = blockTag("ardent_heat_breakable");
+    /**
      * 酒柜异形酒瓶名单，这种类型的酒只允许放入一瓶
      */
     TagKey<Item> BAR_CABINET_IRREGULAR = itemTag("bar_cabinet_irregular");

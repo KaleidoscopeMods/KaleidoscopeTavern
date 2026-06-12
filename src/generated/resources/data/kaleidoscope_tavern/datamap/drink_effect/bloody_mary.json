@@ -1,0 +1,13 @@
+{
+  "item": "kaleidoscope_tavern:bloody_mary",
+  "effects": [
+    [
+      {
+        "effect": "kaleidoscope_tavern:bloody_mary",
+        "duration": 1800,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ]
+  ]
+}
