@@ -1,5 +1,7 @@
 {
+	"format_version": "1.21.6",
+	"credit": "by YSBB  2025",
 	"textures": {
-		"particle": "kaleidoscope_tavern:block/mixology/shaker"
+		"particle": "kaleidoscope_tavern:block/mixology/shaker_particle"
 	}
 }
