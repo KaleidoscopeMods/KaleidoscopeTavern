@@ -16,6 +16,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
@@ -66,6 +68,18 @@ public class ShakerBlockEntity extends BaseBlockEntity implements IShaker {
                 ItemHandlerHelper.giveItemToPlayer(player, carried);
             } else {
                 ItemEntity itemEntity = new ItemEntity(level, user.getX(), user.getY(), user.getZ(), carried);
+                level.addFreshEntity(itemEntity);
+            }
+            level.playSound(null, worldPosition, SoundEvents.BOTTLE_EMPTY,
+                    SoundSource.BLOCKS, 0.75F, 1.0F
+            );
+        } else if (stack.getItem() instanceof PotionItem && user != null && level != null) {
+            // 药水倒入后返还玻璃瓶
+            ItemStack bottle = new ItemStack(Items.GLASS_BOTTLE);
+            if (user instanceof Player player) {
+                ItemHandlerHelper.giveItemToPlayer(player, bottle);
+            } else {
+                ItemEntity itemEntity = new ItemEntity(level, user.getX(), user.getY(), user.getZ(), bottle);
                 level.addFreshEntity(itemEntity);
             }
             level.playSound(null, worldPosition, SoundEvents.BOTTLE_EMPTY,

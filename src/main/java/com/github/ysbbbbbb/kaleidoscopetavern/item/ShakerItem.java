@@ -10,7 +10,6 @@ import com.github.ysbbbbbb.kaleidoscopetavern.init.ModRecipes;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModSounds;
 import com.github.ysbbbbbb.kaleidoscopetavern.util.ColorUtils;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.RegistryAccess;
@@ -27,12 +26,11 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
@@ -41,9 +39,10 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 
 import static com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.GlasswareBlock.ROTATION;
@@ -128,6 +127,20 @@ public class ShakerItem extends BlockItem {
                         continue;
                     }
 
+                    // 药水视为白色酒，提取其效果
+                    if (ingredient.getItem() instanceof PotionItem) {
+                        colors.add(ChatFormatting.WHITE);
+                        List<MobEffectInstance> potionEffects = PotionUtils.getMobEffects(ingredient);
+                        for (MobEffectInstance e : potionEffects) {
+                            // 药水时长是 tick，DrinkEffectData.Entry 是秒
+                            int durationSeconds = e.getDuration() / 20;
+                            effects.add(new DrinkEffectData.Entry(
+                                    e.getEffect(), durationSeconds, e.getAmplifier(), 1.0F
+                            ));
+                        }
+                        continue;
+                    }
+
                     ChatFormatting color = ColorUtils.ITEM_COLOR_CACHE.apply(ingredient.getItem());
                     if (color != ChatFormatting.RESET) {
                         colors.add(color);
@@ -142,24 +155,26 @@ public class ShakerItem extends BlockItem {
                     }
                 }
 
-                // 对效果进行特殊计算，将时长合并
-                List<DrinkEffectData.Entry> mergedEffects = Lists.newArrayList();
-                int time = 0;
+                // 对效果进行特殊计算：相同效果叠加时长，最后×1.2
+                Map<MobEffect, List<DrinkEffectData.Entry>> grouped = new LinkedHashMap<>();
                 for (DrinkEffectData.Entry entry : effects) {
-                    time += entry.duration();
+                    grouped.computeIfAbsent(entry.effect(), k -> new ArrayList<>()).add(entry);
                 }
-                Set<MobEffect> set = Sets.newHashSet();
-                for (DrinkEffectData.Entry entry : effects) {
-                    if (set.contains(entry.effect())) {
-                        continue;
+
+                List<DrinkEffectData.Entry> mergedEffects = new ArrayList<>();
+                for (Map.Entry<MobEffect, List<DrinkEffectData.Entry>> e : grouped.entrySet()) {
+                    int totalDuration = 0;
+                    int maxAmplifier = 0;
+                    float maxProbability = 0;
+                    for (DrinkEffectData.Entry entry : e.getValue()) {
+                        totalDuration += entry.duration();
+                        maxAmplifier = Math.max(maxAmplifier, entry.amplifier());
+                        maxProbability = Math.max(maxProbability, entry.probability());
                     }
+                    totalDuration = (int) (totalDuration * 1.2);
                     mergedEffects.add(new DrinkEffectData.Entry(
-                            entry.effect(),
-                            time,
-                            entry.amplifier(),
-                            entry.probability()
+                            e.getKey(), totalDuration, maxAmplifier, maxProbability
                     ));
-                    set.add(entry.effect());
                 }
 
                 int finalColor = ColorUtils.mixColors(colors);

@@ -7,6 +7,7 @@ import com.github.ysbbbbbb.kaleidoscopetavern.init.tag.TagMod;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
@@ -100,7 +101,8 @@ public class TagItem extends ItemTagsProvider {
         tag(TagMod.COCKTAIL_INGREDIENT_WHITE).add(
                 ModItems.VODKA.get(),
                 ModItems.WHISKEY.get(),
-                ModItems.RUM.get()
+                ModItems.RUM.get(),
+                Items.POTION
         );
 
         tag(TagMod.COCKTAIL_INGREDIENT_BLACK);
