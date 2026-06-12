@@ -23,6 +23,8 @@ import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import net.minecraftforge.items.ItemStackHandler;
 
+import java.util.Objects;
+
 public class ShakerOverlay implements IGuiOverlay {
     private static final ResourceLocation IMG = new ResourceLocation(KaleidoscopeTavern.MOD_ID, "textures/gui/shaker.png");
 
@@ -70,8 +72,8 @@ public class ShakerOverlay implements IGuiOverlay {
         }
 
         Font font = Minecraft.getInstance().font;
-        int x = screenWidth / 2 - 28;
-        int y = screenHeight / 2 + 4;
+        int x = screenWidth / 2 - 24;
+        int y = screenHeight / 2 + 26;
 
         ItemStackHandler storage = shaker.getStorage();
         for (int i = 0; i < storage.getSlots(); i++) {
@@ -85,9 +87,13 @@ public class ShakerOverlay implements IGuiOverlay {
                 guiGraphics.renderFakeItem(stack, x, y);
                 guiGraphics.renderItemDecorations(font, stack, x, y);
             } else {
-                guiGraphics.fill(x, y, x + 16, y + 16, chatFormatting.getColor() | 0xFF000000);
+                int color = Objects.requireNonNull(chatFormatting.getColor()) | 0xFF000000;
+                // 手绘一个酒瓶图标
+                guiGraphics.fill(x + 4, y + 6, x + 11, y + 16, color);
+                guiGraphics.fill(x + 5, y + 5, x + 10, y + 6, color);
+                guiGraphics.fill(x + 6, y, x + 9, y + 5, color);
             }
-            x = x + 20;
+            x = x + 16;
         }
     }
 }

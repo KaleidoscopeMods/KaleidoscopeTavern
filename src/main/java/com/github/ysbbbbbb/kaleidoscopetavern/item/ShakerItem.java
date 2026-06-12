@@ -288,7 +288,10 @@ public class ShakerItem extends BlockItem {
         if (hasResult(stack)) {
             ItemStack result = getResult(stack);
             if (result.getHoverName() instanceof MutableComponent component) {
-                tooltip.add(component.withStyle(ChatFormatting.GRAY));
+                MutableComponent text = component.withStyle(ChatFormatting.GRAY);
+                tooltip.add(Component.literal("▶ ")
+                        .withStyle(ChatFormatting.GRAY)
+                        .append(text));
             }
         } else if (hasStorage(stack)) {
             ItemStackHandler storage = getStorage(stack);
@@ -302,7 +305,10 @@ public class ShakerItem extends BlockItem {
                     if (chatFormatting == ChatFormatting.RESET) {
                         chatFormatting = ChatFormatting.GRAY;
                     }
-                    tooltip.add(component.withStyle(chatFormatting));
+                    MutableComponent text = component.withStyle(chatFormatting);
+                    tooltip.add(Component.literal("▶ ")
+                            .withStyle(ChatFormatting.GRAY)
+                            .append(text));
                 }
             }
         }

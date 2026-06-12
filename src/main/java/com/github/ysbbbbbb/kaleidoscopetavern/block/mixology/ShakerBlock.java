@@ -5,6 +5,7 @@ import com.github.ysbbbbbb.kaleidoscopetavern.init.ModItems;
 import com.github.ysbbbbbb.kaleidoscopetavern.item.ShakerItem;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -15,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -25,6 +27,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
@@ -56,15 +59,12 @@ public class ShakerBlock extends Block implements EntityBlock {
             return PASS;
         }
 
-
         ItemStack itemInHand = player.getItemInHand(hand);
         // 空手取下
-        if (itemInHand.isEmpty()) {
-            ItemStack instance = ModItems.SHAKER.get().getDefaultInstance();
-            ItemStackHandler storage = shaker.getStorage();
-            ShakerItem.setStorage(instance, storage);
-            player.setItemInHand(hand, instance);
-            level.removeBlock(pos, false);
+        if (itemInHand.isEmpty() && level instanceof ServerLevel serverLevel) {
+            getDrops(state, serverLevel, pos, shaker)
+                    .forEach(stack -> ItemHandlerHelper.giveItemToPlayer(player, stack));
+            level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_SUPPRESS_DROPS | Block.UPDATE_ALL);
             level.playSound(null, pos, SoundEvents.LANTERN_BREAK, SoundSource.BLOCKS);
             return InteractionResult.SUCCESS;
         }
@@ -81,6 +81,9 @@ public class ShakerBlock extends Block implements EntityBlock {
         if (ShakerItem.hasStorage(pStack) && pLevel.getBlockEntity(pPos) instanceof ShakerBlockEntity shaker) {
             ItemStackHandler storage = ShakerItem.getStorage(pStack);
             shaker.setStorage(storage);
+            if (ShakerItem.hasResult(pStack)) {
+                shaker.setResult(ShakerItem.getResult(pStack));
+            }
             shaker.refresh();
         }
     }
@@ -93,6 +96,9 @@ public class ShakerBlock extends Block implements EntityBlock {
             ItemStack instance = ModItems.SHAKER.get().getDefaultInstance();
             ItemStackHandler storage = be.getStorage();
             ShakerItem.setStorage(instance, storage);
+            if (!be.getResult().isEmpty()) {
+                ShakerItem.setResult(instance, be.getResult());
+            }
             stacks.add(instance);
         }
         return stacks;

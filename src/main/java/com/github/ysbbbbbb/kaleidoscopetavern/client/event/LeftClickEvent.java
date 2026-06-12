@@ -1,9 +1,10 @@
-package com.github.ysbbbbbb.kaleidoscopetavern.event;
+package com.github.ysbbbbbb.kaleidoscopetavern.client.event;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModItems;
 import com.github.ysbbbbbb.kaleidoscopetavern.item.ShakerItem;
-import net.minecraft.sounds.SoundEvents;
+import com.github.ysbbbbbb.kaleidoscopetavern.network.NetworkHandler;
+import com.github.ysbbbbbb.kaleidoscopetavern.network.message.ClearShakerC2SMessage;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -19,8 +20,7 @@ public class LeftClickEvent {
         if (player.isSecondaryUseActive() && event.getHand() == InteractionHand.MAIN_HAND) {
             ItemStack stack = player.getMainHandItem();
             if (stack.is(ModItems.SHAKER.get()) && ShakerItem.hasStorage(stack)) {
-                ShakerItem.removeAll(stack);
-                player.playSound(SoundEvents.BOTTLE_FILL);
+                NetworkHandler.sendToServer(new ClearShakerC2SMessage());
             }
         }
     }

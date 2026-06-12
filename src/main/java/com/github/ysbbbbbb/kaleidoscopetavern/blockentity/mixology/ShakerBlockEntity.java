@@ -29,6 +29,7 @@ public class ShakerBlockEntity extends BaseBlockEntity implements IShaker {
         }
     };
 
+    private ItemStack result = ItemStack.EMPTY;
     public AnimationState putState = new AnimationState();
 
     public ShakerBlockEntity(BlockPos pos, BlockState state) {
@@ -108,12 +109,14 @@ public class ShakerBlockEntity extends BaseBlockEntity implements IShaker {
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         tag.put("Storage", storage.serializeNBT());
+        tag.put("result", result.serializeNBT());
     }
 
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
         this.storage.deserializeNBT(tag.getCompound("Storage"));
+        this.result.deserializeNBT(tag.getCompound("result"));
     }
 
     public ItemStackHandler getStorage() {
@@ -125,5 +128,13 @@ public class ShakerBlockEntity extends BaseBlockEntity implements IShaker {
             ItemStack slot = storage.getStackInSlot(i);
             this.storage.setStackInSlot(i, slot);
         }
+    }
+
+    public ItemStack getResult() {
+        return result;
+    }
+
+    public void setResult(ItemStack result) {
+        this.result = result;
     }
 }
