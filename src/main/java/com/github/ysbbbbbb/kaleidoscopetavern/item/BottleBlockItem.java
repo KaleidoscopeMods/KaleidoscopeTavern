@@ -6,6 +6,7 @@ import com.github.ysbbbbbb.kaleidoscopetavern.datamap.resources.DrinkEffectDataR
 import com.github.ysbbbbbb.kaleidoscopetavern.util.ColorUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -71,7 +72,10 @@ public class BottleBlockItem extends BlockItem {
         ChatFormatting applied = ColorUtils.ITEM_COLOR_CACHE.apply(stack.getItem());
         if (applied != ChatFormatting.RESET) {
             String key = "color.kaleidoscope_tavern.%s".formatted(applied.getName());
-            tooltip.add(Component.translatable(key).withStyle(applied));
+            Component text = Component.translatable("color.kaleidoscope_tavern.prefix")
+                    .withStyle(ChatFormatting.GRAY)
+                    .append(Component.translatable(key).withStyle(applied));
+            tooltip.add(text);
         }
 
         int brewLevel = getBrewLevel(stack);
@@ -99,6 +103,7 @@ public class BottleBlockItem extends BlockItem {
             }
 
             if (!effectsShow.isEmpty()) {
+                tooltip.add(CommonComponents.space());
                 PotionUtils.addPotionTooltip(effectsShow, tooltip, 1.0F);
             }
         }

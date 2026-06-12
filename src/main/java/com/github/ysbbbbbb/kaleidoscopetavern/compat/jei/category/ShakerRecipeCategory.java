@@ -59,27 +59,27 @@ public class ShakerRecipeCategory implements IRecipeCategory<ShakerRecipe> {
 
         // 如果对应的配方是颜色配方，那么渲染一个色块
         recipe.ingredientColors().forEach((index, color) -> {
-            int x = 30 + index * 18;
-            int y = 2;
+            int x = 66;
+            int y = 14 + 18 * index;
             int rgba = 0xFF000000 | color.getColor();
-            guiGraphics.fill(x, y, x + 16, y + 8, rgba);
+            guiGraphics.fill(x, y, x + 8, y + 16, rgba);
         });
     }
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, ShakerRecipe recipe, IFocusGroup focuses) {
-        int offsetX = 0;
+        int offsetY = 0;
         for (Ingredient input : recipe.getIngredients()) {
             if (input.isEmpty()) {
                 continue;
             }
-            builder.addSlot(RecipeIngredientRole.INPUT, 30 + offsetX, 9)
+            builder.addSlot(RecipeIngredientRole.INPUT, 52, 14 + offsetY)
                     .setStandardSlotBackground()
                     .addIngredients(input);
-            offsetX += 18;
+            offsetY += 18;
         }
 
-        ItemStack outputStack = recipe.result().copyWithCount(16);
+        ItemStack outputStack = recipe.result();
         builder.addSlot(RecipeIngredientRole.OUTPUT, 112, 36)
                 .setOutputSlotBackground()
                 .addItemStack(outputStack);
