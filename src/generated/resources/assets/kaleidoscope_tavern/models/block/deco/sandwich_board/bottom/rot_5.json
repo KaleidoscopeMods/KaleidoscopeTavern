@@ -1,5 +1,5 @@
 {
-  "parent": "kaleidoscope_tavern:block/deco/sandwich_board/base_top",
+  "parent": "kaleidoscope_tavern:block/deco/sandwich_board/base",
   "transform": {
     "origin": "center",
     "rotation": [

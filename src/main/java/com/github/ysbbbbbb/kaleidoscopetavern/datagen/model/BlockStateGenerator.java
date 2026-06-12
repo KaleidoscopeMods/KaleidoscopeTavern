@@ -278,7 +278,7 @@ public class BlockStateGenerator extends BlockStateProvider {
 
             ResourceLocation file;
             if (half == Half.BOTTOM) {
-                file = modLoc("block/deco/sandwich_board/base/rot_%d".formatted(rotation));
+                file = modLoc("block/deco/sandwich_board/bottom/rot_%d".formatted(rotation));
             } else {
                 file = modLoc("block/deco/sandwich_board/%s/rot_%d".formatted(type, rotation));
             }

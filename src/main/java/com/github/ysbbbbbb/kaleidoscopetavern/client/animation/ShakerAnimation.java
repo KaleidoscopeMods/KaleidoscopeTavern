@@ -1,6 +1,7 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.client.animation;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
@@ -74,6 +75,7 @@ public class ShakerAnimation {
             double xOffset = arm == HumanoidArm.RIGHT ? 0.56 : -0.56;
             double offset = (float) Math.sin(totalTicks * 1.5) * 0.25;
             poseStack.translate(xOffset, -0.52 - offset * 0.6, -0.72);
+            poseStack.mulPose(Axis.XN.rotationDegrees(-30));
             return true;
         }
     }

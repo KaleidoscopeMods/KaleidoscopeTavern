@@ -3,6 +3,7 @@ package com.github.ysbbbbbb.kaleidoscopetavern.item;
 import com.github.ysbbbbbb.kaleidoscopetavern.api.blockentity.IBarrel;
 import com.github.ysbbbbbb.kaleidoscopetavern.datamap.data.DrinkEffectData;
 import com.github.ysbbbbbb.kaleidoscopetavern.datamap.resources.DrinkEffectDataReloadListener;
+import com.github.ysbbbbbb.kaleidoscopetavern.util.ColorUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -66,6 +67,13 @@ public class BottleBlockItem extends BlockItem {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
+        // 添加颜色说明
+        ChatFormatting applied = ColorUtils.ITEM_COLOR_CACHE.apply(stack.getItem());
+        if (applied != ChatFormatting.RESET) {
+            String key = "color.kaleidoscope_tavern.%s".formatted(applied.getName());
+            tooltip.add(Component.translatable(key).withStyle(applied));
+        }
+
         int brewLevel = getBrewLevel(stack);
         if (0 < brewLevel) {
             Component brewLevelText = Component.translatable("message.kaleidoscope_tavern.barrel.brew_level.%d".formatted(brewLevel));

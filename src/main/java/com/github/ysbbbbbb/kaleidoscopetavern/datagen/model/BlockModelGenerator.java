@@ -98,12 +98,23 @@ public class BlockModelGenerator extends BlockModelProvider {
     }
 
     private void sandwichBoardBase() {
-        ResourceLocation parent = modLoc("block/deco/sandwich_board/base");
+        ResourceLocation bottomParent = modLoc("block/deco/sandwich_board/base");
+        ResourceLocation baseParent = modLoc("block/deco/sandwich_board/base_top");
+
         int max = RotationSegment.getMaxSegmentIndex();
 
         for (int i = 0; i <= max; i++) {
-            ResourceLocation file = modLoc("block/deco/sandwich_board/base/rot_%d".formatted(i));
-            withExistingParent(file.toString(), parent)
+            // 下半截（其他展板通用）
+            ResourceLocation bottom = modLoc("block/deco/sandwich_board/bottom/rot_%d".formatted(i));
+            withExistingParent(bottom.toString(), bottomParent)
+                    .rootTransforms()
+                    .origin(TransformationHelper.TransformOrigin.CENTER)
+                    .rotation(0, -i * 22.5f, 0, true)
+                    .end();
+
+            // 上半截
+            ResourceLocation base = modLoc("block/deco/sandwich_board/base/rot_%d".formatted(i));
+            withExistingParent(base.toString(), baseParent)
                     .rootTransforms()
                     .origin(TransformationHelper.TransformOrigin.CENTER)
                     .rotation(0, -i * 22.5f, 0, true)
