@@ -5,13 +5,13 @@ import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.CocktailBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.GlasswareBlock;
-import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.SignatureCocktailBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.ShakerBlock;
+import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.SignatureCocktailBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.brew.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.*;
-import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.mixology.SignatureCocktailBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.mixology.ShakerBlockEntity;
+import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.mixology.SignatureCocktailBlockEntity;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
@@ -200,6 +200,9 @@ public interface ModBlocks {
     RegistryObject<Block> PRESSING_TUB = BLOCKS.register("pressing_tub", PressingTubBlock::new);
     // 龙头
     RegistryObject<Block> TAP = BLOCKS.register("tap", TapBlock::new);
+
+    // 酒杯架
+    RegistryObject<Block> GLASSWARE_HOLDER = BLOCKS.register("glassware_holder", GlasswareHolderBlock::new);
 
     // 空瓶
     RegistryObject<Block> EMPTY_BOTTLE = BLOCKS.register("empty_bottle", BottleBlock::new);
@@ -606,5 +609,11 @@ public interface ModBlocks {
                             SAKURA_INCENSE.get(), PINE_INCENSE.get(), GINKGO_INCENSE.get(), SPORE_INCENSE.get(),
                             CATNIP_INCENSE.get(), SNOW_INCENSE.get(), BUTTERFLY_INCENSE.get(), FIREFLY_INCENSE.get()
                     ).build(null)
+    );
+
+    RegistryObject<BlockEntityType<GlasswareHolderBlockEntity>> GLASSWARE_HOLDER_BE = BLOCK_ENTITIES.register(
+            "glassware_holder", () -> BlockEntityType.Builder
+                    .of(GlasswareHolderBlockEntity::new, GLASSWARE_HOLDER.get())
+                    .build(null)
     );
 }

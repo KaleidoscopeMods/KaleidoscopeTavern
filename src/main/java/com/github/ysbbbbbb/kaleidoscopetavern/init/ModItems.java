@@ -162,6 +162,9 @@ public interface ModItems {
     // 雪克杯
     RegistryObject<Item> SHAKER = ITEMS.register("shaker", ShakerItem::new);
 
+    // 酒杯架
+    RegistryObject<Item> GLASSWARE_HOLDER = ITEMS.register("glassware_holder", () -> new BlockItem(ModBlocks.GLASSWARE_HOLDER.get(), new Item.Properties()));
+
     // 燃烧瓶
     RegistryObject<Item> MOLOTOV = ITEMS.register("molotov", () -> new MolotovBlockItem(ModBlocks.MOLOTOV.get()));
     // 酒

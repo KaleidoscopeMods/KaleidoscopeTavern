@@ -241,6 +241,16 @@ public class ShapedRecipeProvider extends ModRecipeProvider {
                 .define('I', Tags.Items.INGOTS_IRON)
                 .unlockedBy("has_fence", has(ItemTags.FENCES))
                 .save(consumer);
+
+        // 酒杯架
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.GLASSWARE_HOLDER.get())
+                .pattern("NNN")
+                .pattern("CCC")
+                .pattern("NNN")
+                .define('N', Tags.Items.NUGGETS_IRON)
+                .define('C', Items.CHAIN)
+                .unlockedBy("has_chain", has(Items.CHAIN))
+                .save(consumer);
     }
 
     private void sofa(Consumer<FinishedRecipe> consumer, RegistryObject<Item> item, Item wool) {

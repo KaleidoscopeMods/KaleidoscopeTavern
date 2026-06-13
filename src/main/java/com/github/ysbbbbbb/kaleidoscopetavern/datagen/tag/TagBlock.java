@@ -139,7 +139,8 @@ public class TagBlock extends BlockTagsProvider {
                 .add(ModBlocks.TAP.get())
                 .add(ModBlocks.TILTED_RACK.get())
                 .add(ModBlocks.CIRCULAR_RACK.get())
-                .add(ModBlocks.HOLDER.get());
+                .add(ModBlocks.HOLDER.get())
+                .add(ModBlocks.GLASSWARE_HOLDER.get());
 
         this.tag(BlockTags.CLIMBABLE)
                 .add(ModBlocks.WILD_GRAPEVINE.get())

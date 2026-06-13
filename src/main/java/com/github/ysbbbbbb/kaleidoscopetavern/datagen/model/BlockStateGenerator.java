@@ -149,6 +149,9 @@ public class BlockStateGenerator extends BlockStateProvider {
         // 雪克杯
         simpleBlock(ModBlocks.SHAKER.get(), new ModelFile.UncheckedModelFile(modLoc("block/mixology/shaker")));
 
+        // 酒杯架
+        horizontalBlock(ModBlocks.GLASSWARE_HOLDER.get(), new ModelFile.UncheckedModelFile(modLoc("block/deco/glassware_holder")));
+
         // 空瓶
         horizontalBlock(ModBlocks.EMPTY_BOTTLE.get(), new ModelFile.UncheckedModelFile(modLoc("block/brew/empty_bottle")));
 

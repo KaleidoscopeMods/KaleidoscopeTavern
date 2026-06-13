@@ -106,6 +106,7 @@ public interface ModCreativeTabs {
                 output.accept(ModItems.TILTED_RACK.get());
                 output.accept(ModItems.CIRCULAR_RACK.get());
                 output.accept(ModItems.HOLDER.get());
+                output.accept(ModItems.GLASSWARE_HOLDER.get());
                 output.accept(ModItems.BAR_COUNTER.get());
                 output.accept(ModItems.STEPLADDER.get());
 

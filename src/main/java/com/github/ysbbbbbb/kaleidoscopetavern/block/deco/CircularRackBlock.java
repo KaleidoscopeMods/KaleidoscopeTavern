@@ -35,7 +35,7 @@ public class CircularRackBlock extends AbstractStorageBlock {
                 .strength(2.5F)
                 .sound(SoundType.WOOD)
                 .noOcclusion()
-                .lightLevel(s -> 15)
+                .lightLevel(s -> 1)
                 .ignitedByLava());
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(FACING, Direction.NORTH)
