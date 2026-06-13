@@ -10,8 +10,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
@@ -27,6 +30,7 @@ import java.util.Objects;
 
 public class ShakerOverlay implements IGuiOverlay {
     private static final ResourceLocation IMG = new ResourceLocation(KaleidoscopeTavern.MOD_ID, "textures/gui/shaker.png");
+    private static final ResourceLocation ICON = new ResourceLocation(KaleidoscopeTavern.MOD_ID, "gui/rhombus");
 
     @Override
     public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
@@ -88,12 +92,19 @@ public class ShakerOverlay implements IGuiOverlay {
                 guiGraphics.renderItemDecorations(font, stack, x, y);
             } else {
                 int color = Objects.requireNonNull(chatFormatting.getColor()) | 0xFF000000;
-                // 手绘一个酒瓶图标
-                guiGraphics.fill(x + 4, y + 6, x + 11, y + 16, color);
-                guiGraphics.fill(x + 5, y + 5, x + 10, y + 6, color);
-                guiGraphics.fill(x + 6, y, x + 9, y + 5, color);
+                renderIcon(guiGraphics, x, y + 6, color);
             }
             x = x + 16;
         }
+    }
+
+    @SuppressWarnings("deprecation")
+    private void renderIcon(GuiGraphics pGuiGraphics, int x, int y, int color) {
+        float alpha = FastColor.ARGB32.alpha(color) / 255f;
+        float red = FastColor.ARGB32.red(color) / 255f;
+        float green = FastColor.ARGB32.green(color) / 255f;
+        float blue = FastColor.ARGB32.blue(color) / 255f;
+        TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(ICON);
+        pGuiGraphics.blit(x, y, 0, 16, 16, sprite, red, green, blue, alpha);
     }
 }

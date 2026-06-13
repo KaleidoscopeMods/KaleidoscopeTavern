@@ -3,10 +3,7 @@ package com.github.ysbbbbbb.kaleidoscopetavern.init;
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.*;
-import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.CocktailBlock;
-import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.GlasswareBlock;
-import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.ShakerBlock;
-import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.SignatureCocktailBlock;
+import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.brew.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.*;
@@ -215,7 +212,7 @@ public interface ModBlocks {
 
     // 鸡尾酒
     RegistryObject<Block> SIGNATURE_COCKTAIL = BLOCKS.register("signature_cocktail", SignatureCocktailBlock::new);
-    RegistryObject<Block> MYSTERY_COCKTAIL = BLOCKS.register("mystery_cocktail", CocktailBlock::new);
+    RegistryObject<Block> MYSTERY_COCKTAIL = BLOCKS.register("mystery_cocktail", MysteryCocktailBlock::new);
     RegistryObject<Block> WHITE_LADY = BLOCKS.register("white_lady", CocktailBlock::new);
     RegistryObject<Block> EMERALD = BLOCKS.register("emerald", CocktailBlock::new);
     RegistryObject<Block> BRASS_HEART = BLOCKS.register("brass_heart", CocktailBlock::new);

@@ -18,7 +18,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -205,7 +207,22 @@ public class ShakerItem extends BlockItem {
         if (hasResult(itemInHand)) {
             return InteractionResultHolder.pass(itemInHand);
         }
+
         if (hasStorageItem(itemInHand)) {
+            // 检查是否三瓶全满
+            ItemStackHandler storage = getStorage(itemInHand);
+            for (int i = 0; i < storage.getSlots(); i++) {
+                ItemStack stack = storage.getStackInSlot(i);
+                if (stack.isEmpty()) {
+                    if (player instanceof ServerPlayer serverPlayer) {
+                        Component message = Component.translatable("message.kaleidoscope_tavern.shaker.amount_too_low");
+                        serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(message));
+                    }
+                    return InteractionResultHolder.pass(itemInHand);
+                }
+            }
+
+            // 然后才能摇
             player.startUsingItem(hand);
             return InteractionResultHolder.consume(itemInHand);
         }
