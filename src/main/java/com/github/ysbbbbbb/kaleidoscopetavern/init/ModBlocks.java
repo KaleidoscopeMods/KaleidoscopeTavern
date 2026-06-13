@@ -120,6 +120,11 @@ public interface ModBlocks {
     RegistryObject<Block> MONA_LISA_PAINTING = BLOCKS.register("mona_lisa_painting", PaintingBlock::new);
     RegistryObject<Block> MONDRIAN_PAINTING = BLOCKS.register("mondrian_painting", PaintingBlock::new);
 
+    // 垂灯
+    RegistryObject<Block> BELL_PENDANT_LAMP = BLOCKS.register("bell_pendant_lamp", PendantLampBlock::new);
+    RegistryObject<Block> YELLOW_PENDANT_LAMP = BLOCKS.register("yellow_pendant_lamp", PendantLampBlock::new);
+    RegistryObject<Block> BLUE_PENDANT_LAMP = BLOCKS.register("blue_pendant_lamp", PendantLampBlock::new);
+
     // 香薰
     RegistryObject<Block> SAKURA_INCENSE = BLOCKS.register("sakura_incense", () -> new IncenseBlock(
             ModParticles.SAKURA_INCENSE_PARTICLE, () -> ParticleTypes.CHERRY_LEAVES

@@ -5,10 +5,7 @@ import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.BarCabinetBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.DrinkBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.PressingTubBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.TapBlock;
-import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.SandwichBoardBlock;
-import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.SofaBlock;
-import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.StepladderBlock;
-import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.TableBlock;
+import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.GlasswareBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.GrapeCropBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.GrapevineTrellisBlock;
@@ -20,6 +17,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
@@ -120,6 +118,11 @@ public class BlockStateGenerator extends BlockStateProvider {
         painting(ModBlocks.GREAT_WAVE_PAINTING, "great_wave");
         painting(ModBlocks.MONA_LISA_PAINTING, "mona_lisa");
         painting(ModBlocks.MONDRIAN_PAINTING, "mondrian");
+
+        // 垂灯
+        pendantLamp(ModBlocks.BELL_PENDANT_LAMP, "bell_pendant_lamp");
+        pendantLamp(ModBlocks.YELLOW_PENDANT_LAMP, "yellow_pendant_lamp");
+        pendantLamp(ModBlocks.BLUE_PENDANT_LAMP, "blue_pendant_lamp");
 
         // 吧台
         barCounter(ModBlocks.BAR_COUNTER);
@@ -331,6 +334,17 @@ public class BlockStateGenerator extends BlockStateProvider {
                 return new ModelFile.UncheckedModelFile(modLoc("block/deco/stepladder/bottom"));
             } else {
                 return new ModelFile.UncheckedModelFile(modLoc("block/deco/stepladder/top"));
+            }
+        });
+    }
+
+    private void pendantLamp(RegistryObject<Block> block, String type) {
+        horizontalBlock(block.get(), blockState -> {
+            DoubleBlockHalf half = blockState.getValue(PendantLampBlock.HALF);
+            if (half == DoubleBlockHalf.LOWER) {
+                return new ModelFile.UncheckedModelFile(modLoc("block/deco/%s/bottom".formatted(type)));
+            } else {
+                return new ModelFile.UncheckedModelFile(modLoc("block/deco/%s/top".formatted(type)));
             }
         });
     }

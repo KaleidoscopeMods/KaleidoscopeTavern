@@ -251,6 +251,34 @@ public class ShapedRecipeProvider extends ModRecipeProvider {
                 .define('C', Items.CHAIN)
                 .unlockedBy("has_chain", has(Items.CHAIN))
                 .save(consumer);
+
+        // 垂灯
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.BELL_PENDANT_LAMP.get(), 8)
+                .pattern("C")
+                .pattern("C")
+                .pattern("B")
+                .define('C', Items.CHAIN)
+                .define('B', Items.BELL)
+                .unlockedBy("has_chain", has(Items.CHAIN))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.YELLOW_PENDANT_LAMP.get(), 4)
+                .pattern("C")
+                .pattern("C")
+                .pattern("B")
+                .define('C', Items.CHAIN)
+                .define('B', Items.LANTERN)
+                .unlockedBy("has_chain", has(Items.CHAIN))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.BLUE_PENDANT_LAMP.get(), 4)
+                .pattern("C")
+                .pattern("C")
+                .pattern("B")
+                .define('C', Items.CHAIN)
+                .define('B', Items.SOUL_LANTERN)
+                .unlockedBy("has_chain", has(Items.CHAIN))
+                .save(consumer);
     }
 
     private void sofa(Consumer<FinishedRecipe> consumer, RegistryObject<Item> item, Item wool) {

@@ -102,6 +102,11 @@ public interface ModItems {
     RegistryObject<Item> MONA_LISA_PAINTING = ITEMS.register("mona_lisa_painting", () -> new PaintingBlockItem(ModBlocks.MONA_LISA_PAINTING));
     RegistryObject<Item> MONDRIAN_PAINTING = ITEMS.register("mondrian_painting", () -> new PaintingBlockItem(ModBlocks.MONDRIAN_PAINTING));
 
+    // 垂灯
+    RegistryObject<Item> BELL_PENDANT_LAMP = ITEMS.register("bell_pendant_lamp", () -> new BlockItem(ModBlocks.BELL_PENDANT_LAMP.get(), new Item.Properties()));
+    RegistryObject<Item> YELLOW_PENDANT_LAMP = ITEMS.register("yellow_pendant_lamp", () -> new BlockItem(ModBlocks.YELLOW_PENDANT_LAMP.get(), new Item.Properties()));
+    RegistryObject<Item> BLUE_PENDANT_LAMP = ITEMS.register("blue_pendant_lamp", () -> new BlockItem(ModBlocks.BLUE_PENDANT_LAMP.get(), new Item.Properties()));
+
     // 吧台
     RegistryObject<Item> BAR_COUNTER = ITEMS.register("bar_counter", () -> new BlockItem(ModBlocks.BAR_COUNTER.get(), new Item.Properties()));
     // 人字梯

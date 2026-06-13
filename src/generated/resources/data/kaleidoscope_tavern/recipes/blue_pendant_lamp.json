@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:soul_lantern"
+    },
+    "C": {
+      "item": "minecraft:chain"
+    }
+  },
+  "pattern": [
+    "C",
+    "C",
+    "B"
+  ],
+  "result": {
+    "count": 4,
+    "item": "kaleidoscope_tavern:blue_pendant_lamp"
+  },
+  "show_notification": true
+}

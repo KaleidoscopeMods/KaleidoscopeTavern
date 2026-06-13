@@ -130,6 +130,10 @@ public interface ModCreativeTabs {
                 output.accept(ModItems.STRING_LIGHTS_MAGENTA.get());
                 output.accept(ModItems.STRING_LIGHTS_PINK.get());
 
+                output.accept(ModItems.BELL_PENDANT_LAMP.get());
+                output.accept(ModItems.YELLOW_PENDANT_LAMP.get());
+                output.accept(ModItems.BLUE_PENDANT_LAMP.get());
+
                 output.accept(ModItems.WHITE_SOFA.get());
                 output.accept(ModItems.LIGHT_GRAY_SOFA.get());
                 output.accept(ModItems.GRAY_SOFA.get());
