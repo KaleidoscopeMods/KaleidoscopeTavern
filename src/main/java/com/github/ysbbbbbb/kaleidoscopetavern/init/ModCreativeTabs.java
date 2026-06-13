@@ -194,5 +194,15 @@ public interface ModCreativeTabs {
                 output.accept(ModItems.MONDRIAN_PAINTING.get());
 
                 output.accept(ModItems.CHALKBOARD.get());
+
+                // 香薰
+                output.accept(ModItems.SAKURA_INCENSE.get());
+                output.accept(ModItems.PINE_INCENSE.get());
+                output.accept(ModItems.GINKGO_INCENSE.get());
+                output.accept(ModItems.SPORE_INCENSE.get());
+                output.accept(ModItems.CATNIP_INCENSE.get());
+                output.accept(ModItems.SNOW_INCENSE.get());
+                output.accept(ModItems.BUTTERFLY_INCENSE.get());
+                output.accept(ModItems.FIREFLY_INCENSE.get());
             }).build());
 }

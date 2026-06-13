@@ -185,6 +185,16 @@ public class BlockStateGenerator extends BlockStateProvider {
         horizontalBlock(ModBlocks.CIRCULAR_RACK.get(), new ModelFile.UncheckedModelFile(modLoc("block/deco/circular_rack")));
         horizontalBlock(ModBlocks.HOLDER.get(), new ModelFile.UncheckedModelFile(modLoc("block/deco/holder")));
 
+        // 香薰
+        horizontalBlock(ModBlocks.SAKURA_INCENSE.get(), new ModelFile.UncheckedModelFile(modLoc("block/deco/incense/sakura_incense")));
+        horizontalBlock(ModBlocks.PINE_INCENSE.get(), new ModelFile.UncheckedModelFile(modLoc("block/deco/incense/pine_incense")));
+        horizontalBlock(ModBlocks.GINKGO_INCENSE.get(), new ModelFile.UncheckedModelFile(modLoc("block/deco/incense/ginkgo_incense")));
+        horizontalBlock(ModBlocks.SPORE_INCENSE.get(), new ModelFile.UncheckedModelFile(modLoc("block/deco/incense/spore_incense")));
+        horizontalBlock(ModBlocks.CATNIP_INCENSE.get(), new ModelFile.UncheckedModelFile(modLoc("block/deco/incense/catnip_incense")));
+        horizontalBlock(ModBlocks.SNOW_INCENSE.get(), new ModelFile.UncheckedModelFile(modLoc("block/deco/incense/snow_incense")));
+        horizontalBlock(ModBlocks.BUTTERFLY_INCENSE.get(), new ModelFile.UncheckedModelFile(modLoc("block/deco/incense/butterfly_incense")));
+        horizontalBlock(ModBlocks.FIREFLY_INCENSE.get(), new ModelFile.UncheckedModelFile(modLoc("block/deco/incense/firefly_incense")));
+
         // 酒
         drink(ModBlocks.WINE.get(), "wine");
         drink(ModBlocks.CHAMPAGNE.get(), "champagne");

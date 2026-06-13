@@ -12,6 +12,7 @@ import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.brew.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.mixology.OrdinaryCocktailBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.mixology.ShakerBlockEntity;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -118,6 +119,39 @@ public interface ModBlocks {
     RegistryObject<Block> GREAT_WAVE_PAINTING = BLOCKS.register("great_wave_painting", PaintingBlock::new);
     RegistryObject<Block> MONA_LISA_PAINTING = BLOCKS.register("mona_lisa_painting", PaintingBlock::new);
     RegistryObject<Block> MONDRIAN_PAINTING = BLOCKS.register("mondrian_painting", PaintingBlock::new);
+
+    // 香薰
+    RegistryObject<Block> SAKURA_INCENSE = BLOCKS.register("sakura_incense", () -> new IncenseBlock(
+            ModParticles.SAKURA_INCENSE_PARTICLE, () -> ParticleTypes.CHERRY_LEAVES
+    ));
+
+    RegistryObject<Block> PINE_INCENSE = BLOCKS.register("pine_incense", () -> new IncenseBlock(
+            ModParticles.PINE_INCENSE_PARTICLE, ModParticles.PINE_INCENSE_LARGE_PARTICLE
+    ));
+
+    RegistryObject<Block> GINKGO_INCENSE = BLOCKS.register("ginkgo_incense", () -> new IncenseBlock(
+            ModParticles.GINKGO_INCENSE_PARTICLE, ModParticles.GINKGO_INCENSE_LARGE_PARTICLE
+    ));
+
+    RegistryObject<Block> SPORE_INCENSE = BLOCKS.register("spore_incense", () -> new IncenseBlock(
+            ModParticles.SPORE_INCENSE_PARTICLE, () -> ParticleTypes.SPORE_BLOSSOM_AIR
+    ));
+
+    RegistryObject<Block> CATNIP_INCENSE = BLOCKS.register("catnip_incense", () -> new IncenseBlock(
+            ModParticles.CATNIP_INCENSE_PARTICLE, ModParticles.CATNIP_INCENSE_LARGE_PARTICLE
+    ));
+
+    RegistryObject<Block> SNOW_INCENSE = BLOCKS.register("snow_incense", () -> new IncenseBlock(
+            ModParticles.SNOW_INCENSE_PARTICLE, ModParticles.SNOW_INCENSE_LARGE_PARTICLE
+    ));
+
+    RegistryObject<Block> BUTTERFLY_INCENSE = BLOCKS.register("butterfly_incense", () -> new IncenseBlock(
+            ModParticles.BUTTERFLY_INCENSE_PARTICLE, ModParticles.BUTTERFLY_INCENSE_LARGE_PARTICLE
+    ));
+
+    RegistryObject<Block> FIREFLY_INCENSE = BLOCKS.register("firefly_incense", () -> new IncenseBlock(
+            ModParticles.FIREFLY_INCENSE_PARTICLE, ModParticles.FIREFLY_INCENSE_LARGE_PARTICLE
+    ));
 
     // 吧台
     RegistryObject<Block> BAR_COUNTER = BLOCKS.register("bar_counter", BarCounterBlock::new);
@@ -564,5 +598,13 @@ public interface ModBlocks {
             "ordinary_cocktail", () -> BlockEntityType.Builder
                     .of(OrdinaryCocktailBlockEntity::new, ORDINARY_COCKTAIL.get())
                     .build(null)
+    );
+
+    RegistryObject<BlockEntityType<IncenseBlockEntity>> INCENSE_BE = BLOCK_ENTITIES.register(
+            "incense", () -> BlockEntityType.Builder
+                    .of(IncenseBlockEntity::new,
+                            SAKURA_INCENSE.get(), PINE_INCENSE.get(), GINKGO_INCENSE.get(), SPORE_INCENSE.get(),
+                            CATNIP_INCENSE.get(), SNOW_INCENSE.get(), BUTTERFLY_INCENSE.get(), FIREFLY_INCENSE.get()
+                    ).build(null)
     );
 }

@@ -190,4 +190,14 @@ public interface ModItems {
     RegistryObject<Item> SAUVIGNON_BLANC_DRY_WHITE = ITEMS.register("sauvignon_blanc_dry_white", () -> new DrinkBlockItem(ModBlocks.SAUVIGNON_BLANC_DRY_WHITE.get()));
     RegistryObject<Item> VINEGAR = ITEMS.register("vinegar", () -> new DrinkBlockItem(ModBlocks.VINEGAR.get()));
     RegistryObject<Item> WATERMELON_JUICE = ITEMS.register("watermelon_juice", () -> new DrinkBlockItem(ModBlocks.WATERMELON_JUICE.get()));
+
+    // 香薰
+    RegistryObject<Item> SAKURA_INCENSE = ITEMS.register("sakura_incense", () -> new BlockItem(ModBlocks.SAKURA_INCENSE.get(), new Item.Properties()));
+    RegistryObject<Item> PINE_INCENSE = ITEMS.register("pine_incense", () -> new BlockItem(ModBlocks.PINE_INCENSE.get(), new Item.Properties()));
+    RegistryObject<Item> GINKGO_INCENSE = ITEMS.register("ginkgo_incense", () -> new BlockItem(ModBlocks.GINKGO_INCENSE.get(), new Item.Properties()));
+    RegistryObject<Item> SPORE_INCENSE = ITEMS.register("spore_incense", () -> new BlockItem(ModBlocks.SPORE_INCENSE.get(), new Item.Properties()));
+    RegistryObject<Item> CATNIP_INCENSE = ITEMS.register("catnip_incense", () -> new BlockItem(ModBlocks.CATNIP_INCENSE.get(), new Item.Properties()));
+    RegistryObject<Item> SNOW_INCENSE = ITEMS.register("snow_incense", () -> new BlockItem(ModBlocks.SNOW_INCENSE.get(), new Item.Properties()));
+    RegistryObject<Item> BUTTERFLY_INCENSE = ITEMS.register("butterfly_incense", () -> new BlockItem(ModBlocks.BUTTERFLY_INCENSE.get(), new Item.Properties()));
+    RegistryObject<Item> FIREFLY_INCENSE = ITEMS.register("firefly_incense", () -> new BlockItem(ModBlocks.FIREFLY_INCENSE.get(), new Item.Properties()));
 }

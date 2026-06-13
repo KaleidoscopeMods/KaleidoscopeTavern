@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:glass_bottle"
+    },
+    "C": {
+      "item": "minecraft:allium"
+    },
+    "F": {
+      "item": "minecraft:feather"
+    }
+  },
+  "pattern": [
+    "F",
+    "C",
+    "B"
+  ],
+  "result": {
+    "item": "kaleidoscope_tavern:catnip_incense"
+  },
+  "show_notification": true
+}

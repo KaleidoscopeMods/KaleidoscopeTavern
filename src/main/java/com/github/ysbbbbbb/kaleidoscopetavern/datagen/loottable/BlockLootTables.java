@@ -179,6 +179,16 @@ public class BlockLootTables extends BlockLootSubProvider {
         dropSelf(ModBlocks.CIRCULAR_RACK.get());
         dropSelf(ModBlocks.HOLDER.get());
 
+        // 香薰
+        dropSelf(ModBlocks.SAKURA_INCENSE.get());
+        dropSelf(ModBlocks.PINE_INCENSE.get());
+        dropSelf(ModBlocks.GINKGO_INCENSE.get());
+        dropSelf(ModBlocks.SPORE_INCENSE.get());
+        dropSelf(ModBlocks.CATNIP_INCENSE.get());
+        dropSelf(ModBlocks.SNOW_INCENSE.get());
+        dropSelf(ModBlocks.BUTTERFLY_INCENSE.get());
+        dropSelf(ModBlocks.FIREFLY_INCENSE.get());
+
         // 杂项瓶子
         add(ModBlocks.WATER_BOTTLE.get(), this.createItemWithNbtTable(Items.POTION,
                 Util.make(new CompoundTag(), tag -> tag.putString("Potion", "minecraft:water")))

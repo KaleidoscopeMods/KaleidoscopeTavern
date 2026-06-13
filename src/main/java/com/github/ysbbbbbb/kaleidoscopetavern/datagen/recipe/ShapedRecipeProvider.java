@@ -56,6 +56,16 @@ public class ShapedRecipeProvider extends ModRecipeProvider {
         barStool(consumer, ModItems.BLACK_BAR_STOOL, Items.BLACK_WOOL);
         barStool(consumer, ModItems.RED_BAR_STOOL, Items.RED_WOOL);
 
+        // 香薰
+        incense(consumer, ModItems.SAKURA_INCENSE, Items.CHERRY_SAPLING);
+        incense(consumer, ModItems.PINE_INCENSE, Items.SPRUCE_SAPLING);
+        incense(consumer, ModItems.GINKGO_INCENSE, Items.YELLOW_DYE);
+        incense(consumer, ModItems.SPORE_INCENSE, Items.SPORE_BLOSSOM);
+        incense(consumer, ModItems.CATNIP_INCENSE, Items.ALLIUM);
+        incense(consumer, ModItems.SNOW_INCENSE, Items.SNOWBALL);
+        incense(consumer, ModItems.BUTTERFLY_INCENSE, Items.PITCHER_PLANT);
+        incense(consumer, ModItems.FIREFLY_INCENSE, Items.GLOWSTONE_DUST);
+
         // 黑板
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.CHALKBOARD.get())
                 .pattern("III")
@@ -265,6 +275,18 @@ public class ShapedRecipeProvider extends ModRecipeProvider {
                 .define('L', Items.LANTERN)
                 .define('D', dye)
                 .unlockedBy("has_dye", has(dye))
+                .save(consumer);
+    }
+
+    private void incense(Consumer<FinishedRecipe> consumer, RegistryObject<Item> item, Item ingredient) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, item.get())
+                .pattern("F")
+                .pattern("C")
+                .pattern("B")
+                .define('F', Items.FEATHER)
+                .define('C', ingredient)
+                .define('B', Items.GLASS_BOTTLE)
+                .unlockedBy("has_glass_bottle", has(Items.GLASS_BOTTLE))
                 .save(consumer);
     }
 }

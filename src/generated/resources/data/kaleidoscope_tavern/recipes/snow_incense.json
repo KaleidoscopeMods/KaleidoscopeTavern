@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:glass_bottle"
+    },
+    "C": {
+      "item": "minecraft:snowball"
+    },
+    "F": {
+      "item": "minecraft:feather"
+    }
+  },
+  "pattern": [
+    "F",
+    "C",
+    "B"
+  ],
+  "result": {
+    "item": "kaleidoscope_tavern:snow_incense"
+  },
+  "show_notification": true
+}

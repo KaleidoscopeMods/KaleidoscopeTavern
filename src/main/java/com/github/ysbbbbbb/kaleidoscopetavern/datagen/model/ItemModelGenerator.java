@@ -93,6 +93,16 @@ public class ItemModelGenerator extends ItemModelProvider {
         basicItem(ModItems.TAP.get());
         basicItem(ModItems.HOLDER.get());
 
+        // 香薰
+        basicItem(ModItems.SAKURA_INCENSE.get());
+        basicItem(ModItems.PINE_INCENSE.get());
+        basicItem(ModItems.GINKGO_INCENSE.get());
+        basicItem(ModItems.SPORE_INCENSE.get());
+        basicItem(ModItems.CATNIP_INCENSE.get());
+        basicItem(ModItems.SNOW_INCENSE.get());
+        basicItem(ModItems.BUTTERFLY_INCENSE.get());
+        basicItem(ModItems.FIREFLY_INCENSE.get());
+
         basicItem(ModItems.EMPTY_BOTTLE.get());
         basicItem(ModItems.EMPTY_GLASSWARE.get());
 
