@@ -3,8 +3,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "kaleidoscope_tavern:block/mixology/ordinary_cocktail_2",
-		"1": "kaleidoscope_tavern:block/mixology/ordinary_cocktail",
+		"0": "kaleidoscope_tavern:block/mixology/signature_cocktail_2",
+		"1": "kaleidoscope_tavern:block/mixology/signature_cocktail",
       "particle": "minecraft:block/glass"
 	},
 	"elements": [

@@ -1,5 +1,5 @@
 {
-  "parent": "kaleidoscope_tavern:block/mixology/ordinary_cocktail",
+  "parent": "kaleidoscope_tavern:block/mixology/signature_cocktail",
   "transform": {
     "origin": "center",
     "rotation": [

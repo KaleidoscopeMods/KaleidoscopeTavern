@@ -15,14 +15,14 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
 
-public class OrdinaryCocktailBlockEntity extends BaseBlockEntity {
+public class SignatureCocktailBlockEntity extends BaseBlockEntity {
     private static final Codec<List<DrinkEffectData.Entry>> EFFECTS_CODEC = Codec.list(DrinkEffectData.Entry.ENTRY_CODEC);
 
     private List<DrinkEffectData.Entry> effects = Lists.newArrayList();
     private int color = 0xFFFFFF;
 
-    public OrdinaryCocktailBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlocks.ORDINARY_COCKTAIL_BE.get(), pos, state);
+    public SignatureCocktailBlockEntity(BlockPos pos, BlockState state) {
+        super(ModBlocks.SIGNATURE_COCKTAIL_BE.get(), pos, state);
     }
 
     @Override

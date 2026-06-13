@@ -5,12 +5,12 @@ import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.CocktailBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.GlasswareBlock;
-import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.OrdinaryCocktailBlock;
+import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.SignatureCocktailBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.ShakerBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.brew.*;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.deco.*;
-import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.mixology.OrdinaryCocktailBlockEntity;
+import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.mixology.SignatureCocktailBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.mixology.ShakerBlockEntity;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.item.DyeColor;
@@ -206,7 +206,7 @@ public interface ModBlocks {
     RegistryObject<Block> EMPTY_GLASSWARE = BLOCKS.register("empty_glassware", GlasswareBlock::new);
 
     // 鸡尾酒
-    RegistryObject<Block> ORDINARY_COCKTAIL = BLOCKS.register("ordinary_cocktail", OrdinaryCocktailBlock::new);
+    RegistryObject<Block> SIGNATURE_COCKTAIL = BLOCKS.register("signature_cocktail", SignatureCocktailBlock::new);
     RegistryObject<Block> MYSTERY_COCKTAIL = BLOCKS.register("mystery_cocktail", CocktailBlock::new);
     RegistryObject<Block> WHITE_LADY = BLOCKS.register("white_lady", CocktailBlock::new);
     RegistryObject<Block> EMERALD = BLOCKS.register("emerald", CocktailBlock::new);
@@ -594,9 +594,9 @@ public interface ModBlocks {
                     .build(null)
     );
 
-    RegistryObject<BlockEntityType<OrdinaryCocktailBlockEntity>> ORDINARY_COCKTAIL_BE = BLOCK_ENTITIES.register(
-            "ordinary_cocktail", () -> BlockEntityType.Builder
-                    .of(OrdinaryCocktailBlockEntity::new, ORDINARY_COCKTAIL.get())
+    RegistryObject<BlockEntityType<SignatureCocktailBlockEntity>> SIGNATURE_COCKTAIL_BE = BLOCK_ENTITIES.register(
+            "signature_cocktail", () -> BlockEntityType.Builder
+                    .of(SignatureCocktailBlockEntity::new, SIGNATURE_COCKTAIL.get())
                     .build(null)
     );
 

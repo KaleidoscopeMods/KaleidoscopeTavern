@@ -106,7 +106,7 @@ public class ItemModelGenerator extends ItemModelProvider {
         basicItem(ModItems.EMPTY_BOTTLE.get());
         basicItem(ModItems.EMPTY_GLASSWARE.get());
 
-        ordinaryCocktail();
+        signatureCocktail();
 
         basicItem(ModItems.MYSTERY_COCKTAIL.get());
         basicItem(ModItems.WHITE_LADY.get());
@@ -150,12 +150,12 @@ public class ItemModelGenerator extends ItemModelProvider {
         basicItem(ModItems.WATERMELON_JUICE.get());
     }
 
-    private void ordinaryCocktail() {
-        ResourceLocation key = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(ModItems.ORDINARY_COCKTAIL.get()));
+    private void signatureCocktail() {
+        ResourceLocation key = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(ModItems.SIGNATURE_COCKTAIL.get()));
         getBuilder(key.toString())
                 .parent(new ModelFile.UncheckedModelFile("item/generated"))
-                .texture("layer0", modLoc("item/ordinary_cocktail"))
-                .texture("layer1", modLoc("item/ordinary_cocktail_tint"));
+                .texture("layer0", modLoc("item/signature_cocktail"))
+                .texture("layer1", modLoc("item/signature_cocktail_tint"));
     }
 
     private void sofa(String color) {

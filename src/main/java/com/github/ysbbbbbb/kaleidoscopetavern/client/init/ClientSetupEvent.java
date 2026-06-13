@@ -4,7 +4,7 @@ import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.client.animation.ShakerAnimation;
 import com.github.ysbbbbbb.kaleidoscopetavern.client.gui.overlay.ShakerOverlay;
 import com.github.ysbbbbbb.kaleidoscopetavern.client.render.block.*;
-import com.github.ysbbbbbb.kaleidoscopetavern.client.render.misc.OrdinaryCocktailColor;
+import com.github.ysbbbbbb.kaleidoscopetavern.client.render.misc.SignatureCocktailColor;
 import com.github.ysbbbbbb.kaleidoscopetavern.compat.ponder.init.PonderCompat;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModItems;
@@ -52,11 +52,11 @@ public class ClientSetupEvent {
 
     @SubscribeEvent
     public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
-        event.register(new OrdinaryCocktailColor.Block(), ModBlocks.ORDINARY_COCKTAIL.get());
+        event.register(new SignatureCocktailColor.Block(), ModBlocks.SIGNATURE_COCKTAIL.get());
     }
 
     @SubscribeEvent
     public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
-        event.register(new OrdinaryCocktailColor.Item(), ModItems.ORDINARY_COCKTAIL.get());
+        event.register(new SignatureCocktailColor.Item(), ModItems.SIGNATURE_COCKTAIL.get());
     }
 }

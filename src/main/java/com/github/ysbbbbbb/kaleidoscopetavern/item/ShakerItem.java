@@ -1,6 +1,6 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.item;
 
-import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.mixology.OrdinaryCocktailBlockEntity;
+import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.mixology.SignatureCocktailBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.client.animation.ShakerAnimation;
 import com.github.ysbbbbbb.kaleidoscopetavern.datamap.data.DrinkEffectData;
 import com.github.ysbbbbbb.kaleidoscopetavern.datamap.resources.DrinkEffectDataReloadListener;
@@ -114,7 +114,7 @@ public class ShakerItem extends BlockItem {
             }
 
             // 如果是普通鸡尾酒，需要计算效果和颜色
-            if (level.getBlockEntity(pos) instanceof OrdinaryCocktailBlockEntity ordinary) {
+            if (level.getBlockEntity(pos) instanceof SignatureCocktailBlockEntity ordinary) {
                 ItemStackHandler storage = getStorage(stack);
                 Map<Item, DrinkEffectData> instance = DrinkEffectDataReloadListener.INSTANCE;
 
@@ -258,7 +258,7 @@ public class ShakerItem extends BlockItem {
             if (time < 69) {
                 setResult(stack, new ItemStack(ModItems.MYSTERY_COCKTAIL.get()));
             } else if (time < 89) {
-                setResult(stack, new ItemStack(ModItems.ORDINARY_COCKTAIL.get()));
+                setResult(stack, new ItemStack(ModItems.SIGNATURE_COCKTAIL.get()));
             } else if (time < 99) {
                 handRecipe(level, stack);
             } else {

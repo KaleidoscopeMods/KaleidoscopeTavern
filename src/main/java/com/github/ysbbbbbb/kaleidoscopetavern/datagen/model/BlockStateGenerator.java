@@ -154,7 +154,7 @@ public class BlockStateGenerator extends BlockStateProvider {
 
         // 鸡尾酒
         glassware(ModBlocks.EMPTY_GLASSWARE, "empty_glassware");
-        glassware(ModBlocks.ORDINARY_COCKTAIL, "ordinary_cocktail");
+        glassware(ModBlocks.SIGNATURE_COCKTAIL, "signature_cocktail");
         glassware(ModBlocks.MYSTERY_COCKTAIL, "mystery_cocktail");
         glassware(ModBlocks.WHITE_LADY, "white_lady");
         glassware(ModBlocks.EMERALD, "emerald");

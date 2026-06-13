@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "kaleidoscope_tavern:item/ordinary_cocktail",
-    "layer1": "kaleidoscope_tavern:item/ordinary_cocktail_tint"
-  }
-}

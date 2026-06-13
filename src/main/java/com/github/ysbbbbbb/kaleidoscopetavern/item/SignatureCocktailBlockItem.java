@@ -20,12 +20,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class OrdinaryCocktailBlockItem extends CocktailBlockItem {
+public class SignatureCocktailBlockItem extends CocktailBlockItem {
     private static final Codec<List<DrinkEffectData.Entry>> EFFECTS_CODEC = Codec.list(DrinkEffectData.Entry.ENTRY_CODEC);
     private static final String EFFECTS_TAG = "Effects";
     private static final String COLOR_TAG = "Color";
 
-    public OrdinaryCocktailBlockItem(Block block) {
+    public SignatureCocktailBlockItem(Block block) {
         super(block);
     }
 

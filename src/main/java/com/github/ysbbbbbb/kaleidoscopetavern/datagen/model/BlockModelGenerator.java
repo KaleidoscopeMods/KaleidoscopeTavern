@@ -53,7 +53,7 @@ public class BlockModelGenerator extends BlockModelProvider {
         painting("mondrian");
 
         glassware("empty_glassware");
-        glassware("ordinary_cocktail");
+        glassware("signature_cocktail");
         glassware("mystery_cocktail");
         glassware("white_lady");
         glassware("emerald");

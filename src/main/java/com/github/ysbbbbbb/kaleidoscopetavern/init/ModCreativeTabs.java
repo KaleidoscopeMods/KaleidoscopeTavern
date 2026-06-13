@@ -79,7 +79,7 @@ public interface ModCreativeTabs {
                 output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.RUM));
 
                 // 鸡尾酒
-                output.accept(ModItems.ORDINARY_COCKTAIL.get());
+                output.accept(ModItems.SIGNATURE_COCKTAIL.get());
                 output.accept(ModItems.MYSTERY_COCKTAIL.get());
                 output.accept(ModItems.WHITE_LADY.get());
                 output.accept(ModItems.EMERALD.get());
