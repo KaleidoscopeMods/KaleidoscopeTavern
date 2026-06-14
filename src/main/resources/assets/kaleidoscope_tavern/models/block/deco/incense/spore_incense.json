@@ -1,6 +1,7 @@
 {
 	"format_version": "1.9.0",
 	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
 	"render_type": "cutout",
 	"textures": {
 		"0": "kaleidoscope_tavern:block/deco/incense/spore_incense",
@@ -45,7 +46,6 @@
 		{
 			"from": [6, 1, 6],
 			"to": [10, 3, 10],
-			"shade": false,
 			"faces": {
 				"north": {"uv": [8, 6, 10, 7], "texture": "#0"},
 				"east": {"uv": [8, 6, 10, 7], "texture": "#0"},
