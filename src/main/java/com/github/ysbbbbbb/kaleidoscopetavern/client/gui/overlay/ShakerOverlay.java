@@ -76,7 +76,7 @@ public class ShakerOverlay implements IGuiOverlay {
         }
 
         Font font = Minecraft.getInstance().font;
-        int x = screenWidth / 2 - 24;
+        int x = screenWidth / 2 - 28;
         int y = screenHeight / 2 + 26;
 
         ItemStackHandler storage = shaker.getStorage();
@@ -94,7 +94,7 @@ public class ShakerOverlay implements IGuiOverlay {
                 int color = Objects.requireNonNull(chatFormatting.getColor()) | 0xFF000000;
                 renderIcon(guiGraphics, x, y + 6, color);
             }
-            x = x + 16;
+            x = x + 20;
         }
     }
 

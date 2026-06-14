@@ -152,7 +152,8 @@ public interface ModBlocks {
     ));
 
     RegistryObject<Block> FIREFLY_INCENSE = BLOCKS.register("firefly_incense", () -> new IncenseBlock(
-            ModParticles.FIREFLY_INCENSE_PARTICLE, ModParticles.FIREFLY_INCENSE_LARGE_PARTICLE
+            ModParticles.FIREFLY_INCENSE_PARTICLE, ModParticles.FIREFLY_INCENSE_LARGE_PARTICLE,
+            -0.67, 5.33
     ));
 
     // 吧台

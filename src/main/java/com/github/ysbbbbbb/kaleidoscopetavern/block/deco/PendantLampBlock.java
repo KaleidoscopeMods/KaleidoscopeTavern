@@ -41,6 +41,7 @@ public class PendantLampBlock extends HorizontalDirectionalBlock {
                 .sound(SoundType.CHAIN)
                 .lightLevel(state -> state.getValue(HALF) == DoubleBlockHalf.UPPER ? 0 : 13)
                 .noOcclusion()
+                .noCollission()
         );
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(HALF, DoubleBlockHalf.LOWER)

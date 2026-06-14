@@ -88,6 +88,10 @@ public interface TagMod {
     TagKey<Item> COCKTAIL_INGREDIENT_LIGHT_PURPLE = itemTag("cocktail_ingredient_light_purple");
     TagKey<Item> COCKTAIL_INGREDIENT_YELLOW = itemTag("cocktail_ingredient_yellow");
     TagKey<Item> COCKTAIL_INGREDIENT_WHITE = itemTag("cocktail_ingredient_white");
+    /**
+     * 摸金校尉可卸装的实体
+     */
+    TagKey<EntityType<?>> TOMB_RAIDER_DISARMABLE = entityTag("tomb_raider_disarmable");
 
     static TagKey<Item> itemTag(String name) {
         return TagKey.create(Registries.ITEM, KaleidoscopeTavern.modLoc(name));

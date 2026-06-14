@@ -19,7 +19,7 @@ public class SignatureCocktailBlockEntity extends BaseBlockEntity {
     private static final Codec<List<DrinkEffectData.Entry>> EFFECTS_CODEC = Codec.list(DrinkEffectData.Entry.ENTRY_CODEC);
 
     private List<DrinkEffectData.Entry> effects = Lists.newArrayList();
-    private int color = 0xFFFFFF;
+    private int color = 0x5555ff;
 
     public SignatureCocktailBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlocks.SIGNATURE_COCKTAIL_BE.get(), pos, state);

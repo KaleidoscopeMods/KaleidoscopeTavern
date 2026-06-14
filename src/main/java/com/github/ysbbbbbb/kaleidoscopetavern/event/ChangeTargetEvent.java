@@ -4,7 +4,7 @@ import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.monster.piglin.Piglin;
+import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -32,8 +32,8 @@ public class ChangeTargetEvent {
             event.setCanceled(true);
         }
 
-        // 摸金校尉：猪灵不会仇恨玩家
-        if (event.getEntity() instanceof Piglin && newTarget.hasEffect(ModEffects.TOMB_RAIDER.get())) {
+        // 摸金校尉：猪灵/猪灵蛮兵不会仇恨玩家
+        if (event.getEntity() instanceof AbstractPiglin && newTarget.hasEffect(ModEffects.TOMB_RAIDER.get())) {
             event.setCanceled(true);
         }
     }

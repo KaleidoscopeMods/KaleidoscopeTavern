@@ -2,14 +2,19 @@ package com.github.ysbbbbbb.kaleidoscopetavern.event;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModEffects;
+import com.github.ysbbbbbb.kaleidoscopetavern.init.tag.TagMod;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.jetbrains.annotations.Nullable;
@@ -35,6 +40,42 @@ public class EffectEvent {
         if (healAmount > 0) {
             living.heal(healAmount);
         }
+    }
+
+    /**
+     * 摸金校尉：攻击指定类型的生物时，将目标主手物品耐久降至1后卸下掉落。
+     */
+    @SubscribeEvent
+    public static void onLivingHurt(LivingHurtEvent event) {
+        if (event.getEntity().level().isClientSide) {
+            return;
+        }
+
+        @Nullable Entity source = event.getSource().getEntity();
+        if (!(source instanceof LivingEntity attacker) || !attacker.hasEffect(ModEffects.TOMB_RAIDER.get())) {
+            return;
+        }
+
+        LivingEntity target = event.getEntity();
+        if (!target.getType().is(TagMod.TOMB_RAIDER_DISARMABLE)) {
+            return;
+        }
+
+        ItemStack mainHand = target.getItemBySlot(EquipmentSlot.MAINHAND);
+        if (mainHand.isEmpty()) {
+            return;
+        }
+
+        // 将耐久降至1（如果物品有耐久度）
+        if (mainHand.isDamageableItem()) {
+            mainHand.setDamageValue(mainHand.getMaxDamage() - 1);
+        }
+
+        // 从主手卸下并掉落到地上
+        target.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+        ItemEntity itemEntity = new ItemEntity(target.level(), target.getX(), target.getY(), target.getZ(), mainHand);
+        itemEntity.setPickUpDelay(40);
+        target.level().addFreshEntity(itemEntity);
     }
 
     /**

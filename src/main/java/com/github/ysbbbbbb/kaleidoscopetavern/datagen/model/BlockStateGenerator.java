@@ -17,13 +17,17 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.Objects;
 
 public class BlockStateGenerator extends BlockStateProvider {
     public BlockStateGenerator(PackOutput output, ExistingFileHelper exFileHelper) {
@@ -192,14 +196,14 @@ public class BlockStateGenerator extends BlockStateProvider {
         horizontalBlock(ModBlocks.HOLDER.get(), new ModelFile.UncheckedModelFile(modLoc("block/deco/holder")));
 
         // 香薰
-        horizontalBlock(ModBlocks.SAKURA_INCENSE.get(), new ModelFile.UncheckedModelFile(modLoc("block/deco/incense/sakura_incense")));
-        horizontalBlock(ModBlocks.PINE_INCENSE.get(), new ModelFile.UncheckedModelFile(modLoc("block/deco/incense/pine_incense")));
-        horizontalBlock(ModBlocks.GINKGO_INCENSE.get(), new ModelFile.UncheckedModelFile(modLoc("block/deco/incense/ginkgo_incense")));
-        horizontalBlock(ModBlocks.SPORE_INCENSE.get(), new ModelFile.UncheckedModelFile(modLoc("block/deco/incense/spore_incense")));
-        horizontalBlock(ModBlocks.CATNIP_INCENSE.get(), new ModelFile.UncheckedModelFile(modLoc("block/deco/incense/catnip_incense")));
-        horizontalBlock(ModBlocks.SNOW_INCENSE.get(), new ModelFile.UncheckedModelFile(modLoc("block/deco/incense/snow_incense")));
-        horizontalBlock(ModBlocks.BUTTERFLY_INCENSE.get(), new ModelFile.UncheckedModelFile(modLoc("block/deco/incense/butterfly_incense")));
-        horizontalBlock(ModBlocks.FIREFLY_INCENSE.get(), new ModelFile.UncheckedModelFile(modLoc("block/deco/incense/firefly_incense")));
+        incense(ModBlocks.SAKURA_INCENSE);
+        incense(ModBlocks.PINE_INCENSE);
+        incense(ModBlocks.GINKGO_INCENSE);
+        incense(ModBlocks.SPORE_INCENSE);
+        incense(ModBlocks.CATNIP_INCENSE);
+        incense(ModBlocks.SNOW_INCENSE);
+        incense(ModBlocks.BUTTERFLY_INCENSE);
+        incense(ModBlocks.FIREFLY_INCENSE);
 
         // 酒
         drink(ModBlocks.WINE.get(), "wine");
@@ -428,6 +432,16 @@ public class BlockStateGenerator extends BlockStateProvider {
             ResourceLocation file = modLoc("block/mixology/%s/rot_%d".formatted(name, rotation));
             ModelFile.UncheckedModelFile modelFile = new ModelFile.UncheckedModelFile(file);
             return ConfiguredModel.builder().modelFile(modelFile).build();
+        });
+    }
+
+    private void incense(RegistryObject<Block> block) {
+        String name = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block.get())).getPath();
+        horizontalBlock(block.get(), blockState -> {
+            if (blockState.getValue(BlockStateProperties.OPEN)) {
+                return new ModelFile.UncheckedModelFile(modLoc("block/deco/incense_open/%s".formatted(name)));
+            }
+            return new ModelFile.UncheckedModelFile(modLoc("block/deco/incense/%s".formatted(name)));
         });
     }
 }

@@ -53,7 +53,7 @@ public class SignatureCocktailBlockItem extends CocktailBlockItem {
 
     public static int getColor(ItemStack stack) {
         CompoundTag tag = stack.getOrCreateTag();
-        return tag.contains(COLOR_TAG) ? tag.getInt(COLOR_TAG) : 0xFFFFFF;
+        return tag.contains(COLOR_TAG) ? tag.getInt(COLOR_TAG) : 0x5555ff;
     }
 
     public static void setColor(ItemStack stack, int color) {

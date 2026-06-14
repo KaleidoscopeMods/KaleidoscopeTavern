@@ -272,7 +272,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         addCocktail(ModItems.BRASS_HEART, effect(ModEffects.ARDENT_HEAT.get(), 480, 0));
 
         // 下界特调
-        addCocktail(ModItems.NETHER_SPECIAL, effect(ModEffects.TOMB_RAIDER.get(), 480, 0));
+        addCocktail(ModItems.NETHER_SPECIAL, effect(ModEffects.TOMB_RAIDER.get(), 90, 0));
 
         // 幽匿特调
         addCocktail(ModItems.SCULK_SPECIAL, effect(ModEffects.SHRIEK_ATTACK.get(), 0, 0));

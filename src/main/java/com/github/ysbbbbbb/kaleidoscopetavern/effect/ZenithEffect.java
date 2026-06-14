@@ -3,6 +3,8 @@ package com.github.ysbbbbbb.kaleidoscopetavern.effect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
@@ -62,5 +64,8 @@ public class ZenithEffect extends BaseEffect {
         // 传送后在目标位置播放音效
         level.playSound(null, targetX, surfaceY, targetZ,
                 SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.PLAYERS, 1.0F, 1.0F);
+
+        // 给予 30s 饥饿 buff
+        user.addEffect(new MobEffectInstance(MobEffects.HUNGER, 600, 0));
     }
 }
