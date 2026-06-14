@@ -1,7 +1,6 @@
 {
 	"format_version": "1.9.0",
 	"credit": "Made with Blockbench",
-	"ambientocclusion": false,
 	"render_type": "cutout",
 	"textures": {
 		"0": "kaleidoscope_tavern:block/deco/incense/sakura_incense",
