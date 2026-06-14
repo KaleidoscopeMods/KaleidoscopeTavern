@@ -2,6 +2,7 @@ package com.github.ysbbbbbb.kaleidoscopetavern.network;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.network.message.ClearShakerC2SMessage;
+import com.github.ysbbbbbb.kaleidoscopetavern.network.message.DrinkEffectSyncS2CMessage;
 import com.github.ysbbbbbb.kaleidoscopetavern.network.message.TextOpenS2CMessage;
 import com.github.ysbbbbbb.kaleidoscopetavern.network.message.TextUpdateC2SMessage;
 import net.minecraft.server.level.ServerPlayer;
@@ -31,6 +32,10 @@ public class NetworkHandler {
         CHANNEL.registerMessage(2, ClearShakerC2SMessage.class,
                 ClearShakerC2SMessage::encode, ClearShakerC2SMessage::decode,
                 ClearShakerC2SMessage::handle, Optional.of(NetworkDirection.PLAY_TO_SERVER));
+
+        CHANNEL.registerMessage(3, DrinkEffectSyncS2CMessage.class,
+                DrinkEffectSyncS2CMessage::encode, DrinkEffectSyncS2CMessage::decode,
+                DrinkEffectSyncS2CMessage::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
     }
 
     public static void sendToClient(Player player, Object packet) {
