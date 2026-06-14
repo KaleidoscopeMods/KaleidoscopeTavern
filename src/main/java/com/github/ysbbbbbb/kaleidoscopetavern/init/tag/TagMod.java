@@ -38,6 +38,18 @@ public interface TagMod {
      */
     TagKey<Block> GRAPEVINE_TRELLISES = blockTag("grapevine_trellises");
     /**
+     * 可以种植普通葡萄的方块
+     */
+    TagKey<Block> CAN_GROW_GRAPE = blockTag("can_grow_grape");
+    /**
+     * 可以种植冰葡萄的方块
+     */
+    TagKey<Block> CAN_GROW_ICE_GRAPE = blockTag("can_grow_ice_grape");
+    /**
+     * 可以种植黄金葡萄的方块
+     */
+    TagKey<Block> CAN_GROW_GOLD_GRAPE = blockTag("can_grow_gold_grape");
+    /**
      * 穿草隐身效果起效的方块
      */
     TagKey<Block> GRASS_STEALTH_PLANTS = blockTag("grass_stealth_plants");

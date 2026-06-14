@@ -153,6 +153,16 @@ public class TagBlock extends BlockTagsProvider {
                 ModBlocks.GOLD_GRAPEVINE_TRELLIS.get()
         );
 
+        this.tag(TagMod.CAN_GROW_GRAPE)
+                .addTag(BlockTags.DIRT);
+        this.tag(TagMod.CAN_GROW_ICE_GRAPE)
+                .addTag(BlockTags.ICE)
+                .add(Blocks.SNOW_BLOCK);
+        this.tag(TagMod.CAN_GROW_GOLD_GRAPE).add(
+                Blocks.NETHERRACK,
+                Blocks.MAGMA_BLOCK
+        );
+
         this.tag(TagMod.GRASS_STEALTH_PLANTS).add(
                 Blocks.GRASS,
                 Blocks.TALL_GRASS,
