@@ -239,6 +239,7 @@
   "jade.plugin_kaleidoscope_tavern.barrel.max_level": "最大品质",
   "emi.category.kaleidoscope_tavern.barrel": "酒桶",
   "emi.category.kaleidoscope_tavern.pressing_tub": "果盆",
+  "emi.category.kaleidoscope_tavern.shaker": "雪克杯",
   "kaleidoscope_tavern.ponder.pressing_tub_introduction.header": "存取物品",
   "kaleidoscope_tavern.ponder.pressing_tub_introduction.text_1": "手持物品右键果盆可存入物品\n注意，果盆只可储存单种物品",
   "kaleidoscope_tavern.ponder.pressing_tub_introduction.text_2": "空手右键果盆可取出1个物品",

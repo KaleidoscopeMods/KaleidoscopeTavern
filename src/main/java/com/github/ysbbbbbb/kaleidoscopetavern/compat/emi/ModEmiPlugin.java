@@ -2,6 +2,7 @@ package com.github.ysbbbbbb.kaleidoscopetavern.compat.emi;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.compat.emi.category.EmiBarrelRecipe;
 import com.github.ysbbbbbb.kaleidoscopetavern.compat.emi.category.EmiPressingTubRecipe;
+import com.github.ysbbbbbb.kaleidoscopetavern.compat.emi.category.EmiShakerRecipe;
 import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
@@ -12,5 +13,6 @@ public class ModEmiPlugin implements EmiPlugin {
     public void register(EmiRegistry registry) {
         EmiBarrelRecipe.register(registry);
         EmiPressingTubRecipe.register(registry);
+        EmiShakerRecipe.register(registry);
     }
 }

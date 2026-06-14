@@ -239,6 +239,7 @@
   "jade.plugin_kaleidoscope_tavern.barrel.max_level": "Max Level",
   "emi.category.kaleidoscope_tavern.barrel": "Barrel",
   "emi.category.kaleidoscope_tavern.pressing_tub": "Pressing Tub",
+  "emi.category.kaleidoscope_tavern.shaker": "Shaker",
   "kaleidoscope_tavern.ponder.pressing_tub_introduction.header": "Accessing Items",
   "kaleidoscope_tavern.ponder.pressing_tub_introduction.text_1": "Right-click the Pressing Tub with an itemStack to store it\nNote: The Pressing Tub can only hold one type of item at a time.",
   "kaleidoscope_tavern.ponder.pressing_tub_introduction.text_2": "Right-click the Pressing Tub with an empty hand to take out 1 item.",
