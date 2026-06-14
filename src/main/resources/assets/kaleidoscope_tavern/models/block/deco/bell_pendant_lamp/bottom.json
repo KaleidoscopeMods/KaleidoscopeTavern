@@ -5,7 +5,7 @@
 	"render_type": "translucent",
 	"textures": {
 		"2": "kaleidoscope_tavern:block/deco/bell_pendant_lamp",
-		"particle": "kaleidoscope_tavern:block/deco/bell_pendant_lamp"
+		"particle": "minecraft:block/chain"
 	},
 	"elements": [
 		{
