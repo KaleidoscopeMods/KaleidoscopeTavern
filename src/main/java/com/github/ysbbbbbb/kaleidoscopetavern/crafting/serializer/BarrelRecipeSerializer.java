@@ -2,7 +2,6 @@ package com.github.ysbbbbbb.kaleidoscopetavern.crafting.serializer;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe.BarrelRecipe;
-import com.github.ysbbbbbb.kaleidoscopetavern.item.BottleBlockItem;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
@@ -10,7 +9,6 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -18,7 +16,6 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 public class BarrelRecipeSerializer implements RecipeSerializer<BarrelRecipe> {
@@ -49,18 +46,9 @@ public class BarrelRecipeSerializer implements RecipeSerializer<BarrelRecipe> {
 
         JsonObject carrierJson = GsonHelper.getAsJsonObject(json, "carrier");
         Ingredient carrier = Ingredient.fromJson(carrierJson);
-        // 检查 carrier 是否为 ItemBlock 及其子类
-        Arrays.stream(carrier.getItems()).forEach(stack -> {
-            if (!(stack.getItem() instanceof BlockItem)) {
-                throw new JsonParseException("Carrier must extend class BlockItem, but found: " + stack.getItem());
-            }
-        });
 
         JsonObject resultJson = GsonHelper.getAsJsonObject(json, "result");
         ItemStack result = CraftingHelper.getItemStack(resultJson, true, true);
-        if (!(result.getItem() instanceof BottleBlockItem)) {
-            throw new JsonParseException("Result must extend class BottleBlockItem, but found: " + result.getItem());
-        }
 
         int unitTime = GsonHelper.getAsInt(json, "unit_time", DEFAULT_UNIT_TIME);
         if (unitTime <= 0) {
