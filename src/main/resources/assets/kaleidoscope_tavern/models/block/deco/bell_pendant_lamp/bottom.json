@@ -1,11 +1,11 @@
 {
 	"format_version": "1.21.6",
 	"credit": "Made with Blockbench",
-	"texture_size": [32, 32],
 	"render_type": "translucent",
+	"texture_size": [32, 32],
 	"textures": {
 		"2": "kaleidoscope_tavern:block/deco/bell_pendant_lamp",
-		"particle": "minecraft:block/chain"
+		"particle": "block/chain"
 	},
 	"elements": [
 		{
@@ -62,6 +62,7 @@
 			"name": "body",
 			"from": [10, 3, 6],
 			"to": [14, 6, 10],
+			"shade": false,
 			"rotation": {"angle": 0, "axis": "y", "origin": [9, -4.5, 9]},
 			"faces": {
 				"north": {"uv": [8, 14, 10, 12.5], "rotation": 180, "texture": "#2"},
@@ -75,6 +76,7 @@
 			"name": "body",
 			"from": [9.5, 1, 5.5],
 			"to": [14.5, 3, 10.5],
+			"shade": false,
 			"rotation": {"angle": 0, "axis": "y", "origin": [8.5, -3.5, 9.5]},
 			"faces": {
 				"north": {"uv": [9.5, 15, 12, 16], "rotation": 180, "texture": "#2"},
@@ -89,6 +91,7 @@
 			"name": "body",
 			"from": [2, 3, 6],
 			"to": [6, 6, 10],
+			"shade": false,
 			"rotation": {"angle": 0, "axis": "y", "origin": [1, -4.5, 9]},
 			"faces": {
 				"north": {"uv": [8, 14, 10, 12.5], "rotation": 180, "texture": "#2"},
@@ -102,6 +105,7 @@
 			"name": "body",
 			"from": [1.5, 1, 5.5],
 			"to": [6.5, 3, 10.5],
+			"shade": false,
 			"rotation": {"angle": 0, "axis": "y", "origin": [0.5, -3.5, 9.5]},
 			"faces": {
 				"north": {"uv": [9.5, 15, 12, 16], "rotation": 180, "texture": "#2"},
