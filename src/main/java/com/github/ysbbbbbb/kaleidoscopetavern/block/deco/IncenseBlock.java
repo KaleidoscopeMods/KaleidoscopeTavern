@@ -146,7 +146,7 @@ public class IncenseBlock extends HorizontalDirectionalBlock implements EntityBl
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        boolean powered = state.getValue(POWERED);
+        boolean open = state.getValue(OPEN);
 
         double x = pos.getX() + 0.5;
         double y = pos.getY() + 0.5;
@@ -161,7 +161,7 @@ public class IncenseBlock extends HorizontalDirectionalBlock implements EntityBl
             level.addParticle(smallParticle.get(), x, y, z, dx, dy, dz);
         }
 
-        if (!powered) {
+        if (!open) {
             return;
         }
 
