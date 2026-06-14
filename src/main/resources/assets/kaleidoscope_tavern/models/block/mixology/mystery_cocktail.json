@@ -462,5 +462,5 @@
       "scale": [2, 2, 2]
     }
   },
-  "render_type": "cutout"
+  "render_type": "translucent"
 }
