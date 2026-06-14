@@ -46,14 +46,11 @@ public class ShakerBlockEntity extends BaseBlockEntity implements IShaker {
         }
 
         // 如果是酒，需要首先检查品质，必须是优质以上
-        if (stack.getItem() instanceof BottleBlockItem) {
-            int brewLevel = BottleBlockItem.getBrewLevel(stack);
-            if (brewLevel < 4) {
-                if (user instanceof Player player && !player.level().isClientSide) {
-                    player.sendSystemMessage(Component.translatable("message.kaleidoscope_tavern.shaker.brew_level_too_low"));
-                }
-                return false;
+        if (!BottleBlockItem.isValidForShaker(stack)) {
+            if (user instanceof Player player && !player.level().isClientSide) {
+                player.sendSystemMessage(Component.translatable("message.kaleidoscope_tavern.shaker.brew_level_too_low"));
             }
+            return false;
         }
 
         ItemStack copy = stack.copyWithCount(1);

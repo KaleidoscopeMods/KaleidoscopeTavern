@@ -29,7 +29,9 @@ public class ButterflyIncenseLargeParticle extends TextureSheetParticle {
     public void tick() {
         super.tick();
         if (!this.removed) {
-            this.setSpriteFromAge(this.sprites);
+            // 使其在 0 - 2 之间来回变化
+            int age = (this.age / 5) % 3;
+            this.setSprite(sprites.get(age, 2));
         }
     }
 

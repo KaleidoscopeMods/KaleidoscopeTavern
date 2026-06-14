@@ -3,11 +3,11 @@ package com.github.ysbbbbbb.kaleidoscopetavern.item;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.mixology.SignatureCocktailBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.client.animation.ShakerAnimation;
 import com.github.ysbbbbbb.kaleidoscopetavern.datamap.data.DrinkEffectData;
-import com.github.ysbbbbbb.kaleidoscopetavern.datamap.resources.DrinkEffectDataReloadListener;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModItems;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModRecipes;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModSounds;
+import com.github.ysbbbbbb.kaleidoscopetavern.util.CocktailEffectHelper;
 import com.github.ysbbbbbb.kaleidoscopetavern.util.ColorUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.ChatFormatting;
@@ -27,12 +27,11 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
@@ -41,10 +40,7 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Consumer;
 
 import static com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.GlasswareBlock.ROTATION;
@@ -106,98 +102,55 @@ public class ShakerItem extends BlockItem {
         // 如果有产物，并且点击的是空鸡尾酒杯，尝试倒出
         BlockState rawState = level.getBlockState(pos);
         if (hasResult(stack) && rawState.is(ModBlocks.EMPTY_GLASSWARE.get())) {
-            ItemStack result = getResult(stack);
-            if (result.getItem() instanceof BlockItem blockItem) {
-                BlockState blockState = blockItem.getBlock().defaultBlockState();
-                if (blockState.hasProperty(ROTATION)) {
-                    blockState = blockState.setValue(ROTATION, rawState.getValue(ROTATION));
-                }
-                level.setBlockAndUpdate(pos, blockState);
-            }
-
-            // 如果是普通鸡尾酒，需要计算效果和颜色
-            if (level.getBlockEntity(pos) instanceof SignatureCocktailBlockEntity ordinary) {
-                ItemStackHandler storage = getStorage(stack);
-                Map<Item, DrinkEffectData> instance = DrinkEffectDataReloadListener.INSTANCE;
-
-                List<DrinkEffectData.Entry> effects = Lists.newArrayList();
-                List<ChatFormatting> colors = Lists.newArrayList();
-
-                for (int i = 0; i < storage.getSlots(); i++) {
-                    ItemStack ingredient = storage.getStackInSlot(i);
-                    if (ingredient.isEmpty()) {
-                        continue;
-                    }
-
-                    // 药水视为白色酒，提取其效果
-                    if (ingredient.getItem() instanceof PotionItem) {
-                        colors.add(ChatFormatting.WHITE);
-                        List<MobEffectInstance> potionEffects = PotionUtils.getMobEffects(ingredient);
-                        for (MobEffectInstance e : potionEffects) {
-                            // 药水时长是 tick，DrinkEffectData.Entry 是秒
-                            int durationSeconds = e.getDuration() / 20;
-                            effects.add(new DrinkEffectData.Entry(
-                                    e.getEffect(), durationSeconds, e.getAmplifier(), 1.0F
-                            ));
-                        }
-                        continue;
-                    }
-
-                    ChatFormatting color = ColorUtils.ITEM_COLOR_CACHE.apply(ingredient.getItem());
-                    if (color != ChatFormatting.RESET) {
-                        colors.add(color);
-                    }
-
-                    int brewLevel = BottleBlockItem.getBrewLevel(ingredient);
-                    if (brewLevel > 0 && instance.containsKey(ingredient.getItem())) {
-                        DrinkEffectData data = instance.get(ingredient.getItem());
-                        List<List<DrinkEffectData.Entry>> effectsList = data.effects();
-                        brewLevel = Math.min(brewLevel, effectsList.size());
-                        effects.addAll(effectsList.get(brewLevel - 1));
-                    }
-                }
-
-                // 对效果进行特殊计算：相同效果叠加时长，最后×1.2
-                Map<MobEffect, List<DrinkEffectData.Entry>> grouped = new LinkedHashMap<>();
-                for (DrinkEffectData.Entry entry : effects) {
-                    grouped.computeIfAbsent(entry.effect(), k -> new ArrayList<>()).add(entry);
-                }
-
-                List<DrinkEffectData.Entry> mergedEffects = new ArrayList<>();
-                for (Map.Entry<MobEffect, List<DrinkEffectData.Entry>> e : grouped.entrySet()) {
-                    int totalDuration = 0;
-                    int maxAmplifier = 0;
-                    float maxProbability = 0;
-                    for (DrinkEffectData.Entry entry : e.getValue()) {
-                        totalDuration += entry.duration();
-                        maxAmplifier = Math.max(maxAmplifier, entry.amplifier());
-                        maxProbability = Math.max(maxProbability, entry.probability());
-                    }
-                    totalDuration = (int) (totalDuration * 1.2);
-                    mergedEffects.add(new DrinkEffectData.Entry(
-                            e.getKey(), totalDuration, maxAmplifier, maxProbability
-                    ));
-                }
-
-                int finalColor = ColorUtils.mixColors(colors);
-                ordinary.setColor(finalColor);
-                ordinary.setEffects(mergedEffects);
-                ordinary.refresh();
-            }
-
-            if (level instanceof ServerLevel serverLevel) {
-                serverLevel.sendParticles(
-                        ParticleTypes.EFFECT,
-                        pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
-                        20, 0.1, 0.1, 0.1, 0.5
-                );
-            }
-            removeAll(stack);
-            level.playSound(null, pos, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
+            pourResult(level, stack, pos, rawState);
             return InteractionResult.SUCCESS;
         }
 
         return super.useOn(context);
+    }
+
+    /**
+     * 将雪克杯中的调酒产物倒入空酒杯方块。
+     * 放置对应鸡尾酒方块，若为特调鸡尾酒则计算合成效果和混合颜色。
+     */
+    private void pourResult(Level level, ItemStack stack, BlockPos pos, BlockState rawState) {
+        ItemStack result = getResult(stack);
+
+        // 替换成鸡尾酒方块
+        if (result.getItem() instanceof BlockItem blockItem) {
+            BlockState blockState = blockItem.getBlock().defaultBlockState();
+            if (blockState.hasProperty(ROTATION)) {
+                blockState = blockState.setValue(ROTATION, rawState.getValue(ROTATION));
+            }
+            level.setBlockAndUpdate(pos, blockState);
+        }
+
+        // 如果是特调鸡尾酒，需要计算效果和颜色
+        if (level.getBlockEntity(pos) instanceof SignatureCocktailBlockEntity ordinary) {
+            ItemStackHandler storage = getStorage(stack);
+
+            // 数据计算
+            CocktailEffectHelper.CollectedData data = CocktailEffectHelper.collectFromStorage(storage);
+            List<DrinkEffectData.Entry> mergedEffects = CocktailEffectHelper.mergeEffects(data.effects());
+            int finalColor = ColorUtils.mixColors(data.colors());
+
+            ordinary.setColor(finalColor);
+            ordinary.setEffects(mergedEffects);
+            ordinary.refresh();
+        }
+
+        // 清除雪克杯数据
+        removeAll(stack);
+
+        if (level instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(
+                    ParticleTypes.EFFECT,
+                    pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+                    20, 0.1, 0.1, 0.1, 0.5
+            );
+            serverLevel.playSound(null, pos, SoundEvents.BOTTLE_FILL,
+                    SoundSource.BLOCKS, 1.0F, 1.0F);
+        }
     }
 
     @Override
@@ -208,25 +161,28 @@ public class ShakerItem extends BlockItem {
             return InteractionResultHolder.pass(itemInHand);
         }
 
-        if (hasStorageItem(itemInHand)) {
-            // 检查是否三瓶全满
-            ItemStackHandler storage = getStorage(itemInHand);
-            for (int i = 0; i < storage.getSlots(); i++) {
-                ItemStack stack = storage.getStackInSlot(i);
-                if (stack.isEmpty()) {
-                    if (player instanceof ServerPlayer serverPlayer) {
-                        Component message = Component.translatable("message.kaleidoscope_tavern.shaker.amount_too_low");
-                        serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(message));
-                    }
-                    return InteractionResultHolder.pass(itemInHand);
-                }
-            }
-
-            // 然后才能摇
-            player.startUsingItem(hand);
-            return InteractionResultHolder.consume(itemInHand);
+        // 物品数量检查
+        if (!hasStorageItem(itemInHand)) {
+            return InteractionResultHolder.pass(itemInHand);
         }
-        return InteractionResultHolder.pass(itemInHand);
+
+        // 检查是否三瓶全满
+        ItemStackHandler storage = getStorage(itemInHand);
+        for (int i = 0; i < storage.getSlots(); i++) {
+            ItemStack stack = storage.getStackInSlot(i);
+            if (!stack.isEmpty()) {
+                continue;
+            }
+            if (player instanceof ServerPlayer serverPlayer) {
+                Component message = Component.translatable("message.kaleidoscope_tavern.shaker.amount_too_low");
+                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(message));
+            }
+            return InteractionResultHolder.pass(itemInHand);
+        }
+
+        // 然后才能摇
+        player.startUsingItem(hand);
+        return InteractionResultHolder.consume(itemInHand);
     }
 
     private boolean hasStorageItem(ItemStack itemInHand) {
@@ -295,10 +251,11 @@ public class ShakerItem extends BlockItem {
             }
             stacks.add(ingredient);
         }
-        SimpleContainer container = new SimpleContainer(stacks.toArray(new ItemStack[0]));
 
+        SimpleContainer container = new SimpleContainer(stacks.toArray(new ItemStack[0]));
         RecipeManager manager = level.getRecipeManager();
         RegistryAccess access = level.registryAccess();
+
         manager.getRecipeFor(ModRecipes.SHAKER_RECIPE, container, level).ifPresentOrElse(
                 recipe -> setResult(stack, recipe.assemble(container, access)),
                 () -> setResult(stack, ModItems.MYSTERY_COCKTAIL.get().getDefaultInstance())
