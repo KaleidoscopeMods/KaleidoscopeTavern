@@ -25,10 +25,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 @SuppressWarnings("deprecation")
 public class BottleBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final VoxelShape SHAPE = Block.box(5, 0, 5, 11, 14, 11);
+    public static final VoxelShape SIMPLE_BOTTLE_SHAPE = Block.box(5, 0, 5, 11, 10, 11);
 
     /**
      * 是否为异形酒瓶，这决定了酒柜中可以放入一瓶还是两瓶
@@ -36,6 +39,8 @@ public class BottleBlock extends HorizontalDirectionalBlock implements SimpleWat
      */
     @Deprecated(forRemoval = true)
     private final boolean irregular = false;
+
+    private @Nullable VoxelShape shape;
 
     public BottleBlock(Properties properties) {
         super(properties);
@@ -52,6 +57,11 @@ public class BottleBlock extends HorizontalDirectionalBlock implements SimpleWat
                 .sound(SoundType.GLASS));
     }
 
+    public BottleBlock(VoxelShape shape) {
+        this();
+        this.shape = shape;
+    }
+
     @Deprecated(forRemoval = true)
     public BottleBlock(Properties properties, boolean irregular) {
         this(properties);
@@ -60,6 +70,10 @@ public class BottleBlock extends HorizontalDirectionalBlock implements SimpleWat
     @Deprecated(forRemoval = true)
     public BottleBlock(boolean irregular) {
         this();
+    }
+
+    public static BottleBlock simpleBottle() {
+        return new BottleBlock(SIMPLE_BOTTLE_SHAPE);
     }
 
     @Override
@@ -121,7 +135,7 @@ public class BottleBlock extends HorizontalDirectionalBlock implements SimpleWat
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return SHAPE;
+        return Objects.requireNonNullElse(this.shape, SHAPE);
     }
 
     @Override

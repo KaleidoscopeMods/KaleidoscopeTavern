@@ -245,9 +245,11 @@ public interface ModBlocks {
     RegistryObject<Block> HOLDER = BLOCKS.register("holder", HolderBlock::new);
 
     // 杂项的瓶子
-    RegistryObject<Block> WATER_BOTTLE = BLOCKS.register("water_bottle", BottleBlock::new);
-    RegistryObject<Block> HONEY_BOTTLE = BLOCKS.register("honey_bottle", BottleBlock::new);
-    RegistryObject<Block> DRAGON_BREATH_BOTTLE = BLOCKS.register("dragon_breath_bottle", BottleBlock::new);
+    RegistryObject<Block> WATER_BOTTLE = BLOCKS.register("water_bottle", BottleBlock::simpleBottle);
+    RegistryObject<Block> HONEY_BOTTLE = BLOCKS.register("honey_bottle", BottleBlock::simpleBottle);
+    RegistryObject<Block> DRAGON_BREATH_BOTTLE = BLOCKS.register("dragon_breath_bottle", BottleBlock::simpleBottle);
+    RegistryObject<Block> POTION_BOTTLE = BLOCKS.register("potion_bottle", PotionBottleBlock::new);
+    RegistryObject<Block> XP_BOTTLE = BLOCKS.register("xp_bottle", BottleBlock::simpleBottle);
 
     // 酒
     RegistryObject<Block> WINE = BLOCKS.register("wine", DrinkBlock.create().maxCount(4).shapes(
@@ -617,6 +619,12 @@ public interface ModBlocks {
     RegistryObject<BlockEntityType<GlasswareHolderBlockEntity>> GLASSWARE_HOLDER_BE = BLOCK_ENTITIES.register(
             "glassware_holder", () -> BlockEntityType.Builder
                     .of(GlasswareHolderBlockEntity::new, GLASSWARE_HOLDER.get())
+                    .build(null)
+    );
+
+    RegistryObject<BlockEntityType<PotionBottleBlockEntity>> POTION_BOTTLE_BE = BLOCK_ENTITIES.register(
+            "potion_bottle", () -> BlockEntityType.Builder
+                    .of(PotionBottleBlockEntity::new, POTION_BOTTLE.get())
                     .build(null)
     );
 }

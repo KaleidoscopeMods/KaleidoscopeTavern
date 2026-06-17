@@ -203,6 +203,7 @@ public class BlockLootTables extends BlockLootSubProvider {
         );
         dropOther(ModBlocks.HONEY_BOTTLE.get(), Items.HONEY_BOTTLE);
         dropOther(ModBlocks.DRAGON_BREATH_BOTTLE.get(), Items.DRAGON_BREATH);
+        dropOther(ModBlocks.XP_BOTTLE.get(), Items.EXPERIENCE_BOTTLE);
     }
 
     @Override
