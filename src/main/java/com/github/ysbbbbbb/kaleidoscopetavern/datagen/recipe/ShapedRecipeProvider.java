@@ -242,6 +242,14 @@ public class ShapedRecipeProvider extends ModRecipeProvider {
                 .unlockedBy("has_fence", has(ItemTags.FENCES))
                 .save(consumer);
 
+        // 酒杯
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.EMPTY_GLASSWARE.get())
+                .pattern("G G")
+                .pattern(" G ")
+                .define('G', Tags.Items.GLASS_PANES)
+                .unlockedBy("has_glass_pane", has(Tags.Items.GLASS_PANES))
+                .save(consumer);
+
         // 酒杯架
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.GLASSWARE_HOLDER.get())
                 .pattern("NNN")

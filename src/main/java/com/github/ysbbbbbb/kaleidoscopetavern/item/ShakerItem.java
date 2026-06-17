@@ -50,7 +50,7 @@ public class ShakerItem extends BlockItem {
     private static final String RESULT_TAG = "Result";
 
     public ShakerItem() {
-        super(ModBlocks.SHAKER.get(), new Properties());
+        super(ModBlocks.SHAKER.get(), new Properties().stacksTo(1));
     }
 
     public static ItemStackHandler getStorage(ItemStack stack) {
@@ -258,7 +258,7 @@ public class ShakerItem extends BlockItem {
 
         manager.getRecipeFor(ModRecipes.SHAKER_RECIPE, container, level).ifPresentOrElse(
                 recipe -> setResult(stack, recipe.assemble(container, access)),
-                () -> setResult(stack, ModItems.MYSTERY_COCKTAIL.get().getDefaultInstance())
+                () -> setResult(stack, new ItemStack(ModItems.SIGNATURE_COCKTAIL.get()))
         );
     }
 

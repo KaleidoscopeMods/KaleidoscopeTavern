@@ -65,12 +65,13 @@ public class DrinkBlockItem extends BottleBlockItem implements IHasContainer {
         BlockState state = level.getBlockState(pos);
         Block self = this.getBlock();
 
+        // 先检查能否添加数量
+        if (player != null && tryIncreaseCount(self, state, level, pos, stack, player)) {
+            return InteractionResult.SUCCESS;
+        }
+
         // 只有潜行时才放置
         if (player == null || player.isShiftKeyDown()) {
-            // 先检查能够添加数量
-            if (player != null && tryIncreaseCount(self, state, level, pos, stack, player)) {
-                return InteractionResult.SUCCESS;
-            }
             return this.place(new BlockPlaceContext(context));
         }
 
@@ -155,36 +156,14 @@ public class DrinkBlockItem extends BottleBlockItem implements IHasContainer {
         }
     }
 
-    public void makeThrownPotion(Level level, double x, double y, double z, int brewLevel, @Nullable Entity owner) {
+    public void makeThrownPotion(Level level, double x, double y, double z,
+                                 int brewLevel, @Nullable Entity owner) {
         this.makeThrownPotion(level, x, y, z, brewLevel, owner, null);
     }
 
     public void makeThrownPotion(Level level, double x, double y, double z, int brewLevel,
                                  @Nullable Entity owner, @Nullable Vec3 movement) {
-        DrinkEffectData effectData = DrinkEffectDataReloadListener.INSTANCE.get(this);
-        if (effectData == null) {
-            return;
-        }
-        var effects = effectData.effects();
-        if (effects.isEmpty()) {
-            return;
-        }
-        brewLevel = BottleBlockItem.clampBrewLevel(brewLevel);
-        if (brewLevel < IBarrel.BREWING_STARTED) {
-            return;
-        }
-        brewLevel = Math.min(brewLevel, effects.size());
-
-        // brew level 从 1 开始，所以要 -1 来获取对应的效果列表
-        List<MobEffectInstance> instances = Lists.newArrayList();
-        for (DrinkEffectData.Entry entry : effects.get(brewLevel - 1)) {
-            if (level.random.nextFloat() < entry.probability()) {
-                MobEffect effect = entry.effect();
-                int duration = entry.duration() * 20;
-                int amplifier = entry.amplifier();
-                instances.add(new MobEffectInstance(effect, duration, amplifier));
-            }
-        }
+        List<MobEffectInstance> instances = this.getEffectInstances(level, brewLevel);
 
         // 生成一个投掷药水实体
         ThrownPotion potion = new ThrownPotion(level, x, y, z);
@@ -202,6 +181,34 @@ public class DrinkBlockItem extends BottleBlockItem implements IHasContainer {
         }
 
         level.addFreshEntity(potion);
+    }
+
+    protected List<MobEffectInstance> getEffectInstances(Level level, int brewLevel) {
+        DrinkEffectData effectData = DrinkEffectDataReloadListener.INSTANCE.get(this);
+        if (effectData == null) {
+            return List.of();
+        }
+        var effects = effectData.effects();
+        if (effects.isEmpty()) {
+            return List.of();
+        }
+        brewLevel = BottleBlockItem.clampBrewLevel(brewLevel);
+        if (brewLevel < IBarrel.BREWING_STARTED) {
+            return List.of();
+        }
+        brewLevel = Math.min(brewLevel, effects.size());
+
+        // brew level 从 1 开始，所以要 -1 来获取对应的效果列表
+        List<MobEffectInstance> instances = Lists.newArrayList();
+        for (DrinkEffectData.Entry entry : effects.get(brewLevel - 1)) {
+            if (level.random.nextFloat() < entry.probability()) {
+                MobEffect effect = entry.effect();
+                int duration = entry.duration() * 20;
+                int amplifier = entry.amplifier();
+                instances.add(new MobEffectInstance(effect, duration, amplifier));
+            }
+        }
+        return instances;
     }
 
     @Override
