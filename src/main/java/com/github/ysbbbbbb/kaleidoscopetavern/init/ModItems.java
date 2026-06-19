@@ -101,6 +101,11 @@ public interface ModItems {
     DeferredItem<Item> MONA_LISA_PAINTING = ITEMS.register("mona_lisa_painting", () -> new PaintingBlockItem(ModBlocks.MONA_LISA_PAINTING));
     DeferredItem<Item> MONDRIAN_PAINTING = ITEMS.register("mondrian_painting", () -> new PaintingBlockItem(ModBlocks.MONDRIAN_PAINTING));
 
+    // 垂灯
+    DeferredItem<Item> BELL_PENDANT_LAMP = ITEMS.register("bell_pendant_lamp", () -> new BlockItem(ModBlocks.BELL_PENDANT_LAMP.get(), new Item.Properties()));
+    DeferredItem<Item> YELLOW_PENDANT_LAMP = ITEMS.register("yellow_pendant_lamp", () -> new BlockItem(ModBlocks.YELLOW_PENDANT_LAMP.get(), new Item.Properties()));
+    DeferredItem<Item> BLUE_PENDANT_LAMP = ITEMS.register("blue_pendant_lamp", () -> new BlockItem(ModBlocks.BLUE_PENDANT_LAMP.get(), new Item.Properties()));
+
     // 吧台
     DeferredItem<Item> BAR_COUNTER = ITEMS.register("bar_counter", () -> new BlockItem(ModBlocks.BAR_COUNTER.get(), new Item.Properties()));
     // 人字梯
@@ -131,9 +136,38 @@ public interface ModItems {
     // 酒柜
     DeferredItem<Item> BAR_CABINET = ITEMS.register("bar_cabinet", () -> new BlockItem(ModBlocks.BAR_CABINET.get(), new Item.Properties()));
     DeferredItem<Item> GLASS_BAR_CABINET = ITEMS.register("glass_bar_cabinet", () -> new BlockItem(ModBlocks.GLASS_BAR_CABINET.get(), new Item.Properties()));
+    DeferredItem<Item> CELLAR_CABINET = ITEMS.register("cellar_cabinet", () -> new BlockItem(ModBlocks.CELLAR_CABINET.get(), new Item.Properties()));
+
+    // 酒架
+    DeferredItem<Item> TILTED_RACK = ITEMS.register("tilted_rack", () -> new BlockItem(ModBlocks.TILTED_RACK.get(), new Item.Properties()));
+    DeferredItem<Item> CIRCULAR_RACK = ITEMS.register("circular_rack", () -> new BlockItem(ModBlocks.CIRCULAR_RACK.get(), new Item.Properties()));
+    DeferredItem<Item> HOLDER = ITEMS.register("holder", () -> new BlockItem(ModBlocks.HOLDER.get(), new Item.Properties()));
 
     // 空瓶
     DeferredItem<Item> EMPTY_BOTTLE = ITEMS.register("empty_bottle", () -> new BottleBlockItem(ModBlocks.EMPTY_BOTTLE.get()));
+    DeferredItem<Item> EMPTY_GLASSWARE = ITEMS.register("empty_glassware", () -> new GlasswareBlockItem(ModBlocks.EMPTY_GLASSWARE.get()));
+
+    // 鸡尾酒
+    DeferredItem<Item> SIGNATURE_COCKTAIL = ITEMS.register("signature_cocktail", () -> new SignatureCocktailBlockItem(ModBlocks.SIGNATURE_COCKTAIL.get()));
+    DeferredItem<Item> MYSTERY_COCKTAIL = ITEMS.register("mystery_cocktail", () -> new CocktailBlockItem(ModBlocks.MYSTERY_COCKTAIL.get()));
+    DeferredItem<Item> WHITE_LADY = ITEMS.register("white_lady", () -> new CocktailBlockItem(ModBlocks.WHITE_LADY.get()));
+    DeferredItem<Item> EMERALD = ITEMS.register("emerald", () -> new CocktailBlockItem(ModBlocks.EMERALD.get()));
+    DeferredItem<Item> BRASS_HEART = ITEMS.register("brass_heart", () -> new CocktailBlockItem(ModBlocks.BRASS_HEART.get()));
+    DeferredItem<Item> GODFATHER = ITEMS.register("godfather", () -> new CocktailBlockItem(ModBlocks.GODFATHER.get()));
+    DeferredItem<Item> GRASSHOPPER = ITEMS.register("grasshopper", () -> new CocktailBlockItem(ModBlocks.GRASSHOPPER.get()));
+    DeferredItem<Item> SCREWDRIVER = ITEMS.register("screwdriver", () -> new CocktailBlockItem(ModBlocks.SCREWDRIVER.get()));
+    DeferredItem<Item> MOJITO = ITEMS.register("mojito", () -> new CocktailBlockItem(ModBlocks.MOJITO.get()));
+    DeferredItem<Item> ALLIUM_GARDEN = ITEMS.register("allium_garden", () -> new CocktailBlockItem(ModBlocks.ALLIUM_GARDEN.get()));
+    DeferredItem<Item> DEPTH_CHARGE = ITEMS.register("depth_charge", () -> new CocktailBlockItem(ModBlocks.DEPTH_CHARGE.get()));
+    DeferredItem<Item> NETHER_SPECIAL = ITEMS.register("nether_special", () -> new CocktailBlockItem(ModBlocks.NETHER_SPECIAL.get()));
+    DeferredItem<Item> BLOODY_MARY = ITEMS.register("bloody_mary", () -> new CocktailBlockItem(ModBlocks.BLOODY_MARY.get()));
+    DeferredItem<Item> SCULK_SPECIAL = ITEMS.register("sculk_special", () -> new CocktailBlockItem(ModBlocks.SCULK_SPECIAL.get()));
+
+    // 雪克杯
+    DeferredItem<Item> SHAKER = ITEMS.register("shaker", ShakerItem::new);
+
+    // 酒杯架
+    DeferredItem<Item> GLASSWARE_HOLDER = ITEMS.register("glassware_holder", () -> new BlockItem(ModBlocks.GLASSWARE_HOLDER.get(), new Item.Properties()));
     // 燃烧瓶
     DeferredItem<Item> MOLOTOV = ITEMS.register("molotov", () -> new MolotovBlockItem(ModBlocks.MOLOTOV.get()));
     // 酒
@@ -162,4 +196,14 @@ public interface ModItems {
     DeferredItem<Item> SAUVIGNON_BLANC_DRY_WHITE = ITEMS.register("sauvignon_blanc_dry_white", () -> new DrinkBlockItem(ModBlocks.SAUVIGNON_BLANC_DRY_WHITE.get()));
     DeferredItem<Item> VINEGAR = ITEMS.register("vinegar", () -> new DrinkBlockItem(ModBlocks.VINEGAR.get()));
     DeferredItem<Item> WATERMELON_JUICE = ITEMS.register("watermelon_juice", () -> new DrinkBlockItem(ModBlocks.WATERMELON_JUICE.get()));
+
+    // 香薰
+    DeferredItem<Item> SAKURA_INCENSE = ITEMS.register("sakura_incense", () -> new BlockItem(ModBlocks.SAKURA_INCENSE.get(), new Item.Properties()));
+    DeferredItem<Item> PINE_INCENSE = ITEMS.register("pine_incense", () -> new BlockItem(ModBlocks.PINE_INCENSE.get(), new Item.Properties()));
+    DeferredItem<Item> GINKGO_INCENSE = ITEMS.register("ginkgo_incense", () -> new BlockItem(ModBlocks.GINKGO_INCENSE.get(), new Item.Properties()));
+    DeferredItem<Item> SPORE_INCENSE = ITEMS.register("spore_incense", () -> new BlockItem(ModBlocks.SPORE_INCENSE.get(), new Item.Properties()));
+    DeferredItem<Item> CATNIP_INCENSE = ITEMS.register("catnip_incense", () -> new BlockItem(ModBlocks.CATNIP_INCENSE.get(), new Item.Properties()));
+    DeferredItem<Item> SNOW_INCENSE = ITEMS.register("snow_incense", () -> new BlockItem(ModBlocks.SNOW_INCENSE.get(), new Item.Properties()));
+    DeferredItem<Item> BUTTERFLY_INCENSE = ITEMS.register("butterfly_incense", () -> new BlockItem(ModBlocks.BUTTERFLY_INCENSE.get(), new Item.Properties()));
+    DeferredItem<Item> FIREFLY_INCENSE = ITEMS.register("firefly_incense", () -> new BlockItem(ModBlocks.FIREFLY_INCENSE.get(), new Item.Properties()));
 }

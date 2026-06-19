@@ -40,8 +40,8 @@ public class DrinkBlock extends BottleBlock implements EntityBlock {
     protected final EnumMap<Direction, VoxelShape>[] shapes;
 
     @SuppressWarnings("unchecked")
-    public DrinkBlock(boolean irregular, int maxCount, VoxelShape... shapes) {
-        super(irregular);
+    public DrinkBlock(int maxCount, VoxelShape... shapes) {
+        super();
         this.maxCount = maxCount;
         this.countProperty = IntegerProperty.create("count", 1, maxCount);
         this.shapes = new EnumMap[shapes.length];
@@ -59,8 +59,9 @@ public class DrinkBlock extends BottleBlock implements EntityBlock {
                 .setValue(WATERLOGGED, false));
     }
 
-    public DrinkBlock(int maxCount, VoxelShape... shapes) {
-        this(false, maxCount, shapes);
+    @Deprecated(forRemoval = true)
+    public DrinkBlock(boolean irregular, int maxCount, VoxelShape... shapes) {
+        this(maxCount, shapes);
     }
 
     public boolean tryIncreaseCount(Level level, BlockPos pos, BlockState state, ItemStack stack) {
@@ -189,12 +190,14 @@ public class DrinkBlock extends BottleBlock implements EntityBlock {
     }
 
     public static class Builder {
-        private boolean irregular = false;
         private int maxCount;
         private VoxelShape[] shapes;
 
+        /**
+         * @deprecated 现在通过 Item Tag 来决定了，不应当再使用此方法
+         */
+        @Deprecated(forRemoval = true)
         public Builder irregular() {
-            this.irregular = true;
             return this;
         }
 
@@ -209,7 +212,7 @@ public class DrinkBlock extends BottleBlock implements EntityBlock {
         }
 
         public Supplier<? extends Block> build() {
-            return () -> new DrinkBlock(irregular, maxCount, shapes);
+            return () -> new DrinkBlock(maxCount, shapes);
         }
     }
 }

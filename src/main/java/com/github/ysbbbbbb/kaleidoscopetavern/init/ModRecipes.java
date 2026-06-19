@@ -3,8 +3,10 @@ package com.github.ysbbbbbb.kaleidoscopetavern.init;
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe.BarrelRecipe;
 import com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe.PressingTubRecipe;
+import com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe.ShakerRecipe;
 import com.github.ysbbbbbb.kaleidoscopetavern.crafting.serializer.BarrelRecipeSerializer;
 import com.github.ysbbbbbb.kaleidoscopetavern.crafting.serializer.PressingTubRecipeSerializer;
+import com.github.ysbbbbbb.kaleidoscopetavern.crafting.serializer.ShakerRecipeSerializer;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -21,15 +23,18 @@ public class ModRecipes {
 
     public static Supplier<RecipeSerializer<?>> PRESSING_TUB_SERIALIZER = RECIPE_SERIALIZERS.register("pressing_tub", PressingTubRecipeSerializer::new);
     public static Supplier<RecipeSerializer<?>> BARREL_SERIALIZER = RECIPE_SERIALIZERS.register("barrel", BarrelRecipeSerializer::new);
+    public static Supplier<RecipeSerializer<?>> SHAKER_SERIALIZER = RECIPE_SERIALIZERS.register("shaker", ShakerRecipeSerializer::new);
 
     public static RecipeType<PressingTubRecipe> PRESSING_TUB_RECIPE;
     public static RecipeType<BarrelRecipe> BARREL_RECIPE;
+    public static RecipeType<ShakerRecipe> SHAKER_RECIPE;
 
     @SubscribeEvent
     public static void register(RegisterEvent evt) {
         if (evt.getRegistryKey().equals(Registries.RECIPE_SERIALIZER)) {
             PRESSING_TUB_RECIPE = RecipeType.simple(KaleidoscopeTavern.modLoc("pressing_tub"));
             BARREL_RECIPE = RecipeType.simple(KaleidoscopeTavern.modLoc("barrel"));
+            SHAKER_RECIPE = RecipeType.simple(KaleidoscopeTavern.modLoc("shaker"));
         }
     }
 }

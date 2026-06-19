@@ -124,6 +124,11 @@ public class BlockLootTables extends BlockLootSubProvider {
         dropSelf(ModBlocks.MONA_LISA_PAINTING.get());
         dropSelf(ModBlocks.MONDRIAN_PAINTING.get());
 
+        // 垂灯
+        dropSelf(ModBlocks.BELL_PENDANT_LAMP.get());
+        dropSelf(ModBlocks.YELLOW_PENDANT_LAMP.get());
+        dropSelf(ModBlocks.BLUE_PENDANT_LAMP.get());
+
         // 吧台
         dropSelf(ModBlocks.BAR_COUNTER.get());
         // 人字梯
@@ -144,9 +149,30 @@ public class BlockLootTables extends BlockLootSubProvider {
 
         // 果盆
         dropSelf(ModBlocks.PRESSING_TUB.get());
+
+        // 酒杯架
+        dropSelf(ModBlocks.GLASSWARE_HOLDER.get());
+
         // 空瓶子
         dropSelf(ModBlocks.EMPTY_BOTTLE.get());
+        dropSelf(ModBlocks.EMPTY_GLASSWARE.get());
+
+        // 鸡尾酒
+        dropSelf(ModBlocks.MYSTERY_COCKTAIL.get());
+        dropSelf(ModBlocks.WHITE_LADY.get());
+        dropSelf(ModBlocks.EMERALD.get());
+        dropSelf(ModBlocks.BRASS_HEART.get());
+        dropSelf(ModBlocks.GODFATHER.get());
+        dropSelf(ModBlocks.GRASSHOPPER.get());
+        dropSelf(ModBlocks.SCREWDRIVER.get());
+        dropSelf(ModBlocks.MOJITO.get());
+        dropSelf(ModBlocks.ALLIUM_GARDEN.get());
+        dropSelf(ModBlocks.DEPTH_CHARGE.get());
+        dropSelf(ModBlocks.NETHER_SPECIAL.get());
+        dropSelf(ModBlocks.BLOODY_MARY.get());
+        dropSelf(ModBlocks.SCULK_SPECIAL.get());
         dropSelf(ModBlocks.MOLOTOV.get());
+
         // 龙头
         dropSelf(ModBlocks.TAP.get());
         // 酒桶
@@ -154,11 +180,28 @@ public class BlockLootTables extends BlockLootSubProvider {
         // 酒柜
         dropSelf(ModBlocks.BAR_CABINET.get());
         dropSelf(ModBlocks.GLASS_BAR_CABINET.get());
+        dropSelf(ModBlocks.CELLAR_CABINET.get());
+
+        // 酒架
+        dropSelf(ModBlocks.TILTED_RACK.get());
+        dropSelf(ModBlocks.CIRCULAR_RACK.get());
+        dropSelf(ModBlocks.HOLDER.get());
+
+        // 香薰
+        dropSelf(ModBlocks.SAKURA_INCENSE.get());
+        dropSelf(ModBlocks.PINE_INCENSE.get());
+        dropSelf(ModBlocks.GINKGO_INCENSE.get());
+        dropSelf(ModBlocks.SPORE_INCENSE.get());
+        dropSelf(ModBlocks.CATNIP_INCENSE.get());
+        dropSelf(ModBlocks.SNOW_INCENSE.get());
+        dropSelf(ModBlocks.BUTTERFLY_INCENSE.get());
+        dropSelf(ModBlocks.FIREFLY_INCENSE.get());
 
         // 杂项瓶子
         add(ModBlocks.WATER_BOTTLE.get(), this.createWaterBottle());
         dropOther(ModBlocks.HONEY_BOTTLE.get(), Items.HONEY_BOTTLE);
         dropOther(ModBlocks.DRAGON_BREATH_BOTTLE.get(), Items.DRAGON_BREATH);
+        dropOther(ModBlocks.XP_BOTTLE.get(), Items.EXPERIENCE_BOTTLE);
     }
 
     @Override

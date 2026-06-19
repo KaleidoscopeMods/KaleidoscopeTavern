@@ -66,6 +66,8 @@ public class ItemModelGenerator extends ItemModelProvider {
         basicItem(ModItems.STEPLADDER.get());
         basicItem(ModItems.GRAPEVINE.get());
 
+        basicItem(ModItems.SHAKER.get());
+
         trellis(ModItems.TRELLIS);
         basicItem(ModItems.GRAPE.get());
         basicItem(ModItems.ICE_GRAPE.get());
@@ -75,6 +77,10 @@ public class ItemModelGenerator extends ItemModelProvider {
         withExistingParent("item/pressing_tub", modLoc("block/brew/pressing_tub"));
         withExistingParent("item/bar_cabinet", modLoc("block/brew/bar_cabinet/single"));
         withExistingParent("item/glass_bar_cabinet", modLoc("block/brew/glass_bar_cabinet/single"));
+        withExistingParent("item/cellar_cabinet", modLoc("block/brew/cellar_cabinet/single"));
+        withExistingParent("item/tilted_rack", modLoc("block/deco/tilted_rack"));
+        withExistingParent("item/circular_rack", modLoc("block/deco/circular_rack"));
+        withExistingParent("item/glassware_holder", modLoc("block/deco/glassware_holder"));
 
         withExistingParent("item/table", modLoc("block/deco/table/single"));
 
@@ -86,9 +92,41 @@ public class ItemModelGenerator extends ItemModelProvider {
         basicItem(ModItems.GLOW_BERRIES_BUCKET.get());
 
         basicItem(ModItems.TAP.get());
-        //basicItem(ModItems.BARREL.get());
+        basicItem(ModItems.HOLDER.get());
+
+        basicItem(ModItems.BELL_PENDANT_LAMP.get());
+        basicItem(ModItems.YELLOW_PENDANT_LAMP.get());
+        basicItem(ModItems.BLUE_PENDANT_LAMP.get());
+
+        // 香薰
+        basicItem(ModItems.SAKURA_INCENSE.get());
+        basicItem(ModItems.PINE_INCENSE.get());
+        basicItem(ModItems.GINKGO_INCENSE.get());
+        basicItem(ModItems.SPORE_INCENSE.get());
+        basicItem(ModItems.CATNIP_INCENSE.get());
+        basicItem(ModItems.SNOW_INCENSE.get());
+        basicItem(ModItems.BUTTERFLY_INCENSE.get());
+        basicItem(ModItems.FIREFLY_INCENSE.get());
 
         basicItem(ModItems.EMPTY_BOTTLE.get());
+        basicItem(ModItems.EMPTY_GLASSWARE.get());
+
+        signatureCocktail();
+
+        basicItem(ModItems.MYSTERY_COCKTAIL.get());
+        basicItem(ModItems.WHITE_LADY.get());
+        basicItem(ModItems.EMERALD.get());
+        basicItem(ModItems.BRASS_HEART.get());
+        basicItem(ModItems.GODFATHER.get());
+        basicItem(ModItems.GRASSHOPPER.get());
+        basicItem(ModItems.SCREWDRIVER.get());
+        basicItem(ModItems.MOJITO.get());
+        basicItem(ModItems.ALLIUM_GARDEN.get());
+        basicItem(ModItems.DEPTH_CHARGE.get());
+        basicItem(ModItems.NETHER_SPECIAL.get());
+        basicItem(ModItems.BLOODY_MARY.get());
+        basicItem(ModItems.SCULK_SPECIAL.get());
+
         basicItem(ModItems.MOLOTOV.get());
         basicItem(ModItems.WINE.get());
         basicItem(ModItems.CHAMPAGNE.get());
@@ -115,6 +153,14 @@ public class ItemModelGenerator extends ItemModelProvider {
         basicItem(ModItems.SAUVIGNON_BLANC_DRY_WHITE.get());
         basicItem(ModItems.VINEGAR.get());
         basicItem(ModItems.WATERMELON_JUICE.get());
+    }
+
+    private void signatureCocktail() {
+        ResourceLocation key = BuiltInRegistries.ITEM.getKey(ModItems.SIGNATURE_COCKTAIL.get());
+        getBuilder(key.toString())
+                .parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture("layer0", modLoc("item/signature_cocktail"))
+                .texture("layer1", modLoc("item/signature_cocktail_tint"));
     }
 
     private void sofa(String color) {

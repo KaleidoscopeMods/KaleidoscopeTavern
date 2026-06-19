@@ -1,0 +1,13 @@
+{
+  "item": "kaleidoscope_tavern:allium_garden",
+  "effects": [
+    [
+      {
+        "effect": "kaleidoscope_tavern:xp_drain",
+        "duration": 1800,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ]
+  ]
+}

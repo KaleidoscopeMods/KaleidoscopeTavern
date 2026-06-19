@@ -1,7 +1,6 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.effect;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 
@@ -10,7 +9,7 @@ public class HighHeelsEffect extends BaseEffect {
         super(color);
         this.addAttributeModifier(
                 Attributes.STEP_HEIGHT,
-                ResourceLocation.fromNamespaceAndPath(KaleidoscopeTavern.MOD_ID, "high_heels_step_height"),
+                KaleidoscopeTavern.modLoc("high_heels_step_height"),
                 0.5,
                 AttributeModifier.Operation.ADD_VALUE
         );

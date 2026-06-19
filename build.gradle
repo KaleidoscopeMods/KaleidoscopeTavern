@@ -2,12 +2,14 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'idea'
-    id 'net.neoforged.moddev' version '2.0.95'
+    id 'net.neoforged.moddev' version '2.0.141'
 }
 
 group = mod_group_id
 version = mod_version
-archivesBaseName = "kaleidoscopetavern"
+base {
+    archivesName = "kaleidoscopetavern"
+}
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
@@ -20,45 +22,54 @@ neoForge {
     runs {
         client {
             client()
-            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
             gameDirectory = project.file('run/client')
-        }
-        client2 {
-            client()
-            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
             programArguments = [
                     "--username", "tartaric_acid"
             ]
-            gameDirectory = project.file('run/client2')
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
+
         server {
             server()
-            //programArgument '--nogui'
-            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
             gameDirectory = project.file('run/server')
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
+
         gameTestServer {
             type = "gameTestServer"
+            gameDirectory = project.file('run/gameTestServer')
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
+
         data {
             data()
+            gameDirectory = project.file('run/data')
             programArguments.addAll '--mod', project.mod_id, '--all',
                     '--output', file('src/generated/resources/').getAbsolutePath(),
                     '--existing', file('src/main/resources/').getAbsolutePath()
         }
+
         configureEach {
+            // +AllowEnhancedClassRedefinition 为 JetBrains Runtime 所需的参数
+            // JetBrains Runtime 是一个修改过的 JDK，支持热重载
+            // +IgnoreUnrecognizedVMOptions 用于忽略未知指令
+            // 否则没有安装 JetBrains Runtime 的用户运行时会报错
             jvmArguments = [
-                    "-XX:+IgnoreUnrecognizedVMOptions",
-                    "-XX:+AllowEnhancedClassRedefinition"
+                    '-XX:+IgnoreUnrecognizedVMOptions',
+                    '-XX:+AllowEnhancedClassRedefinition'
             ]
             systemProperty 'forge.logging.markers', 'REGISTRIES'
+            // 参考：https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
             logLevel = org.slf4j.event.Level.DEBUG
         }
     }
+
     mods {
+        // 定义 mod <-> 源码的绑定关系，用于告知游戏每个 mod 对应哪些源码
+        // 单 mod 项目通常可省略，多 mod 项目应为每个 mod 单独定义
         "${mod_id}" {
-            sourceSet(sourceSets.main)
+            sourceSet sourceSets.main
         }
     }
 }
@@ -125,11 +136,11 @@ repositories {
 
 dependencies {
     // JEI
-    compileOnly("mezz.jei:jei-1.21.1-neoforge-api:19.21.0.247")
-    runtimeOnly("mezz.jei:jei-1.21.1-neoforge:19.21.0.247")
+    compileOnly "mezz.jei:jei-1.21.1-neoforge-api:19.21.0.247"
+    runtimeOnly "mezz.jei:jei-1.21.1-neoforge:19.21.0.247"
 
     // EMI
-    implementation "maven.modrinth:emi:1.1.22+1.21.1+neoforge"
+    compileOnly "maven.modrinth:emi:1.1.22+1.21.1+neoforge"
 
     // REI
     compileOnly "maven.modrinth:cloth-config:15.0.140+neoforge"

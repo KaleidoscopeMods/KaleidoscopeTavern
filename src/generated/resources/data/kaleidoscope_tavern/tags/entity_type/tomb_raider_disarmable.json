@@ -1,0 +1,12 @@
+{
+  "values": [
+    "#minecraft:skeletons",
+    "#minecraft:zombies",
+    "minecraft:piglin",
+    "minecraft:piglin_brute",
+    "minecraft:zombified_piglin",
+    "minecraft:vindicator",
+    "minecraft:pillager",
+    "minecraft:witch"
+  ]
+}

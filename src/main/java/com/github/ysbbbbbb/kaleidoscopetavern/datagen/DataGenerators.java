@@ -10,6 +10,7 @@ import com.github.ysbbbbbb.kaleidoscopetavern.datagen.model.BlockStateGenerator;
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.model.ItemModelGenerator;
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.recipe.ModRecipeGenerator;
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.tag.TagBlock;
+import com.github.ysbbbbbb.kaleidoscopetavern.datagen.tag.TagEntityType;
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.tag.TagItem;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -41,5 +42,6 @@ public class DataGenerators {
 
         var block = vanillaPack.addProvider(packOutput -> new TagBlock(packOutput, registries, helper));
         vanillaPack.addProvider(packOutput -> new TagItem(packOutput, registries, block.contentsGetter(), helper));
+        vanillaPack.addProvider(packOutput -> new TagEntityType(packOutput, registries, helper));
     }
 }

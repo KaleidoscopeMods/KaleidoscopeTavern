@@ -1,0 +1,18 @@
+{
+  "type": "kaleidoscope_tavern:shaker",
+  "ingredients": [
+    {
+      "tag": "kaleidoscope_tavern:cocktail_ingredient_blue"
+    },
+    {
+      "tag": "kaleidoscope_tavern:cocktail_ingredient_blue"
+    },
+    {
+      "tag": "kaleidoscope_tavern:cocktail_ingredient_light_purple"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "kaleidoscope_tavern:sculk_special"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=east,open=false,powered=false": {
+      "model": "kaleidoscope_tavern:block/deco/incense/catnip_incense",
+      "y": 90
+    },
+    "facing=east,open=false,powered=true": {
+      "model": "kaleidoscope_tavern:block/deco/incense/catnip_incense",
+      "y": 90
+    },
+    "facing=east,open=true,powered=false": {
+      "model": "kaleidoscope_tavern:block/deco/incense_open/catnip_incense",
+      "y": 90
+    },
+    "facing=east,open=true,powered=true": {
+      "model": "kaleidoscope_tavern:block/deco/incense_open/catnip_incense",
+      "y": 90
+    },
+    "facing=north,open=false,powered=false": {
+      "model": "kaleidoscope_tavern:block/deco/incense/catnip_incense"
+    },
+    "facing=north,open=false,powered=true": {
+      "model": "kaleidoscope_tavern:block/deco/incense/catnip_incense"
+    },
+    "facing=north,open=true,powered=false": {
+      "model": "kaleidoscope_tavern:block/deco/incense_open/catnip_incense"
+    },
+    "facing=north,open=true,powered=true": {
+      "model": "kaleidoscope_tavern:block/deco/incense_open/catnip_incense"
+    },
+    "facing=south,open=false,powered=false": {
+      "model": "kaleidoscope_tavern:block/deco/incense/catnip_incense",
+      "y": 180
+    },
+    "facing=south,open=false,powered=true": {
+      "model": "kaleidoscope_tavern:block/deco/incense/catnip_incense",
+      "y": 180
+    },
+    "facing=south,open=true,powered=false": {
+      "model": "kaleidoscope_tavern:block/deco/incense_open/catnip_incense",
+      "y": 180
+    },
+    "facing=south,open=true,powered=true": {
+      "model": "kaleidoscope_tavern:block/deco/incense_open/catnip_incense",
+      "y": 180
+    },
+    "facing=west,open=false,powered=false": {
+      "model": "kaleidoscope_tavern:block/deco/incense/catnip_incense",
+      "y": 270
+    },
+    "facing=west,open=false,powered=true": {
+      "model": "kaleidoscope_tavern:block/deco/incense/catnip_incense",
+      "y": 270
+    },
+    "facing=west,open=true,powered=false": {
+      "model": "kaleidoscope_tavern:block/deco/incense_open/catnip_incense",
+      "y": 270
+    },
+    "facing=west,open=true,powered=true": {
+      "model": "kaleidoscope_tavern:block/deco/incense_open/catnip_incense",
+      "y": 270
+    }
+  }
+}

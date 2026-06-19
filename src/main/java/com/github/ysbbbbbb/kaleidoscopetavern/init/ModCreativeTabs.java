@@ -26,6 +26,7 @@ public interface ModCreativeTabs {
                 output.accept(ModItems.PRESSING_TUB.get());
                 output.accept(ModItems.BARREL.get());
                 output.accept(ModItems.TAP.get());
+                output.accept(ModItems.SHAKER.get());
 
                 output.accept(ModItems.GRAPE_BUCKET.get());
                 output.accept(ModItems.ICE_GRAPE_BUCKET.get());
@@ -35,6 +36,7 @@ public interface ModCreativeTabs {
                 output.accept(ModItems.GLOW_BERRIES_BUCKET.get());
 
                 output.accept(ModItems.EMPTY_BOTTLE.get());
+                output.accept(ModItems.EMPTY_GLASSWARE.get());
                 output.accept(ModItems.MOLOTOV.get());
                 output.accept(ModItems.WATERMELON_JUICE.get());
 
@@ -76,6 +78,22 @@ public interface ModCreativeTabs {
                 output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.VODKA));
                 output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.WHISKEY));
                 output.accept(BottleBlockItem.getMaxLevelDrink(ModItems.RUM));
+
+                // 鸡尾酒
+                output.accept(ModItems.SIGNATURE_COCKTAIL.get());
+                output.accept(ModItems.MYSTERY_COCKTAIL.get());
+                output.accept(ModItems.WHITE_LADY.get());
+                output.accept(ModItems.EMERALD.get());
+                output.accept(ModItems.BRASS_HEART.get());
+                output.accept(ModItems.GODFATHER.get());
+                output.accept(ModItems.GRASSHOPPER.get());
+                output.accept(ModItems.SCREWDRIVER.get());
+                output.accept(ModItems.MOJITO.get());
+                output.accept(ModItems.ALLIUM_GARDEN.get());
+                output.accept(ModItems.DEPTH_CHARGE.get());
+                output.accept(ModItems.NETHER_SPECIAL.get());
+                output.accept(ModItems.BLOODY_MARY.get());
+                output.accept(ModItems.SCULK_SPECIAL.get());
             }).build());
 
     Supplier<CreativeModeTab> TAVERN_DECO_TAB = TABS.register("tavern_deco", () -> CreativeModeTab.builder()
@@ -85,6 +103,11 @@ public interface ModCreativeTabs {
             .displayItems((par, output) -> {
                 output.accept(ModItems.BAR_CABINET.get());
                 output.accept(ModItems.GLASS_BAR_CABINET.get());
+                output.accept(ModItems.CELLAR_CABINET.get());
+                output.accept(ModItems.TILTED_RACK.get());
+                output.accept(ModItems.CIRCULAR_RACK.get());
+                output.accept(ModItems.HOLDER.get());
+                output.accept(ModItems.GLASSWARE_HOLDER.get());
                 output.accept(ModItems.BAR_COUNTER.get());
                 output.accept(ModItems.STEPLADDER.get());
 
@@ -107,6 +130,10 @@ public interface ModCreativeTabs {
                 output.accept(ModItems.STRING_LIGHTS_PURPLE.get());
                 output.accept(ModItems.STRING_LIGHTS_MAGENTA.get());
                 output.accept(ModItems.STRING_LIGHTS_PINK.get());
+
+                output.accept(ModItems.BELL_PENDANT_LAMP.get());
+                output.accept(ModItems.YELLOW_PENDANT_LAMP.get());
+                output.accept(ModItems.BLUE_PENDANT_LAMP.get());
 
                 output.accept(ModItems.WHITE_SOFA.get());
                 output.accept(ModItems.LIGHT_GRAY_SOFA.get());
@@ -173,5 +200,15 @@ public interface ModCreativeTabs {
                 output.accept(ModItems.MONDRIAN_PAINTING.get());
 
                 output.accept(ModItems.CHALKBOARD.get());
+
+                // 香薰
+                output.accept(ModItems.SAKURA_INCENSE.get());
+                output.accept(ModItems.PINE_INCENSE.get());
+                output.accept(ModItems.GINKGO_INCENSE.get());
+                output.accept(ModItems.SPORE_INCENSE.get());
+                output.accept(ModItems.CATNIP_INCENSE.get());
+                output.accept(ModItems.SNOW_INCENSE.get());
+                output.accept(ModItems.BUTTERFLY_INCENSE.get());
+                output.accept(ModItems.FIREFLY_INCENSE.get());
             }).build());
 }

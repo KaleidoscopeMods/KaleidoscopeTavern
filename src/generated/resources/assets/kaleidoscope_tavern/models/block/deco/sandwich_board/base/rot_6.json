@@ -1,0 +1,12 @@
+{
+  "parent": "kaleidoscope_tavern:block/deco/sandwich_board/base_top",
+  "transform": {
+    "origin": "center",
+    "rotation": [
+      0.0,
+      -0.9238795,
+      0.0,
+      0.3826835
+    ]
+  }
+}

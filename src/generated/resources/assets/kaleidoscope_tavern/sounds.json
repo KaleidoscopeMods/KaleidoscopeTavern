@@ -1,8 +1,28 @@
 {
+  "block.holder.pop": {
+    "sounds": [
+      "kaleidoscope_tavern:block/holder_pop"
+    ],
+    "subtitle": "subtitles.kaleidoscope_tavern.block.holder.pop"
+  },
   "effect.vision": {
     "sounds": [
       "kaleidoscope_tavern:effect/vision"
     ],
     "subtitle": "subtitles.kaleidoscope_tavern.effect.vision"
+  },
+  "item.shaker.end": {
+    "sounds": [
+      "kaleidoscope_tavern:item/shaker/end"
+    ],
+    "subtitle": "subtitles.kaleidoscope_tavern.item.shaker.end"
+  },
+  "item.shaker.shaking": {
+    "sounds": [
+      "kaleidoscope_tavern:item/shaker/shaking_1",
+      "kaleidoscope_tavern:item/shaker/shaking_2",
+      "kaleidoscope_tavern:item/shaker/shaking_3"
+    ],
+    "subtitle": "subtitles.kaleidoscope_tavern.item.shaker.shaking"
   }
 }

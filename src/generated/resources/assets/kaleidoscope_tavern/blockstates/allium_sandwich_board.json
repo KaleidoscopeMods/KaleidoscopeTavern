@@ -1,64 +1,196 @@
 {
   "variants": {
-    "facing=east,half=bottom,waterlogged=false": {
-      "model": "kaleidoscope_tavern:block/deco/sandwich_board/base",
-      "y": 90
+    "half=bottom,rotation=0,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_0"
     },
-    "facing=east,half=bottom,waterlogged=true": {
-      "model": "kaleidoscope_tavern:block/deco/sandwich_board/base",
-      "y": 90
+    "half=bottom,rotation=0,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_0"
     },
-    "facing=east,half=top,waterlogged=false": {
-      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium_top",
-      "y": 90
+    "half=bottom,rotation=1,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_1"
     },
-    "facing=east,half=top,waterlogged=true": {
-      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium_top",
-      "y": 90
+    "half=bottom,rotation=1,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_1"
     },
-    "facing=north,half=bottom,waterlogged=false": {
-      "model": "kaleidoscope_tavern:block/deco/sandwich_board/base"
+    "half=bottom,rotation=10,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_10"
     },
-    "facing=north,half=bottom,waterlogged=true": {
-      "model": "kaleidoscope_tavern:block/deco/sandwich_board/base"
+    "half=bottom,rotation=10,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_10"
     },
-    "facing=north,half=top,waterlogged=false": {
-      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium_top"
+    "half=bottom,rotation=11,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_11"
     },
-    "facing=north,half=top,waterlogged=true": {
-      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium_top"
+    "half=bottom,rotation=11,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_11"
     },
-    "facing=south,half=bottom,waterlogged=false": {
-      "model": "kaleidoscope_tavern:block/deco/sandwich_board/base",
-      "y": 180
+    "half=bottom,rotation=12,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_12"
     },
-    "facing=south,half=bottom,waterlogged=true": {
-      "model": "kaleidoscope_tavern:block/deco/sandwich_board/base",
-      "y": 180
+    "half=bottom,rotation=12,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_12"
     },
-    "facing=south,half=top,waterlogged=false": {
-      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium_top",
-      "y": 180
+    "half=bottom,rotation=13,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_13"
     },
-    "facing=south,half=top,waterlogged=true": {
-      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium_top",
-      "y": 180
+    "half=bottom,rotation=13,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_13"
     },
-    "facing=west,half=bottom,waterlogged=false": {
-      "model": "kaleidoscope_tavern:block/deco/sandwich_board/base",
-      "y": 270
+    "half=bottom,rotation=14,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_14"
     },
-    "facing=west,half=bottom,waterlogged=true": {
-      "model": "kaleidoscope_tavern:block/deco/sandwich_board/base",
-      "y": 270
+    "half=bottom,rotation=14,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_14"
     },
-    "facing=west,half=top,waterlogged=false": {
-      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium_top",
-      "y": 270
+    "half=bottom,rotation=15,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_15"
     },
-    "facing=west,half=top,waterlogged=true": {
-      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium_top",
-      "y": 270
+    "half=bottom,rotation=15,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_15"
+    },
+    "half=bottom,rotation=2,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_2"
+    },
+    "half=bottom,rotation=2,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_2"
+    },
+    "half=bottom,rotation=3,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_3"
+    },
+    "half=bottom,rotation=3,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_3"
+    },
+    "half=bottom,rotation=4,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_4"
+    },
+    "half=bottom,rotation=4,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_4"
+    },
+    "half=bottom,rotation=5,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_5"
+    },
+    "half=bottom,rotation=5,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_5"
+    },
+    "half=bottom,rotation=6,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_6"
+    },
+    "half=bottom,rotation=6,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_6"
+    },
+    "half=bottom,rotation=7,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_7"
+    },
+    "half=bottom,rotation=7,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_7"
+    },
+    "half=bottom,rotation=8,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_8"
+    },
+    "half=bottom,rotation=8,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_8"
+    },
+    "half=bottom,rotation=9,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_9"
+    },
+    "half=bottom,rotation=9,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/bottom/rot_9"
+    },
+    "half=top,rotation=0,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_0"
+    },
+    "half=top,rotation=0,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_0"
+    },
+    "half=top,rotation=1,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_1"
+    },
+    "half=top,rotation=1,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_1"
+    },
+    "half=top,rotation=10,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_10"
+    },
+    "half=top,rotation=10,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_10"
+    },
+    "half=top,rotation=11,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_11"
+    },
+    "half=top,rotation=11,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_11"
+    },
+    "half=top,rotation=12,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_12"
+    },
+    "half=top,rotation=12,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_12"
+    },
+    "half=top,rotation=13,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_13"
+    },
+    "half=top,rotation=13,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_13"
+    },
+    "half=top,rotation=14,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_14"
+    },
+    "half=top,rotation=14,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_14"
+    },
+    "half=top,rotation=15,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_15"
+    },
+    "half=top,rotation=15,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_15"
+    },
+    "half=top,rotation=2,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_2"
+    },
+    "half=top,rotation=2,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_2"
+    },
+    "half=top,rotation=3,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_3"
+    },
+    "half=top,rotation=3,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_3"
+    },
+    "half=top,rotation=4,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_4"
+    },
+    "half=top,rotation=4,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_4"
+    },
+    "half=top,rotation=5,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_5"
+    },
+    "half=top,rotation=5,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_5"
+    },
+    "half=top,rotation=6,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_6"
+    },
+    "half=top,rotation=6,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_6"
+    },
+    "half=top,rotation=7,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_7"
+    },
+    "half=top,rotation=7,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_7"
+    },
+    "half=top,rotation=8,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_8"
+    },
+    "half=top,rotation=8,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_8"
+    },
+    "half=top,rotation=9,waterlogged=false": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_9"
+    },
+    "half=top,rotation=9,waterlogged=true": {
+      "model": "kaleidoscope_tavern:block/deco/sandwich_board/allium/rot_9"
     }
   }
 }

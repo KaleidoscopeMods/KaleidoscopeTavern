@@ -1,6 +1,8 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.network;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
+import com.github.ysbbbbbb.kaleidoscopetavern.network.message.ClearShakerC2SMessage;
+import com.github.ysbbbbbb.kaleidoscopetavern.network.message.DrinkEffectSyncS2CMessage;
 import com.github.ysbbbbbb.kaleidoscopetavern.network.message.TextOpenS2CMessage;
 import com.github.ysbbbbbb.kaleidoscopetavern.network.message.TextUpdateC2SMessage;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -20,6 +22,8 @@ public class NetworkHandler {
 
         registrar.playToServer(TextUpdateC2SMessage.TYPE, TextUpdateC2SMessage.STREAM_CODEC, TextUpdateC2SMessage::handle);
         registrar.playToClient(TextOpenS2CMessage.TYPE, TextOpenS2CMessage.STREAM_CODEC, TextOpenS2CMessage::handle);
+        registrar.playToServer(ClearShakerC2SMessage.TYPE, ClearShakerC2SMessage.STREAM_CODEC, ClearShakerC2SMessage::handle);
+        registrar.playToClient(DrinkEffectSyncS2CMessage.TYPE, DrinkEffectSyncS2CMessage.STREAM_CODEC, DrinkEffectSyncS2CMessage::handle);
     }
 
     public static void sendToClient(Player player, CustomPacketPayload packet) {

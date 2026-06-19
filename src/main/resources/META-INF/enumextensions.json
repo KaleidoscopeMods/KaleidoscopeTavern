@@ -1,0 +1,13 @@
+{
+  "entries": [
+    {
+      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
+      "name": "KALEIDOSCOPE_TAVERN_SHAKING",
+      "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
+      "parameters": {
+        "class": "com/github/ysbbbbbb/kaleidoscopetavern/client/animation/ShakerAnimation",
+        "field": "SHAKING"
+      }
+    }
+  ]
+}

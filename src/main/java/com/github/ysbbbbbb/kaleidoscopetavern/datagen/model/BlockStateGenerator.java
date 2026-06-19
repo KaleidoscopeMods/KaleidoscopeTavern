@@ -5,10 +5,8 @@ import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.BarCabinetBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.DrinkBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.PressingTubBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.TapBlock;
-import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.SandwichBoardBlock;
-import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.SofaBlock;
-import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.StepladderBlock;
-import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.TableBlock;
+import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.*;
+import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.GlasswareBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.GrapeCropBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.GrapevineTrellisBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.TrellisBlock;
@@ -16,15 +14,20 @@ import com.github.ysbbbbbb.kaleidoscopetavern.block.properties.ConnectionType;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.properties.TrellisType;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredBlock;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 
 public class BlockStateGenerator extends BlockStateProvider {
@@ -121,6 +124,11 @@ public class BlockStateGenerator extends BlockStateProvider {
         painting(ModBlocks.MONA_LISA_PAINTING, "mona_lisa");
         painting(ModBlocks.MONDRIAN_PAINTING, "mondrian");
 
+        // 垂灯
+        pendantLamp(ModBlocks.BELL_PENDANT_LAMP, "bell_pendant_lamp");
+        pendantLamp(ModBlocks.YELLOW_PENDANT_LAMP, "yellow_pendant_lamp");
+        pendantLamp(ModBlocks.BLUE_PENDANT_LAMP, "blue_pendant_lamp");
+
         // 吧台
         barCounter(ModBlocks.BAR_COUNTER);
         // 人字梯
@@ -146,19 +154,59 @@ public class BlockStateGenerator extends BlockStateProvider {
         tap(ModBlocks.TAP);
         // 木桶
         simpleBlock(ModBlocks.BARREL.get(), new ModelFile.UncheckedModelFile(modLoc("block/brew/barrel")));
+        // 雪克杯
+        simpleBlock(ModBlocks.SHAKER.get(), new ModelFile.UncheckedModelFile(modLoc("block/mixology/shaker")));
+
+        // 酒杯架
+        horizontalBlock(ModBlocks.GLASSWARE_HOLDER.get(), new ModelFile.UncheckedModelFile(modLoc("block/deco/glassware_holder")));
 
         // 空瓶
         horizontalBlock(ModBlocks.EMPTY_BOTTLE.get(), new ModelFile.UncheckedModelFile(modLoc("block/brew/empty_bottle")));
-        horizontalBlock(ModBlocks.MOLOTOV.get(), new ModelFile.UncheckedModelFile(modLoc("block/brew/molotov")));
+
+        // 鸡尾酒
+        glassware(ModBlocks.EMPTY_GLASSWARE, "empty_glassware");
+        glassware(ModBlocks.SIGNATURE_COCKTAIL, "signature_cocktail");
+        glassware(ModBlocks.MYSTERY_COCKTAIL, "mystery_cocktail");
+        glassware(ModBlocks.WHITE_LADY, "white_lady");
+        glassware(ModBlocks.EMERALD, "emerald");
+        glassware(ModBlocks.BRASS_HEART, "brass_heart");
+        glassware(ModBlocks.GODFATHER, "godfather");
+        glassware(ModBlocks.GRASSHOPPER, "grasshopper");
+        glassware(ModBlocks.SCREWDRIVER, "screwdriver");
+        glassware(ModBlocks.MOJITO, "mojito");
+        glassware(ModBlocks.ALLIUM_GARDEN, "allium_garden");
+        glassware(ModBlocks.DEPTH_CHARGE, "depth_charge");
+        glassware(ModBlocks.NETHER_SPECIAL, "nether_special");
+        glassware(ModBlocks.BLOODY_MARY, "bloody_mary");
+        glassware(ModBlocks.SCULK_SPECIAL, "sculk_special");
 
         // 杂项瓶子
+        simpleBlock(ModBlocks.MOLOTOV.get(), new ModelFile.UncheckedModelFile(modLoc("block/brew/molotov")));
         horizontalBlock(ModBlocks.WATER_BOTTLE.get(), new ModelFile.UncheckedModelFile(modLoc("block/brew/water_bottle")));
         horizontalBlock(ModBlocks.HONEY_BOTTLE.get(), new ModelFile.UncheckedModelFile(modLoc("block/brew/honey_bottle")));
         horizontalBlock(ModBlocks.DRAGON_BREATH_BOTTLE.get(), new ModelFile.UncheckedModelFile(modLoc("block/brew/dragon_breath_bottle")));
+        horizontalBlock(ModBlocks.POTION_BOTTLE.get(), new ModelFile.UncheckedModelFile(modLoc("block/brew/potion_bottle")));
+        horizontalBlock(ModBlocks.XP_BOTTLE.get(), new ModelFile.UncheckedModelFile(modLoc("block/brew/xp_bottle")));
 
         // 酒柜
         barCabinet(ModBlocks.BAR_CABINET, "bar_cabinet");
         barCabinet(ModBlocks.GLASS_BAR_CABINET, "glass_bar_cabinet");
+        barCabinet(ModBlocks.CELLAR_CABINET, "cellar_cabinet");
+
+        // 酒架
+        horizontalBlock(ModBlocks.TILTED_RACK.get(), new ModelFile.UncheckedModelFile(modLoc("block/deco/tilted_rack")));
+        horizontalBlock(ModBlocks.CIRCULAR_RACK.get(), new ModelFile.UncheckedModelFile(modLoc("block/deco/circular_rack")));
+        horizontalBlock(ModBlocks.HOLDER.get(), new ModelFile.UncheckedModelFile(modLoc("block/deco/holder")));
+
+        // 香薰
+        incense(ModBlocks.SAKURA_INCENSE);
+        incense(ModBlocks.PINE_INCENSE);
+        incense(ModBlocks.GINKGO_INCENSE);
+        incense(ModBlocks.SPORE_INCENSE);
+        incense(ModBlocks.CATNIP_INCENSE);
+        incense(ModBlocks.SNOW_INCENSE);
+        incense(ModBlocks.BUTTERFLY_INCENSE);
+        incense(ModBlocks.FIREFLY_INCENSE);
 
         // 酒
         drink(ModBlocks.WINE.get(), "wine");
@@ -247,13 +295,19 @@ public class BlockStateGenerator extends BlockStateProvider {
     }
 
     private void sandwichBoard(Supplier<? extends Block> block, String type) {
-        horizontalBlock(block.get(), blockState -> {
+        getVariantBuilder(block.get()).forAllStates(blockState -> {
             Half half = blockState.getValue(SandwichBoardBlock.HALF);
+            int rotation = blockState.getValue(GlasswareBlock.ROTATION);
+
+            ResourceLocation file;
             if (half == Half.BOTTOM) {
-                return new ModelFile.UncheckedModelFile(modLoc("block/deco/sandwich_board/base"));
+                file = modLoc("block/deco/sandwich_board/bottom/rot_%d".formatted(rotation));
             } else {
-                return new ModelFile.UncheckedModelFile(modLoc("block/deco/sandwich_board/%s_top".formatted(type)));
+                file = modLoc("block/deco/sandwich_board/%s/rot_%d".formatted(type, rotation));
             }
+
+            ModelFile.UncheckedModelFile modelFile = new ModelFile.UncheckedModelFile(file);
+            return ConfiguredModel.builder().modelFile(modelFile).build();
         });
     }
 
@@ -287,6 +341,17 @@ public class BlockStateGenerator extends BlockStateProvider {
                 return new ModelFile.UncheckedModelFile(modLoc("block/deco/stepladder/bottom"));
             } else {
                 return new ModelFile.UncheckedModelFile(modLoc("block/deco/stepladder/top"));
+            }
+        });
+    }
+
+    private void pendantLamp(DeferredBlock<Block> block, String type) {
+        horizontalBlock(block.get(), blockState -> {
+            DoubleBlockHalf half = blockState.getValue(PendantLampBlock.HALF);
+            if (half == DoubleBlockHalf.LOWER) {
+                return new ModelFile.UncheckedModelFile(modLoc("block/deco/%s/bottom".formatted(type)));
+            } else {
+                return new ModelFile.UncheckedModelFile(modLoc("block/deco/%s/top".formatted(type)));
             }
         });
     }
@@ -361,6 +426,25 @@ public class BlockStateGenerator extends BlockStateProvider {
                 ResourceLocation file = modLoc("block/brew/pressing_tub");
                 return new ModelFile.UncheckedModelFile(file);
             }
+        });
+    }
+
+    private void glassware(DeferredBlock<Block> block, String name) {
+        getVariantBuilder(block.get()).forAllStates(blockState -> {
+            int rotation = blockState.getValue(GlasswareBlock.ROTATION);
+            ResourceLocation file = modLoc("block/mixology/%s/rot_%d".formatted(name, rotation));
+            ModelFile.UncheckedModelFile modelFile = new ModelFile.UncheckedModelFile(file);
+            return ConfiguredModel.builder().modelFile(modelFile).build();
+        });
+    }
+
+    private void incense(DeferredBlock<Block> block) {
+        String name = Objects.requireNonNull(BuiltInRegistries.BLOCK.getKey(block.get())).getPath();
+        horizontalBlock(block.get(), blockState -> {
+            if (blockState.getValue(BlockStateProperties.OPEN)) {
+                return new ModelFile.UncheckedModelFile(modLoc("block/deco/incense_open/%s".formatted(name)));
+            }
+            return new ModelFile.UncheckedModelFile(modLoc("block/deco/incense/%s".formatted(name)));
         });
     }
 }

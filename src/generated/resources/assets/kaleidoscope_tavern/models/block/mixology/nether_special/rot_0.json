@@ -1,0 +1,6 @@
+{
+  "parent": "kaleidoscope_tavern:block/mixology/nether_special",
+  "transform": {
+    "origin": "center"
+  }
+}

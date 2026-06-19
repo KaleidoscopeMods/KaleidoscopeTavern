@@ -1,0 +1,13 @@
+{
+  "item": "kaleidoscope_tavern:godfather",
+  "effects": [
+    [
+      {
+        "effect": "kaleidoscope_tavern:zenith",
+        "duration": 0,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ]
+  ]
+}

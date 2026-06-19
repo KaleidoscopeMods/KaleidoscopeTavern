@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "kaleidoscope_tavern:grapevine"
+    },
+    "T": {
+      "tag": "minecraft:trapdoors"
+    }
+  },
+  "pattern": [
+    "GGG",
+    "GTG",
+    "GGG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "kaleidoscope_tavern:cellar_cabinet"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:chain"
+    },
+    "N": {
+      "tag": "c:nuggets/iron"
+    }
+  },
+  "pattern": [
+    "NNN",
+    "CCC",
+    "NNN"
+  ],
+  "result": {
+    "count": 1,
+    "id": "kaleidoscope_tavern:glassware_holder"
+  }
+}

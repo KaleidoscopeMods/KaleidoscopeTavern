@@ -5,8 +5,10 @@ import com.github.ysbbbbbb.kaleidoscopetavern.block.properties.ConnectionType;
 import com.github.ysbbbbbb.kaleidoscopetavern.util.ColorUtils;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.state.properties.RotationSegment;
 import net.neoforged.neoforge.client.model.generators.BlockModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.util.TransformationHelper;
 
 public class BlockModelGenerator extends BlockModelProvider {
     public BlockModelGenerator(PackOutput output, ExistingFileHelper existingFileHelper) {
@@ -20,6 +22,7 @@ public class BlockModelGenerator extends BlockModelProvider {
             barStool(color);
         }
 
+        sandwichBoardBase();
         sandwichBoard("grass");
         sandwichBoard("allium");
         sandwichBoard("azure_bluet");
@@ -48,6 +51,22 @@ public class BlockModelGenerator extends BlockModelProvider {
         painting("great_wave");
         painting("mona_lisa");
         painting("mondrian");
+
+        glassware("empty_glassware");
+        glassware("signature_cocktail");
+        glassware("mystery_cocktail");
+        glassware("white_lady");
+        glassware("emerald");
+        glassware("brass_heart");
+        glassware("godfather");
+        glassware("grasshopper");
+        glassware("screwdriver");
+        glassware("mojito");
+        glassware("allium_garden");
+        glassware("depth_charge");
+        glassware("nether_special");
+        glassware("bloody_mary");
+        glassware("sculk_special");
 
         cross("block/plant/wild_grapevine", modLoc("block/plant/wild_grapevine")).renderType("cutout");
         cross("block/plant/wild_grapevine_plant", modLoc("block/plant/wild_grapevine_plant")).renderType("cutout");
@@ -78,12 +97,45 @@ public class BlockModelGenerator extends BlockModelProvider {
                 .texture("particle", particle);
     }
 
+    private void sandwichBoardBase() {
+        ResourceLocation bottomParent = modLoc("block/deco/sandwich_board/base");
+        ResourceLocation baseParent = modLoc("block/deco/sandwich_board/base_top");
+
+        int max = RotationSegment.getMaxSegmentIndex();
+
+        for (int i = 0; i <= max; i++) {
+            // 下半截（其他展板通用）
+            ResourceLocation bottom = modLoc("block/deco/sandwich_board/bottom/rot_%d".formatted(i));
+            withExistingParent(bottom.toString(), bottomParent)
+                    .rootTransforms()
+                    .origin(TransformationHelper.TransformOrigin.CENTER)
+                    .rotation(0, -i * 22.5f, 0, true)
+                    .end();
+
+            // 上半截
+            ResourceLocation base = modLoc("block/deco/sandwich_board/base/rot_%d".formatted(i));
+            withExistingParent(base.toString(), baseParent)
+                    .rootTransforms()
+                    .origin(TransformationHelper.TransformOrigin.CENTER)
+                    .rotation(0, -i * 22.5f, 0, true)
+                    .end();
+        }
+    }
+
     private void sandwichBoard(String type) {
         ResourceLocation texture = modLoc("block/deco/sandwich_board/%s".formatted(type));
-        String name = "block/deco/sandwich_board/%s_top".formatted(type);
         ResourceLocation parent = modLoc("block/deco/sandwich_board/deco_top");
-        withExistingParent(name, parent)
-                .texture("layer1", texture);
+
+        int max = RotationSegment.getMaxSegmentIndex();
+        for (int i = 0; i <= max; i++) {
+            ResourceLocation file = modLoc("block/deco/sandwich_board/%s/rot_%d".formatted(type, i));
+            withExistingParent(file.toString(), parent)
+                    .texture("layer1", texture)
+                    .rootTransforms()
+                    .origin(TransformationHelper.TransformOrigin.CENTER)
+                    .rotation(0, -i * 22.5f, 0, true)
+                    .end();
+        }
     }
 
     private void painting(String type) {
@@ -92,5 +144,19 @@ public class BlockModelGenerator extends BlockModelProvider {
         ResourceLocation parent = modLoc("block/deco/painting/base");
         withExistingParent(name, parent)
                 .texture("texture", texture);
+    }
+
+    private void glassware(String name) {
+        ResourceLocation parent = modLoc("block/mixology/%s".formatted(name));
+        int max = RotationSegment.getMaxSegmentIndex();
+
+        for (int i = 0; i <= max; i++) {
+            ResourceLocation file = modLoc("block/mixology/%s/rot_%d".formatted(name, i));
+            withExistingParent(file.toString(), parent)
+                    .rootTransforms()
+                    .origin(TransformationHelper.TransformOrigin.CENTER)
+                    .rotation(0, -i * 22.5f, 0, true)
+                    .end();
+        }
     }
 }

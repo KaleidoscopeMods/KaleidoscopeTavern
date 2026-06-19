@@ -1,0 +1,18 @@
+{
+  "type": "kaleidoscope_tavern:shaker",
+  "ingredients": [
+    {
+      "tag": "kaleidoscope_tavern:cocktail_ingredient_green"
+    },
+    {
+      "tag": "kaleidoscope_tavern:cocktail_ingredient_green"
+    },
+    {
+      "tag": "kaleidoscope_tavern:cocktail_ingredient_white"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "kaleidoscope_tavern:grasshopper"
+  }
+}

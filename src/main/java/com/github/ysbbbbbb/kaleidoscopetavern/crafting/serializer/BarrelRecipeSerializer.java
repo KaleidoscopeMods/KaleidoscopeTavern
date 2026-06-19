@@ -23,15 +23,13 @@ public class BarrelRecipeSerializer implements RecipeSerializer<BarrelRecipe> {
     public static final int MAX_INGREDIENTS = 4;
 
     private static final MapCodec<BarrelRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Ingredient.CODEC.listOf().xmap(
-                    list -> {
+            Ingredient.CODEC.listOf().xmap(list -> {
                         NonNullList<Ingredient> nonnull = NonNullList.withSize(MAX_INGREDIENTS, Ingredient.EMPTY);
                         for (int i = 0; i < Math.min(list.size(), MAX_INGREDIENTS); i++) {
                             nonnull.set(i, list.get(i));
                         }
                         return nonnull;
-                    },
-                    nonnull -> nonnull.stream().filter(i -> !i.isEmpty()).toList()
+                    }, nonnull -> nonnull.stream().filter(i -> !i.isEmpty()).toList()
             ).optionalFieldOf("ingredients", NonNullList.withSize(MAX_INGREDIENTS, Ingredient.EMPTY)).forGetter(BarrelRecipe::ingredients),
             BuiltInRegistries.FLUID.byNameCodec().fieldOf("fluid").forGetter(BarrelRecipe::fluid),
             Ingredient.CODEC.fieldOf("carrier").forGetter(BarrelRecipe::carrier),

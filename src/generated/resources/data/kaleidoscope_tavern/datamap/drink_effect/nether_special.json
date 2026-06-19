@@ -1,0 +1,13 @@
+{
+  "item": "kaleidoscope_tavern:nether_special",
+  "effects": [
+    [
+      {
+        "effect": "kaleidoscope_tavern:tomb_raider",
+        "duration": 90,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ]
+  ]
+}

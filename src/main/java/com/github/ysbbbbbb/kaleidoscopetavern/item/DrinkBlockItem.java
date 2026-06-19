@@ -17,6 +17,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -33,6 +34,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -65,12 +67,13 @@ public class DrinkBlockItem extends BottleBlockItem implements IHasContainer {
         BlockState state = level.getBlockState(pos);
         Block self = this.getBlock();
 
+        // 先检查能否添加数量
+        if (player != null && tryIncreaseCount(self, state, level, pos, stack, player)) {
+            return InteractionResult.SUCCESS;
+        }
+
         // 只有潜行时才放置
         if (player == null || player.isShiftKeyDown()) {
-            // 先检查能够添加数量
-            if (player != null && tryIncreaseCount(self, state, level, pos, stack, player)) {
-                return InteractionResult.SUCCESS;
-            }
             return this.place(new BlockPlaceContext(context));
         }
 
@@ -140,39 +143,30 @@ public class DrinkBlockItem extends BottleBlockItem implements IHasContainer {
         // brew level 从 1 开始，所以要 -1 来获取对应的效果列表
         for (DrinkEffectData.Entry entry : effects.get(brewLevel - 1)) {
             if (!level.isClientSide && level.random.nextFloat() < entry.probability()) {
-                // json 里的持续时间是秒，但是内部游戏是 tick，需要转化
-                int duration = entry.duration() * 20;
+                MobEffect effect = entry.effect().value();
                 int amplifier = entry.amplifier();
-                MobEffectInstance instance = new MobEffectInstance(entry.effect(), duration, amplifier);
-                entity.addEffect(instance);
+                if (effect.isInstantenous()) {
+                    // 瞬时效果直接触发，不通过 addEffect
+                    effect.applyInstantenousEffect(entity, entity, entity, amplifier, 1.0);
+                } else {
+                    // json 里的持续时间是秒，但是内部游戏是 tick，需要转化
+                    int duration = entry.duration() * 20;
+                    MobEffectInstance instance = new MobEffectInstance(entry.effect(), duration, amplifier);
+                    entity.addEffect(instance);
+                }
             }
         }
     }
 
-    public void makeThrownPotion(Level level, double x, double y, double z, int brewLevel, @Nullable Entity owner) {
-        DrinkEffectData effectData = DrinkEffectDataReloadListener.INSTANCE.get(this);
-        if (effectData == null) {
-            return;
-        }
-        var effects = effectData.effects();
-        if (effects.isEmpty()) {
-            return;
-        }
-        brewLevel = BottleBlockItem.clampBrewLevel(brewLevel);
-        if (brewLevel < IBarrel.BREWING_STARTED) {
-            return;
-        }
-        brewLevel = Math.min(brewLevel, effects.size());
+    public void makeThrownPotion(Level level, double x, double y, double z,
+                                 int brewLevel, @Nullable Entity owner) {
+        this.makeThrownPotion(level, x, y, z, brewLevel, owner, null);
+    }
 
-        // brew level 从 1 开始，所以要 -1 来获取对应的效果列表
-        List<MobEffectInstance> instances = Lists.newArrayList();
-        for (DrinkEffectData.Entry entry : effects.get(brewLevel - 1)) {
-            if (level.random.nextFloat() < entry.probability()) {
-                int duration = entry.duration() * 20;
-                int amplifier = entry.amplifier();
-                instances.add(new MobEffectInstance(entry.effect(), duration, amplifier));
-            }
-        }
+    public void makeThrownPotion(Level level, double x, double y, double z, int brewLevel,
+                                 @Nullable Entity owner, @Nullable Vec3 movement) {
+        List<MobEffectInstance> instances = this.getEffectInstances(level, brewLevel);
+
 
         // 生成一个投掷药水实体
         ThrownPotion potion = new ThrownPotion(level, x, y, z);
@@ -186,7 +180,38 @@ public class DrinkBlockItem extends BottleBlockItem implements IHasContainer {
         stack.set(DataComponents.POTION_CONTENTS, contents);
         potion.setItem(stack);
 
+        if (movement != null) {
+            potion.setDeltaMovement(movement);
+        }
+
         level.addFreshEntity(potion);
+    }
+
+    protected List<MobEffectInstance> getEffectInstances(Level level, int brewLevel) {
+        DrinkEffectData effectData = DrinkEffectDataReloadListener.INSTANCE.get(this);
+        if (effectData == null) {
+            return List.of();
+        }
+        var effects = effectData.effects();
+        if (effects.isEmpty()) {
+            return List.of();
+        }
+        brewLevel = BottleBlockItem.clampBrewLevel(brewLevel);
+        if (brewLevel < IBarrel.BREWING_STARTED) {
+            return List.of();
+        }
+        brewLevel = Math.min(brewLevel, effects.size());
+
+        // brew level 从 1 开始，所以要 -1 来获取对应的效果列表
+        List<MobEffectInstance> instances = Lists.newArrayList();
+        for (DrinkEffectData.Entry entry : effects.get(brewLevel - 1)) {
+            if (level.random.nextFloat() < entry.probability()) {
+                int duration = entry.duration() * 20;
+                int amplifier = entry.amplifier();
+                instances.add(new MobEffectInstance(entry.effect(), duration, amplifier));
+            }
+        }
+        return instances;
     }
 
     @Override

@@ -57,6 +57,16 @@ public class ShapedRecipeProvider extends ModRecipeProvider {
         barStool(consumer, ModItems.BLACK_BAR_STOOL, Items.BLACK_WOOL);
         barStool(consumer, ModItems.RED_BAR_STOOL, Items.RED_WOOL);
 
+        // 香薰
+        incense(consumer, ModItems.SAKURA_INCENSE, Items.CHERRY_SAPLING);
+        incense(consumer, ModItems.PINE_INCENSE, Items.SPRUCE_SAPLING);
+        incense(consumer, ModItems.GINKGO_INCENSE, Items.YELLOW_DYE);
+        incense(consumer, ModItems.SPORE_INCENSE, Items.SPORE_BLOSSOM);
+        incense(consumer, ModItems.CATNIP_INCENSE, Items.ALLIUM);
+        incense(consumer, ModItems.SNOW_INCENSE, Items.SNOWBALL);
+        incense(consumer, ModItems.BUTTERFLY_INCENSE, Items.PITCHER_PLANT);
+        incense(consumer, ModItems.FIREFLY_INCENSE, Items.GLOWSTONE_DUST);
+
         // 黑板
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.CHALKBOARD.get())
                 .pattern("III")
@@ -182,6 +192,46 @@ public class ShapedRecipeProvider extends ModRecipeProvider {
                 .unlockedBy("has_grapevine", has(ModItems.GRAPEVINE.get()))
                 .save(consumer);
 
+        // 窖藏酒柜
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.CELLAR_CABINET.get())
+                .pattern("GGG")
+                .pattern("GTG")
+                .pattern("GGG")
+                .define('G', ModItems.GRAPEVINE.get())
+                .define('T', ItemTags.TRAPDOORS)
+                .unlockedBy("has_grapevine", has(ModItems.GRAPEVINE.get()))
+                .save(consumer);
+
+        // 倾斜酒架
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.TILTED_RACK.get(), 3)
+                .pattern("I  ")
+                .pattern("CI ")
+                .pattern("C I")
+                .define('I', Tags.Items.INGOTS_IRON)
+                .define('C', Items.CHAIN)
+                .unlockedBy("has_chain", has(Items.CHAIN))
+                .save(consumer);
+
+        // 圆周酒架
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.CIRCULAR_RACK.get(), 2)
+                .pattern("IRI")
+                .pattern("IRI")
+                .pattern("IRI")
+                .define('I', Tags.Items.INGOTS_IRON)
+                .define('R', Items.END_ROD)
+                .unlockedBy("has_chain", has(Items.END_ROD))
+                .save(consumer);
+
+        // 单体酒架
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.HOLDER.get())
+                .pattern(" C ")
+                .pattern(" C ")
+                .pattern("I I")
+                .define('I', Tags.Items.INGOTS_IRON)
+                .define('C', Items.CHAIN)
+                .unlockedBy("has_chain", has(Items.CHAIN))
+                .save(consumer);
+
         // 桌子
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.TABLE.get())
                 .pattern("WWW")
@@ -191,6 +241,52 @@ public class ShapedRecipeProvider extends ModRecipeProvider {
                 .define('F', ItemTags.FENCES)
                 .define('I', Tags.Items.INGOTS_IRON)
                 .unlockedBy("has_fence", has(ItemTags.FENCES))
+                .save(consumer);
+
+        // 酒杯
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.EMPTY_GLASSWARE.get())
+                .pattern("G G")
+                .pattern(" G ")
+                .define('G', Tags.Items.GLASS_PANES)
+                .unlockedBy("has_glass_pane", has(Tags.Items.GLASS_PANES))
+                .save(consumer);
+
+        // 酒杯架
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.GLASSWARE_HOLDER.get())
+                .pattern("NNN")
+                .pattern("CCC")
+                .pattern("NNN")
+                .define('N', Tags.Items.NUGGETS_IRON)
+                .define('C', Items.CHAIN)
+                .unlockedBy("has_chain", has(Items.CHAIN))
+                .save(consumer);
+
+        // 垂灯
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.BELL_PENDANT_LAMP.get(), 8)
+                .pattern("C")
+                .pattern("C")
+                .pattern("B")
+                .define('C', Items.CHAIN)
+                .define('B', Items.BELL)
+                .unlockedBy("has_chain", has(Items.CHAIN))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.YELLOW_PENDANT_LAMP.get(), 4)
+                .pattern("C")
+                .pattern("C")
+                .pattern("B")
+                .define('C', Items.CHAIN)
+                .define('B', Items.LANTERN)
+                .unlockedBy("has_chain", has(Items.CHAIN))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.BLUE_PENDANT_LAMP.get(), 4)
+                .pattern("C")
+                .pattern("C")
+                .pattern("B")
+                .define('C', Items.CHAIN)
+                .define('B', Items.SOUL_LANTERN)
+                .unlockedBy("has_chain", has(Items.CHAIN))
                 .save(consumer);
     }
 
@@ -228,5 +324,16 @@ public class ShapedRecipeProvider extends ModRecipeProvider {
                 .unlockedBy("has_dye", has(dye))
                 .save(consumer);
     }
-}
 
+    private void incense(RecipeOutput consumer, Supplier<? extends Item> item, Item ingredient) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, item.get())
+                .pattern("F")
+                .pattern("C")
+                .pattern("B")
+                .define('F', Items.FEATHER)
+                .define('C', ingredient)
+                .define('B', Items.GLASS_BOTTLE)
+                .unlockedBy("has_glass_bottle", has(Items.GLASS_BOTTLE))
+                .save(consumer);
+    }
+}

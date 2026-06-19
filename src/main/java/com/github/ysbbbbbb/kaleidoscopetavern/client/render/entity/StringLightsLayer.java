@@ -27,7 +27,7 @@ public class StringLightsLayer<T extends LivingEntity, M extends EntityModel<T>>
     public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, T entity,
                        float limbSwing, float limbSwingAmount, float partialTick,
                        float ageInTicks, float netHeadYaw, float headPitch) {
-        ItemStack stack = entity.getItemBySlot(EquipmentSlot.CHEST);
+        ItemStack stack = getStringLightsStack(entity);
         if (stack.getItem() instanceof StringLightsBlockItem && this.getParentModel() instanceof HumanoidModel<?> humanoidModel) {
             poseStack.pushPose();
             humanoidModel.body.translateAndRotate(poseStack);
@@ -37,5 +37,13 @@ public class StringLightsLayer<T extends LivingEntity, M extends EntityModel<T>>
             this.itemRenderer.renderItem(entity, stack, ItemDisplayContext.HEAD, false, poseStack, buffer, packedLight);
             poseStack.popPose();
         }
+    }
+
+    private ItemStack getStringLightsStack(T entity) {
+        ItemStack chestStack = entity.getItemBySlot(EquipmentSlot.CHEST);
+        if (chestStack.getItem() instanceof StringLightsBlockItem) {
+            return chestStack;
+        }
+        return ItemStack.EMPTY;
     }
 }

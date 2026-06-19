@@ -2,6 +2,7 @@ package com.github.ysbbbbbb.kaleidoscopetavern.block.brew;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.block.properties.PositionType;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.brew.BarCabinetBlockEntity;
+import com.github.ysbbbbbb.kaleidoscopetavern.init.tag.TagMod;
 import com.github.ysbbbbbb.kaleidoscopetavern.item.BottleBlockItem;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -92,7 +93,7 @@ public class BarCabinetBlock extends BaseEntityBlock {
                 return false;
             }
             // 异形酒瓶
-            if (bottleBlock.irregular()) {
+            if (stack.is(TagMod.BAR_CABINET_IRREGULAR)) {
                 // 如果已经有酒了，那么不允许放入异形酒瓶
                 if (!leftItem.isEmpty() || !rightItem.isEmpty()) {
                     return false;

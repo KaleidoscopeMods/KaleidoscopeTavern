@@ -1,0 +1,13 @@
+{
+  "item": "kaleidoscope_tavern:brass_heart",
+  "effects": [
+    [
+      {
+        "effect": "kaleidoscope_tavern:ardent_heat",
+        "duration": 480,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ]
+  ]
+}

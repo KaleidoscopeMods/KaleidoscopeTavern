@@ -130,13 +130,18 @@ public class TagBlock extends BlockTagsProvider {
                 .add(ModBlocks.PRESSING_TUB.get())
                 .add(ModBlocks.BARREL.get())
                 .add(ModBlocks.BAR_CABINET.get())
-                .add(ModBlocks.GLASS_BAR_CABINET.get());
+                .add(ModBlocks.GLASS_BAR_CABINET.get())
+                .add(ModBlocks.CELLAR_CABINET.get());
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .addTag(TagMod.SOFA)
                 .addTag(TagMod.BAR_STOOL)
                 .addTag(TagMod.STRING_LIGHTS)
-                .add(ModBlocks.TAP.get());
+                .add(ModBlocks.TAP.get())
+                .add(ModBlocks.TILTED_RACK.get())
+                .add(ModBlocks.CIRCULAR_RACK.get())
+                .add(ModBlocks.HOLDER.get())
+                .add(ModBlocks.GLASSWARE_HOLDER.get());
 
         this.tag(BlockTags.CLIMBABLE)
                 .add(ModBlocks.WILD_GRAPEVINE.get())
@@ -147,6 +152,16 @@ public class TagBlock extends BlockTagsProvider {
                 ModBlocks.GRAPEVINE_TRELLIS.get(),
                 ModBlocks.ICE_GRAPEVINE_TRELLIS.get(),
                 ModBlocks.GOLD_GRAPEVINE_TRELLIS.get()
+        );
+
+        this.tag(TagMod.CAN_GROW_GRAPE)
+                .addTag(BlockTags.DIRT);
+        this.tag(TagMod.CAN_GROW_ICE_GRAPE)
+                .addTag(BlockTags.ICE)
+                .add(Blocks.SNOW_BLOCK);
+        this.tag(TagMod.CAN_GROW_GOLD_GRAPE).add(
+                Blocks.NETHERRACK,
+                Blocks.MAGMA_BLOCK
         );
 
         this.tag(TagMod.GRASS_STEALTH_PLANTS).add(
@@ -166,6 +181,11 @@ public class TagBlock extends BlockTagsProvider {
                 Blocks.SWEET_BERRY_BUSH,
                 Blocks.SUNFLOWER
         );
+
+        this.tag(TagMod.ARDENT_HEAT_BREAKABLE)
+                .addTag(BlockTags.BASE_STONE_OVERWORLD)
+                .addTag(BlockTags.BASE_STONE_NETHER)
+                .add(Blocks.END_STONE);
 
         // 兼容静谧四季模组
         this.tag(TagCommon.SPRING_CROPS_BLOCK).add(
