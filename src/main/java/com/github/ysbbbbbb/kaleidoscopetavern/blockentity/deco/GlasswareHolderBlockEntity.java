@@ -5,6 +5,7 @@ import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class GlasswareHolderBlockEntity extends BaseBlockEntity {
@@ -37,5 +38,11 @@ public class GlasswareHolderBlockEntity extends BaseBlockEntity {
 
     public ItemStackHandler getItems() {
         return this.items;
+    }
+
+    @Override
+    public AABB getRenderBoundingBox() {
+        BlockPos pos = this.getBlockPos();
+        return new AABB(pos, pos.offset(1, 1, 1));
     }
 }

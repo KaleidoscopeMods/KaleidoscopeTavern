@@ -1,6 +1,21 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "kaleidoscope_tavern:item/shaker"
+  "base": {
+    "parent": "kaleidoscope_tavern:item/shaker_3d"
+  },
+  "gui_light": "front",
+  "loader": "forge:separate_transforms",
+  "perspectives": {
+    "fixed": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "kaleidoscope_tavern:item/shaker"
+      }
+    },
+    "gui": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "kaleidoscope_tavern:item/shaker"
+      }
+    }
   }
 }
