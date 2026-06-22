@@ -1,5 +1,6 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.block.mixology;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -17,8 +18,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.block.state.properties.RotationSegment;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
@@ -29,16 +28,16 @@ import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
-public class GlasswareBlock extends Block implements SimpleWaterloggedBlock {
-    public static final IntegerProperty ROTATION = BlockStateProperties.ROTATION_16;
+public class GlasswareBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-
     public static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 10, 12);
+
+    private static final MapCodec<GlasswareBlock> CODEC = simpleCodec(GlasswareBlock::new);
 
     public GlasswareBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any()
-                .setValue(ROTATION, 0)
+                .setValue(FACING, Direction.NORTH)
                 .setValue(WATERLOGGED, false));
     }
 
@@ -79,9 +78,9 @@ public class GlasswareBlock extends Block implements SimpleWaterloggedBlock {
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         boolean isWaterAt = context.getLevel().isWaterAt(context.getClickedPos());
-        int rotation = RotationSegment.convertToSegment(context.getRotation());
+        Direction direction = context.getHorizontalDirection().getOpposite();
         return this.defaultBlockState()
-                .setValue(ROTATION, rotation)
+                .setValue(FACING, direction)
                 .setValue(WATERLOGGED, isWaterAt);
     }
 
@@ -100,7 +99,7 @@ public class GlasswareBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(ROTATION, WATERLOGGED);
+        builder.add(FACING, WATERLOGGED);
     }
 
     @Override
@@ -119,14 +118,7 @@ public class GlasswareBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public BlockState rotate(BlockState state, Rotation rotation) {
-        int max = RotationSegment.getMaxSegmentIndex() + 1;
-        return state.setValue(ROTATION, rotation.rotate(state.getValue(ROTATION), max));
-    }
-
-    @Override
-    public BlockState mirror(BlockState pState, Mirror pMirror) {
-        int max = RotationSegment.getMaxSegmentIndex() + 1;
-        return pState.setValue(ROTATION, pMirror.mirror(pState.getValue(ROTATION), max));
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
     }
 }
