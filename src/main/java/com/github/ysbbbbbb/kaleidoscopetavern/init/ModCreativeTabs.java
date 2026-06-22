@@ -104,14 +104,13 @@ public interface ModCreativeTabs {
                 output.accept(ModItems.BAR_CABINET.get());
                 output.accept(ModItems.GLASS_BAR_CABINET.get());
                 output.accept(ModItems.CELLAR_CABINET.get());
+                output.accept(ModItems.BAR_COUNTER.get());
+                output.accept(ModItems.TABLE.get());
                 output.accept(ModItems.TILTED_RACK.get());
                 output.accept(ModItems.CIRCULAR_RACK.get());
                 output.accept(ModItems.HOLDER.get());
                 output.accept(ModItems.GLASSWARE_HOLDER.get());
-                output.accept(ModItems.BAR_COUNTER.get());
                 output.accept(ModItems.STEPLADDER.get());
-
-                output.accept(ModItems.TABLE.get());
 
                 output.accept(ModItems.STRING_LIGHTS_COLORLESS.get());
                 output.accept(ModItems.STRING_LIGHTS_WHITE.get());

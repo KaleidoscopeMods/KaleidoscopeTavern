@@ -88,7 +88,7 @@ public class GlasswareHolderBlock extends HorizontalDirectionalBlock implements 
             ItemStack extracted = items.extractItem(slot, 1, false);
             player.setItemInHand(InteractionHand.MAIN_HAND, extracted);
             be.refresh();
-            level.playSound(null, pos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS);
+            level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_PLACE, SoundSource.BLOCKS);
         }
 
         return ItemInteractionResult.sidedSuccess(level.isClientSide());
@@ -109,7 +109,7 @@ public class GlasswareHolderBlock extends HorizontalDirectionalBlock implements 
                 itemInHand.shrink(1);
             }
             be.refresh();
-            level.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS);
+            level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_PLACE, SoundSource.BLOCKS);
         }
 
         return ItemInteractionResult.sidedSuccess(level.isClientSide());

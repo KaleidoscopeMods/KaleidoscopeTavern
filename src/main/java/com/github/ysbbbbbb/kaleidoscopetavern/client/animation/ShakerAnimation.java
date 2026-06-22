@@ -77,7 +77,7 @@ public class ShakerAnimation {
             double xOffset = arm == HumanoidArm.RIGHT ? 0.56 : -0.56;
             double offset = (float) Math.sin(totalTicks * 1.5) * 0.25;
             poseStack.translate(xOffset, -0.52 - offset * 0.6, -0.72);
-            poseStack.mulPose(Axis.XN.rotationDegrees(-30));
+            poseStack.mulPose(Axis.XN.rotationDegrees(-15));
             return true;
         }
     }

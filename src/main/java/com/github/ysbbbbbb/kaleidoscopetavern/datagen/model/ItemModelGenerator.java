@@ -3,12 +3,16 @@ package com.github.ysbbbbbb.kaleidoscopetavern.datagen.model;
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModItems;
 import com.github.ysbbbbbb.kaleidoscopetavern.util.ColorUtils;
+import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.client.model.generators.loaders.SeparateTransformsModelBuilder;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.Objects;
@@ -66,7 +70,7 @@ public class ItemModelGenerator extends ItemModelProvider {
         basicItem(ModItems.STEPLADDER.get());
         basicItem(ModItems.GRAPEVINE.get());
 
-        basicItem(ModItems.SHAKER.get());
+        shaker();
 
         trellis(ModItems.TRELLIS);
         basicItem(ModItems.GRAPE.get());
@@ -205,5 +209,18 @@ public class ItemModelGenerator extends ItemModelProvider {
     private void trellis(Supplier<? extends Item> item) {
         ResourceLocation key = Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(item.get()));
         withExistingParent(key.toString(), modLoc("block/plant/trellis/single"));
+    }
+
+    private void shaker() {
+        ItemModelBuilder shakerItem = new ItemModelBuilder(modLoc("shaker"), this.existingFileHelper)
+                .parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture("layer0", modLoc("item/shaker"));
+        ItemModelBuilder shakerBlock = new ItemModelBuilder(modLoc("shaker"), this.existingFileHelper)
+                .parent(new ModelFile.UncheckedModelFile(modLoc("item/shaker_3d")));
+        getBuilder("shaker")
+                .guiLight(BlockModel.GuiLight.FRONT)
+                .customLoader(SeparateTransformsModelBuilder::begin).base(shakerBlock)
+                .perspective(ItemDisplayContext.GUI, shakerItem)
+                .perspective(ItemDisplayContext.FIXED, shakerItem);
     }
 }
