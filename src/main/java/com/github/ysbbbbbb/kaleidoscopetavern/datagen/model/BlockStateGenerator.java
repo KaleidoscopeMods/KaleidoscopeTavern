@@ -6,7 +6,7 @@ import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.DrinkBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.PressingTubBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.TapBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.*;
-import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.GlasswareBlock;
+import com.github.ysbbbbbb.kaleidoscopetavern.block.deco.SandwichBoardBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.GrapeCropBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.GrapevineTrellisBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.TrellisBlock;
@@ -296,7 +296,7 @@ public class BlockStateGenerator extends BlockStateProvider {
     private void sandwichBoard(RegistryObject<Block> block, String type) {
         getVariantBuilder(block.get()).forAllStates(blockState -> {
             Half half = blockState.getValue(SandwichBoardBlock.HALF);
-            int rotation = blockState.getValue(GlasswareBlock.ROTATION);
+            int rotation = blockState.getValue(SandwichBoardBlock.ROTATION);
 
             ResourceLocation file;
             if (half == Half.BOTTOM) {
@@ -429,12 +429,7 @@ public class BlockStateGenerator extends BlockStateProvider {
     }
 
     private void glassware(RegistryObject<Block> block, String name) {
-        getVariantBuilder(block.get()).forAllStates(blockState -> {
-            int rotation = blockState.getValue(GlasswareBlock.ROTATION);
-            ResourceLocation file = modLoc("block/mixology/%s/rot_%d".formatted(name, rotation));
-            ModelFile.UncheckedModelFile modelFile = new ModelFile.UncheckedModelFile(file);
-            return ConfiguredModel.builder().modelFile(modelFile).build();
-        });
+        horizontalBlock(block.get(), new ModelFile.UncheckedModelFile(modLoc("block/mixology/%s".formatted(name))));
     }
 
     private void incense(RegistryObject<Block> block) {

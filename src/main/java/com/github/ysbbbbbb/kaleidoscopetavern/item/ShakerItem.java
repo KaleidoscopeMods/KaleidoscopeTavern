@@ -43,7 +43,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.GlasswareBlock.ROTATION;
+import static com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.GlasswareBlock.FACING;
 
 public class ShakerItem extends BlockItem {
     private static final String STORAGE_TAG = "Storage";
@@ -119,8 +119,8 @@ public class ShakerItem extends BlockItem {
         // 替换成鸡尾酒方块
         if (result.getItem() instanceof BlockItem blockItem) {
             BlockState blockState = blockItem.getBlock().defaultBlockState();
-            if (blockState.hasProperty(ROTATION)) {
-                blockState = blockState.setValue(ROTATION, rawState.getValue(ROTATION));
+            if (blockState.hasProperty(FACING)) {
+                blockState = blockState.setValue(FACING, rawState.getValue(FACING));
             }
             level.setBlockAndUpdate(pos, blockState);
         }
