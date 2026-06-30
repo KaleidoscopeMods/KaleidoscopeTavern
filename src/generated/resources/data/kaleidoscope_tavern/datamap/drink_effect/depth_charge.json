@@ -4,7 +4,7 @@
     [
       {
         "effect": "kaleidoscope_tavern:ardent_heat",
-        "duration": 480,
+        "duration": 300,
         "amplifier": 0,
         "probability": 1.0
       }

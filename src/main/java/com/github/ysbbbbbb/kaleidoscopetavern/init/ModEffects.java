@@ -18,7 +18,7 @@ public interface ModEffects {
     DeferredHolder<MobEffect, MobEffect> BLOODY_MARY = EFFECTS.register("bloody_mary", () -> new BaseEffect(0xF73A36));
     DeferredHolder<MobEffect, MobEffect> ARDENT_HEAT = EFFECTS.register("ardent_heat", () -> new ArdentHeatEffect(0xFF6B35));
     DeferredHolder<MobEffect, MobEffect> LONG_REACH = EFFECTS.register("long_reach", () -> new LongReachEffect(0x8B6914));
-    DeferredHolder<MobEffect, MobEffect> TOMB_RAIDER = EFFECTS.register("tomb_raider", () -> new TombRaiderEffect(0xDAA520));
+    DeferredHolder<MobEffect, MobEffect> TOMB_RAIDER = EFFECTS.register("tomb_raider", () -> new BaseEffect(0xDAA520));
     DeferredHolder<MobEffect, MobEffect> XP_DRAIN = EFFECTS.register("xp_drain", () -> new XpDrainEffect(0x7CFC00));
     DeferredHolder<MobEffect, MobEffect> UPSIDE_DOWN = EFFECTS.register("upside_down", () -> new UpsideDownEffect(0x9B59B6));
     DeferredHolder<MobEffect, MobEffect> ZENITH = EFFECTS.register("zenith", () -> new ZenithEffect(0x87CEEB));
