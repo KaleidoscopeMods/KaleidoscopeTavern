@@ -243,6 +243,15 @@ public class ShapedRecipeProvider extends ModRecipeProvider {
                 .unlockedBy("has_fence", has(ItemTags.FENCES))
                 .save(consumer);
 
+        // 雪克杯
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.SHAKER.get())
+                .pattern("I")
+                .pattern("B")
+                .define('I', Tags.Items.INGOTS_IRON)
+                .define('B', Items.BUCKET)
+                .unlockedBy("has_bucket", has(Items.BUCKET))
+                .save(consumer);
+
         // 酒杯
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.EMPTY_GLASSWARE.get())
                 .pattern("G G")
