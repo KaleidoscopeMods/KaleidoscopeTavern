@@ -1,5 +1,6 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.effect;
 
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -108,8 +109,11 @@ public class ShriekAttackEffect extends BaseEffect {
             Vec3 particlePos = eyePos;
             for (int i = 0; i < (int) (MAX_DISTANCE / 2); i++) {
                 particlePos = particlePos.add(lookVec.scale(2));
-                serverLevel.sendParticles(net.minecraft.core.particles.ParticleTypes.SONIC_BOOM,
-                        particlePos.x, particlePos.y, particlePos.z, 1, 0, 0, 0, 0);
+                serverLevel.sendParticles(
+                        ParticleTypes.SONIC_BOOM,
+                        particlePos.x, particlePos.y, particlePos.z,
+                        1, 0, 0, 0, 0
+                );
             }
         }
     }

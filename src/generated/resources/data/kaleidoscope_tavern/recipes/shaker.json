@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:bucket"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "pattern": [
+    "I",
+    "B"
+  ],
+  "result": {
+    "item": "kaleidoscope_tavern:shaker"
+  },
+  "show_notification": true
+}
