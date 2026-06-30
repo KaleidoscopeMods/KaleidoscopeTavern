@@ -54,7 +54,7 @@ public class ShriekAttackEffect extends BaseEffect {
 
         Vec3 eyePos = user.getEyePosition();
         Vec3 lookVec = user.getLookAngle();
-        float damage = user.getMaxHealth() * 2.0F;
+        float damage = user.getHealth() * 1.2F;
 
         // 播放音波音效
         level.playSound(null, user.getX(), user.getY(), user.getZ(),
