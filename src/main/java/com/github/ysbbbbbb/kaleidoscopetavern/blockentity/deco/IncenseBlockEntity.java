@@ -18,7 +18,7 @@ public class IncenseBlockEntity extends BaseBlockEntity {
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, IncenseBlockEntity incense) {
-        if (level.getGameTime() % 60 != 0) {
+        if (level.getGameTime() % 120 != 0) {
             return;
         }
 
@@ -29,11 +29,11 @@ public class IncenseBlockEntity extends BaseBlockEntity {
         );
 
         for (LivingEntity entity : entities) {
-            // 每 3 秒对亡灵生物造成 1 点魔法伤害
+            // 每 6 秒对亡灵生物造成 1 点魔法伤害
             entity.hurt(level.damageSources().magic(), 1.0f);
 
             // 僵尸村民血量低于5点时转化为普通村民
-            if (entity instanceof ZombieVillager zombieVillager && zombieVillager.getHealth() <= 5.0f) {
+            if (entity instanceof ZombieVillager zombieVillager && zombieVillager.getHealth() <= 1.0f) {
                 zombieVillager.startConverting(null, 60);
             }
         }
