@@ -1,12 +1,16 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.effect;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.init.tag.TagMod;
+import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -14,6 +18,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArdentHeatEffect extends BaseEffect {
+    /**
+     * 临时变量，用来暂存玩家撞击次数
+     */
+    private static final String COLLISION_COUNT_TAG = "kaleidoscope_tavern:ardent_heat_collision_count";
+    /**
+     * 玩家护甲列表
+     */
+    private static final EquipmentSlot[] ARMOR_SLOTS = {
+            EquipmentSlot.HEAD, EquipmentSlot.CHEST,
+            EquipmentSlot.LEGS, EquipmentSlot.FEET
+    };
+
     public ArdentHeatEffect(int color) {
         super(color);
     }
@@ -55,9 +71,36 @@ public class ArdentHeatEffect extends BaseEffect {
             }
         }
 
-        // 破坏方块时加速饥饿消耗（300%增加=4倍总消耗）
+        // 破坏方块时加速饥饿消耗（1.5 倍消耗速度）
         if (brokeBlocks) {
-            player.causeFoodExhaustion(0.3F);
+            player.causeFoodExhaustion(0.45F);
+
+            List<EquipmentSlot> slots = Lists.newArrayList();
+            for (EquipmentSlot slot : ARMOR_SLOTS) {
+                ItemStack armor = player.getItemBySlot(slot);
+                if (!armor.isEmpty()) {
+                    slots.add(slot);
+                }
+            }
+
+            if (!slots.isEmpty()) {
+                // 撞墙时随机选择一个扣除耐久
+                int index = level.random.nextInt(slots.size());
+                EquipmentSlot selected = slots.get(index);
+                ItemStack armor = player.getItemBySlot(selected);
+                if (armor.isDamageableItem()) {
+                    armor.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(selected));
+                }
+            } else {
+                // 不穿盔甲时，累计撞击 16 次扣 1 点伤害
+                CompoundTag data = player.getPersistentData();
+                int count = data.getInt(COLLISION_COUNT_TAG) + 1;
+                if (count >= 16) {
+                    player.hurt(player.damageSources().generic(), 1.0F);
+                    count -= 16;
+                }
+                data.putInt(COLLISION_COUNT_TAG, count);
+            }
         }
     }
 

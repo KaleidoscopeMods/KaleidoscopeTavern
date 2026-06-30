@@ -254,7 +254,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         addCocktail(ModItems.ALLIUM_GARDEN, effect(ModEffects.XP_DRAIN.get(), 1800, 0));
 
         // 深水炸弹
-        addCocktail(ModItems.DEPTH_CHARGE, effect(ModEffects.ARDENT_HEAT.get(), 480, 0));
+        addCocktail(ModItems.DEPTH_CHARGE, effect(ModEffects.ARDENT_HEAT.get(), 300, 0));
 
         // 螺丝起子
         addCocktail(ModItems.SCREWDRIVER, effect(ModEffects.UPSIDE_DOWN.get(), 0, 0));
@@ -269,7 +269,7 @@ public class DrinkEffectDataProvider implements DataProvider {
         addCocktail(ModItems.MOJITO, effect(ModEffects.VISION.get(), 1800, 0));
 
         // 黄铜心脏
-        addCocktail(ModItems.BRASS_HEART, effect(ModEffects.ARDENT_HEAT.get(), 480, 0));
+        addCocktail(ModItems.BRASS_HEART, effect(ModEffects.ARDENT_HEAT.get(), 300, 0));
 
         // 下界特调
         addCocktail(ModItems.NETHER_SPECIAL, effect(ModEffects.TOMB_RAIDER.get(), 90, 0));

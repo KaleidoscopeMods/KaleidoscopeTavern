@@ -18,7 +18,7 @@ public interface ModEffects {
     RegistryObject<MobEffect> BLOODY_MARY = EFFECTS.register("bloody_mary", () -> new BaseEffect(0xF73A36));
     RegistryObject<MobEffect> ARDENT_HEAT = EFFECTS.register("ardent_heat", () -> new ArdentHeatEffect(0xFF6B35));
     RegistryObject<MobEffect> LONG_REACH = EFFECTS.register("long_reach", () -> new LongReachEffect(0x8B6914));
-    RegistryObject<MobEffect> TOMB_RAIDER = EFFECTS.register("tomb_raider", () -> new TombRaiderEffect(0xDAA520));
+    RegistryObject<MobEffect> TOMB_RAIDER = EFFECTS.register("tomb_raider", () -> new BaseEffect(0xDAA520));
     RegistryObject<MobEffect> XP_DRAIN = EFFECTS.register("xp_drain", () -> new XpDrainEffect(0x7CFC00));
     RegistryObject<MobEffect> UPSIDE_DOWN = EFFECTS.register("upside_down", () -> new UpsideDownEffect(0x9B59B6));
     RegistryObject<MobEffect> ZENITH = EFFECTS.register("zenith", () -> new ZenithEffect(0x87CEEB));
