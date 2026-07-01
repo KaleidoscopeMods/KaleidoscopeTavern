@@ -112,13 +112,31 @@ public interface ModItems {
     DeferredItem<Item> STEPLADDER = ITEMS.register("stepladder", () -> new BlockItem(ModBlocks.STEPLADDER.get(), new Item.Properties()));
     // 野生葡萄藤
     DeferredItem<Item> GRAPEVINE = ITEMS.register("grapevine", GrapevineItem::new);
+
     // 藤架
-    DeferredItem<Item> TRELLIS = ITEMS.register("trellis", () -> new BlockItem(ModBlocks.TRELLIS.get(), new Item.Properties()));
+    DeferredItem<Item> TRELLIS = ITEMS.register("trellis", () -> new TooltipBlockItem(
+            ModBlocks.TRELLIS.get(), new Item.Properties(),
+            "tooltip.kaleidoscope_tavern.trellis.1",
+            "tooltip.kaleidoscope_tavern.trellis.2"
+    ));
+
     // 葡萄
-    DeferredItem<Item> GRAPE = ITEMS.register("grape", () -> new Item(new Item.Properties().food(ModFoods.GRAPE)));
-    DeferredItem<Item> ICE_GRAPE = ITEMS.register("ice_grape", () -> new Item(new Item.Properties().food(ModFoods.GRAPE)));
-    DeferredItem<Item> GOLD_GRAPE = ITEMS.register("gold_grape", () -> new Item(new Item.Properties().food(ModFoods.GRAPE)));
-    DeferredItem<Item> GREEN_GRAPE = ITEMS.register("green_grape", () -> new Item(new Item.Properties().food(ModFoods.GRAPE)));
+    DeferredItem<Item> GRAPE = ITEMS.register("grape", () -> new TooltipItem(
+            new Item.Properties().food(ModFoods.GRAPE),
+            "tooltip.kaleidoscope_tavern.grape"
+    ));
+    DeferredItem<Item> ICE_GRAPE = ITEMS.register("ice_grape", () -> new TooltipItem(
+            new Item.Properties().food(ModFoods.GRAPE),
+            "tooltip.kaleidoscope_tavern.ice_grape"
+    ));
+    DeferredItem<Item> GOLD_GRAPE = ITEMS.register("gold_grape", () -> new TooltipItem(
+            new Item.Properties().food(ModFoods.GRAPE),
+            "tooltip.kaleidoscope_tavern.gold_grape"
+    ));
+    DeferredItem<Item> GREEN_GRAPE = ITEMS.register("green_grape", () -> new TooltipItem(
+            new Item.Properties().food(ModFoods.GRAPE),
+            "tooltip.kaleidoscope_tavern.green_grape"
+    ));
 
     // 果盆
     DeferredItem<Item> PRESSING_TUB = ITEMS.register("pressing_tub", () -> new BlockItem(ModBlocks.PRESSING_TUB.get(), new Item.Properties()));
