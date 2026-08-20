@@ -4,6 +4,8 @@ import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModEffects;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModSounds;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import it.unimi.dsi.fastutil.ints.Int2IntMap;
+import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
@@ -23,19 +25,18 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Mod.EventBusSubscriber(modid = KaleidoscopeTavern.MOD_ID, value = Dist.CLIENT)
 public class VisionEffectClientEvent {
-    public static final int MAX_LEVEL = 3;
-    private static final int SCAN_CD = 5;
+    public static final int MAX_LEVEL = 3; // 灵视生效的最大等级
+    private static final int SCAN_CD = 50; // 扫描间隔
     private static final int COLOR = 0x408997;
-    private static final int MARK_DURATION = 60;
-    private static final Map<Integer, Integer> ENTITIES = new HashMap<>();
-    private static final int MAX_ENTITIES = 96;
+    private static final int MARK_DURATION = 60; // 标记有效期
+    private static final int MAX_ENTITIES = 96; // 最大标记数量
+    private static final Int2IntOpenHashMap ENTITIES = new Int2IntOpenHashMap(); // 被灵视标记的实体集合
 
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
@@ -61,8 +62,7 @@ public class VisionEffectClientEvent {
             return;
         }
 
-        removeExpiredEntities(player);
-        updateEntities(level, player, minecraft, vision.getAmplifier());
+        updateEntities(level, player, minecraft, vision.getAmplifier()); // 更新逻辑
     }
 
     @SubscribeEvent
@@ -78,9 +78,9 @@ public class VisionEffectClientEvent {
             return;
         }
 
-        var outlineBuffer = minecraft.renderBuffers().outlineBufferSource();
+        var outlineBuffer = minecraft.renderBuffers().outlineBufferSource(); // 原版发光效果描边的buffer
         outlineBuffer.setColor(COLOR >> 16 & 0xFF, COLOR >> 8 & 0xFF, COLOR & 0xFF, 255);
-        var outlineOnlyBuffer = new OutlineOnlyBufferSource(outlineBuffer);
+        var outlineOnlyBuffer = new OutlineOnlyBufferSource(outlineBuffer); // 自定义包装
 
         var dispatcher = minecraft.getEntityRenderDispatcher();
         var camera = event.getCamera();
@@ -88,23 +88,28 @@ public class VisionEffectClientEvent {
         float partialTick = event.getPartialTick();
         boolean rendered = false;
 
-        for (Integer entityId : ENTITIES.keySet()) {
+        Iterator<Int2IntMap.Entry> iterator = ENTITIES.int2IntEntrySet().iterator();
+        while (iterator.hasNext()) {
+            int entityId = iterator.next().getIntKey();
             var entity = level.getEntity(entityId);
-            if (!(entity instanceof LivingEntity living) || !living.isAlive())
+            if (!(entity instanceof LivingEntity living) || !living.isAlive()) {
+                iterator.remove();
                 continue;
+            }
 
             if (minecraft.shouldEntityAppearGlowing(entity))
-                continue;
+                continue; // 跳过原版发光实体
 
             if (!dispatcher.shouldRender(entity, event.getFrustum(), cameraPos.x(), cameraPos.y(), cameraPos.z()))
-                continue;
+                continue; // 如果实体不在当前可见视锥内，就不额外渲染
 
-
+            // 计算相机相对坐标
             double x = Mth.lerp(partialTick, entity.xOld, entity.getX()) - cameraPos.x();
             double y = Mth.lerp(partialTick, entity.yOld, entity.getY()) - cameraPos.y();
             double z = Mth.lerp(partialTick, entity.zOld, entity.getZ()) - cameraPos.z();
             float yaw = Mth.lerp(partialTick, entity.yRotO, entity.getYRot());
 
+            // 让渲染器重新渲染一次目标实体，但传入的是 outlineOnlyBuffer，只渲染描边
             dispatcher.render(entity, x, y, z, yaw, partialTick, event.getPoseStack(),
                     outlineOnlyBuffer, LightTexture.FULL_BRIGHT);
             rendered = true;
@@ -112,16 +117,14 @@ public class VisionEffectClientEvent {
 
         if (rendered && !hasVanillaOutlineEntity(minecraft, level, player, dispatcher, event, cameraPos)) {
             outlineBuffer.endOutlineBatch();
-            processOutline(event.getLevelRenderer(), partialTick);
+            processOutline(event.getLevelRenderer(), partialTick); // 执行后处理
             minecraft.getMainRenderTarget().bindWrite(false);
         }
     }
 
-    private static void removeExpiredEntities(LocalPlayer player) {
-        ENTITIES.entrySet().removeIf(entry -> entry.getValue() <= player.tickCount);
-    }
-
     private static void updateEntities(ClientLevel level, LocalPlayer player, Minecraft minecraft, int amplifier) {
+        ENTITIES.int2IntEntrySet().removeIf(entry -> entry.getIntValue() <= player.tickCount); // 清理过期标记
+
         double radius = Math.min(amplifier + 1, MAX_LEVEL) * 6;
         AABB range = player.getBoundingBox().inflate(radius);
         List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, range,
@@ -136,7 +139,7 @@ public class VisionEffectClientEvent {
                 continue;
 
             if (!known && !minecraft.shouldEntityAppearGlowing(entity))
-                playSound = true;
+                playSound = true; // 只有新的被标记的且没有发光效果的实体才会播放音效
 
             ENTITIES.put(id, player.tickCount + MARK_DURATION);
         }
@@ -146,6 +149,9 @@ public class VisionEffectClientEvent {
         }
     }
 
+    /**
+     * 检测本帧是否有原版的 outline 渲染
+     */
     private static boolean hasVanillaOutlineEntity(Minecraft minecraft, ClientLevel level, LocalPlayer player,
                                                    EntityRenderDispatcher dispatcher, RenderLevelStageEvent event,
                                                    Vec3 cameraPos) {
@@ -165,6 +171,9 @@ public class VisionEffectClientEvent {
         }
     }
 
+    /**
+     * 只渲染描边效果，避免重复渲染
+     */
     private record OutlineOnlyBufferSource(OutlineBufferSource outlineBuffer) implements MultiBufferSource {
         private static final VertexConsumer EMPTY = new EmptyVertexConsumer();
 
