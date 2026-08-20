@@ -24,20 +24,14 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Mod.EventBusSubscriber(modid = KaleidoscopeTavern.MOD_ID, value = Dist.CLIENT)
 public class VisionEffectClientEvent {
-    private static final int SCAN_INTERVAL = 5;
-    private static final int SOUND_COOLDOWN = 60;
+    private static final int SCAN_CD = 5;
     private static final int COLOR = 0x408997;
-    private static final Set<Integer> ENTITIES = new HashSet<>();
-    private static final Set<Integer> NEXT_ENTITIES = new HashSet<>();
-
-    private static int lastSoundTick = -SOUND_COOLDOWN;
+    private static final int MARK_DURATION = 60;
+    private static final Map<Integer, Integer> ENTITIES = new HashMap<>();
 
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
@@ -59,16 +53,12 @@ public class VisionEffectClientEvent {
             return;
         }
 
-        if (player.tickCount % SCAN_INTERVAL != 0) {
+        if (player.tickCount % SCAN_CD != 0) {
             return;
         }
 
-        collectEntities(level, player, vision.getAmplifier());
-        playSound(minecraft, player);
-
-        ENTITIES.clear();
-        ENTITIES.addAll(NEXT_ENTITIES);
-        NEXT_ENTITIES.clear();
+        removeExpiredEntities(player);
+        updateEntities(level, player, minecraft, vision.getAmplifier());
     }
 
     @SubscribeEvent
@@ -94,7 +84,7 @@ public class VisionEffectClientEvent {
         float partialTick = event.getPartialTick();
         boolean rendered = false;
 
-        for (Integer entityId : ENTITIES) {
+        for (Integer entityId : ENTITIES.keySet()) {
             Entity entity = level.getEntity(entityId);
             if (!(entity instanceof LivingEntity living) || !living.isAlive()) {
                 continue;
@@ -123,34 +113,27 @@ public class VisionEffectClientEvent {
         }
     }
 
-    private static void collectEntities(ClientLevel level, LocalPlayer player, int amplifier) {
-        NEXT_ENTITIES.clear();
+    private static void removeExpiredEntities(LocalPlayer player) {
+        ENTITIES.entrySet().removeIf(entry -> entry.getValue() <= player.tickCount);
+    }
+
+    private static void updateEntities(ClientLevel level, LocalPlayer player, Minecraft minecraft, int amplifier) {
         double radius = Math.min(amplifier + 1, 3) * 6;
         AABB range = player.getBoundingBox().inflate(radius);
         List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, range,
                 entity -> entity != player && entity.isAlive());
 
-        for (LivingEntity entity : entities) {
-            NEXT_ENTITIES.add(entity.getId());
-        }
-    }
-
-    private static void playSound(Minecraft minecraft, LocalPlayer player) {
-        if (player.tickCount - lastSoundTick < SOUND_COOLDOWN) {
-            return;
-        }
-
-        for (Integer entityId : NEXT_ENTITIES) {
-            if (ENTITIES.contains(entityId)) {
-                continue;
+        boolean playSound = false;
+        for (var entity : entities) {
+            var id = entity.getId();
+            if (!ENTITIES.containsKey(id) && !minecraft.shouldEntityAppearGlowing(entity)) {
+                playSound = true;
             }
+            ENTITIES.put(id, player.tickCount + MARK_DURATION);
+        }
 
-            Entity entity = minecraft.level == null ? null : minecraft.level.getEntity(entityId);
-            if (entity != null && !minecraft.shouldEntityAppearGlowing(entity)) {
-                player.playSound(ModSounds.EFFECT_VISION.get());
-                lastSoundTick = player.tickCount;
-                return;
-            }
+        if (playSound) {
+            player.playSound(ModSounds.EFFECT_VISION.get());
         }
     }
 
