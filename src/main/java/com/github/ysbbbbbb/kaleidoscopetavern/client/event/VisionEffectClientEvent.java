@@ -4,7 +4,6 @@ import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModEffects;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModSounds;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
@@ -24,14 +23,19 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Mod.EventBusSubscriber(modid = KaleidoscopeTavern.MOD_ID, value = Dist.CLIENT)
 public class VisionEffectClientEvent {
+    public static final int MAX_LEVEL = 3;
     private static final int SCAN_CD = 5;
     private static final int COLOR = 0x408997;
     private static final int MARK_DURATION = 60;
     private static final Map<Integer, Integer> ENTITIES = new HashMap<>();
+    private static final int MAX_ENTITIES = 96;
 
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
@@ -39,9 +43,9 @@ public class VisionEffectClientEvent {
             return;
         }
 
-        Minecraft minecraft = Minecraft.getInstance();
-        LocalPlayer player = minecraft.player;
-        ClientLevel level = minecraft.level;
+        var minecraft = Minecraft.getInstance();
+        var player = minecraft.player;
+        var level = minecraft.level;
         if (player == null || level == null || !player.isAlive()) {
             ENTITIES.clear();
             return;
@@ -67,34 +71,34 @@ public class VisionEffectClientEvent {
             return;
         }
 
-        Minecraft minecraft = Minecraft.getInstance();
-        LocalPlayer player = minecraft.player;
-        ClientLevel level = minecraft.level;
+        var minecraft = Minecraft.getInstance();
+        var player = minecraft.player;
+        var level = minecraft.level;
         if (player == null || level == null || !player.hasEffect(ModEffects.VISION.get())) {
             return;
         }
 
-        OutlineBufferSource outlineBuffer = minecraft.renderBuffers().outlineBufferSource();
+        var outlineBuffer = minecraft.renderBuffers().outlineBufferSource();
         outlineBuffer.setColor(COLOR >> 16 & 0xFF, COLOR >> 8 & 0xFF, COLOR & 0xFF, 255);
         var outlineOnlyBuffer = new OutlineOnlyBufferSource(outlineBuffer);
 
-        EntityRenderDispatcher dispatcher = minecraft.getEntityRenderDispatcher();
-        Camera camera = event.getCamera();
-        Vec3 cameraPos = camera.getPosition();
+        var dispatcher = minecraft.getEntityRenderDispatcher();
+        var camera = event.getCamera();
+        var cameraPos = camera.getPosition();
         float partialTick = event.getPartialTick();
         boolean rendered = false;
 
         for (Integer entityId : ENTITIES.keySet()) {
-            Entity entity = level.getEntity(entityId);
-            if (!(entity instanceof LivingEntity living) || !living.isAlive()) {
+            var entity = level.getEntity(entityId);
+            if (!(entity instanceof LivingEntity living) || !living.isAlive())
                 continue;
-            }
-            if (minecraft.shouldEntityAppearGlowing(entity)) {
+
+            if (minecraft.shouldEntityAppearGlowing(entity))
                 continue;
-            }
-            if (!dispatcher.shouldRender(entity, event.getFrustum(), cameraPos.x(), cameraPos.y(), cameraPos.z())) {
+
+            if (!dispatcher.shouldRender(entity, event.getFrustum(), cameraPos.x(), cameraPos.y(), cameraPos.z()))
                 continue;
-            }
+
 
             double x = Mth.lerp(partialTick, entity.xOld, entity.getX()) - cameraPos.x();
             double y = Mth.lerp(partialTick, entity.yOld, entity.getY()) - cameraPos.y();
@@ -118,7 +122,7 @@ public class VisionEffectClientEvent {
     }
 
     private static void updateEntities(ClientLevel level, LocalPlayer player, Minecraft minecraft, int amplifier) {
-        double radius = Math.min(amplifier + 1, 3) * 6;
+        double radius = Math.min(amplifier + 1, MAX_LEVEL) * 6;
         AABB range = player.getBoundingBox().inflate(radius);
         List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, range,
                 entity -> entity != player && entity.isAlive());
@@ -126,9 +130,14 @@ public class VisionEffectClientEvent {
         boolean playSound = false;
         for (var entity : entities) {
             var id = entity.getId();
-            if (!ENTITIES.containsKey(id) && !minecraft.shouldEntityAppearGlowing(entity)) {
+            boolean known = ENTITIES.containsKey(id);
+
+            if (!known && ENTITIES.size() >= MAX_ENTITIES)
+                continue;
+
+            if (!known && !minecraft.shouldEntityAppearGlowing(entity))
                 playSound = true;
-            }
+
             ENTITIES.put(id, player.tickCount + MARK_DURATION);
         }
 
