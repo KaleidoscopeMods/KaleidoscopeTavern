@@ -58,11 +58,11 @@ public class VisionEffectClientEvent {
             return;
         }
 
-        if (player.tickCount % SCAN_CD != 0) {
-            return;
+        if (player.tickCount % SCAN_CD == 0) {
+            updateEntities(level, player, minecraft, vision.getAmplifier()); // 更新逻辑
         }
 
-        updateEntities(level, player, minecraft, vision.getAmplifier()); // 更新逻辑
+        ENTITIES.int2IntEntrySet().removeIf(entry -> entry.getIntValue() <= player.tickCount); // 清理过期标记
     }
 
     @SubscribeEvent
@@ -74,9 +74,8 @@ public class VisionEffectClientEvent {
         var minecraft = Minecraft.getInstance();
         var player = minecraft.player;
         var level = minecraft.level;
-        if (player == null || level == null || !player.hasEffect(ModEffects.VISION.get())) {
+        if (player == null || level == null || !player.hasEffect(ModEffects.VISION.get()))
             return;
-        }
 
         var outlineBuffer = minecraft.renderBuffers().outlineBufferSource(); // 原版发光效果描边的buffer
         outlineBuffer.setColor(COLOR >> 16 & 0xFF, COLOR >> 8 & 0xFF, COLOR & 0xFF, 255);
@@ -123,7 +122,6 @@ public class VisionEffectClientEvent {
     }
 
     private static void updateEntities(ClientLevel level, LocalPlayer player, Minecraft minecraft, int amplifier) {
-        ENTITIES.int2IntEntrySet().removeIf(entry -> entry.getIntValue() <= player.tickCount); // 清理过期标记
 
         double radius = Math.min(amplifier + 1, MAX_LEVEL) * 6;
         AABB range = player.getBoundingBox().inflate(radius);
