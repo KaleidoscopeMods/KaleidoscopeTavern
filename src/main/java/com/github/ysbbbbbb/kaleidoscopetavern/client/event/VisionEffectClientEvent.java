@@ -1,0 +1,233 @@
+package com.github.ysbbbbbb.kaleidoscopetavern.client.event;
+
+import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
+import com.github.ysbbbbbb.kaleidoscopetavern.init.ModEffects;
+import com.github.ysbbbbbb.kaleidoscopetavern.init.ModSounds;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.OutlineBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RenderLevelStageEvent;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+@Mod.EventBusSubscriber(modid = KaleidoscopeTavern.MOD_ID, value = Dist.CLIENT)
+public class VisionEffectClientEvent {
+    private static final int SCAN_INTERVAL = 5;
+    private static final int SOUND_COOLDOWN = 60;
+    private static final int COLOR = 0x408997;
+    private static final Set<Integer> ENTITIES = new HashSet<>();
+    private static final Set<Integer> NEXT_ENTITIES = new HashSet<>();
+
+    private static int lastSoundTick = -SOUND_COOLDOWN;
+
+    @SubscribeEvent
+    public static void onClientTick(TickEvent.ClientTickEvent event) {
+        if (event.phase != TickEvent.Phase.END) {
+            return;
+        }
+
+        Minecraft minecraft = Minecraft.getInstance();
+        LocalPlayer player = minecraft.player;
+        ClientLevel level = minecraft.level;
+        if (player == null || level == null || !player.isAlive()) {
+            ENTITIES.clear();
+            return;
+        }
+
+        var vision = player.getEffect(ModEffects.VISION.get());
+        if (vision == null) {
+            ENTITIES.clear();
+            return;
+        }
+
+        if (player.tickCount % SCAN_INTERVAL != 0) {
+            return;
+        }
+
+        collectEntities(level, player, vision.getAmplifier());
+        playSound(minecraft, player);
+
+        ENTITIES.clear();
+        ENTITIES.addAll(NEXT_ENTITIES);
+        NEXT_ENTITIES.clear();
+    }
+
+    @SubscribeEvent
+    public static void onRenderLevelStage(RenderLevelStageEvent event) {
+        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_ENTITIES || ENTITIES.isEmpty()) {
+            return;
+        }
+
+        Minecraft minecraft = Minecraft.getInstance();
+        LocalPlayer player = minecraft.player;
+        ClientLevel level = minecraft.level;
+        if (player == null || level == null || !player.hasEffect(ModEffects.VISION.get())) {
+            return;
+        }
+
+        OutlineBufferSource outlineBuffer = minecraft.renderBuffers().outlineBufferSource();
+        outlineBuffer.setColor(COLOR >> 16 & 0xFF, COLOR >> 8 & 0xFF, COLOR & 0xFF, 255);
+        var outlineOnlyBuffer = new OutlineOnlyBufferSource(outlineBuffer);
+
+        EntityRenderDispatcher dispatcher = minecraft.getEntityRenderDispatcher();
+        Camera camera = event.getCamera();
+        Vec3 cameraPos = camera.getPosition();
+        float partialTick = event.getPartialTick();
+        boolean rendered = false;
+
+        for (Integer entityId : ENTITIES) {
+            Entity entity = level.getEntity(entityId);
+            if (!(entity instanceof LivingEntity living) || !living.isAlive()) {
+                continue;
+            }
+            if (minecraft.shouldEntityAppearGlowing(entity)) {
+                continue;
+            }
+            if (!dispatcher.shouldRender(entity, event.getFrustum(), cameraPos.x(), cameraPos.y(), cameraPos.z())) {
+                continue;
+            }
+
+            double x = Mth.lerp(partialTick, entity.xOld, entity.getX()) - cameraPos.x();
+            double y = Mth.lerp(partialTick, entity.yOld, entity.getY()) - cameraPos.y();
+            double z = Mth.lerp(partialTick, entity.zOld, entity.getZ()) - cameraPos.z();
+            float yaw = Mth.lerp(partialTick, entity.yRotO, entity.getYRot());
+
+            dispatcher.render(entity, x, y, z, yaw, partialTick, event.getPoseStack(),
+                    outlineOnlyBuffer, LightTexture.FULL_BRIGHT);
+            rendered = true;
+        }
+
+        if (rendered && !hasVanillaOutlineEntity(minecraft, level, player, dispatcher, event, cameraPos)) {
+            outlineBuffer.endOutlineBatch();
+            processOutline(event.getLevelRenderer(), partialTick);
+            minecraft.getMainRenderTarget().bindWrite(false);
+        }
+    }
+
+    private static void collectEntities(ClientLevel level, LocalPlayer player, int amplifier) {
+        NEXT_ENTITIES.clear();
+        double radius = Math.min(amplifier + 1, 3) * 6;
+        AABB range = player.getBoundingBox().inflate(radius);
+        List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, range,
+                entity -> entity != player && entity.isAlive());
+
+        for (LivingEntity entity : entities) {
+            NEXT_ENTITIES.add(entity.getId());
+        }
+    }
+
+    private static void playSound(Minecraft minecraft, LocalPlayer player) {
+        if (player.tickCount - lastSoundTick < SOUND_COOLDOWN) {
+            return;
+        }
+
+        for (Integer entityId : NEXT_ENTITIES) {
+            if (ENTITIES.contains(entityId)) {
+                continue;
+            }
+
+            Entity entity = minecraft.level == null ? null : minecraft.level.getEntity(entityId);
+            if (entity != null && !minecraft.shouldEntityAppearGlowing(entity)) {
+                player.playSound(ModSounds.EFFECT_VISION.get());
+                lastSoundTick = player.tickCount;
+                return;
+            }
+        }
+    }
+
+    private static boolean hasVanillaOutlineEntity(Minecraft minecraft, ClientLevel level, LocalPlayer player,
+                                                   EntityRenderDispatcher dispatcher, RenderLevelStageEvent event,
+                                                   Vec3 cameraPos) {
+        for (Entity entity : level.entitiesForRendering()) {
+            if ((minecraft.shouldEntityAppearGlowing(entity) || entity.hasCustomOutlineRendering(player))
+                    && dispatcher.shouldRender(entity, event.getFrustum(), cameraPos.x(), cameraPos.y(), cameraPos.z())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static void processOutline(net.minecraft.client.renderer.LevelRenderer levelRenderer, float partialTick) {
+        var entityEffect = levelRenderer.entityEffect;
+        if (entityEffect != null) {
+            entityEffect.process(partialTick);
+        }
+    }
+
+    private record OutlineOnlyBufferSource(OutlineBufferSource outlineBuffer) implements MultiBufferSource {
+        private static final VertexConsumer EMPTY = new EmptyVertexConsumer();
+
+        @Override
+        public VertexConsumer getBuffer(RenderType renderType) {
+            if (renderType.isOutline()) {
+                return outlineBuffer.getBuffer(renderType);
+            }
+
+            Optional<RenderType> outline = renderType.outline();
+            return outline.map(outlineBuffer::getBuffer).orElse(EMPTY);
+        }
+    }
+
+    private static class EmptyVertexConsumer implements VertexConsumer {
+        @Override
+        public VertexConsumer vertex(double x, double y, double z) {
+            return this;
+        }
+
+        @Override
+        public VertexConsumer color(int red, int green, int blue, int alpha) {
+            return this;
+        }
+
+        @Override
+        public VertexConsumer uv(float u, float v) {
+            return this;
+        }
+
+        @Override
+        public VertexConsumer overlayCoords(int u, int v) {
+            return this;
+        }
+
+        @Override
+        public VertexConsumer uv2(int u, int v) {
+            return this;
+        }
+
+        @Override
+        public VertexConsumer normal(float x, float y, float z) {
+            return this;
+        }
+
+        @Override
+        public void endVertex() {
+        }
+
+        @Override
+        public void defaultColor(int red, int green, int blue, int alpha) {
+        }
+
+        @Override
+        public void unsetDefaultColor() {
+        }
+    }
+}
