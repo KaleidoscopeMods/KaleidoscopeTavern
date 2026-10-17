@@ -1,11 +1,16 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.item;
 
+import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.mixology.SignatureCocktailBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.crafting.container.SimpleInput;
 import com.github.ysbbbbbb.kaleidoscopetavern.datamap.data.DrinkEffectData;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.*;
+import com.github.ysbbbbbb.kaleidoscopetavern.network.NetworkHandler;
+import com.github.ysbbbbbb.kaleidoscopetavern.network.message.ShakerTimeC2SMessage;
+import com.github.ysbbbbbb.kaleidoscopetavern.network.message.ShakerTimeS2CMessage;
 import com.github.ysbbbbbb.kaleidoscopetavern.util.CocktailEffectHelper;
 import com.github.ysbbbbbb.kaleidoscopetavern.util.ColorUtils;
+import com.github.ysbbbbbb.kaleidoscopetavern.util.ShakerTime;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -36,17 +41,52 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
 import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 import static com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.GlasswareBlock.FACING;
 
+@EventBusSubscriber(modid = KaleidoscopeTavern.MOD_ID)
 public class ShakerItem extends BlockItem {
     private static final int STORAGE_SIZE = 3;
 
+    // 单人游戏两端的实体编号可能相同，分别保存计时状态
+    private static final Map<LivingEntity, ShakingData> CLIENT_SHAKING_DATA = new WeakHashMap<>();
+    private static final Map<LivingEntity, ShakingData> SERVER_SHAKING_DATA = new WeakHashMap<>();
+
+    private static class ShakingData {
+        private final ItemStack stack;
+        private final InteractionHand hand;
+        private int id;
+        private boolean startSent;
+        private long startTime = System.nanoTime();
+        private long lastSyncTime = startTime;
+        private long stopTime;
+        private int latency;
+        private int jitter;
+        private int syncedTime = -1;
+        private long receivedTime;
+        private double previousProgress;
+
+        private ShakingData(ItemStack stack, InteractionHand hand, int id) {
+            this.stack = stack;
+            this.hand = hand;
+            this.id = id;
+        }
+    }
+
     public ShakerItem() {
         super(ModBlocks.SHAKER.get(), new Properties().stacksTo(1));
+    }
+
+    private static Map<LivingEntity, ShakingData> getShakingData(LivingEntity entity) {
+        return entity.level().isClientSide ? CLIENT_SHAKING_DATA : SERVER_SHAKING_DATA;
     }
 
     public static ItemStackHandler getStorage(ItemStack stack) {
@@ -150,6 +190,11 @@ public class ShakerItem extends BlockItem {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemInHand = player.getItemInHand(hand);
+        ShakingData previous = getShakingData(player).get(player);
+        // 松手后先等待本次用时报告，不能在结算前重新开始
+        if (previous != null && previous.stopTime != 0) {
+            return InteractionResultHolder.pass(itemInHand);
+        }
         // 如果已经有结果了，不能再摇了
         if (hasResult(itemInHand)) {
             return InteractionResultHolder.pass(itemInHand);
@@ -176,6 +221,11 @@ public class ShakerItem extends BlockItem {
 
         // 然后才能摇
         player.startUsingItem(hand);
+        if (player.getUseItem() != itemInHand) {
+            return InteractionResultHolder.pass(itemInHand);
+        }
+        int id = level.isClientSide ? level.random.nextInt(Integer.MAX_VALUE - 1) + 1 : 0;
+        getShakingData(player).put(player, new ShakingData(itemInHand, hand, id));
         return InteractionResultHolder.consume(itemInHand);
     }
 
@@ -201,32 +251,153 @@ public class ShakerItem extends BlockItem {
                     level.random.nextFloat() * 0.2F + 0.8F
             );
         }
-        // 超出时长，强制中断
-        if (entity.getTicksUsingItem() > 110) {
-            entity.releaseUsingItem();
+        ShakingData data = getShakingData(entity).get(entity);
+        if (data == null) {
+            return;
+        }
+        if (level.isClientSide) {
+            // use 内的原版使用包尚未发出，等首次使用 tick 再报告开始
+            if (!data.startSent) {
+                data.startSent = true;
+                NetworkHandler.sendToServer(new ShakerTimeC2SMessage(data.id, -1));
+            }
+            return;
+        }
+        long now = System.nanoTime();
+        // 超出时长，强制中断，给在途的松手消息留出有限容错
+        if (ShakerTime.elapsedMillis(data.startTime, now) > ShakerTime.MAX_TIME + ShakerTime.MAX_TOLERANCE) {
+            finishShaking(entity, data, ShakerTime.elapsedMillis(data.startTime, now));
+            entity.stopUsingItem();
+        } else if (data.id != 0 && ShakerTime.elapsedMillis(data.lastSyncTime, now) >= ShakerTime.SYNC_INTERVAL) {
+            syncTime(entity, data, now);
         }
     }
 
     /**
-     * < 19 未开始
-     * < 69 迷之鸡尾酒
-     * < 89 普通鸡尾酒
-     * < 99 特调鸡尾酒
-     * <= 110 迷之鸡尾酒
+     * < 950 毫秒未开始
+     * < 3450 毫秒迷之鸡尾酒
+     * < 4450 毫秒普通鸡尾酒
+     * < 4950 毫秒特调鸡尾酒
+     * >= 4950 毫秒迷之鸡尾酒
      */
     @Override
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
-        int time = this.getUseDuration(stack, entity) - timeLeft;
-        if (time < 19) {
+        ShakingData data = getShakingData(entity).get(entity);
+        if (data == null) {
             return;
+        }
+        if (level.isClientSide) {
+            // 报告指针对应的用时，使有限校正后的显示与松手判定一致
+            int time = (int) (data.syncedTime < 0
+                    ? Math.min(ShakerTime.MAX_TIME, ShakerTime.elapsedMillis(data.startTime, System.nanoTime()))
+                    : getProgress(entity));
+            getShakingData(entity).remove(entity);
+            NetworkHandler.sendToServer(new ShakerTimeC2SMessage(data.id, time));
+            if (time >= 950) {
+                entity.playSound(ModSounds.SHAKER_END.get());
+            }
+        } else {
+            // 原版松手包先到，用时报告到达后再结算
+            data.stopTime = System.nanoTime();
+        }
+    }
+
+    public static void handleTime(ServerPlayer player, int id, int time, long receivedTime) {
+        ShakingData data = getShakingData(player).get(player);
+        if (data == null || !isValid(player, data) || id <= 0
+                || (data.stopTime == 0 && player.getUseItem() != data.stack)) {
+            return;
+        }
+        if (time == -1) {
+            if (data.id == 0 && data.stopTime == 0) {
+                data.id = id;
+                data.startTime = receivedTime;
+                data.latency = Math.max(0, player.connection.latency());
+                syncTime(player, data, System.nanoTime());
+            }
+            return;
+        }
+        if (data.id != id || time < 0 || time > ShakerTime.MAX_TIME) {
+            return;
+        }
+        long serverTime = ShakerTime.elapsedMillis(data.startTime, receivedTime);
+        int tolerance = ShakerTime.getTolerance(player.connection.latency(), data.jitter);
+        finishShaking(player, data, ShakerTime.selectTime(serverTime, time, tolerance));
+        player.stopUsingItem();
+    }
+
+    private static boolean isValid(LivingEntity entity, ShakingData data) {
+        return entity.isAlive() && entity.getItemInHand(data.hand) == data.stack
+                && data.stack.is(ModItems.SHAKER.get()) && hasStorage(data.stack) && !hasResult(data.stack);
+    }
+
+    @SubscribeEvent
+    public static void onPlayerTick(PlayerTickEvent.Post event) {
+        Player player = event.getEntity();
+        ShakingData data = getShakingData(player).get(player);
+        if (data == null) {
+            return;
+        }
+        if (!isValid(player, data) || (data.stopTime == 0 && player.getUseItem() != data.stack)) {
+            getShakingData(player).remove(player);
+        } else if (!player.level().isClientSide && data.stopTime != 0
+                && ShakerTime.elapsedMillis(data.stopTime, System.nanoTime()) >= ShakerTime.MAX_TOLERANCE) {
+            // 未收到用时报告时，使用松手时记录的服务端用时
+            finishShaking(player, data, ShakerTime.elapsedMillis(data.startTime, data.stopTime));
+        }
+    }
+
+    private static void syncTime(LivingEntity entity, ShakingData data, long now) {
+        if (entity instanceof ServerPlayer player) {
+            int latency = Math.max(0, player.connection.latency());
+            data.jitter = Math.max(Math.abs(latency - data.latency), data.jitter * 9 / 10);
+            data.latency = latency;
+            data.lastSyncTime = now;
+            int time = (int) Math.min(ShakerTime.MAX_TIME, ShakerTime.elapsedMillis(data.startTime, now));
+            NetworkHandler.sendToClient(player, new ShakerTimeS2CMessage(data.id, time,
+                    Math.min(ShakerTime.MAX_TOLERANCE, latency / 2)));
+        }
+    }
+
+    public static void syncTime(Player player, int id, int time, int delay, long receivedTime) {
+        ShakingData data = getShakingData(player).get(player);
+        if (data == null || data.id != id || player.getUseItem() != data.stack) {
+            return;
+        }
+        data.previousProgress = getProgress(player);
+        data.syncedTime = Math.min(ShakerTime.MAX_TIME, time + delay);
+        data.receivedTime = receivedTime;
+    }
+
+    public static double getProgress(LivingEntity entity) {
+        ShakingData data = getShakingData(entity).get(entity);
+        if (data == null || data.syncedTime < 0) {
+            return 0;
+        }
+        return ShakerTime.getProgress(data.previousProgress, data.syncedTime,
+                ShakerTime.elapsedMillis(data.receivedTime, System.nanoTime()));
+    }
+
+    private static void finishShaking(LivingEntity entity, ShakingData data, long time) {
+        getShakingData(entity).remove(entity);
+        if (!isValid(entity, data) || time < 950) {
+            return;
+        }
+        ItemStack stack = data.stack;
+        Level level = entity.level();
+        ItemStackHandler storage = getStorage(stack);
+        for (int i = 0; i < storage.getSlots(); i++) {
+            if (storage.getStackInSlot(i).isEmpty()) {
+                return;
+            }
         }
         // 调酒
         if (!level.isClientSide) {
-            if (time < 69) {
+            if (time < 3450) {
                 setResult(stack, new ItemStack(ModItems.MYSTERY_COCKTAIL.get()));
-            } else if (time < 89) {
+            } else if (time < 4450) {
                 setResult(stack, new ItemStack(ModItems.SIGNATURE_COCKTAIL.get()));
-            } else if (time < 99) {
+            } else if (time < 4950) {
                 handRecipe(level, stack);
             } else {
                 setResult(stack, new ItemStack(ModItems.MYSTERY_COCKTAIL.get()));
@@ -235,7 +406,7 @@ public class ShakerItem extends BlockItem {
         entity.playSound(ModSounds.SHAKER_END.get());
     }
 
-    private void handRecipe(Level level, ItemStack stack) {
+    private static void handRecipe(Level level, ItemStack stack) {
         ItemStackHandler handler = getStorage(stack);
         List<ItemStack> stacks = Lists.newArrayList();
         for (int i = 0; i < handler.getSlots(); i++) {

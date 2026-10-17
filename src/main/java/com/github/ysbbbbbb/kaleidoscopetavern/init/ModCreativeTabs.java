@@ -14,7 +14,7 @@ public interface ModCreativeTabs {
 
     Supplier<CreativeModeTab> TAVERN_MAIN_TAB = TABS.register("tavern_main", () -> CreativeModeTab.builder()
             .title(Component.translatable("item_group.kaleidoscope_tavern.tavern_main.name"))
-            .icon(ModItems.WINE.get()::getDefaultInstance)
+            .icon(() -> ModItems.WINE.get().getDefaultInstance())
             .displayItems((par, output) -> {
                 output.accept(ModItems.GRAPEVINE.get());
                 output.accept(ModItems.GRAPE.get());
@@ -98,7 +98,7 @@ public interface ModCreativeTabs {
 
     Supplier<CreativeModeTab> TAVERN_DECO_TAB = TABS.register("tavern_deco", () -> CreativeModeTab.builder()
             .title(Component.translatable("item_group.kaleidoscope_tavern.tavern_deco.name"))
-            .icon(ModItems.STEPLADDER.get()::getDefaultInstance)
+            .icon(() -> ModItems.STEPLADDER.get().getDefaultInstance())
             .withTabsBefore(KaleidoscopeTavern.modLoc("tavern_main"))
             .displayItems((par, output) -> {
                 output.accept(ModItems.BAR_CABINET.get());
