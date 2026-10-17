@@ -3,6 +3,8 @@ package com.github.ysbbbbbb.kaleidoscopetavern.network;
 import com.github.ysbbbbbb.kaleidoscopetavern.KaleidoscopeTavern;
 import com.github.ysbbbbbb.kaleidoscopetavern.network.message.ClearShakerC2SMessage;
 import com.github.ysbbbbbb.kaleidoscopetavern.network.message.DrinkEffectSyncS2CMessage;
+import com.github.ysbbbbbb.kaleidoscopetavern.network.message.ShakerTimeC2SMessage;
+import com.github.ysbbbbbb.kaleidoscopetavern.network.message.ShakerTimeS2CMessage;
 import com.github.ysbbbbbb.kaleidoscopetavern.network.message.TextOpenS2CMessage;
 import com.github.ysbbbbbb.kaleidoscopetavern.network.message.TextUpdateC2SMessage;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -12,18 +14,24 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.HandlerThread;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = KaleidoscopeTavern.MOD_ID)
 public class NetworkHandler {
     @SubscribeEvent
     public static void onRegisterPayloadHandlers(RegisterPayloadHandlersEvent event) {
-        PayloadRegistrar registrar = event.registrar(KaleidoscopeTavern.MOD_ID).versioned("1.0.0");
+        PayloadRegistrar registrar = event.registrar(KaleidoscopeTavern.MOD_ID).versioned("1.0.1");
 
         registrar.playToServer(TextUpdateC2SMessage.TYPE, TextUpdateC2SMessage.STREAM_CODEC, TextUpdateC2SMessage::handle);
         registrar.playToClient(TextOpenS2CMessage.TYPE, TextOpenS2CMessage.STREAM_CODEC, TextOpenS2CMessage::handle);
         registrar.playToServer(ClearShakerC2SMessage.TYPE, ClearShakerC2SMessage.STREAM_CODEC, ClearShakerC2SMessage::handle);
         registrar.playToClient(DrinkEffectSyncS2CMessage.TYPE, DrinkEffectSyncS2CMessage.STREAM_CODEC, DrinkEffectSyncS2CMessage::handle);
+
+        // 调酒计时先在网络线程记录收包时间，再回到主线程处理物品
+        PayloadRegistrar shakerRegistrar = registrar.executesOn(HandlerThread.NETWORK);
+        shakerRegistrar.playToServer(ShakerTimeC2SMessage.TYPE, ShakerTimeC2SMessage.STREAM_CODEC, ShakerTimeC2SMessage::handle);
+        shakerRegistrar.playToClient(ShakerTimeS2CMessage.TYPE, ShakerTimeS2CMessage.STREAM_CODEC, ShakerTimeS2CMessage::handle);
     }
 
     public static void sendToClient(Player player, CustomPacketPayload packet) {
