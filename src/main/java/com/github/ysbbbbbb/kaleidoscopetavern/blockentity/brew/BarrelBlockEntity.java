@@ -1,6 +1,7 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.blockentity.brew;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.api.blockentity.IBarrel;
+import com.github.ysbbbbbb.kaleidoscopetavern.api.blockentity.IDrinkStorage;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.BaseBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.crafting.container.BarrelRecipeContainer;
 import com.github.ysbbbbbb.kaleidoscopetavern.crafting.recipe.BarrelRecipe;
@@ -541,8 +542,8 @@ public class BarrelBlockEntity extends BaseBlockEntity implements IBarrel {
 
         // 存入对应等级的酒类
         ItemStack filledStack = result.getFilledStack(this.getBrewLevel());
-        if (level.getBlockEntity(below) instanceof DrinkBlockEntity drinkBlock) {
-            drinkBlock.addItem(filledStack);
+        if (level.getBlockEntity(below) instanceof IDrinkStorage storage) {
+            storage.addDrink(filledStack);
         }
     }
 

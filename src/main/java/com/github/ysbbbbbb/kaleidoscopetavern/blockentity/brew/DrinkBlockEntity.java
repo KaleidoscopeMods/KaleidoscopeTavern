@@ -1,5 +1,6 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.blockentity.brew;
 
+import com.github.ysbbbbbb.kaleidoscopetavern.api.blockentity.IDrinkStorage;
 import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.BaseBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
 import net.minecraft.core.BlockPos;
@@ -11,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
 @SuppressWarnings("deprecation")
-public class DrinkBlockEntity extends BaseBlockEntity {
+public class DrinkBlockEntity extends BaseBlockEntity implements IDrinkStorage {
     // 实际上这个物品列表的大小应该是可变的，但为了简化实现，我们暂时将其固定为4个。
     private final NonNullList<ItemStack> items = NonNullList.withSize(4, ItemStack.EMPTY);
 
@@ -28,6 +29,15 @@ public class DrinkBlockEntity extends BaseBlockEntity {
         }
         // 没有空位了，一般来说应该在外面调用这个方法之前就检查过了
         // 但为了安全起见，我们返回 false
+        return false;
+    }
+
+    @Override
+    public boolean addDrink(ItemStack drink) {
+        if (this.addItem(drink)) {
+            this.refresh();
+            return true;
+        }
         return false;
     }
 
