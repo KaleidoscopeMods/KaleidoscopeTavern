@@ -1,8 +1,8 @@
 package com.github.ysbbbbbb.kaleidoscopetavern.item;
 
 import com.github.ysbbbbbb.kaleidoscopetavern.api.blockentity.IBarrel;
+import com.github.ysbbbbbb.kaleidoscopetavern.api.blockentity.IDrinkStorage;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.DrinkBlock;
-import com.github.ysbbbbbb.kaleidoscopetavern.blockentity.brew.DrinkBlockEntity;
 import com.github.ysbbbbbb.kaleidoscopetavern.datamap.data.DrinkEffectData;
 import com.github.ysbbbbbb.kaleidoscopetavern.datamap.resources.DrinkEffectDataReloadListener;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModItems;
@@ -102,8 +102,8 @@ public class DrinkBlockItem extends BottleBlockItem implements IHasContainer {
     @Override
     protected boolean updateCustomBlockEntityTag(BlockPos pos, Level level, @Nullable Player player, ItemStack stack, BlockState state) {
         // 首次放置需要添加物品信息
-        if (level.getBlockEntity(pos) instanceof DrinkBlockEntity be && be.addItem(stack)) {
-            be.refresh();
+        if (level.getBlockEntity(pos) instanceof IDrinkStorage storage) {
+            storage.addDrink(stack);
         }
         return super.updateCustomBlockEntityTag(pos, level, player, stack, state);
     }
